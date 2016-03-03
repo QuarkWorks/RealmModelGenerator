@@ -9,11 +9,13 @@
 import Foundation
 
 class Relationship {
-    var name: String
-    var entity: Entity?
+    var name:String
+    var entity:Entity
+    var destination:Entity?
     var isMany = false
     
-    init(name:String) {
+    internal init(name:String, entity:Entity) {
         self.name = name
+        self.entity = entity
     }
 }

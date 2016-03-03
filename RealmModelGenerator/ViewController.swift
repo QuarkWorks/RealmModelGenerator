@@ -12,8 +12,16 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        let model = Model(version: "1")
+        model.createEntity { (entity) -> Void in
+            entity.name = "User"
+            let pk = entity.createAttribute({ (attribute) -> Void in
+                attribute.name = "id"
+                attribute.type = AttributeType.String
+            })
+            try! entity.setPrimaryKey(pk)
+        }
     }
 
     override var representedObject: AnyObject? {

@@ -10,25 +10,33 @@ import Foundation
 
 class Attribute {
     var name:String
-    var entity:Entity?
+    let entity:Entity
     var isIgnored = false
-    var isIndexd = false
+    private(set) var isIndexd = false
     var isRequired = false
-    var isPrimaryKey = false {
-        didSet {
-            if isPrimaryKey {
-                self.isIgnored = false;
-                self.isIndexd = true;
-                self.isRequired = true;
-            }
-        }
-    }
     var hasDefault = false
     var defautValue = ""
     
-    var type = AttributeType.Unknown
+    var type = AttributeType.Unknown {
+        willSet {
+            if !newValue.canBeIndexed() {
+                isIndexd = false
+                if entity.primaryKey === self {
+                    try! entity.setPrimaryKey(nil)
+                }
+            }
+        }
+    }
     
-    init(name:String) {
+    internal init(name:String, entity:Entity) {
         self.name = name
+        self.entity = entity
+    }
+    
+    func setIndexed(isIndexed:Bool) throws {
+        if !type.canBeIndexed() {
+            NSException(name: "IllegalState", reason: "Attribute Can't Be Indexed For Current Type", userInfo: nil).raise()
+        }
+        self.isIndexd = isIndexed
     }
 }

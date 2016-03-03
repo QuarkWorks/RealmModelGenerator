@@ -11,35 +11,30 @@ import Foundation
 
 class Model {
     
-    private(set) var version:Int = 0
-    private(set) var entities:[Entity] = []
+    let version:String
+    private(set) var entities:Array<Entity> = []
     
-    init () {
-        
+    init(version:String) {
+        self.version = version
     }
     
-    func newEntity(name:String) -> Entity {
-        var entityName = name
+    func createEntity(build:(Entity)->Void = {_ in}) -> Entity {
+        var name = "Entity"
         var count = 0;
-        while !entities.contains({$0.name == entityName}) {
+        while entities.contains({$0.name == name}) {
             count++
-            entityName = "\(name)\(count)"
+            name = "Entity\(count)"
         }
         
-        let entity = Entity(name: entityName)
-        addEntity(entity)
-        return entity
-    }
-    
-    func addEntity(entity:Entity) {
+        let entity = Entity(name:name, model:self)
         entities.append(entity)
-        entity.model = self
+        build(entity)
+        return entity
     }
     
     func removeEntity(entity:Entity) {
         if let index = entities.indexOf({$0 === entity}) {
             entities.removeAtIndex(index)
-            entity.model = nil;
         }
     }
 }

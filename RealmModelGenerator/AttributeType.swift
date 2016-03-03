@@ -18,8 +18,7 @@ enum AttributeType : String {
     }
     
     func canBeIndexed() -> Swift.Bool {
-        return self == Bool || self == Short || self == Int || self == Long
-            || self == Date || self == String
+        return self == Bool || canBePrimaryKey() || self == Date
     }
     
     init(rawValueSafe:Swift.String) {
