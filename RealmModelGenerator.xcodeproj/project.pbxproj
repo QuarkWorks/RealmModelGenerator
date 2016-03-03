@@ -13,6 +13,11 @@
 		7798B0DC1C87C32900A7F965 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7798B0DA1C87C32900A7F965 /* Main.storyboard */; };
 		7798B0E71C87C32900A7F965 /* RealmModelGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B0E61C87C32900A7F965 /* RealmModelGeneratorTests.swift */; };
 		7798B0F21C87C32900A7F965 /* RealmModelGeneratorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B0F11C87C32900A7F965 /* RealmModelGeneratorUITests.swift */; };
+		7798B1011C87C63B00A7F965 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B1001C87C63B00A7F965 /* Model.swift */; };
+		7798B1031C87CDA600A7F965 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B1021C87CDA600A7F965 /* Entity.swift */; };
+		7798B1051C87E7CE00A7F965 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B1041C87E7CE00A7F965 /* Attribute.swift */; };
+		7798B1071C87E8FD00A7F965 /* AttributeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B1061C87E8FD00A7F965 /* AttributeType.swift */; };
+		7798B1091C87FBE800A7F965 /* Relationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B1081C87FBE800A7F965 /* Relationship.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +50,11 @@
 		7798B0ED1C87C32900A7F965 /* RealmModelGeneratorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RealmModelGeneratorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7798B0F11C87C32900A7F965 /* RealmModelGeneratorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModelGeneratorUITests.swift; sourceTree = "<group>"; };
 		7798B0F31C87C32900A7F965 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7798B1001C87C63B00A7F965 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		7798B1021C87CDA600A7F965 /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		7798B1041C87E7CE00A7F965 /* Attribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
+		7798B1061C87E8FD00A7F965 /* AttributeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeType.swift; sourceTree = "<group>"; };
+		7798B1081C87FBE800A7F965 /* Relationship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Relationship.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +105,7 @@
 		7798B0D31C87C32900A7F965 /* RealmModelGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				7798B0FF1C87C60B00A7F965 /* Schema */,
 				7798B0D41C87C32900A7F965 /* AppDelegate.swift */,
 				7798B0D61C87C32900A7F965 /* ViewController.swift */,
 				7798B0D81C87C32900A7F965 /* Assets.xcassets */,
@@ -120,6 +131,18 @@
 				7798B0F31C87C32900A7F965 /* Info.plist */,
 			);
 			path = RealmModelGeneratorUITests;
+			sourceTree = "<group>";
+		};
+		7798B0FF1C87C60B00A7F965 /* Schema */ = {
+			isa = PBXGroup;
+			children = (
+				7798B1001C87C63B00A7F965 /* Model.swift */,
+				7798B1021C87CDA600A7F965 /* Entity.swift */,
+				7798B1041C87E7CE00A7F965 /* Attribute.swift */,
+				7798B1061C87E8FD00A7F965 /* AttributeType.swift */,
+				7798B1081C87FBE800A7F965 /* Relationship.swift */,
+			);
+			name = Schema;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,6 +275,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7798B1071C87E8FD00A7F965 /* AttributeType.swift in Sources */,
+				7798B1051C87E7CE00A7F965 /* Attribute.swift in Sources */,
+				7798B1091C87FBE800A7F965 /* Relationship.swift in Sources */,
+				7798B1031C87CDA600A7F965 /* Entity.swift in Sources */,
+				7798B1011C87C63B00A7F965 /* Model.swift in Sources */,
 				7798B0D71C87C32900A7F965 /* ViewController.swift in Sources */,
 				7798B0D51C87C32900A7F965 /* AppDelegate.swift in Sources */,
 			);
@@ -475,6 +503,7 @@
 				7798B0F81C87C32900A7F965 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7798B0F91C87C32900A7F965 /* Build configuration list for PBXNativeTarget "RealmModelGeneratorTests" */ = {
 			isa = XCConfigurationList;
@@ -483,6 +512,7 @@
 				7798B0FB1C87C32900A7F965 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7798B0FC1C87C32900A7F965 /* Build configuration list for PBXNativeTarget "RealmModelGeneratorUITests" */ = {
 			isa = XCConfigurationList;
@@ -491,6 +521,7 @@
 				7798B0FE1C87C32900A7F965 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
