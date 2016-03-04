@@ -10,7 +10,7 @@ import Foundation
 
 class Relationship {
     var name:String
-    var entity:Entity
+    let entity:Entity
     var destination:Entity?
     var isMany = false
     
