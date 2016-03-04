@@ -18,44 +18,44 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let model = Model(version: "1")
-        let user = model.createEntity { (entity) -> Void in
-            entity.name = "User"
+        let user = model.createEntity({ (entity) -> Void in
+            try! entity.setName("User")
             let pk = entity.createAttribute({ (attribute) -> Void in
-                attribute.name = "id"
+                try! attribute.setName("id")
                 attribute.type = AttributeType.String
             })
             try! entity.setPrimaryKey(pk)
             
             entity.createAttribute({ (attribute) -> Void in
-                attribute.name = "name"
+                try! attribute.setName("id2")
                 attribute.type = AttributeType.String
                 try! attribute.setIndexed(true)
             })
-        }
+        })
         
         let child = model.createEntity { (entity) -> Void in
-            entity.name = "Child"
+            try! entity.setName("Child")
             let pk = entity.createAttribute({
-                $0.name = "id"
+                try! $0.setName("id")
                 $0.type = .Long
             })
             
             try! entity.setPrimaryKey(pk)
             
             entity.createAttribute({
-                $0.name = "childName"
-                $0.defautValue = "Bob"
+                try! $0.setName("childeName")
+                $0.defaultValue = "Bob"
                 $0.hasDefault = true
             })
         }
         
         user.createRelationship({
-            $0.name = "children"
+            try! $0.setName("children")
             $0.destination = child
         })
         
         for entity in model.entities {
-            generateFile(entity, language: .Java)
+            print(generateFile(entity, language: .Java))
         }
     }
     

@@ -9,6 +9,8 @@
 import Foundation
 
 class Schema {
+    static let TAG = NSStringFromClass(Schema)
+    
     var name:String
     private(set) var models:Array<Model> = []
     
