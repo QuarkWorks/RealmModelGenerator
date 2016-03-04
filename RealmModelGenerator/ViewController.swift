@@ -9,6 +9,10 @@
 import Cocoa
 
 class ViewController: NSViewController {
+    
+    enum Language: String {
+        case Swift, Objc, Java
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,14 +49,31 @@ class ViewController: NSViewController {
             })
         }
         
-        child.createRelationship({
-            $0.name = "Children"
-            $0.destination = user
+        user.createRelationship({
+            $0.name = "children"
+            $0.destination = child
         })
+        
+        for entity in model.entities {
+            generateFile(entity, language: .Java)
+        }
     }
+    
     override var representedObject: AnyObject? {
         didSet {
         // Update the view, if already loaded.
+        }
+    }
+    
+    //ZHAO, Make new swift files. seperate it out :) do ya thing
+    func generateFile(entity:Entity, language:Language) -> String {
+        switch language {
+        case .Swift:
+            return language.rawValue
+        case .Objc:
+            return language.rawValue
+        case .Java:
+            return language.rawValue
         }
     }
 }
