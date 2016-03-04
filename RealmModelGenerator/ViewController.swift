@@ -67,6 +67,18 @@ class ViewController: NSViewController {
     
     //ZHAO, Make new swift files. seperate it out :) do ya thing
     func generateFile(entity:Entity, language:Language) -> String {
+        let file = "hello.swift"
+        let text = "haha"
+        
+        if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+            let path = dir.stringByAppendingPathComponent(file);
+            
+            do {
+                try text.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
+            }
+            catch {/* error handling here */}
+        }
+        
         switch language {
         case .Swift:
             return language.rawValue
@@ -75,6 +87,22 @@ class ViewController: NSViewController {
         case .Java:
             return language.rawValue
         }
+    }
+    
+    func exportToJava(sender: AnyObject!)
+    {
+        print("export to java")
+        
+    }
+    
+    func exportToObjectC(sender: AnyObject!)
+    {
+        print("export to object c")
+    }
+    
+    func exportToSwift(sender: AnyObject!)
+    {
+        print("export to swift")
     }
 }
 
