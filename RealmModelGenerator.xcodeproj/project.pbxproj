@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3AEF05E01C8D0788001238E7 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEF05DF1C8D0788001238E7 /* FileModel.swift */; };
+		3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */; };
 		7798B0D51C87C32900A7F965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B0D41C87C32900A7F965 /* AppDelegate.swift */; };
 		7798B0D71C87C32900A7F965 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B0D61C87C32900A7F965 /* ViewController.swift */; };
 		7798B0D91C87C32900A7F965 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7798B0D81C87C32900A7F965 /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		3AEF05DF1C8D0788001238E7 /* FileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
+		3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaContentGenerator.swift; sourceTree = "<group>"; };
 		7798B0D11C87C32900A7F965 /* RealmModelGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmModelGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7798B0D41C87C32900A7F965 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7798B0D61C87C32900A7F965 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				7798B0D81C87C32900A7F965 /* Assets.xcassets */,
 				7798B0DA1C87C32900A7F965 /* Main.storyboard */,
 				7798B0DD1C87C32900A7F965 /* Info.plist */,
+				3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */,
 			);
 			path = RealmModelGenerator;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				7798B1031C87CDA600A7F965 /* Entity.swift in Sources */,
 				7798B1011C87C63B00A7F965 /* Model.swift in Sources */,
 				7798B0D71C87C32900A7F965 /* ViewController.swift in Sources */,
+				3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */,
 				7798B0D51C87C32900A7F965 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

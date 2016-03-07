@@ -43,16 +43,20 @@ class ViewController: NSViewController {
             try! entity.setPrimaryKey(pk)
             
             entity.createAttribute({
-                try! $0.setName("childeName")
+                try! $0.setName("childName")
                 $0.defaultValue = "Bob"
                 $0.hasDefault = true
             })
         }
         
-        user.createRelationship({
-            try! $0.setName("children")
-            $0.destination = child
-        })
+        let relationship = Relationship(name: "children", entity: user)
+        relationship.destination = child
+        user.createRelationship(relationship)
+        
+//        user.createRelationship({
+//            try! $0.setName("children")
+//            $0.destination = child
+//        })
         
         for entity in model.entities {
             print(generateFile(entity, language: .Java))
@@ -67,13 +71,14 @@ class ViewController: NSViewController {
     
     //ZHAO, Make new swift files. seperate it out :) do ya thing
     func generateFile(entity:Entity, language:Language) -> String {
+        
         switch language {
         case .Swift:
             return language.rawValue
         case .Objc:
             return language.rawValue
         case .Java:
-            return language.rawValue
+            return JavaContentGenerator(entity: entity).getContent()
         }
     }
     
