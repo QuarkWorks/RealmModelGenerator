@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3AEF05E01C8D0788001238E7 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEF05DF1C8D0788001238E7 /* FileModel.swift */; };
 		7798B0D51C87C32900A7F965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B0D41C87C32900A7F965 /* AppDelegate.swift */; };
 		7798B0D71C87C32900A7F965 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B0D61C87C32900A7F965 /* ViewController.swift */; };
 		7798B0D91C87C32900A7F965 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7798B0D81C87C32900A7F965 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3AEF05DF1C8D0788001238E7 /* FileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		7798B0D11C87C32900A7F965 /* RealmModelGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmModelGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7798B0D41C87C32900A7F965 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7798B0D61C87C32900A7F965 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +86,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3AEF05DE1C8D076B001238E7 /* File */ = {
+			isa = PBXGroup;
+			children = (
+				3AEF05DF1C8D0788001238E7 /* FileModel.swift */,
+			);
+			name = File;
+			sourceTree = "<group>";
+		};
 		7798B0C81C87C32900A7F965 = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +117,7 @@
 		7798B0D31C87C32900A7F965 /* RealmModelGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				3AEF05DE1C8D076B001238E7 /* File */,
 				7798B0FF1C87C60B00A7F965 /* Schema */,
 				7798B0D41C87C32900A7F965 /* AppDelegate.swift */,
 				7798B0D61C87C32900A7F965 /* ViewController.swift */,
@@ -279,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77A5521D1C88F02000658EAF /* Schema.swift in Sources */,
+				3AEF05E01C8D0788001238E7 /* FileModel.swift in Sources */,
 				7798B1071C87E8FD00A7F965 /* AttributeType.swift in Sources */,
 				7798B1051C87E7CE00A7F965 /* Attribute.swift in Sources */,
 				7798B1091C87FBE800A7F965 /* Relationship.swift in Sources */,

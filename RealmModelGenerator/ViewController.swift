@@ -67,18 +67,6 @@ class ViewController: NSViewController {
     
     //ZHAO, Make new swift files. seperate it out :) do ya thing
     func generateFile(entity:Entity, language:Language) -> String {
-        let file = "hello.swift"
-        let text = "haha"
-        
-        if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-            let path = dir.stringByAppendingPathComponent(file);
-            
-            do {
-                try text.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
-            }
-            catch {/* error handling here */}
-        }
-        
         switch language {
         case .Swift:
             return language.rawValue
@@ -92,17 +80,61 @@ class ViewController: NSViewController {
     func exportToJava(sender: AnyObject!)
     {
         print("export to java")
-        
+        let file = FileModel(name: "TestJava", content: "I'm java content", fileExtension: "java");
+        choosePathAndSaveFile(file)
     }
     
     func exportToObjectC(sender: AnyObject!)
     {
         print("export to object c")
+        let file = FileModel(name: "TestObjectC", content: "I'm object c content", fileExtension: ".m");
+        choosePathAndSaveFile(file)
     }
     
     func exportToSwift(sender: AnyObject!)
     {
         print("export to swift")
+        let file = FileModel(name: "TestSwift", content: "I'm swift content", fileExtension: "swift");
+        choosePathAndSaveFile(file)
+    }
+    
+    //MARK: show a panel to choose path and save file
+    func choosePathAndSaveFile(file: FileModel)
+    {
+        let openPanel = NSOpenPanel()
+        openPanel.allowsOtherFileTypes = false
+        openPanel.treatsFilePackagesAsDirectories = false
+        openPanel.canChooseFiles = false
+        openPanel.canChooseDirectories = true
+        openPanel.canCreateDirectories = true
+        openPanel.prompt = "Choose"
+        openPanel.beginSheetModalForWindow(view.window!, completionHandler: { (button : Int) -> Void in
+            if button == NSFileHandlingPanelOKButton{
+                self.saveFile(file, toPath:openPanel.URL!.path!)
+            }
+        })
+    }
+    
+    //MARK: Save a file to a path
+    func saveFile(file: FileModel, toPath path: String)
+    {
+        var error : NSError?
+        let filePath = "\(path)/\(file.name).\(file.fileExtension)"
+        
+        do {
+            try file.content.writeToFile(filePath, atomically: false, encoding: NSUTF8StringEncoding)
+        } catch let nSError as NSError {
+            error = nSError
+        }
+        
+        if error != nil{
+            NSAlert(error: error!).runModal()
+        }
+        
+        if error == nil{
+            print("Success")
+            //TODO: show success notification
+        }
     }
 }
 
