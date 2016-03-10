@@ -18,8 +18,7 @@ class JavaContentGenerator {
         self.entity = entity
     }
     
-    func getContent()->String
-    {
+    func getContent() -> String {
         appendHeader()
         appendRealmKeys()
         appendAttributes()
@@ -29,8 +28,7 @@ class JavaContentGenerator {
     }
     
     //MARK: Append header
-    func appendHeader()
-    {
+    func appendHeader() {
         content += Tools.getHeaderComments(entity, fileExtension: "java")
         
         content += "import io.realm.*;\nimport io.realm.annotations.*;\n"
@@ -55,8 +53,7 @@ class JavaContentGenerator {
     }
     
     //MARK: Append attributes and relicationships
-    func appendAttributes()
-    {
+    func appendAttributes() {
         let primarykey = entity.primaryKey
         
         // Append attributes
@@ -69,7 +66,7 @@ class JavaContentGenerator {
                 attrAnnotions += "@PrimaryKey\n"
             }
             
-            if attr.isIndexd && primarykey?.name != attr.name {
+            if attr.isIndexed && primarykey?.name != attr.name {
                 attrAnnotions += "@Index\n"
             }
             
@@ -94,6 +91,7 @@ class JavaContentGenerator {
             if !attrAnnotions.isEmpty {
                 content += "    " + attrAnnotions
             }
+            
             content += "    " + attrDefination
             content += "\n"
         }
@@ -113,8 +111,7 @@ class JavaContentGenerator {
     }
     
     //MARK: Append Getters and Setters
-    func appendGettersAndSetters()
-    {
+    func appendGettersAndSetters() {
         // Append attribute Getters and Setters
         for attr in entity.attributes {
             var getter = "    "
@@ -134,6 +131,7 @@ class JavaContentGenerator {
         for relationship in entity.relationships {
             var getter = "    "
             var setter = "    "
+            
             if relationship.isMany {
                 getter += "public RealmList<" + relationship.destination!.name + "> get" + relationship.name.uppercaseFirst + "(){\n"
                 getter += "        return " + relationship.name + ";\n    }\n\n"
@@ -156,8 +154,7 @@ class JavaContentGenerator {
     }
     
     // Check if we are going to import Date
-    func importDate()->Bool
-    {
+    func importDate() -> Bool {
         for attr in entity.attributes {
             if attr.type == .Date {
                 return true
@@ -166,45 +163,32 @@ class JavaContentGenerator {
         
         return false
     }
-    
-    // Returns the current year as String
-    func getYear()->String
-    {
-        return "\(NSCalendar.currentCalendar().component(.Year, fromDate: NSDate()))"
-    }
-    
-    // Returns today date in the format dd/mm/yyyy
-    func getTodayFormattedDay() -> String
-    {
-        let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: NSDate())
-        return "\(components.day)/\(components.month)/\(components.year)"
-    }
 }
 
 extension AttributeType {
     var javaName:Swift.String {
-        get{
+        get {
             switch (self) {
-            case .Bool:
-                return "Boolean"
-            case .Short:
-                return "Short"
-            case .Int:
-                return "Integer"
-            case .Long:
-                return "Long"
-            case .Float:
-                return "Float"
-            case .Double:
-                return "Double"
-            case .String:
-                return "String"
-            case .Date:
-                return "Date"
-            case .Blob:
-                return "Blob"
-            default:
-                return "Unknown"
+                case .Bool:
+                    return "Boolean"
+                case .Short:
+                    return "Short"
+                case .Int:
+                    return "Integer"
+                case .Long:
+                    return "Long"
+                case .Float:
+                    return "Float"
+                case .Double:
+                    return "Double"
+                case .String:
+                    return "String"
+                case .Date:
+                    return "Date"
+                case .Blob:
+                    return "Blob"
+                default:
+                    return "<Unknown>"
             }
         }
     }

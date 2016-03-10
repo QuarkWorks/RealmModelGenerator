@@ -27,8 +27,9 @@ class ViewController: NSViewController {
             try! entity.setPrimaryKey(pk)
             
             entity.createAttribute({ (attribute) -> Void in
-                try! attribute.setName("id2")
+                try! attribute.setName("phone")
                 attribute.type = AttributeType.String
+                attribute.isRequired = true
                 try! attribute.setIndexed(true)
             })
         })
@@ -47,6 +48,15 @@ class ViewController: NSViewController {
                 $0.defaultValue = "Bob"
                 $0.type = .String
                 $0.hasDefault = true
+            })
+            
+            entity.createAttribute({
+                try! $0.setName("age")
+                $0.defaultValue = "10"
+                $0.type = .Int
+                $0.hasDefault = true
+                $0.isIgnored = true
+                try! $0.setIndexed(true)
             })
         }
         
@@ -76,7 +86,12 @@ class ViewController: NSViewController {
         case .Objc:
             return language.rawValue
         case .Java:
-            return JavaContentGenerator(entity: entity).getContent()
+            var hContent: String
+            var mContent: String
+            (hContent, mContent) = ObjectCContentGenerator(entity: entity).getContent()
+            print(mContent)
+            return hContent
+//            return SwiftContentGenerator(entity: entity).getContent()
         }
     }
     

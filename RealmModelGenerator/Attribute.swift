@@ -22,7 +22,7 @@ class Attribute {
     private(set) var name:String
     let entity:Entity
     var isIgnored = false
-    private(set) var isIndexd = false
+    private(set) var isIndexed = false
     var isRequired = false
     var hasDefault = false
     var defaultValue = ""
@@ -30,7 +30,7 @@ class Attribute {
     var type = AttributeType.Unknown {
         willSet {
             if !newValue.canBeIndexed() {
-                isIndexd = false
+                isIndexed = false
                 if entity.primaryKey === self {
                     try! entity.setPrimaryKey(nil)
                 }
@@ -55,7 +55,7 @@ class Attribute {
         if !type.canBeIndexed() {
             NSException(name: "IllegalState", reason: "Attribute Can't Be Indexed For Current Type", userInfo: nil).raise()
         }
-        self.isIndexd = isIndexed
+        self.isIndexed = isIndexed
     }
     
     init(dictionary:Dictionary<String,Any>, entity:Entity) throws {
@@ -79,7 +79,7 @@ class Attribute {
             do {
                 try self.setIndexed(isIndexed)
             } catch {
-                self.isIndexd = false
+                self.isIndexed = false
             }
         }
         
@@ -101,7 +101,7 @@ class Attribute {
         return [
             Attribute.NAME:name,
             Attribute.IS_IGNORED:isIgnored,
-            Attribute.IS_INDEXED:isIndexd,
+            Attribute.IS_INDEXED:isIndexed,
             Attribute.IS_REQUIRED:isRequired,
             Attribute.HAS_DEFALUT:hasDefault,
             Attribute.DEFAULT_VALUE:defaultValue,

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A76FF121C8E0AD00036362D /* SwiftContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */; };
 		3AAF1BDC1C91F06A0096C31D /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF1BDB1C91F06A0096C31D /* Tools.swift */; };
+		3AAF1BDE1C91F3D70096C31D /* ObjectCContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF1BDD1C91F3D70096C31D /* ObjectCContentGenerator.swift */; };
 		3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */; };
 		3AEF05E01C8D0788001238E7 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEF05DF1C8D0788001238E7 /* FileModel.swift */; };
 		7798B0D51C87C32900A7F965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B0D41C87C32900A7F965 /* AppDelegate.swift */; };
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftContentGenerator.swift; sourceTree = "<group>"; };
 		3AAF1BDB1C91F06A0096C31D /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		3AAF1BDD1C91F3D70096C31D /* ObjectCContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectCContentGenerator.swift; sourceTree = "<group>"; };
 		3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaContentGenerator.swift; sourceTree = "<group>"; };
 		3AEF05DF1C8D0788001238E7 /* FileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		7798B0D11C87C32900A7F965 /* RealmModelGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmModelGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,6 +135,7 @@
 				3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */,
 				3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */,
 				3AAF1BDB1C91F06A0096C31D /* Tools.swift */,
+				3AAF1BDD1C91F3D70096C31D /* ObjectCContentGenerator.swift */,
 			);
 			path = RealmModelGenerator;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AAF1BDE1C91F3D70096C31D /* ObjectCContentGenerator.swift in Sources */,
 				3AAF1BDC1C91F06A0096C31D /* Tools.swift in Sources */,
 				77A5521D1C88F02000658EAF /* Schema.swift in Sources */,
 				3AEF05E01C8D0788001238E7 /* FileModel.swift in Sources */,

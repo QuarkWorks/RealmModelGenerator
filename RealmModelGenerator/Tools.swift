@@ -38,7 +38,7 @@ class Tools {
             content += ". All rights reserved.\n"
         }
         
-        content += " *\tModel file Generated using Realm Model Genrator.\n"
+        content += " *\tModel file Generated using Realm Model Generator.\n"
         content += " */\n\n"
         
         return content

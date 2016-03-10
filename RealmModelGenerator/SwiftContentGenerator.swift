@@ -18,53 +18,49 @@ class SwiftContentGenerator {
         self.entity = entity
     }
     
-    func getContent() -> String
-    {
-        appendHeader()
-        appendAttributesAndAnnotations()
+    func getContent() -> String {
+        content += Tools.getHeaderComments(entity, fileExtension: "swift")
+        
+        content += "import RealmSwift\n\n"
+        content += "class " + entity.name + ": Object {\n"
+        content += "\tstatic let TAG = NSStringFromClass(" + entity.name + ");\n\n"
+        
+        appendAttributes()
         
         content += "}"
         
         return content
     }
     
-    //MARK: Append header
-    func appendHeader()
-    {
-        content += Tools.getHeaderComments(entity, fileExtension: "swift")
-        
-        // Static import
-        content += "import RealmSwift\n\n"
-        content += "class " + entity.name + " : Object {\n"
-        content += "  static let TAG = NSStringFromClass(" + entity.name + ");\n\n"
-    }
-    
     //MARK: Append attributes and relicationships
-    func appendAttributesAndAnnotations()
-    {
+    func appendAttributes() {
         var indexedProperties = ""
         var ignoredProperties = ""
         
         // Append attributes
-        for (_, (_, attr)) in entity.attributesByName.enumerate() {
-            var attrDefination = "dynamic var " + attr.name + " : " + attr.type.rawValue
+        for attr in entity.attributes {
+            var attrDefination = "\tdynamic var " + attr.name + " : " + attr.type.swiftName
             
-            if !attr.isRequired {
-                attrDefination += "?"
+            if (attr.type == .String || attr.type == .Date || attr.type == .Blob) && !attr.isRequired && !attr.hasDefault {
+                attrDefination += "? = nil"
             }
             
             if attr.hasDefault {
-                attrDefination += " = " + attr.defaultValue
+                if attr.type == .String {
+                    attrDefination += " = \"" + attr.defaultValue + "\""
+                } else {
+                    attrDefination += " = " + attr.defaultValue
+                }
             }
             
-            content += "  " + attrDefination
+            content += attrDefination
             content += "\n"
             
-            if attr.isIndexd {
+            if attr.isIndexed {
                 if indexedProperties.isEmpty {
                     indexedProperties += "\"" + attr.name + "\""
                 } else {
-                    indexedProperties += ",\"" + attr.name + "\""
+                    indexedProperties += ", \"" + attr.name + "\""
                 }
             }
             
@@ -72,22 +68,23 @@ class SwiftContentGenerator {
                 if ignoredProperties.isEmpty {
                     ignoredProperties += "\"" + attr.name + "\""
                 } else {
-                    ignoredProperties += ",\"" + attr.name + "\""
+                    ignoredProperties += ", \"" + attr.name + "\""
                 }
             }
         }
         
         // Append relationship
-        for (_, relationship) in entity.relationshipsByName {
-            var relationshipDefination = "dynamic var " + relationship.name
+        for relationship in entity.relationships {
+            var relationshipDefination = ""
             
             if relationship.isMany {
-                relationshipDefination += " = " + "RLMArray(objectClassName: " + relationship.destination!.name + ".className())"
+                relationshipDefination += "\tlet " + relationship.name + " = List<" + relationship.destination!.name + ">()\n"
+                
             } else {
-                relationshipDefination += " : " + relationship.destination!.name
+                relationshipDefination += "\tdynamic var " + relationship.name + " : " + relationship.destination!.name + "? \n"
             }
             
-            content += "  " + relationshipDefination + "\n";
+            content += relationshipDefination;
         }
         
         content += "\n"
@@ -98,37 +95,62 @@ class SwiftContentGenerator {
     }
     
     //MARK: Append primary key
-    func appendPrimaryKey()
-    {
+    func appendPrimaryKey() {
         if let primarykey = entity.primaryKey {
-            content += "  override class func primaryKey() -> " + primarykey.type.rawValue + "? {\n"
-            content += "    return \"" + primarykey.name + "\"\n"
-            content += "  }\n\n"
+            content += "\toverride class func primaryKey() -> String? {\n"
+            content += "\t\treturn \"" + primarykey.name + "\"\n"
+            content += "\t}\n\n"
         }
     }
     
     //MARK: Append indexed property
-    func appendIndexedProperties(indexProperties: String)
-    {
-        
+    func appendIndexedProperties(indexProperties: String) {
         if indexProperties.isEmpty {
             return
         }
         
-        content += "  override static func indexedProperties() -> [String] {\n"
-        content += "    return [" + indexProperties + "]\n"
-        content += "  }\n\n"
+        content += "\toverride static func indexedProperties() -> [String] {\n"
+        content += "\t\treturn [" + indexProperties + "]\n"
+        content += "\t}\n\n"
     }
     
     //MARK: Append ignored property
-    func appendIgnoredProperties(ignoredProperties: String)
-    {
+    func appendIgnoredProperties(ignoredProperties: String) {
         if ignoredProperties.isEmpty {
             return
         }
         
-        content += "  override static func ignoredProperties() -> [String] {\n"
-        content += "    return [" + ignoredProperties + "]\n"
-        content += "  }\n\n"
+        content += "\toverride static func ignoredProperties() -> [String] {\n"
+        content += "\t\treturn [" + ignoredProperties + "]\n"
+        content += "\t}\n\n"
+    }
+}
+
+extension AttributeType {
+    var swiftName:Swift.String {
+        get {
+            switch (self) {
+                case .Bool:
+                    return "Bool"
+                case .Short:
+                    return "Int"
+                case .Int:
+                    return "Int"
+                case .Long:
+                    return "Int"
+                case .Float:
+                    return "Float"
+                case .Double:
+                    return "Double"
+                case .String:
+                    return "String"
+                case .Date:
+                    return "NSDate"
+                case .Blob:
+                    return "NSData"
+                default:
+                    return "<Unknown>"
+            }
+        }
     }
 }
