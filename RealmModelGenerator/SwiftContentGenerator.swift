@@ -22,10 +22,10 @@ class SwiftContentGenerator {
     func getContent()->String
     {
         appendHeader()
-        appendAttributes()
-        appendPrimaryKey()
+        appendAttributesAndAnnotations()
         
         content += "}"
+        
         return content
     }
     
@@ -37,7 +37,7 @@ class SwiftContentGenerator {
         // Static import
         content += "import RealmSwift\n\n"
         content += "class " + entity.name + " : Object {\n"
-        content += "    static let TAG = NSStringFromClass(" + entity.name + ");\n\n"
+        content += "  static let TAG = NSStringFromClass(" + entity.name + ");\n\n"
     }
     
     func appendHeaderComments() {
@@ -58,6 +58,8 @@ class SwiftContentGenerator {
             
             if let organization = me.valueForProperty(kABOrganizationProperty as String) as? String{
                 content += " \(organization)"
+            } else {
+                content += " QuarkWorks"
             }
             
             content += ". All rights reserved.\n"
@@ -68,46 +70,96 @@ class SwiftContentGenerator {
     }
     
     //MARK: Append attributes and relicationships
-    func appendAttributes()
+    func appendAttributesAndAnnotations()
     {
+        var indexedProperties = ""
+        var ignoredProperties = ""
+        
         // Append attributes
         for (_, (_, attr)) in entity.attributesByName.enumerate() {
-            var attrDefination = ""
+            var attrDefination = "dynamic var " + attr.name + " : " + attr.type.rawValue
             
-            //Get attribute defination
-            if attr.hasDefault {
-                attrDefination += "dynamic var " + attr.name + " : " + attr.type.rawValue + " = "
-                    + attr.defaultValue
-            } else {
-                attrDefination += "dynamic var " + attr.name + " : " + attr.type.rawValue
+            if !attr.isRequired {
+                attrDefination += "?"
             }
             
-            content += "    " + attrDefination
+            if attr.hasDefault {
+                attrDefination += " = " + attr.defaultValue
+            }
+            
+            content += "  " + attrDefination
             content += "\n"
+            
+            if attr.isIndexd {
+                if indexedProperties.isEmpty {
+                    indexedProperties += "\"" + attr.name + "\""
+                } else {
+                    indexedProperties += ",\"" + attr.name + "\""
+                }
+            }
+            
+            if attr.isIgnored {
+                if ignoredProperties.isEmpty {
+                    ignoredProperties += "\"" + attr.name + "\""
+                } else {
+                    ignoredProperties += ",\"" + attr.name + "\""
+                }
+            }
         }
         
         // Append relationship
         for (_, relationship) in entity.relationshipsByName {
-            var relationshipDefination = ""
+            var relationshipDefination = "dynamic var " + relationship.name
+            
             if relationship.isMany {
-                relationshipDefination += "dynamic var " + relationship.name + " = " + "RLMArray(objectClassName: " + relationship.destination!.name + ".className())"
+                relationshipDefination += " = " + "RLMArray(objectClassName: " + relationship.destination!.name + ".className())"
             } else {
-                relationshipDefination += "dynamic var " + relationship.name + " : " + relationship.destination!.name
+                relationshipDefination += " : " + relationship.destination!.name
             }
-            content += "    " + relationshipDefination + "\n";
+            
+            content += "  " + relationshipDefination + "\n";
         }
         
         content += "\n"
+        
+        appendPrimaryKey()
+        appendIndexedProperties(indexedProperties)
+        appendIgnoredProperties(ignoredProperties)
     }
     
     //MARK: Append primary key
     func appendPrimaryKey()
     {
         if let primarykey = entity.primaryKey {
-            content += "    override class func primaryKey() -> " + primarykey.type.rawValue + "\n"
-            content += "    {\n"
-            content += "        return \"" + primarykey.name + "\"\n    }\n"
+            content += "  override class func primaryKey() -> " + primarykey.type.rawValue + "? {\n"
+            content += "    return \"" + primarykey.name + "\"\n"
+            content += "  }\n\n"
         }
+    }
+    
+    //MARK: Append indexed property
+    func appendIndexedProperties(indexProperties: String)
+    {
+        
+        if indexProperties.isEmpty {
+            return
+        }
+        
+        content += "  override static func indexedProperties() -> [String] {\n"
+        content += "    return [" + indexProperties + "]\n"
+        content += "  }\n\n"
+    }
+    
+    //MARK: Append ignored property
+    func appendIgnoredProperties(ignoredProperties: String)
+    {
+        if ignoredProperties.isEmpty {
+            return
+        }
+        
+        content += "  override static func ignoredProperties() -> [String] {\n"
+        content += "    return [" + ignoredProperties + "]\n"
+        content += "  }\n\n"
     }
     
     // Returns the current year as String

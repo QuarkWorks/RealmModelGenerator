@@ -60,6 +60,8 @@ class JavaContentGenerator {
             
             if let organization = me.valueForProperty(kABOrganizationProperty as String) as? String{
                 content += " \(organization)"
+            } else {
+                content += " QuarkWorks"
             }
             
             content += ". All rights reserved.\n"
