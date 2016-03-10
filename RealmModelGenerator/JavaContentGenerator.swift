@@ -34,8 +34,10 @@ class JavaContentGenerator {
     {
         appendHeaderComments()
         
-        // Static import
-        content += "import io.realm.*;\nimport io.realm.annotations.*;\nimport java.util.Date;\n"
+        content += "import io.realm.*;\nimport io.realm.annotations.*;\n"
+        if (importDate()) {
+            content += "import java.util.Date;\n"
+        }
         content += "\npublic class " + entity.name + " extends RealmObject {\n"
         content += "    private static final String TAG = " + entity.name + ".class.getSimpleName();\n\n"
     }
@@ -54,7 +56,6 @@ class JavaContentGenerator {
                 }
             }
             
-            
             content += " on \(getTodayFormattedDay())\n *\tCopyright © \(getYear())"
             
             if let organization = me.valueForProperty(kABOrganizationProperty as String) as? String{
@@ -72,7 +73,7 @@ class JavaContentGenerator {
     func appendRealmKeys() {
         content += "    public static final class RealmKeys {"
         
-        for (_, (_, attr)) in entity.attributesByName.enumerate() {
+        for attr in entity.attributes {
             var realmKey = "\n"
             realmKey += "        public static final String " + attr.name.uppercaseString + "_KEY = \"" + attr.name.lowercaseString + "\";"
             content += realmKey
@@ -87,7 +88,7 @@ class JavaContentGenerator {
         let primarykey = entity.primaryKey
         
         // Append attributes
-        for (_, (_, attr)) in entity.attributesByName.enumerate() {
+        for attr in entity.attributes {
             var attrAnnotions = ""
             var attrDefination = ""
             
@@ -109,11 +110,13 @@ class JavaContentGenerator {
             }
             
             //Get attribute defination
+            attrDefination += "private " + attr.type.javaName + " " + attr.name
             if attr.hasDefault {
-                attrDefination += "private " + attr.type.rawValue + " " + attr.name + " = "
-                    + attr.defaultValue + ";"
-            } else {
-                attrDefination += "private " + attr.type.rawValue + " " + attr.name + ";"
+                if attr.type == .String {
+                    attrDefination += " = \"" + attr.defaultValue + "\";\n"
+                } else {
+                    attrDefination += " = " + attr.defaultValue + ";\n"
+                }
             }
             
             if !attrAnnotions.isEmpty {
@@ -124,7 +127,7 @@ class JavaContentGenerator {
         }
         
         // Append relationship
-        for (_, relationship) in entity.relationshipsByName {
+        for relationship in entity.relationships {
             var relationshipDefination = ""
             if relationship.isMany {
                 relationshipDefination += "private RealmList<" + relationship.destination!.name + "> " + relationship.name
@@ -141,14 +144,14 @@ class JavaContentGenerator {
     func appendGettersAndSetters()
     {
         // Append attribute Getters and Setters
-        for (_, (_, attr)) in entity.attributesByName.enumerate() {
+        for attr in entity.attributes {
             var getter = "    "
             var setter = "    "
             
-            getter += "public " + attr.type.rawValue + " get" + attr.name.uppercaseFirst + "(){\n"
+            getter += "public " + attr.type.javaName + " get" + attr.name.uppercaseFirst + "(){\n"
             getter += "        return " + attr.name + ";\n    }\n\n"
             
-            setter += "public void set" + attr.name.uppercaseFirst + "(" + attr.type.rawValue + " " + attr.name + "){\n"
+            setter += "public void set" + attr.name.uppercaseFirst + "(" + attr.type.javaName + " " + attr.name + "){\n"
             setter += "        this." + attr.name + " = " + attr.name + ";\n    }\n\n"
             
             content += getter
@@ -156,10 +159,10 @@ class JavaContentGenerator {
         }
         
         // Append relationship Getters and Setters
-        for (_, relationship) in entity.relationshipsByName {
+        for relationship in entity.relationships {
             var getter = "    "
             var setter = "    "
-            if (relationship.isMany) {
+            if relationship.isMany {
                 getter += "public RealmList<" + relationship.destination!.name + "> get" + relationship.name.uppercaseFirst + "(){\n"
                 getter += "        return " + relationship.name + ";\n    }\n\n"
                 
@@ -180,8 +183,20 @@ class JavaContentGenerator {
         content += "}"
     }
     
+    // Check if we are going to import Date
+    func importDate()->Bool
+    {
+        for attr in entity.attributes {
+            if attr.type == .Date {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     // Returns the current year as String
-    func getYear() -> String
+    func getYear()->String
     {
         return "\(NSCalendar.currentCalendar().component(.Year, fromDate: NSDate()))"
     }
@@ -191,6 +206,35 @@ class JavaContentGenerator {
     {
         let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: NSDate())
         return "\(components.day)/\(components.month)/\(components.year)"
+    }
+}
+
+extension AttributeType {
+    var javaName:Swift.String {
+        get{
+            switch (self) {
+            case .Bool:
+                return "Boolean"
+            case .Short:
+                return "Short"
+            case .Int:
+                return "Integer"
+            case .Long:
+                return "Long"
+            case .Float:
+                return "Float"
+            case .Double:
+                return "Double"
+            case .String:
+                return "String"
+            case .Date:
+                return "Date"
+            case .Blob:
+                return "Blob"
+            default:
+                return "Unknown"
+            }
+        }
     }
 }
 
