@@ -29,6 +29,7 @@ class Relationship {
         if self.entity.relationships.filter({$0.name == name && $0 !== self}).count > 0 {
             throw NSError(domain: Relationship.TAG, code: 0, userInfo: nil)
         }
+        self.name = name
     }
     
     init(dictionary:Dictionary<String,Any>, entity:Entity) throws {

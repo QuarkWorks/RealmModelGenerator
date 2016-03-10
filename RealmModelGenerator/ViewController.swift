@@ -45,18 +45,16 @@ class ViewController: NSViewController {
             entity.createAttribute({
                 try! $0.setName("childName")
                 $0.defaultValue = "Bob"
+                $0.type = .String
                 $0.hasDefault = true
             })
         }
         
-        let relationship = Relationship(name: "children", entity: user)
-        relationship.destination = child
-        user.createRelationship(relationship)
-        
-//        user.createRelationship({
-//            try! $0.setName("children")
-//            $0.destination = child
-//        })
+        user.createRelationship({
+            try! $0.setName("children")
+            $0.destination = child
+            $0.isMany = true
+        })
         
         for entity in model.entities {
             print(generateFile(entity, language: .Java))
@@ -82,6 +80,7 @@ class ViewController: NSViewController {
         }
     }
     
+    //Called from menu bar
     func exportToJava(sender: AnyObject!)
     {
         print("export to java")
@@ -89,6 +88,7 @@ class ViewController: NSViewController {
         choosePathAndSaveFile(file)
     }
     
+    //Called from menu bar
     func exportToObjectC(sender: AnyObject!)
     {
         print("export to object c")
@@ -96,6 +96,7 @@ class ViewController: NSViewController {
         choosePathAndSaveFile(file)
     }
     
+    //Called from menu bar
     func exportToSwift(sender: AnyObject!)
     {
         print("export to swift")

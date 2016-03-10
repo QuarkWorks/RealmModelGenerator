@@ -95,19 +95,8 @@ class Entity {
         
         let relationship = Relationship(name: name, entity: self)
         relationships.append(relationship)
+        build(relationship)
         return relationship
-    }
-    
-    func createRelationship(relationship: Relationship) -> Void {
-        var count = 0
-        
-        while relationships.contains({$0.name == relationship.name}) {
-            count++
-        }
-        
-        try! relationship.setName(relationship.name + "\(count)")
-        
-        relationships.append(relationship)
     }
     
     func removeRelationship(relationship:Relationship) {
@@ -123,6 +112,7 @@ class Entity {
         guard let name = dictionary["name"] as? String else {
             throw NSError(domain:Attribute.TAG, code: 0, userInfo: nil)
         }
+        
         try self.setName(name)
         
         if let isBaseClass = dictionary["isBaseClass"] as? Bool {
