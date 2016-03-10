@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import AddressBook
 
 class JavaContentGenerator {
     static let TAG = NSStringFromClass(JavaContentGenerator)
@@ -32,7 +31,7 @@ class JavaContentGenerator {
     //MARK: Append header
     func appendHeader()
     {
-        appendHeaderComments()
+        content += Tools.getHeaderComments(entity, fileExtension: "java")
         
         content += "import io.realm.*;\nimport io.realm.annotations.*;\n"
         if (importDate()) {
@@ -40,35 +39,6 @@ class JavaContentGenerator {
         }
         content += "\npublic class " + entity.name + " extends RealmObject {\n"
         content += "    private static final String TAG = " + entity.name + ".class.getSimpleName();\n\n"
-    }
-    
-    func appendHeaderComments() {
-        content += "/**\n"
-        content += " *\t" + entity.name + ".java\n"
-        content += " *\tModel version: " + entity.model.version + "\n"
-        
-        if let me = ABAddressBook.sharedAddressBook()?.me(){
-            
-            if let firstName = me.valueForProperty(kABFirstNameProperty as String) as? String{
-                content += " *\tCreate by \(firstName)"
-                if let lastName = me.valueForProperty(kABLastNameProperty as String) as? String{
-                    content += " \(lastName)"
-                }
-            }
-            
-            content += " on \(getTodayFormattedDay())\n *\tCopyright © \(getYear())"
-            
-            if let organization = me.valueForProperty(kABOrganizationProperty as String) as? String{
-                content += " \(organization)"
-            } else {
-                content += " QuarkWorks"
-            }
-            
-            content += ". All rights reserved.\n"
-        }
-        
-        content += " *\tModel file Generated using Realm Model Genrator.\n"
-        content += " */\n\n"
     }
     
     //MARK: Append RealmKeys
@@ -237,18 +207,5 @@ extension AttributeType {
                 return "Unknown"
             }
         }
-    }
-}
-
-//Reference: http://stackoverflow.com/a/28288340
-extension String {
-    var first: String {
-        return String(characters.prefix(1))
-    }
-    var last: String {
-        return String(characters.suffix(1))
-    }
-    var uppercaseFirst: String {
-        return first.uppercaseString + String(characters.dropFirst())
     }
 }
