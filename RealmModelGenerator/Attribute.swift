@@ -44,6 +44,10 @@ class Attribute {
     }
     
     func setName(name:String) throws {
+        if name.isEmpty {
+            throw NSError(domain: Attribute.TAG, code: 0, userInfo: nil)
+        }
+        
         if self.entity.attributes.filter({$0.name == name && $0 !== self}).count > 0 {
             throw NSError(domain: Attribute.TAG, code: 0, userInfo: nil)
         }
@@ -53,29 +57,31 @@ class Attribute {
     
     func setIndexed(isIndexed:Bool) throws {
         if !type.canBeIndexed() {
-            NSException(name: "IllegalState", reason: "Attribute Can't Be Indexed For Current Type", userInfo: nil).raise()
+            throw NSError(domain: Attribute.TAG, code: 0, userInfo: nil);
         }
         self.isIndexed = isIndexed
     }
     
-    init(dictionary:Dictionary<String,Any>, entity:Entity) throws {
-        self.name = ""
-        self.entity = entity
-        
-        guard let name = dictionary["name"] as? String else {
+    convenience internal init(dictionary:Dictionary<String,Any>, entity:Entity) throws {
+        self.init(name:"", entity:entity)
+        try fromDictionary(dictionary)
+    }
+    
+    func fromDictionary(dictionary:[String:Any]) throws {
+        guard let name = dictionary[Attribute.NAME] as? String else {
             throw NSError(domain:Attribute.TAG, code: 0, userInfo: nil)
         }
         self.name = name
         
-        if let rawType = dictionary["type"] as? String {
+        if let rawType = dictionary[Attribute.TYPE] as? String {
             self.type = AttributeType(rawValueSafe: rawType)
         }
         
-        if let isIgnored = dictionary["isIgnored"] as? Bool {
+        if let isIgnored = dictionary[Attribute.IS_IGNORED] as? Bool {
             self.isIgnored = isIgnored
         }
         
-        if let isIndexed = dictionary["isIndexed"] as? Bool {
+        if let isIndexed = dictionary[Attribute.IS_INDEXED] as? Bool {
             do {
                 try self.setIndexed(isIndexed)
             } catch {
@@ -83,21 +89,20 @@ class Attribute {
             }
         }
         
-        if let isRequired = dictionary["isRequired"] as? Bool {
+        if let isRequired = dictionary[Attribute.IS_REQUIRED] as? Bool {
             self.isRequired = isRequired
         }
         
-        if let hasDefault = dictionary["hasDefault"] as? Bool {
+        if let hasDefault = dictionary[Attribute.HAS_DEFALUT] as? Bool {
             self.hasDefault = hasDefault
         }
         
-        if let defaultValue = dictionary["defaultValue"] as? String {
+        if let defaultValue = dictionary[Attribute.DEFAULT_VALUE] as? String {
             self.defaultValue = defaultValue
         }
-        
     }
     
-    func toDictionary() -> Dictionary<String,Any> {
+    func toDictionary() -> [String:Any] {
         return [
             Attribute.NAME:name,
             Attribute.IS_IGNORED:isIgnored,

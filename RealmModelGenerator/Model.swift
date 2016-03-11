@@ -14,7 +14,7 @@ class Model {
     static let VERSION = "version"
     static let ENTITIES = "entities"
     
-    let version:String
+    private(set) var version:String
     private(set) var entities:Array<Entity> = []
     var entitiesByName:Dictionary<String, Entity> {
         get {
@@ -47,6 +47,21 @@ class Model {
     func removeEntity(entity:Entity) {
         if let index = entities.indexOf({$0 === entity}) {
             entities.removeAtIndex(index)
+        }
+    }
+    
+    func fromDictionary(dictionary:[String:Any]) throws {
+        guard let version = dictionary[Model.VERSION] as? String else {
+            throw NSError(domain: Model.TAG, code: 0, userInfo: nil)
+        }
+        self.version = version;
+        
+        guard let entityDictionaryArray = dictionary[Model.ENTITIES] as? [[String:Any]] else {
+            throw NSError(domain: Model.TAG, code: 0, userInfo: nil)
+        }
+        
+        for entityDictionary in entityDictionaryArray {
+            try entities.append(Entity(dictionary: entityDictionary, model: self))
         }
     }
     

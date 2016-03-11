@@ -26,27 +26,34 @@ class Relationship {
     }
     
     func setName(name:String) throws {
+        if name.isEmpty {
+            throw NSError(domain: Attribute.TAG, code: 0, userInfo: nil)
+        }
+        
         if self.entity.relationships.filter({$0.name == name && $0 !== self}).count > 0 {
             throw NSError(domain: Relationship.TAG, code: 0, userInfo: nil)
         }
         self.name = name
     }
     
-    init(dictionary:Dictionary<String,Any>, entity:Entity) throws {
-        self.name = ""
-        self.entity = entity
-        guard let name = dictionary["name"] as? String else {
+    internal convenience init(dictionary:Dictionary<String,Any>, entity:Entity) throws {
+        self.init(name:"", entity:entity)
+        try fromDictionary(dictionary)
+    }
+    
+    func fromDictionary(dictionary:[String:Any]) throws {
+        guard let name = dictionary[Relationship.NAME] as? String else {
             throw NSError(domain: Relationship.TAG, code: 0, userInfo: nil)
         }
         self.name = name
         
-        if let isMany = dictionary["isMany"] as? Bool {
+        if let isMany = dictionary[Relationship.IS_MANY] as? Bool {
             self.isMany = isMany
         }
         
-        if let destinationName = dictionary["destination"] as? String,
+        if let destinationName = dictionary[Relationship.DESTINATION] as? String,
             destination = self.entity.model.entitiesByName[destinationName] {
-            self.destination = destination
+                self.destination = destination
         }
     }
     
