@@ -10,6 +10,7 @@ import Foundation
 import AddressBook
 
 class BaseContentGenerator {
+<<<<<<< e66f80e86b1829a9faa7d2d738c8f6ffcd14e0d2
     
     // Check if an enity is valid or not, if not, print out error
     // TODO: provide user with a popup with details of invalid entity
@@ -60,6 +61,8 @@ class BaseContentGenerator {
         
         return true
     }
+=======
+>>>>>>> Added BaseContentGenerator
  
     func getHeaderComments(entity: Entity, fileExtension: String) -> String {
         var content = ""
@@ -94,14 +97,28 @@ class BaseContentGenerator {
     }
     
     // Returns the current year as String
+<<<<<<< e66f80e86b1829a9faa7d2d738c8f6ffcd14e0d2
     func getYear() -> String {
+=======
+    func getYear() -> String
+    {
+>>>>>>> Added BaseContentGenerator
         return "\(NSCalendar.currentCalendar().component(.Year, fromDate: NSDate()))"
     }
     
     // Returns today date in the format dd/mm/yyyy
+<<<<<<< e66f80e86b1829a9faa7d2d738c8f6ffcd14e0d2
     func getTodayFormattedDay() -> String {
+=======
+    func getTodayFormattedDay() -> String
+    {
+>>>>>>> Added BaseContentGenerator
         let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: NSDate())
         return "\(components.day)/\(components.month)/\(components.year)"
     }
 
+<<<<<<< e66f80e86b1829a9faa7d2d738c8f6ffcd14e0d2
+=======
+    
+>>>>>>> Added BaseContentGenerator
 }

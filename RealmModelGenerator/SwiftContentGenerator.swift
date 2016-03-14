@@ -17,9 +17,8 @@ class SwiftContentGenerator: BaseContentGenerator {
     init(entity: Entity) {
         self.entity = entity
     }
-    
+
     func getContent() -> Array<String> {
-        
         if isValidEntity(entity) {
             content += getHeaderComments(entity, fileExtension: "swift")
             
