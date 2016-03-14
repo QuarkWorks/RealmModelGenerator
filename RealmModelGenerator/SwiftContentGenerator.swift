@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SwiftContentGenerator {
+class SwiftContentGenerator: BaseContentGenerator {
     static let TAG = NSStringFromClass(SwiftContentGenerator)
     
     var content = ""
@@ -19,7 +19,7 @@ class SwiftContentGenerator {
     }
     
     func getContent() -> String {
-        content += Tools.getHeaderComments(entity, fileExtension: "swift")
+        content += getHeaderComments(entity, fileExtension: "swift")
         
         content += "import RealmSwift\n\n"
         content += "class " + entity.name + ": Object {\n"

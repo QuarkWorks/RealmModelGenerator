@@ -8,7 +8,7 @@
 
 import Foundation
 
-class JavaContentGenerator {
+class JavaContentGenerator: BaseContentGenerator {
     static let TAG = NSStringFromClass(JavaContentGenerator)
     
     var content = ""
@@ -29,7 +29,7 @@ class JavaContentGenerator {
     
     //MARK: Append header
     func appendHeader() {
-        content += Tools.getHeaderComments(entity, fileExtension: "java")
+        content += getHeaderComments(entity, fileExtension: "java")
         
         content += "import io.realm.*;\nimport io.realm.annotations.*;\n"
         if (importDate()) {

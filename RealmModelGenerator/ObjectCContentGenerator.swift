@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ObjectCContentGenerator {
+class ObjectCContentGenerator: BaseContentGenerator {
     static let TAG = NSStringFromClass(ObjectCContentGenerator)
     
     var hContent = ""
@@ -21,11 +21,12 @@ class ObjectCContentGenerator {
     }
     
     func getContent() -> (hContent: String, mContent: String) {
-        hContent += Tools.getHeaderComments(entity, fileExtension: "h")
+        hContent += getHeaderComments(entity, fileExtension: "h")
+        
         hContent += "#import <Realm/Realm.h>\n\n"
         hContent += "@interface " + entity.name + " : " + "RLMObject\n\n"
         
-        mContent += Tools.getHeaderComments(entity, fileExtension: "m")
+        mContent += getHeaderComments(entity, fileExtension: "m")
         mContent += "#import \"" + entity.name + ".h\"\n\n"
         mContent += "@implementation " + entity.name + "\n\n"
         
