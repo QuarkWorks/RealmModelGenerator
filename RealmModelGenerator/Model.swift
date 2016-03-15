@@ -56,4 +56,12 @@ class Model {
     func setVersion(version:String) throws {
         self.version = version;
     }
+    
+    func toNSDictionary() -> NSDictionary {
+        let dictionary = NSMutableDictionary()
+        dictionary[Model.VERSION] = self.version
+        dictionary[Model.ENTITIES] = self.entities.map({$0.toNSDictionary()})
+        
+        return dictionary
+    }
 }

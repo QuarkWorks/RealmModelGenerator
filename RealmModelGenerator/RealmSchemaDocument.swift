@@ -10,6 +10,9 @@ import Cocoa
 
 class RealmSchemaDocument: NSDocument {
     
+    var vc: ViewController!
+    var models = [Model]()
+    
     override init() {
         super.init()
         // Add your subclass-specific initialization here.
@@ -28,6 +31,12 @@ class RealmSchemaDocument: NSDocument {
         // Returns the Storyboard that contains your Document window.
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         let windowController = storyboard.instantiateControllerWithIdentifier("Document Window Controller") as! NSWindowController
+        
+        if let v = windowController.contentViewController as? ViewController {
+            vc = v
+            vc.models = models
+        }
+        
         self.addWindowController(windowController)
     }
     
@@ -35,6 +44,16 @@ class RealmSchemaDocument: NSDocument {
         // Insert code here to write your document to data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning nil.
         // You can also choose to override fileWrapperOfType:error:, writeToURL:ofType:error:, or writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
         var arrayOfDictionaries = [NSDictionary]()
+        
+        for modelObject in vc.models {
+            let model = modelObject as Model
+//            let dict = model.toDictionary() as! [String:AnyObject]
+//            let nsdict = NSDictionary(dictionary: dict)
+//            arrayOfDictionaries.append(nsdict)
+            arrayOfDictionaries.append(model.toNSDictionary())
+            arrayOfDictionaries.append(model.toNSDictionary())
+
+        }
         
         let newDictionary: NSDictionary = [
             "model 0.0" : ["entity name": "entity a"],
@@ -56,6 +75,26 @@ class RealmSchemaDocument: NSDocument {
         // Insert code here to read your document from the given data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning false.
         // You can also choose to override readFromFileWrapper:ofType:error: or readFromURL:ofType:error: instead.
         // If you override either of these, you should also override -isEntireFileLoaded to return false if the contents are lazily loaded.
+        
+        if let arrayOfDictionaries = try! NSJSONSerialization.JSONObjectWithData(data, options: []) as? [NSDictionary]{
+            
+            for dictionary: NSDictionary in arrayOfDictionaries{
+            
+                let model = Model(version: dictionary[Model.VERSION] as! String)
+                let entities = dictionary[Model.ENTITIES] as? [NSDictionary]
+                for entityDict in entities! {
+                    let entityObject = entityDict as! [String: AnyObject]
+                    _ = try Entity.init(dictionary: entityObject, model: model)
+                }
+                
+                models.append(model)
+            }
+            
+            print(models.count)
+            
+            return
+        }
+        
         throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
     }
     

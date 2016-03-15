@@ -25,59 +25,6 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let schema = Schema()
-        let model = schema.createModel()
-        let user = try! model.createEntity({ (entity) throws -> Void in
-            try entity.setName("User")
-            let pk = try entity.createAttribute({ (attribute) throws -> Void in
-                try attribute.setName("id")
-                attribute.type = AttributeType.String
-            })
-            try entity.setPrimaryKey(pk)
-            
-            try entity.createAttribute({ (attribute) throws  -> Void in
-                try attribute.setName("phone")
-                attribute.type = AttributeType.String
-                attribute.isRequired = true
-                try attribute.setIndexed(true)
-            })
-        })
-        
-        let child = model.createEntity { (entity) -> Void in
-            try! entity.setName("Child")
-            let pk = entity.createAttribute({
-                try! $0.setName("id")
-                $0.type = .Long
-            })
-            
-            try! entity.setPrimaryKey(pk)
-            
-            entity.createAttribute({
-                try! $0.setName("childName")
-                $0.defaultValue = "Bob"
-                $0.type = .String
-                $0.hasDefault = true
-            })
-            
-            entity.createAttribute({
-                try! $0.setName("age")
-                $0.defaultValue = "10"
-                $0.type = .Int
-                $0.hasDefault = true
-                $0.isIgnored = true
-                try! $0.setIndexed(true)
-            })
-        }
-        
-        user.createRelationship({
-            try! $0.setName("children")
-            $0.destination = child
-            $0.isMany = true
-        })
-        
-        for entity in model.entities {
-            print(generateFile(entity, language: .Java))
-        }
     }
     
     override var representedObject: AnyObject? {

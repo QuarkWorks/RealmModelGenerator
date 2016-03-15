@@ -23,7 +23,7 @@ enum AttributeType : String {
     
     init(rawValueSafe:Swift.String) {
         self = Unknown
-        if let type = AttributeType.init(rawValue: rawValue) {
+        if let type = AttributeType.init(rawValue: rawValueSafe) {
             self = type
         }
     }

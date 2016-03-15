@@ -176,6 +176,7 @@
 				3AD908B61C9A331500346527 /* AttributeTypeExtension.swift */,
 				3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */,
 				3A7E774E1C97744400408325 /* BaseContentGenerator.swift */,
+				3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */,
 			);
 			path = RealmModelGenerator;
 			sourceTree = "<group>";
