@@ -117,10 +117,10 @@ class Entity {
         }
     }
     
-<<<<<<< 406def12c1cea3819c63122e3d374d0a3d444011
     func removeFromModel() {
         self.model.removeEntity(self)
-=======
+    }
+    
     init(dictionary:[String:AnyObject], model:Model) throws {
         self.name = ""
         self.model = model
@@ -149,7 +149,7 @@ class Entity {
         }
     }
     
-    func setRelationships(dictionary:[String:Any]) throws {
+    func setRelationships(dictionary:[String:AnyObject]) throws {
         guard let superEntityName = dictionary["superEntity"] as? String,
             let superEntity = self.model.entitiesByName[superEntityName] else {
             throw NSError(domain: Entity.TAG, code: 0, userInfo: nil)
@@ -157,43 +157,11 @@ class Entity {
         
         self.superEntity = superEntity;
         
-        if let relationships = dictionary["relationships"] as? [[String:Any]] {
+        if let relationships = dictionary["relationships"] as? [[String:AnyObject]] {
             for relationshipDict in relationships {
                 let relationship = try Relationship(dictionary: relationshipDict, entity: self)
                 self.relationships.append(relationship)
             }
         }
-    }
-    
-    func toDictionary() -> [String:Any] {
-        let superEntity:Any = self.superEntity?.name ?? NSNull()
-        let primaryKey:Any = self.primaryKey?.name ?? NSNull()
-        
-        return [
-            "name":name,
-            "primaryKey":primaryKey,
-            "superEntity":superEntity,
-            "isBaseClass":self.isBaseClass,
-            "attributes":self.attributes.map({$0.toDictionary()}),
-            "relationships":self.relationships.map({$0.toDictionary()})
-        ]
->>>>>>> Added a subclass of NSDocument and modified Info.plist to convert to document-based project
-    }
-    
-    func toNSDictionary() -> NSDictionary {
-        let superEntity:AnyObject = self.superEntity?.name ?? NSNull()
-        let primaryKey:AnyObject = self.primaryKey?.name ?? NSNull()
-        
-        let dictionary = NSMutableDictionary()
-        
-        dictionary["name"] = name
-        dictionary["primaryKey"] = primaryKey
-        dictionary["superEntity"] = superEntity
-        dictionary["isBaseClass"] = self.isBaseClass
-        dictionary["attributes"] = self.attributes.map({$0.toNSDictionary()})
-        dictionary["relationships"] = self.relationships.map({$0.toNSDictionary()})
-        
-        return dictionary
-
     }
 }

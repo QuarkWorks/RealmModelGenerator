@@ -100,17 +100,15 @@ class Attribute {
         self.entity.removeAttribute(self)
     }
     
-    func toNSDictionary() -> NSDictionary {
-        let dictionary = NSMutableDictionary()
-        
-        dictionary[Attribute.NAME] = name
-        dictionary[Attribute.IS_IGNORED] = isIgnored
-        dictionary[Attribute.IS_INDEXED] = isIndexed
-        dictionary[Attribute.IS_REQUIRED] = isRequired
-        dictionary[Attribute.HAS_DEFALUT] = hasDefault
-        dictionary[Attribute.DEFAULT_VALUE] = defaultValue
-        dictionary[Attribute.TYPE] = type.rawValue
-        
-        return dictionary
+    func toDictionary() -> Dictionary<String,AnyObject> {
+        return [
+            Attribute.NAME:name,
+            Attribute.IS_IGNORED:isIgnored,
+            Attribute.IS_INDEXED:isIndexed,
+            Attribute.IS_REQUIRED:isRequired,
+            Attribute.HAS_DEFALUT:hasDefault,
+            Attribute.DEFAULT_VALUE:defaultValue,
+            Attribute.TYPE:type.rawValue
+        ]
     }
 }

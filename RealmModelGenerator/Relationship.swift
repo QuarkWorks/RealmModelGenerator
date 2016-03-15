@@ -36,8 +36,26 @@ class Relationship {
         self.entity.removeRelationship(self)
     }
     
-    func toDictionary() -> [String:Any] {
-        let destinationName:Any = (self.destination != nil ? self.destination!.name : NSNull())
+    init(dictionary:Dictionary<String,AnyObject>, entity:Entity) throws {
+        self.name = ""
+        self.entity = entity
+        guard let name = dictionary["name"] as? String else {
+            throw NSError(domain: Relationship.TAG, code: 0, userInfo: nil)
+        }
+        self.name = name
+        
+        if let isMany = dictionary["isMany"] as? Bool {
+            self.isMany = isMany
+        }
+        
+        if let destinationName = dictionary["destination"] as? String,
+            destination = self.entity.model.entitiesByName[destinationName] {
+            self.destination = destination
+        }
+    }
+    
+    func toDictionary() -> [String:AnyObject] {
+        let destinationName:AnyObject = (self.destination != nil ? self.destination!.name : NSNull())
         return [
             Relationship.NAME:self.name,
             Relationship.DESTINATION:destinationName,

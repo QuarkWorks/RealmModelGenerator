@@ -47,20 +47,10 @@ class RealmSchemaDocument: NSDocument {
         
         for modelObject in vc.models {
             let model = modelObject as Model
-//            let dict = model.toDictionary() as! [String:AnyObject]
-//            let nsdict = NSDictionary(dictionary: dict)
-//            arrayOfDictionaries.append(nsdict)
-            arrayOfDictionaries.append(model.toNSDictionary())
-            arrayOfDictionaries.append(model.toNSDictionary())
 
+            arrayOfDictionaries.append(model.toDictionary())
+            arrayOfDictionaries.append(model.toDictionary())
         }
-        
-        let newDictionary: NSDictionary = [
-            "model 0.0" : ["entity name": "entity a"],
-            "model 0.1" : ["entity name": "entity b"]
-        ]
-        
-        arrayOfDictionaries.append(newDictionary)
     
         let data: NSData? = try NSJSONSerialization.dataWithJSONObject(arrayOfDictionaries, options: [])
         
@@ -86,18 +76,13 @@ class RealmSchemaDocument: NSDocument {
                     let entityObject = entityDict as! [String: AnyObject]
                     _ = try Entity.init(dictionary: entityObject, model: model)
                 }
-                
-                models.append(model)
             }
-            
+
             print(models.count)
-            
+
             return
         }
         
         throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
     }
-    
-    
 }
-
