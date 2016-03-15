@@ -73,13 +73,15 @@ class RealmSchemaDocument: NSDocument {
                 let model = Model(version: dictionary[Model.VERSION] as! String)
                 let entities = dictionary[Model.ENTITIES] as? [NSDictionary]
                 for entityDict in entities! {
-                    let entityObject = entityDict as! [String: AnyObject]
+                    let entityObject = entityDict as! [String:AnyObject]
                     _ = try Entity.init(dictionary: entityObject, model: model)
                 }
+ 
+                models.append(model)
             }
-
+            
             print(models.count)
-
+            
             return
         }
         

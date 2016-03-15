@@ -56,6 +56,7 @@ class Relationship {
     
     func toDictionary() -> [String:AnyObject] {
         let destinationName:AnyObject = (self.destination != nil ? self.destination!.name : NSNull())
+
         return [
             Relationship.NAME:self.name,
             Relationship.DESTINATION:destinationName,
