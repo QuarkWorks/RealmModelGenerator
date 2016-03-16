@@ -9,10 +9,6 @@
 import Cocoa
 
 class ViewController: NSViewController {
-    
-    enum Language: String {
-        case Swift, Objc, Java
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

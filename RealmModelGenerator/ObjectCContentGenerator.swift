@@ -30,7 +30,6 @@ class ObjectCContentGenerator {
         mContent += "@implementation " + entity.name + "\n\n"
         
         appendAttributes()
-        
         hContent += "@end\n"
         hContent += "RLM_ARRAY_TYPE(" + entity.name + ")"
         mContent += "@end\n"
@@ -47,10 +46,12 @@ class ObjectCContentGenerator {
         
         // Append attributes
         for attr in entity.attributes {
-            var attrDefination = "@property " + attr.type.objectCName + " "
+            var attrDefination = "@property "
             
-            if attr.type == .String {
-                attrDefination += "* "
+            if attr.isRequired {
+                attrDefination += attr.type.name(Language.Objc, isRequired: true) + " "
+            } else {
+                attrDefination += attr.type.name(Language.Objc, isRequired: false)
             }
             
             attrDefination += attr.name + ";\n"
@@ -58,17 +59,22 @@ class ObjectCContentGenerator {
             
             // indexed
             if attr.isIndexed {
-                if indexedProperties.isEmpty {
-                    indexedProperties += "@\"" + attr.name + "\""
-                } else {
-                    indexedProperties += ", @\"" + attr.name + "\""
-                }
+                indexedProperties += indexedProperties.isEmpty ? "" : "," + attr.name + "\""
+            }
+            
+            // ignored
+            if attr.isIgnored {
+                ignoredProperties += ignoredProperties.isEmpty ? "" : "," + attr.name + "\""
+            }
+            
+            // required
+            if attr.isRequired {
+                requiredProperties += requiredProperties.isEmpty ? "" : "," + attr.name + "\""
             }
             
             // default value
             if attr.hasDefault {
                 var defaultValue = "@\"" + attr.name + "\" : @"
-                
                 
                 if attr.type == .String {
                     defaultValue += "\"" + attr.defaultValue + "\""
@@ -76,29 +82,8 @@ class ObjectCContentGenerator {
                     defaultValue += attr.defaultValue
                 }
                 
-                if defaultProperties.isEmpty {
-                    defaultProperties += defaultValue
-                } else {
-                    defaultProperties += ", " + defaultValue
-                }
+                defaultProperties += defaultProperties.isEmpty ? "" : "," + defaultValue
                 
-            }
-            
-            // ignored
-            if attr.isIgnored {
-                if ignoredProperties.isEmpty {
-                    ignoredProperties += "@\"" + attr.name + "\""
-                } else {
-                    ignoredProperties += ", @\"" + attr.name + "\""
-                }
-            }
-            
-            if attr.isRequired {
-                if requiredProperties.isEmpty {
-                    requiredProperties += "@\"" + attr.name + "\""
-                } else {
-                    requiredProperties += ", @\"" + attr.name + "\""
-                }
             }
         }
         
@@ -111,7 +96,7 @@ class ObjectCContentGenerator {
                 hContent += (relationship.destination?.name)!
             }
             
-            hContent += " * " + relationship.name + ";\n"
+            hContent += " *" + relationship.name + ";\n"
         }
         
         hContent += "\n"
@@ -141,7 +126,9 @@ class ObjectCContentGenerator {
             return
         }
         
-        mContent += "+(\((primaryKey?.type.objectCName)!) *)primaryKey {\n"
+        let primaryKeyType: String = primaryKey!.type.name(Language.Objc, isRequired: false)
+        
+        mContent += "+(" + primaryKeyType + ")primaryKey {\n"
         mContent += "\treturn @\"" + primaryKey!.name + "\";\n"
         mContent += "}\n\n"
     }
@@ -177,34 +164,5 @@ class ObjectCContentGenerator {
         mContent += "+ (NSArray *)requiredProperties {\n"
         mContent += "\treturn @[" + requiredProperties + "];\n"
         mContent += "}\n\n"
-    }
-}
-
-extension AttributeType {
-    var objectCName:Swift.String {
-        get {
-            switch (self) {
-                case .Bool:
-                    return "BOOL"
-                case .Short:
-                    return "NSInteger"
-                case .Int:
-                    return "NSInteger"
-                case .Long:
-                    return "NSInteger"
-                case .Float:
-                    return "CGFloat"
-                case .Double:
-                    return "double"
-                case .String:
-                    return "NSString"
-                case .Date:
-                    return "NSDate"
-                case .Blob:
-                    return "NSData"
-                default:
-                    return "<Unknown>"
-            }
-        }
     }
 }

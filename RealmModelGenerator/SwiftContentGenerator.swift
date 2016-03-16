@@ -39,18 +39,52 @@ class SwiftContentGenerator {
         
         // Append attributes
         for attr in entity.attributes {
-            var attrDefination = "\tdynamic var " + attr.name + " : " + attr.type.swiftName
-            
-            if (attr.type == .String || attr.type == .Date || attr.type == .Blob) && !attr.isRequired && !attr.hasDefault {
-                attrDefination += "? = nil"
-            }
-            
-            if attr.hasDefault {
-                if attr.type == .String {
-                    attrDefination += " = \"" + attr.defaultValue + "\""
+            var attrDefination = ""
+            if (attr.isRequired) {
+                if attr.hasDefault {
+                    attrDefination += "\tdynamic var " + attr.name + attr.type.name(Language.Swift, isRequired: true) + " = " + attr.defaultValue
+                    // handle empty string default
+                    if attr.defaultValue == "" {
+                        attrDefination += "\"\""
+                    }
                 } else {
-                    attrDefination += " = " + attr.defaultValue
+                    attrDefination += "\tdynamic var " + attr.name + attr.type.name(Language.Swift, isRequired: true) + " = "
+                    switch attr.type {
+                        case .Bool:
+                            attrDefination += "false"
+                            break
+                        case .Int:
+                            attrDefination += "0"
+                            break
+                        case .Short:
+                            attrDefination += "0"
+                            break
+                        case .Long:
+                            attrDefination += "0"
+                            break
+                        case .Float:
+                            attrDefination += "0.0"
+                            break
+                        case .Double:
+                            attrDefination += "0.0"
+                            break
+                        case .String:
+                            attrDefination += "\"\""
+                            break
+                        case .Blob:
+                            attrDefination += "NSData()"
+                            break
+                        case .Date:
+                            attrDefination += "NSDate()"
+                        default:
+                            //TODO: throw error
+                            break
+                    }
                 }
+            } else if (attr.type == .Bool || attr.type == .Int || attr.type == .Short || attr.type == .Long || attr.type == .Float || attr.type == .Double){
+                attrDefination += "\tlet " + attr.name + " = RealmOptional<" + attr.type.name(Language.Swift, isRequired: false) + ">()"
+            } else {
+                attrDefination += "\tdynamic var " + attr.name + attr.type.name(Language.Swift, isRequired: false) + " = nil"
             }
             
             content += attrDefination
@@ -123,34 +157,5 @@ class SwiftContentGenerator {
         content += "\toverride static func ignoredProperties() -> [String] {\n"
         content += "\t\treturn [" + ignoredProperties + "]\n"
         content += "\t}\n\n"
-    }
-}
-
-extension AttributeType {
-    var swiftName:Swift.String {
-        get {
-            switch (self) {
-                case .Bool:
-                    return "Bool"
-                case .Short:
-                    return "Int"
-                case .Int:
-                    return "Int"
-                case .Long:
-                    return "Int"
-                case .Float:
-                    return "Float"
-                case .Double:
-                    return "Double"
-                case .String:
-                    return "String"
-                case .Date:
-                    return "NSDate"
-                case .Blob:
-                    return "NSData"
-                default:
-                    return "<Unknown>"
-            }
-        }
     }
 }

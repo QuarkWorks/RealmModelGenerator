@@ -90,7 +90,7 @@ class Entity {
         
         while relationships.contains({$0.name == name}) {
             count++
-            name = "\(name)\(count)"
+            name = "Relationship\(count)"
         }
         
         let relationship = Relationship(name: name, entity: self)
