@@ -15,7 +15,6 @@
 		3ABD35E01C975E2D00A5C883 /* RealmSchemaDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */; };
 		3AD908B51C99E16100346527 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD908B41C99E16100346527 /* Language.swift */; };
 		3AD908B71C9A331500346527 /* AttributeTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD908B61C9A331500346527 /* AttributeTypeExtension.swift */; };
-		3ABD35E01C975E2D00A5C883 /* RealmSchemaDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */; };
 		3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */; };
 		3AEF05E01C8D0788001238E7 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEF05DF1C8D0788001238E7 /* FileModel.swift */; };
 		773D25861C9F3123009814A0 /* NibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773D25831C9F3123009814A0 /* NibDesignable.swift */; };
@@ -65,7 +64,6 @@
 		3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmSchemaDocument.swift; sourceTree = "<group>"; };
 		3AD908B41C99E16100346527 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		3AD908B61C9A331500346527 /* AttributeTypeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeTypeExtension.swift; sourceTree = "<group>"; };
-		3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmSchemaDocument.swift; sourceTree = "<group>"; };
 		3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaContentGenerator.swift; sourceTree = "<group>"; };
 		3AEF05DF1C8D0788001238E7 /* FileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		773D25831C9F3123009814A0 /* NibDesignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibDesignable.swift; sourceTree = "<group>"; };

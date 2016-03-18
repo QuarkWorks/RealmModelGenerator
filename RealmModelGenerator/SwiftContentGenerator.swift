@@ -17,8 +17,9 @@ class SwiftContentGenerator: BaseContentGenerator {
     init(entity: Entity) {
         self.entity = entity
     }
-
+    
     func getContent() -> Array<String> {
+        
         if isValidEntity(entity) {
             content += getHeaderComments(entity, fileExtension: "swift")
             
@@ -52,35 +53,35 @@ class SwiftContentGenerator: BaseContentGenerator {
                 } else {
                     attrDefination += "\tdynamic var " + attr.name + attr.type.name(Language.Swift, isRequired: true) + " = "
                     switch attr.type {
-                        case .Bool:
-                            attrDefination += "false"
-                            break
-                        case .Int:
-                            attrDefination += "0"
-                            break
-                        case .Short:
-                            attrDefination += "0"
-                            break
-                        case .Long:
-                            attrDefination += "0"
-                            break
-                        case .Float:
-                            attrDefination += "0.0"
-                            break
-                        case .Double:
-                            attrDefination += "0.0"
-                            break
-                        case .String:
-                            attrDefination += "\"\""
-                            break
-                        case .Blob:
-                            attrDefination += "NSData()"
-                            break
-                        case .Date:
-                            attrDefination += "NSDate()"
-                        default:
-                            //TODO: throw error
-                            break
+                    case .Bool:
+                        attrDefination += "false"
+                        break
+                    case .Int:
+                        attrDefination += "0"
+                        break
+                    case .Short:
+                        attrDefination += "0"
+                        break
+                    case .Long:
+                        attrDefination += "0"
+                        break
+                    case .Float:
+                        attrDefination += "0.0"
+                        break
+                    case .Double:
+                        attrDefination += "0.0"
+                        break
+                    case .String:
+                        attrDefination += "\"\""
+                        break
+                    case .Blob:
+                        attrDefination += "NSData()"
+                        break
+                    case .Date:
+                        attrDefination += "NSDate()"
+                    default:
+                        //TODO: throw error
+                        break
                     }
                 }
             } else if (attr.type == .Bool || attr.type == .Int || attr.type == .Short || attr.type == .Long || attr.type == .Float || attr.type == .Double){
@@ -161,3 +162,5 @@ class SwiftContentGenerator: BaseContentGenerator {
         content += "\t}\n\n"
     }
 }
+Status API Training Shop Blog About
+    © 2016 GitHub, Inc. Terms Privacy Security Contact Help
