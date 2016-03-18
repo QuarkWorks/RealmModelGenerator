@@ -57,4 +57,8 @@ class Attribute {
     func removeIndexed() {
         try! self.setIndexed(false)
     }
+    
+    func removeFromEntity() {
+        self.entity.removeAttribute(self)
+    }
 }

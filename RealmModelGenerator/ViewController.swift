@@ -14,19 +14,19 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let model = Model(version: "1")
-        let user = model.createEntity({ (entity) -> Void in
-            try! entity.setName("User")
-            let pk = entity.createAttribute({ (attribute) -> Void in
-                try! attribute.setName("id")
+        let user = try! model.createEntity({ (entity) throws -> Void in
+            try entity.setName("User")
+            let pk = try entity.createAttribute({ (attribute) throws -> Void in
+                try attribute.setName("id")
                 attribute.type = AttributeType.String
             })
-            try! entity.setPrimaryKey(pk)
+            try entity.setPrimaryKey(pk)
             
-            entity.createAttribute({ (attribute) -> Void in
-                try! attribute.setName("phone")
+            try entity.createAttribute({ (attribute) throws  -> Void in
+                try attribute.setName("phone")
                 attribute.type = AttributeType.String
                 attribute.isRequired = true
-                try! attribute.setIndexed(true)
+                try attribute.setIndexed(true)
             })
         })
         

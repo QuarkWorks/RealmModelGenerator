@@ -27,7 +27,11 @@ class Model {
         self.version = version
     }
     
-    func createEntity(build:(Entity)->Void = {_ in}) -> Entity  {
+    func createEntity() -> Entity {
+        return createEntity({_ in})
+    }
+    
+    func createEntity(@noescape build:(Entity) throws -> Void) rethrows -> Entity  {
         var name = "Entity"
         var count = 0;
         while entities.contains({$0.name == name}) {
@@ -36,8 +40,8 @@ class Model {
         }
         
         let entity = Entity(name:name, model:self)
+        try build(entity) //the entity is added to self.entities after it build successfully
         entities.append(entity)
-        build(entity)
         return entity
     }
     
@@ -50,5 +54,4 @@ class Model {
     func setVersion(version:String) throws {
         self.version = version;
     }
-    
 }

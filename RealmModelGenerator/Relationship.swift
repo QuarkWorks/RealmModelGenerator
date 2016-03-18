@@ -30,5 +30,9 @@ class Relationship {
             throw NSError(domain: Relationship.TAG, code: 0, userInfo: nil)
         }
         self.name = name
-    }    
+    }
+    
+    func removeFromEntity() {
+        self.entity.removeRelationship(self)
+    }
 }

@@ -45,7 +45,11 @@ class Entity {
         self.model = model
     }
     
-    func createAttribute(build:(Attribute)->Void = {_ in}) -> Attribute {
+    func createAttribute() -> Attribute {
+        return createAttribute({_ in})
+    }
+    
+    func createAttribute(@noescape build:(Attribute) throws -> Void) rethrows -> Attribute {
         var name = "Attribute"
         var count = 0
         while attributes.contains({$0.name == name}) {
@@ -54,8 +58,8 @@ class Entity {
         }
         
         let attribute = Attribute(name:name, entity:self)
+        try build(attribute) //the attribute is added to self.attributes after it build successfully
         attributes.append(attribute)
-        build(attribute)
         return attribute;
     }
     
@@ -88,7 +92,11 @@ class Entity {
         }
     }
     
-    func createRelationship(build:(Relationship)->Void = {_ in}) -> Relationship {
+    func createRelationship() -> Relationship {
+        return createRelationship({_ in})
+    }
+    
+    func createRelationship(@noescape build:(Relationship) throws -> Void) rethrows -> Relationship {
         var name = "Relationship"
         var count = 0
         
@@ -99,7 +107,7 @@ class Entity {
         
         let relationship = Relationship(name: name, entity: self)
         relationships.append(relationship)
-        build(relationship)
+        try build(relationship) //the relationship is added to selfrelationships after it build successfully
         return relationship
     }
     
@@ -107,5 +115,9 @@ class Entity {
         if let index = relationships.indexOf({$0 === relationship}) {
             relationships.removeAtIndex(index)
         }
+    }
+    
+    func removeFromModel() {
+        self.model.removeEntity(self)
     }
 }
