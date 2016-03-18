@@ -117,7 +117,7 @@
                                         <menuItem title="Generate Model Example" id="9PZ-Fi-dwC">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="generateModelExample:" target="Ady-hI-5gd" id="kw1-Fo-C5y"/>
+                                                <action selector="generateModelExample:" target="Ady-hI-5gd" id="XHD-UN-qoK"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">

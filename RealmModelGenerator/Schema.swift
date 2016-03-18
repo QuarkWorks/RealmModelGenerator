@@ -13,7 +13,7 @@ class Schema {
     
     var name:String
     private(set) var models:[Model] = []
-
+    
     init(name:String = "") {
         self.name = name
     }

@@ -29,6 +29,7 @@ class RealmSchemaDocument: NSDocument {
     }
     
     override func makeWindowControllers() {
+        
         // Returns the Storyboard that contains your Document window.
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         let windowController = storyboard.instantiateControllerWithIdentifier("Document Window Controller") as! NSWindowController
@@ -68,7 +69,7 @@ class RealmSchemaDocument: NSDocument {
         // Insert code here to read your document from the given data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning false.
         // You can also choose to override readFromFileWrapper:ofType:error: or readFromURL:ofType:error: instead.
         // If you override either of these, you should also override -isEntireFileLoaded to return false if the contents are lazily loaded.
-
+        
         do {
             try parseSchemaJson(data)
         } catch GeneratorError.InvalidFileContent(let errorMsg) {

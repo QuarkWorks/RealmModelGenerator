@@ -10,21 +10,21 @@ import Cocoa
 
 class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     static let TAG = NSStringFromClass(ViewController)
-
+    
     var schema: Schema = Schema()
     
-    //MARK: - NSTableViewDataSource
-    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        return 1000
-    }
+    //    //MARK: - NSTableViewDataSource
+    //    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+    //        return 1000
+    //    }
+    //
+    //    //MARK: - NSTableViewDelegate
+    //    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    //        let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
+    //        cell.title = "\(row)"
+    //        return cell
+    //    }
     
-    //MARK: - NSTableViewDelegate
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
-        cell.title = "\(row)"
-        return cell
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -32,19 +32,19 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     
     override var representedObject: AnyObject? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
         }
     }
     
     func generateFileContent(entity:Entity, language:Language) -> [String] {
         
         switch language {
-            case .Swift:
-                return SwiftContentGenerator(entity: entity).getContent()
-            case .Objc:
-                return ObjectCContentGenerator(entity: entity).getContent()
-            case .Java:
-                return JavaContentGenerator(entity: entity).getContent()
+        case .Swift:
+            return SwiftContentGenerator(entity: entity).getContent()
+        case .Objc:
+            return ObjectCContentGenerator(entity: entity).getContent()
+        case .Java:
+            return JavaContentGenerator(entity: entity).getContent()
         }
     }
     
@@ -95,20 +95,20 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
             let content = generateFileContent(entity, language: language)
             if !content.first!.isEmpty {
                 switch language {
-                    case .Java:
-                        let file = FileModel(name: entity.name, content: content.first!, fileExtension: "java");
-                        files.append(file)
-                        break
-                    case .Swift:
-                        let file = FileModel(name: entity.name, content: content.first!, fileExtension: "swift");
-                        files.append(file)
-                        break;
-                    case .Objc:
-                        let hFile = FileModel(name: entity.name, content: content.first!, fileExtension: "h");
-                        let mFile = FileModel(name: entity.name, content: content.last!, fileExtension: "m");
-                        files.append(hFile)
-                        files.append(mFile)
-                        break
+                case .Java:
+                    let file = FileModel(name: entity.name, content: content.first!, fileExtension: "java");
+                    files.append(file)
+                    break
+                case .Swift:
+                    let file = FileModel(name: entity.name, content: content.first!, fileExtension: "swift");
+                    files.append(file)
+                    break;
+                case .Objc:
+                    let hFile = FileModel(name: entity.name, content: content.first!, fileExtension: "h");
+                    let mFile = FileModel(name: entity.name, content: content.last!, fileExtension: "m");
+                    files.append(hFile)
+                    files.append(mFile)
+                    break
                 }
             } else {
                 validEnties = false
