@@ -13,6 +13,7 @@ class Model {
     
     let schema:Schema
     private(set) var version:String
+    var canBeModified:Bool = true
     private(set) var entities:[Entity] = []
     var entitiesByName:[String:Entity] {
         get {
@@ -57,10 +58,7 @@ class Model {
         self.version = version;
     }
     
-    func toDictionary() -> [String:AnyObject] {
-        return [
-            Model.VERSION:self.version,
-            Model.ENTITIES:self.entities.map({$0.toDictionary()})
-        ]
+    func append(entities:[Entity]) {
+        self.entities = entities
     }
 }

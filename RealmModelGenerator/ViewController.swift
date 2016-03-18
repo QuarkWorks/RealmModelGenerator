@@ -33,7 +33,6 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
         }
     }
     
-    //ZHAO, Make new swift files. seperate it out :) do ya thing
     func generateFile(entity:Entity, language:Language) -> String {
         
         switch language {
@@ -42,17 +41,36 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
         case .Objc:
             return language.rawValue
         case .Java:
-            var hContent: String
-            var mContent: String
-            (hContent, mContent) = ObjectCContentGenerator(entity: entity).getContent()
-            print(mContent)
-            return hContent
+            return language.rawValue
+//            var hContent: String
+//            var mContent: String
+//            (hContent, mContent) = ObjectCContentGenerator(entity: entity).getContent()
+//            print(mContent)
+//            return hContent
 //            return SwiftContentGenerator(entity: entity).getContent()
         }
     }
     
     //Called from menu bar
-    func exportToJava(sender: AnyObject!)
+    //TODO: remove after adding ui to generate model
+    @IBAction func generateModelExample(sender: AnyObject!) {
+//        Tools.generateModelExample(schema)
+//        if let currentModel = schema.getCurrentModel() {
+//            print(TAG + " version after generateSchemaExample = \(currentModel.version)")
+//        }
+    }
+    
+    //Called from menu bar
+    //TODO: refactor this part, show version choice
+    @IBAction func increaseVersion(sender: AnyObject!) {
+//        schema.increaseVersion()
+//        if let currentModel = schema.getCurrentModel() {
+//            print(TAG + " version after createNewVersionModel = \(currentModel.version)")
+//        }
+    }
+    
+    //Called from menu bar
+    @IBAction func exportToJava(sender: AnyObject!)
     {
         print("export to java")
         let file = FileModel(name: "TestJava", content: "I'm java content", fileExtension: "java");
@@ -60,7 +78,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     }
     
     //Called from menu bar
-    func exportToObjectC(sender: AnyObject!)
+    @IBAction func exportToObjectC(sender: AnyObject!)
     {
         print("export to object c")
         let file = FileModel(name: "TestObjectC", content: "I'm object c content", fileExtension: ".m");
@@ -68,7 +86,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     }
     
     //Called from menu bar
-    func exportToSwift(sender: AnyObject!)
+    @IBAction func exportToSwift(sender: AnyObject!)
     {
         print("export to swift")
         let file = FileModel(name: "TestSwift", content: "I'm swift content", fileExtension: "swift");

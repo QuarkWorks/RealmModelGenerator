@@ -120,48 +120,4 @@ class Entity {
     func removeFromModel() {
         self.model.removeEntity(self)
     }
-    
-    init(dictionary:[String:AnyObject], model:Model) throws {
-        self.name = ""
-        self.model = model
-        
-        guard let name = dictionary["name"] as? String else {
-            throw NSError(domain:Attribute.TAG, code: 0, userInfo: nil)
-        }
-        
-        try self.setName(name)
-        
-        if let isBaseClass = dictionary["isBaseClass"] as? Bool {
-            self.isBaseClass = isBaseClass
-        }
-        
-        guard let attributes = dictionary["attributes"] as? [[String:AnyObject]] else {
-            throw NSError(domain:Attribute.TAG, code: 0, userInfo: nil)
-        }
-        
-        let primaryKey = dictionary["primaryKey"] as? String
-        for attributeDict in attributes {
-            let attribute = try Attribute(dictionary: attributeDict, entity: self)
-            self.attributes.append(attribute)
-            if primaryKey != nil && attribute.name == primaryKey {
-                self.primaryKey = attribute
-            }
-        }
-    }
-    
-    func setRelationships(dictionary:[String:AnyObject]) throws {
-        guard let superEntityName = dictionary["superEntity"] as? String,
-            let superEntity = self.model.entitiesByName[superEntityName] else {
-            throw NSError(domain: Entity.TAG, code: 0, userInfo: nil)
-        }
-        
-        self.superEntity = superEntity;
-        
-        if let relationships = dictionary["relationships"] as? [[String:AnyObject]] {
-            for relationshipDict in relationships {
-                let relationship = try Relationship(dictionary: relationshipDict, entity: self)
-                self.relationships.append(relationship)
-            }
-        }
-    }
 }

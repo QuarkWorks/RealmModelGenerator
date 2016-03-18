@@ -39,11 +39,13 @@ extension Schema {
 
 extension Model {
     static let VERSION = "version"
+    static let CAN_BE_MODIFIED = "canBeModified"
     static let ENTITIES = "entities"
     
     func toDictionary() -> [String:AnyObject] {
         return [
             Model.VERSION:self.version,
+            Model.CAN_BE_MODIFIED:self.canBeModified,
             Model.ENTITIES:self.entities.map({$0.toDictionary()})
         ]
     }

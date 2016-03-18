@@ -9,9 +9,10 @@
 import Cocoa
 
 class RealmSchemaDocument: NSDocument {
+    let TAG = String(RealmSchemaDocument)
     
     var vc: ViewController!
-    var models = [Model]()
+    var schema = Schema()
     
     override init() {
         super.init()
@@ -28,13 +29,19 @@ class RealmSchemaDocument: NSDocument {
     }
     
     override func makeWindowControllers() {
+        
         // Returns the Storyboard that contains your Document window.
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         let windowController = storyboard.instantiateControllerWithIdentifier("Document Window Controller") as! NSWindowController
         
         if let v = windowController.contentViewController as? ViewController {
             vc = v
-            vc.models = models
+            
+            if schema.models.count == 0 {
+                schema.createModel()
+            }
+            
+            vc.schema = schema
         }
         
         self.addWindowController(windowController)
@@ -43,14 +50,12 @@ class RealmSchemaDocument: NSDocument {
     override func dataOfType(typeName: String) throws -> NSData {
         // Insert code here to write your document to data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning nil.
         // You can also choose to override fileWrapperOfType:error:, writeToURL:ofType:error:, or writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
+        
         var arrayOfDictionaries = [NSDictionary]()
         
-        for modelObject in vc.models {
-            let model = modelObject as Model
-
-            arrayOfDictionaries.append(model.toDictionary())
-            arrayOfDictionaries.append(model.toDictionary())
-        }
+        let schemaDict = vc.schema.toDictionary()
+        arrayOfDictionaries.append(schemaDict)
+        
     
         let data: NSData? = try NSJSONSerialization.dataWithJSONObject(arrayOfDictionaries, options: [])
         
@@ -68,19 +73,22 @@ class RealmSchemaDocument: NSDocument {
         
         if let arrayOfDictionaries = try! NSJSONSerialization.JSONObjectWithData(data, options: []) as? [NSDictionary]{
             
-            for dictionary: NSDictionary in arrayOfDictionaries{
+            let dictionary: NSDictionary = arrayOfDictionaries.first!
+            schema = Schema(name: dictionary[Schema.SCHEMA] as! String)
+            let models = dictionary[Schema.MODELS] as? [NSDictionary]
             
-                let model = Model(version: dictionary[Model.VERSION] as! String)
-                let entities = dictionary[Model.ENTITIES] as? [NSDictionary]
+            for modelDict in models! {
+                
+                let model = Model(version: modelDict[Model.VERSION] as! String)
+                let entities = modelDict[Model.ENTITIES] as? [NSDictionary]
                 for entityDict in entities! {
                     let entityObject = entityDict as! [String:AnyObject]
-                    _ = try Entity.init(dictionary: entityObject, model: model)
+                    _ = try! Entity.init(dictionary: entityObject, model: model)
                 }
- 
-                models.append(model)
+
+                model.canBeModified = modelDict[Model.CAN_BE_MODIFIED] as! Bool
+                schema.appendModel(model)
             }
-            
-            print(models.count)
             
             return
         }

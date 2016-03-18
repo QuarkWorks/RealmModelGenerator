@@ -14,6 +14,7 @@ class Schema {
     var name:String
     private(set) var models:[Model] = []
     
+
     init(name:String = "") {
         self.name = name
     }
@@ -29,7 +30,48 @@ class Schema {
         }
         let model = Model(version: "\(version)", schema:self)
         try build(model)
-        models.append(model)
-        return model
+    }
+
+    
+//    func createModel(build:(Model)->Void = {_ in}) -> Model {
+//        let model = Model(version: "\(models.count+1)")
+//        
+//        if let currentModel = getCurrentModel() {
+//            currentModel.canBeModified = false
+//        }
+//
+//        return model
+//    }
+    
+    func increaseVersion() -> Model {
+        if let currentModel = getCurrentModel() {
+            let currentModelDict = currentModel.toDictionary()
+            
+            let model = createModel()
+            let entities = currentModelDict[Model.ENTITIES] as? [NSDictionary]
+            for entityDict in entities! {
+                let entityObject = entityDict as! [String:AnyObject]
+//                _ = try! Entity.init(dictionary: entityObject, model: model)
+            }
+            
+            currentModel.canBeModified = false
+            return model
+        } else {
+            return createModel()
+        }
+    }
+    
+    func appendModel(model: Model) {
+        self.models.append(model)
+    }
+    
+    func getCurrentModel() -> Model? {
+        for model in models {
+            if model.canBeModified {
+                return model
+            }
+        }
+        
+        return nil
     }
 }
