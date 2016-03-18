@@ -8,17 +8,14 @@
 
 import Foundation
 
-
 class Model {
     static let TAG = NSStringFromClass(Model)
-    static let VERSION = "version"
-    static let ENTITIES = "entities"
     
     private(set) var version:String
-    private(set) var entities:Array<Entity> = []
-    var entitiesByName:Dictionary<String, Entity> {
+    private(set) var entities:[Entity] = []
+    var entitiesByName:[String:Entity] {
         get {
-            var entitiesByName = Dictionary<String, Entity>(minimumCapacity:self.entities.count)
+            var entitiesByName = [String:Entity](minimumCapacity:self.entities.count)
             for entity in self.entities {
                 entitiesByName[entity.name] = entity
             }
@@ -26,7 +23,7 @@ class Model {
         }
     }
     
-    init(version:String) {
+    internal init(version:String) {
         self.version = version
     }
     
@@ -50,25 +47,8 @@ class Model {
         }
     }
     
-    func fromDictionary(dictionary:[String:Any]) throws {
-        guard let version = dictionary[Model.VERSION] as? String else {
-            throw NSError(domain: Model.TAG, code: 0, userInfo: nil)
-        }
+    func setVersion(version:String) throws {
         self.version = version;
-        
-        guard let entityDictionaryArray = dictionary[Model.ENTITIES] as? [[String:Any]] else {
-            throw NSError(domain: Model.TAG, code: 0, userInfo: nil)
-        }
-        
-        for entityDictionary in entityDictionaryArray {
-            try entities.append(Entity(dictionary: entityDictionary, model: self))
-        }
     }
     
-    func toDictionary() -> [String:Any] {
-        return [
-            Model.VERSION:self.version,
-            Model.ENTITIES:self.entities.map({$0.toDictionary()})
-        ]
-    }
 }

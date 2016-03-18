@@ -25,6 +25,7 @@
 		7798B1051C87E7CE00A7F965 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B1041C87E7CE00A7F965 /* Attribute.swift */; };
 		7798B1071C87E8FD00A7F965 /* AttributeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B1061C87E8FD00A7F965 /* AttributeType.swift */; };
 		7798B1091C87FBE800A7F965 /* Relationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B1081C87FBE800A7F965 /* Relationship.swift */; };
+		77A49E311C9C8BFE0047873C /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A49E301C9C8BFE0047873C /* IO.swift */; };
 		77A5521D1C88F02000658EAF /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A5521C1C88F02000658EAF /* Schema.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		7798B1041C87E7CE00A7F965 /* Attribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
 		7798B1061C87E8FD00A7F965 /* AttributeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeType.swift; sourceTree = "<group>"; };
 		7798B1081C87FBE800A7F965 /* Relationship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Relationship.swift; sourceTree = "<group>"; };
+		77A49E301C9C8BFE0047873C /* IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
 		77A5521C1C88F02000658EAF /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,6 +175,7 @@
 				7798B1041C87E7CE00A7F965 /* Attribute.swift */,
 				7798B1061C87E8FD00A7F965 /* AttributeType.swift */,
 				7798B1081C87FBE800A7F965 /* Relationship.swift */,
+				77A49E301C9C8BFE0047873C /* IO.swift */,
 			);
 			name = Schema;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				7798B1091C87FBE800A7F965 /* Relationship.swift in Sources */,
 				7798B1031C87CDA600A7F965 /* Entity.swift in Sources */,
 				7798B1011C87C63B00A7F965 /* Model.swift in Sources */,
+				77A49E311C9C8BFE0047873C /* IO.swift in Sources */,
 				3A76FF121C8E0AD00036362D /* SwiftContentGenerator.swift in Sources */,
 				7798B0D71C87C32900A7F965 /* ViewController.swift in Sources */,
 				3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */,
