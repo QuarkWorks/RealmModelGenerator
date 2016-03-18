@@ -18,18 +18,21 @@ class SwiftContentGenerator: BaseContentGenerator {
         self.entity = entity
     }
     
-    func getContent() -> String {
-        content += getHeaderComments(entity, fileExtension: "swift")
+    func getContent() -> Array<String> {
         
-        content += "import RealmSwift\n\n"
-        content += "class " + entity.name + ": Object {\n"
-        content += "\tstatic let TAG = NSStringFromClass(" + entity.name + ");\n\n"
+        if isValidEntity(entity) {
+            content += getHeaderComments(entity, fileExtension: "swift")
+            
+            content += "import RealmSwift\n\n"
+            content += "class " + entity.name + ": Object {\n"
+            content += "\tstatic let TAG = NSStringFromClass(" + entity.name + ");\n\n"
+            
+            appendAttributes()
+            
+            content += "}"
+        }
         
-        appendAttributes()
-        
-        content += "}"
-        
-        return content
+        return [content]
     }
     
     //MARK: Append attributes and relicationships

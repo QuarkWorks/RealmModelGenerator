@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A2A626D1C9C6C12000EA9F6 /* GeneratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2A626C1C9C6C12000EA9F6 /* GeneratorError.swift */; };
 		3A76FF121C8E0AD00036362D /* SwiftContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */; };
 		3A7E774F1C97744400408325 /* BaseContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E774E1C97744400408325 /* BaseContentGenerator.swift */; };
 		3AAF1BDC1C91F06A0096C31D /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF1BDB1C91F06A0096C31D /* Tools.swift */; };
 		3AAF1BDE1C91F3D70096C31D /* ObjectCContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF1BDD1C91F3D70096C31D /* ObjectCContentGenerator.swift */; };
+		3ABD35E01C975E2D00A5C883 /* RealmSchemaDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */; };
 		3AD908B51C99E16100346527 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD908B41C99E16100346527 /* Language.swift */; };
 		3AD908B71C9A331500346527 /* AttributeTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD908B61C9A331500346527 /* AttributeTypeExtension.swift */; };
-		3ABD35E01C975E2D00A5C883 /* RealmSchemaDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */; };
 		3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */; };
 		3AEF05E01C8D0788001238E7 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEF05DF1C8D0788001238E7 /* FileModel.swift */; };
 		773D25861C9F3123009814A0 /* NibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773D25831C9F3123009814A0 /* NibDesignable.swift */; };
@@ -55,13 +56,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A2A626C1C9C6C12000EA9F6 /* GeneratorError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorError.swift; sourceTree = "<group>"; };
 		3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftContentGenerator.swift; sourceTree = "<group>"; };
 		3A7E774E1C97744400408325 /* BaseContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseContentGenerator.swift; sourceTree = "<group>"; };
 		3AAF1BDB1C91F06A0096C31D /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		3AAF1BDD1C91F3D70096C31D /* ObjectCContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectCContentGenerator.swift; sourceTree = "<group>"; };
+		3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmSchemaDocument.swift; sourceTree = "<group>"; };
 		3AD908B41C99E16100346527 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		3AD908B61C9A331500346527 /* AttributeTypeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeTypeExtension.swift; sourceTree = "<group>"; };
-		3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmSchemaDocument.swift; sourceTree = "<group>"; };
 		3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaContentGenerator.swift; sourceTree = "<group>"; };
 		3AEF05DF1C8D0788001238E7 /* FileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		773D25831C9F3123009814A0 /* NibDesignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibDesignable.swift; sourceTree = "<group>"; };
@@ -116,12 +118,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3AEF05DE1C8D076B001238E7 /* File */ = {
+		3A2A626B1C9C6BCE000EA9F6 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				3AAF1BDB1C91F06A0096C31D /* Tools.swift */,
+				3A2A626C1C9C6C12000EA9F6 /* GeneratorError.swift */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
+		3AEF05DE1C8D076B001238E7 /* Generator */ = {
+			isa = PBXGroup;
+			children = (
+				3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */,
+				3A7E774E1C97744400408325 /* BaseContentGenerator.swift */,
+				3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */,
+				3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */,
+				3AAF1BDD1C91F3D70096C31D /* ObjectCContentGenerator.swift */,
+				3AD908B41C99E16100346527 /* Language.swift */,
+				3AD908B61C9A331500346527 /* AttributeTypeExtension.swift */,
 				3AEF05DF1C8D0788001238E7 /* FileModel.swift */,
 			);
-			name = File;
+			name = Generator;
 			sourceTree = "<group>";
 		};
 		773D25821C9F310E009814A0 /* Views */ = {
@@ -162,22 +180,14 @@
 			children = (
 				773D25821C9F310E009814A0 /* Views */,
 				3AEF05DE1C8D076B001238E7 /* File */,
+				3AEF05DE1C8D076B001238E7 /* Generator */,
 				7798B0FF1C87C60B00A7F965 /* Schema */,
+				3A2A626B1C9C6BCE000EA9F6 /* Tools */,
 				7798B0D41C87C32900A7F965 /* AppDelegate.swift */,
 				7798B0D61C87C32900A7F965 /* ViewController.swift */,
 				7798B0D81C87C32900A7F965 /* Assets.xcassets */,
 				7798B0DA1C87C32900A7F965 /* Main.storyboard */,
 				7798B0DD1C87C32900A7F965 /* Info.plist */,
-				3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */,
-				3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */,
-				3AAF1BDB1C91F06A0096C31D /* Tools.swift */,
-				3AAF1BDD1C91F3D70096C31D /* ObjectCContentGenerator.swift */,
-				3AD908B41C99E16100346527 /* Language.swift */,
-				3AD908B61C9A331500346527 /* AttributeTypeExtension.swift */,
-				3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */,
-				3A7E774E1C97744400408325 /* BaseContentGenerator.swift */,
-				3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */,
-				3A7E774E1C97744400408325 /* BaseContentGenerator.swift */,
 			);
 			path = RealmModelGenerator;
 			sourceTree = "<group>";
@@ -363,6 +373,7 @@
 				773D25871C9F3123009814A0 /* TitleCell.swift in Sources */,
 				77D827811C9FA9E100E22CEE /* ViewTools.swift in Sources */,
 				77A49E311C9C8BFE0047873C /* IO.swift in Sources */,
+				3A2A626D1C9C6C12000EA9F6 /* GeneratorError.swift in Sources */,
 				3A76FF121C8E0AD00036362D /* SwiftContentGenerator.swift in Sources */,
 				7798B0D71C87C32900A7F965 /* ViewController.swift in Sources */,
 				3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */,

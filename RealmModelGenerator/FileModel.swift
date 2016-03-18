@@ -13,8 +13,7 @@ class FileModel {
     var content: String
     var fileExtension: String
     
-    init(name: String, content: String, fileExtension: String)
-    {
+    init(name: String, content: String, fileExtension: String) {
         self.name = name
         self.content = content
         self.fileExtension = fileExtension

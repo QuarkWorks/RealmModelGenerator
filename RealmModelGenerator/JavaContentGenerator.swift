@@ -18,13 +18,16 @@ class JavaContentGenerator: BaseContentGenerator {
         self.entity = entity
     }
     
-    func getContent() -> String {
-        appendHeader()
-        appendRealmKeys()
-        appendAttributes()
-        appendGettersAndSetters()
+    func getContent() -> Array<String> {
         
-        return content
+        if isValidEntity(entity) {
+            appendHeader()
+            appendRealmKeys()
+            appendAttributes()
+            appendGettersAndSetters()
+        }
+        
+        return [content]
     }
     
     //MARK: Append header

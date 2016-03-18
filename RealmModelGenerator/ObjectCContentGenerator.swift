@@ -20,22 +20,25 @@ class ObjectCContentGenerator: BaseContentGenerator {
         self.entity = entity
     }
     
-    func getContent() -> (hContent: String, mContent: String) {
-        hContent += getHeaderComments(entity, fileExtension: "h")
+    func getContent() -> Array<String> {
         
-        hContent += "#import <Realm/Realm.h>\n\n"
-        hContent += "@interface " + entity.name + " : " + "RLMObject\n\n"
+        if isValidEntity(entity) {
+            hContent += getHeaderComments(entity, fileExtension: "h")
+            
+            hContent += "#import <Realm/Realm.h>\n\n"
+            hContent += "@interface " + entity.name + " : " + "RLMObject\n\n"
+            
+            mContent += getHeaderComments(entity, fileExtension: "m")
+            mContent += "#import \"" + entity.name + ".h\"\n\n"
+            mContent += "@implementation " + entity.name + "\n\n"
+            
+            appendAttributes()
+            hContent += "@end\n"
+            hContent += "RLM_ARRAY_TYPE(" + entity.name + ")"
+            mContent += "@end\n"
+        }
         
-        mContent += getHeaderComments(entity, fileExtension: "m")
-        mContent += "#import \"" + entity.name + ".h\"\n\n"
-        mContent += "@implementation " + entity.name + "\n\n"
-        
-        appendAttributes()
-        hContent += "@end\n"
-        hContent += "RLM_ARRAY_TYPE(" + entity.name + ")"
-        mContent += "@end\n"
-        
-        return (hContent, mContent)
+        return [hContent, mContent]
     }
     
     //MARK: Append attributes and relicationships

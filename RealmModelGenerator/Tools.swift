@@ -24,7 +24,7 @@ class Tools {
             
             entity.createAttribute({ (attribute) -> Void in
                 try! attribute.setName("phone")
-                attribute.type = AttributeType.String
+                attribute.type = .String
                 attribute.isRequired = true
                 try! attribute.setIndexed(true)
             })

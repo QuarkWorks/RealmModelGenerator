@@ -33,21 +33,15 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
         }
     }
     
-    func generateFile(entity:Entity, language:Language) -> String {
+    func generateFileContent(entity:Entity, language:Language) -> Array<String> {
         
         switch language {
-        case .Swift:
-            return language.rawValue
-        case .Objc:
-            return language.rawValue
-        case .Java:
-            return language.rawValue
-//            var hContent: String
-//            var mContent: String
-//            (hContent, mContent) = ObjectCContentGenerator(entity: entity).getContent()
-//            print(mContent)
-//            return hContent
-//            return SwiftContentGenerator(entity: entity).getContent()
+            case .Swift:
+                return SwiftContentGenerator(entity: entity).getContent()
+            case .Objc:
+                return ObjectCContentGenerator(entity: entity).getContent()
+            case .Java:
+                return JavaContentGenerator(entity: entity).getContent()
         }
     }
     
@@ -61,7 +55,6 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     }
     
     //Called from menu bar
-    //TODO: refactor this part, show version choice
     @IBAction func increaseVersion(sender: AnyObject!) {
 //        schema.increaseVersion()
 //        if let currentModel = schema.getCurrentModel() {
@@ -70,31 +63,57 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     }
     
     //Called from menu bar
-    @IBAction func exportToJava(sender: AnyObject!)
-    {
-        print("export to java")
-        let file = FileModel(name: "TestJava", content: "I'm java content", fileExtension: "java");
-        choosePathAndSaveFile(file)
+    @IBAction func exportToJava(sender: AnyObject!) {
+        generateFileModels(.Java)
     }
     
     //Called from menu bar
-    @IBAction func exportToObjectC(sender: AnyObject!)
-    {
-        print("export to object c")
-        let file = FileModel(name: "TestObjectC", content: "I'm object c content", fileExtension: ".m");
-        choosePathAndSaveFile(file)
+    @IBAction func exportToObjectC(sender: AnyObject!) {
+        generateFileModels(.Objc)
     }
     
     //Called from menu bar
-    @IBAction func exportToSwift(sender: AnyObject!)
-    {
-        print("export to swift")
-        let file = FileModel(name: "TestSwift", content: "I'm swift content", fileExtension: "swift");
-        choosePathAndSaveFile(file)
+    @IBAction func exportToSwift(sender: AnyObject!) {
+        generateFileModels(.Swift)
     }
     
-    //MARK: show a panel to choose path and save file
-    func choosePathAndSaveFile(file: FileModel)
+    //MARK: generate FileModels
+    func generateFileModels(language: Language) {
+        var files: [FileModel] = []
+        var validEnties = true
+        for entity in schema.getCurrentModel()!.entities {
+            let content = generateFileContent(entity, language: language)
+            if !content.first!.isEmpty {
+                switch language {
+                    case .Java:
+                        let file = FileModel(name: entity.name, content: content.first!, fileExtension: "java");
+                        files.append(file)
+                        break
+                    case .Swift:
+                        let file = FileModel(name: entity.name, content: content.first!, fileExtension: "swift");
+                        files.append(file)
+                        break;
+                    case .Objc:
+                        let hFile = FileModel(name: entity.name, content: content.first!, fileExtension: "h");
+                        let mFile = FileModel(name: entity.name, content: content.last!, fileExtension: "m");
+                        files.append(hFile)
+                        files.append(mFile)
+                        break
+                }
+            } else {
+                validEnties = false
+            }
+        }
+        
+        if files.count > 0 && validEnties {
+            choosePathAndSaveFile(files)
+        } else {
+            print("There's no entity.")
+        }
+    }
+    
+    //MARK: show a panel to choose path and save files
+    func choosePathAndSaveFile(files: [FileModel])
     {
         let openPanel = NSOpenPanel()
         openPanel.allowsOtherFileTypes = false
@@ -105,31 +124,33 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
         openPanel.prompt = "Choose"
         openPanel.beginSheetModalForWindow(view.window!, completionHandler: { (button : Int) -> Void in
             if button == NSFileHandlingPanelOKButton{
-                self.saveFile(file, toPath:openPanel.URL!.path!)
+                self.saveFile(files, toPath:openPanel.URL!.path!)
             }
         })
     }
     
-    //MARK: Save a file to a path
-    func saveFile(file: FileModel, toPath path: String)
+    //MARK: Save files to a path
+    func saveFile(files: [FileModel], toPath path: String)
     {
         var error : NSError?
-        let filePath = "\(path)/\(file.name).\(file.fileExtension)"
         
-        do {
-            try file.content.writeToFile(filePath, atomically: false, encoding: NSUTF8StringEncoding)
-        } catch let nSError as NSError {
-            error = nSError
-        }
-        
-        if error != nil{
-            NSAlert(error: error!).runModal()
+        for file in files {
+            let filePath = "\(path)/\(file.name).\(file.fileExtension)"
+            
+            do {
+                try file.content.writeToFile(filePath, atomically: false, encoding: NSUTF8StringEncoding)
+            } catch let nSError as NSError {
+                error = nSError
+            }
+            
+            if error != nil{
+                NSAlert(error: error!).runModal()
+            }
         }
         
         if error == nil{
-            print("Success")
             //TODO: show success notification
+            print("Success")
         }
     }
 }
-

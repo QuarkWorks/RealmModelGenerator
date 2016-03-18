@@ -10,6 +10,56 @@ import Foundation
 import AddressBook
 
 class BaseContentGenerator {
+    
+    // Check if an enity is valid or not, if not, print out error
+    // TODO: provide user with a popup with details of invalid entity
+    func isValidEntity(entity: Entity) -> Bool {
+        do {
+            return try validEntity(entity)
+        } catch GeneratorError.InvalidAttribteType(let attribute){
+            print("Entity \(entity.name) attribute \(attribute.name) has an unknown type.")
+            let alert = NSAlert()
+            alert.messageText = "Error"
+            alert.addButtonWithTitle("OK")
+            alert.informativeText = "Entity \(entity.name) attribute \(attribute.name) has an unknown type."
+            alert.runModal()
+
+        } catch GeneratorError.InvalidRelationshiDestination(let relationship) {
+            print("Entity \(entity.name) relationship \(relationship.name) has an unknown destination.")
+            let alert = NSAlert()
+            alert.messageText = "Error"
+            alert.addButtonWithTitle("OK")
+            alert.informativeText = "Entity \(entity.name) relationship \(relationship.name) has an unknown destination."
+            alert.runModal()
+        } catch {
+            print("Invalid entity \(entity.name)")
+            let alert = NSAlert()
+            alert.messageText = "Error"
+            alert.addButtonWithTitle("OK")
+            alert.informativeText = "Invalid entity \(entity.name)"
+            alert.runModal()
+        }
+        
+        return false
+    }
+    
+    func validEntity(entity: Entity) throws -> Bool {
+        // Check unknown attribute
+        for attribute in entity.attributes {
+            if attribute.type == AttributeType.Unknown {
+                throw GeneratorError.InvalidAttribteType(attribute: attribute)
+            }
+        }
+        
+        // Check unknown relationship desitnation
+        for relationship in entity.relationships {
+            guard let _: Entity = relationship.destination else {
+                throw GeneratorError.InvalidRelationshiDestination(relationship: relationship)
+            }
+        }
+        
+        return true
+    }
  
     func getHeaderComments(entity: Entity, fileExtension: String) -> String {
         var content = ""
@@ -44,17 +94,14 @@ class BaseContentGenerator {
     }
     
     // Returns the current year as String
-    func getYear() -> String
-    {
+    func getYear() -> String {
         return "\(NSCalendar.currentCalendar().component(.Year, fromDate: NSDate()))"
     }
     
     // Returns today date in the format dd/mm/yyyy
-    func getTodayFormattedDay() -> String
-    {
+    func getTodayFormattedDay() -> String {
         let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: NSDate())
         return "\(components.day)/\(components.month)/\(components.year)"
     }
 
-    
 }

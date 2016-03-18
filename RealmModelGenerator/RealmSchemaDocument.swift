@@ -9,7 +9,7 @@
 import Cocoa
 
 class RealmSchemaDocument: NSDocument {
-    let TAG = String(RealmSchemaDocument)
+    static let TAG = String(RealmSchemaDocument)
     
     var vc: ViewController!
     var schema = Schema()
@@ -55,7 +55,6 @@ class RealmSchemaDocument: NSDocument {
         
         let schemaDict = vc.schema.toDictionary()
         arrayOfDictionaries.append(schemaDict)
-        
     
         let data: NSData? = try NSJSONSerialization.dataWithJSONObject(arrayOfDictionaries, options: [])
         
@@ -71,28 +70,57 @@ class RealmSchemaDocument: NSDocument {
         // You can also choose to override readFromFileWrapper:ofType:error: or readFromURL:ofType:error: instead.
         // If you override either of these, you should also override -isEntireFileLoaded to return false if the contents are lazily loaded.
         
+        do {
+            try parseSchemaJson(data)
+        } catch GeneratorError.InvalidFileContent(let errorMsg) {
+            print("Invalid JSON format: \(errorMsg)")
+        }
+        
+        throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+    }
+    
+    func parseSchemaJson(data: NSData) throws {
         if let arrayOfDictionaries = try! NSJSONSerialization.JSONObjectWithData(data, options: []) as? [NSDictionary]{
             
-            let dictionary: NSDictionary = arrayOfDictionaries.first!
-            schema = Schema(name: dictionary[Schema.SCHEMA] as! String)
-            let models = dictionary[Schema.MODELS] as? [NSDictionary]
+            guard let dictionary = arrayOfDictionaries.first else {
+                throw GeneratorError.InvalidFileContent(errorMsg: RealmSchemaDocument.TAG + ": No schema in this file")
+            }
             
-            for modelDict in models! {
+            guard let schemaName = dictionary[Schema.SCHEMA] as? String else {
+                throw GeneratorError.InvalidFileContent(errorMsg: RealmSchemaDocument.TAG + ": Invalid schema name")
+            }
+            
+            schema = Schema(name: schemaName)
+            
+            guard let models = dictionary[Schema.MODELS] as? [NSDictionary] else {
+                throw GeneratorError.InvalidFileContent(errorMsg: RealmSchemaDocument.TAG + ": Invalid models")
+            }
+            
+            for modelDict in models {
                 
-                let model = Model(version: modelDict[Model.VERSION] as! String)
-                let entities = modelDict[Model.ENTITIES] as? [NSDictionary]
-                for entityDict in entities! {
-                    let entityObject = entityDict as! [String:AnyObject]
+                guard let version = modelDict[Model.VERSION] as? String else {
+                    throw GeneratorError.InvalidFileContent(errorMsg: RealmSchemaDocument.TAG + ": Invalid model version")
+                }
+                
+                let model = Model(version: version)
+                
+                guard let entities = modelDict[Model.ENTITIES] as? [NSDictionary] else {
+                    throw GeneratorError.InvalidFileContent(errorMsg: RealmSchemaDocument.TAG + ": Invalid entities")
+                }
+                
+                for entityDict in entities {
+                    guard let entityObject = entityDict as? [String:AnyObject] else {
+                        throw GeneratorError.InvalidFileContent(errorMsg: RealmSchemaDocument.TAG + ": Invalid entity JSON")
+                    }
+                    
                     _ = try! Entity.init(dictionary: entityObject, model: model)
                 }
-
+                
                 model.canBeModified = modelDict[Model.CAN_BE_MODIFIED] as! Bool
                 schema.appendModel(model)
             }
             
             return
         }
-        
-        throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
     }
 }
