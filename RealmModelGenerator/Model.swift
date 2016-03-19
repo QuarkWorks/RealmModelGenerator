@@ -13,7 +13,7 @@ class Model {
     
     let schema:Schema
     private(set) var version:String
-    var canBeModified:Bool = true
+    private(set) var canBeModified:Bool = true
     private(set) var entities:[Entity] = []
     var entitiesByName:[String:Entity] {
         get {
@@ -54,11 +54,11 @@ class Model {
         }
     }
     
-    func setVersion(version:String) throws {
+    func setVersion(version:String) {
         self.version = version;
     }
     
-    func append(entities:[Entity]) {
-        self.entities = entities
+    func setCanBeModified(canBeModified:Bool) {
+        self.canBeModified = canBeModified
     }
 }

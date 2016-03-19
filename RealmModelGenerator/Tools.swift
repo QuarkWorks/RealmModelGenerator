@@ -14,47 +14,47 @@ class Tools {
     
     static func generateModelExample(schema: Schema) {
         let model = schema.createModel()
-        let user = model.createEntity({ (entity) -> Void in
-            try! entity.setName("User")
-            let pk = entity.createAttribute({ (attribute) -> Void in
-                try! attribute.setName("id")
+        let user = try! model.createEntity({ (entity) throws -> Void in
+            try entity.setName("User")
+            let pk = try entity.createAttribute({ (attribute) throws -> Void in
+                try attribute.setName("id")
                 attribute.type = .String
             })
-            try! entity.setPrimaryKey(pk)
+            try entity.setPrimaryKey(pk)
             
-            entity.createAttribute({ (attribute) -> Void in
-                try! attribute.setName("phone")
+            try entity.createAttribute({ (attribute) throws -> Void in
+                try attribute.setName("phone")
                 attribute.type = .String
                 attribute.isRequired = true
-                try! attribute.setIndexed(true)
+                try attribute.setIndexed(true)
             })
         })
         
-        let child = model.createEntity { (entity) -> Void in
-            try! entity.setName("Child")
+        let child = try! model.createEntity ({ (entity) throws -> Void in
+            try entity.setName("Child")
             let pk = entity.createAttribute({
                 try! $0.setName("id")
                 $0.type = .Long
             })
             
-            try! entity.setPrimaryKey(pk)
+            try entity.setPrimaryKey(pk)
             
-            entity.createAttribute({
-                try! $0.setName("childName")
+            try entity.createAttribute({
+                try $0.setName("childName")
                 $0.defaultValue = "Bob"
                 $0.type = .String
                 $0.hasDefault = true
             })
             
-            entity.createAttribute({
-                try! $0.setName("age")
+            try entity.createAttribute({
+                try $0.setName("age")
                 $0.defaultValue = "10"
                 $0.type = .Int
                 $0.hasDefault = true
                 $0.isIgnored = true
                 try! $0.setIndexed(true)
             })
-        }
+        })
         
         user.createRelationship({
             try! $0.setName("children")

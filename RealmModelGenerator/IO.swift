@@ -32,7 +32,7 @@ extension Schema {
         
         for modelDict in modelDicts {
             let model = self.createModel()
-            try model.map(modelDict)
+//            try model.map(modelDict)
         }
     }
 }
@@ -50,8 +50,12 @@ extension Model {
         ]
     }
     
-    func map(dictionary:[String:AnyObject]) throws {
+    func map(dictionary:[String:AnyObject], increaseVersion:Bool) throws {
         guard let version = dictionary[Model.VERSION] as? String else {
+            throw NSError(domain: Model.TAG, code: 0, userInfo: nil)
+        }
+        
+        guard let canBeModified = dictionary[Model.CAN_BE_MODIFIED] as? Bool else {
             throw NSError(domain: Model.TAG, code: 0, userInfo: nil)
         }
         
@@ -59,7 +63,11 @@ extension Model {
             throw NSError(domain: Model.TAG, code: 0, userInfo: nil)
         }
         
-        try self.setVersion(version)
+        if !increaseVersion {
+            self.setVersion(version)
+        }
+        
+        self.setCanBeModified(canBeModified)
         
         var entityPairs:[(Entity, [String:AnyObject])] = []
         entityPairs.reserveCapacity(entitiesDict.count)

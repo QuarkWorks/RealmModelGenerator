@@ -13,7 +13,6 @@ class Schema {
     
     var name:String
     private(set) var models:[Model] = []
-    
 
     init(name:String = "") {
         self.name = name
@@ -30,6 +29,8 @@ class Schema {
         }
         let model = Model(version: "\(version)", schema:self)
         try build(model)
+        models.append(model)
+        return model
     }
 
     
@@ -43,27 +44,28 @@ class Schema {
 //        return model
 //    }
     
-    func increaseVersion() -> Model {
-        if let currentModel = getCurrentModel() {
-            let currentModelDict = currentModel.toDictionary()
-            
-            let model = createModel()
-            let entities = currentModelDict[Model.ENTITIES] as? [NSDictionary]
-            for entityDict in entities! {
-                let entityObject = entityDict as! [String:AnyObject]
-//                _ = try! Entity.init(dictionary: entityObject, model: model)
-            }
-            
-            currentModel.canBeModified = false
-            return model
-        } else {
-            return createModel()
-        }
+    func setName(name:String) {
+        self.name = name
     }
     
-    func appendModel(model: Model) {
-        self.models.append(model)
-    }
+//    func increaseVersion() throws -> Model {
+//        if let currentModel = getCurrentModel() {
+//            let currentModelDict = currentModel.toDictionary()
+//            
+//            let model = createModel()
+//            let entities = currentModelDict[Model.ENTITIES] as? [NSDictionary]
+//            for entityDict in entities! {
+//                let entityObject = entityDict as! [String:AnyObject]
+////                _ = try! Entity.init(dictionary: entityObject, model: model)
+//            }
+//            
+//            try model.map(currentModelDict, increaseVersion: true)
+//            
+//            return model
+//        } else {
+//            return createModel()
+//        }
+//    }
     
     func getCurrentModel() -> Model? {
         for model in models {

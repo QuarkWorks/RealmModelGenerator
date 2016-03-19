@@ -12,7 +12,7 @@ class RealmSchemaDocument: NSDocument {
     static let TAG = String(RealmSchemaDocument)
     
     var vc: ViewController!
-    var schema = Schema()
+    var schema = Schema(name: Schema.DEFAULT)
     
     override init() {
         super.init()
@@ -86,39 +86,7 @@ class RealmSchemaDocument: NSDocument {
                 throw GeneratorError.InvalidFileContent(errorMsg: RealmSchemaDocument.TAG + ": No schema in this file")
             }
             
-            guard let schemaName = dictionary[Schema.SCHEMA] as? String else {
-                throw GeneratorError.InvalidFileContent(errorMsg: RealmSchemaDocument.TAG + ": Invalid schema name")
-            }
-            
-            schema = Schema(name: schemaName)
-            
-            guard let models = dictionary[Schema.MODELS] as? [NSDictionary] else {
-                throw GeneratorError.InvalidFileContent(errorMsg: RealmSchemaDocument.TAG + ": Invalid models")
-            }
-            
-            for modelDict in models {
-                
-                guard let version = modelDict[Model.VERSION] as? String else {
-                    throw GeneratorError.InvalidFileContent(errorMsg: RealmSchemaDocument.TAG + ": Invalid model version")
-                }
-                
-                let model = Model(version: version)
-                
-                guard let entities = modelDict[Model.ENTITIES] as? [NSDictionary] else {
-                    throw GeneratorError.InvalidFileContent(errorMsg: RealmSchemaDocument.TAG + ": Invalid entities")
-                }
-                
-                for entityDict in entities {
-                    guard let entityObject = entityDict as? [String:AnyObject] else {
-                        throw GeneratorError.InvalidFileContent(errorMsg: RealmSchemaDocument.TAG + ": Invalid entity JSON")
-                    }
-                    
-                    _ = try! Entity.init(dictionary: entityObject, model: model)
-                }
-                
-                model.canBeModified = modelDict[Model.CAN_BE_MODIFIED] as! Bool
-                schema.appendModel(model)
-            }
+            try schema.map(dictionary as! [String : AnyObject])
             
             return
         }

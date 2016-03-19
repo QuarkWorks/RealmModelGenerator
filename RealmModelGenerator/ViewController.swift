@@ -10,6 +10,8 @@ import Cocoa
 
 class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
 
+    var schema: Schema = Schema(name: "")
+    
     //MARK: - NSTableViewDataSource
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         return 1000
@@ -33,7 +35,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
         }
     }
     
-    func generateFileContent(entity:Entity, language:Language) -> Array<String> {
+    func generateFileContent(entity:Entity, language:Language) -> [String] {
         
         switch language {
             case .Swift:
@@ -57,6 +59,14 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     //Called from menu bar
     @IBAction func increaseVersion(sender: AnyObject!) {
 //        schema.increaseVersion()
+//        if let currentModel = schema.getCurrentModel() {
+//            print(TAG + " version after createNewVersionModel = \(currentModel.version)")
+//        }
+//        do {
+//            try schema.increaseVersion()
+//        } catch {
+//            print("Cannot increase version")
+//        }
 //        if let currentModel = schema.getCurrentModel() {
 //            print(TAG + " version after createNewVersionModel = \(currentModel.version)")
 //        }
