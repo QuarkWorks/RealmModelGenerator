@@ -35,13 +35,4 @@ class Relationship {
     func removeFromEntity() {
         self.entity.removeRelationship(self)
     }
-    
-    func toDictionary() -> [String:Any] {
-        let destinationName:Any = (self.destination != nil ? self.destination!.name : NSNull())
-        return [
-            Relationship.NAME:self.name,
-            Relationship.DESTINATION:destinationName,
-            Relationship.IS_MANY:self.isMany
-        ]
-    }
 }

@@ -81,7 +81,7 @@ extension Model {
             try entityPair.0.mapRelationshipsAndSuperEntity(entityPair.1)
         }
     }
-
+    
 }
 
 extension Entity {
@@ -96,7 +96,7 @@ extension Entity {
     func toDictionary() -> [String:AnyObject] {
         let superEntity:AnyObject = self.superEntity?.name ?? NSNull()
         let primaryKey:AnyObject = self.primaryKey?.name ?? NSNull()
-
+        
         return [
             Entity.NAME:name,
             Entity.PRIMARY_KEY:primaryKey,
@@ -150,7 +150,7 @@ extension Entity {
                 try relationship.map(relationshipDict)
             }
         }
-
+        
     }
 }
 
@@ -239,7 +239,7 @@ extension Relationship {
         
         if let destinationName = dictionary[Relationship.DESTINATION] as? String,
             destination = self.entity.model.entitiesByName[destinationName] {
-            self.destination = destination
+                self.destination = destination
         } else {
             destination = nil
         }

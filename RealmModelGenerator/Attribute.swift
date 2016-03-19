@@ -58,44 +58,6 @@ class Attribute {
         try! self.setIndexed(false)
     }
     
-    init(dictionary:Dictionary<String,AnyObject>, entity:Entity) throws {
-        self.name = ""
-        self.entity = entity
-        
-        guard let name = dictionary["name"] as? String else {
-            throw NSError(domain:Attribute.TAG, code: 0, userInfo: nil)
-        }
-        self.name = name
-        
-        if let rawType = dictionary["type"] as? String {
-            self.type = AttributeType(rawValueSafe: rawType)
-        }
-        
-        if let isIgnored = dictionary["isIgnored"] as? Bool {
-            self.isIgnored = isIgnored
-        }
-        
-        if let isIndexed = dictionary["isIndexed"] as? Bool {
-            do {
-                try self.setIndexed(isIndexed)
-            } catch {
-                self.isIndexed = false
-            }
-        }
-        
-        if let isRequired = dictionary["isRequired"] as? Bool {
-            self.isRequired = isRequired
-        }
-        
-        if let hasDefault = dictionary["hasDefault"] as? Bool {
-            self.hasDefault = hasDefault
-        }
-        
-        if let defaultValue = dictionary["defaultValue"] as? String {
-            self.defaultValue = defaultValue
-        }
-    }
-    
     func removeFromEntity() {
         self.entity.removeAttribute(self)
     }
