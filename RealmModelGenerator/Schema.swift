@@ -12,14 +12,23 @@ class Schema {
     static let TAG = NSStringFromClass(Schema)
     
     var name:String
-    private(set) var models:Array<Model> = []
+    private(set) var models:[Model] = []
     
-    init(name:String) {
+    init(name:String = "") {
         self.name = name
     }
     
-    func createModel(build:(Model)->Void = {_ in}) -> Model {
-        let model = Model(version: "\(models.count+1)")
+    func createModel() -> Model {
+        return createModel({_ in});
+    }
+    
+    func createModel(@noescape build:(Model) throws -> Void) rethrows -> Model {
+        var version = 1
+        while self.models.contains({$0.version == "\(version)"}) {
+            version++
+        }
+        let model = Model(version: "\(version)", schema:self)
+        try build(model)
         models.append(model)
         return model
     }

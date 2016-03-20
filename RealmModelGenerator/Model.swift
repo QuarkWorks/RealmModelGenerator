@@ -11,6 +11,7 @@ import Foundation
 class Model {
     static let TAG = NSStringFromClass(Model)
     
+    let schema:Schema
     private(set) var version:String
     private(set) var entities:[Entity] = []
     var entitiesByName:[String:Entity] {
@@ -23,8 +24,9 @@ class Model {
         }
     }
     
-    internal init(version:String) {
+    internal init(version:String, schema: Schema) {
         self.version = version
+        self.schema = schema
     }
     
     func createEntity() -> Entity {

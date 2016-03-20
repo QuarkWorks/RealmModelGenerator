@@ -8,6 +8,35 @@
 
 import Foundation
 
+extension Schema {
+    static let NAME = "name"
+    static let MODELS = "models";
+    
+    func toDictionary() -> [String:AnyObject] {
+        return [
+            Schema.NAME:self.name,
+            Schema.MODELS:self.models.map({$0.toDictionary()})
+        ]
+    }
+    
+    func map(dictionary:[String:AnyObject]) throws {
+        guard let name = dictionary[Schema.NAME] as? String else {
+            throw NSError(domain: Schema.TAG, code: 0, userInfo: nil)
+        }
+        
+        guard let modelDicts = dictionary[Schema.MODELS] as? [[String:AnyObject]] else {
+            throw NSError(domain: Schema.TAG, code: 0, userInfo: nil)
+        }
+        
+        self.name = name
+        
+        for modelDict in modelDicts {
+            let model = self.createModel()
+            try model.map(modelDict)
+        }
+    }
+}
+
 extension Model {
     static let VERSION = "version"
     static let ENTITIES = "entities"

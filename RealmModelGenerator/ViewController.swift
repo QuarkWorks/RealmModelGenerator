@@ -13,7 +13,8 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let model = Model(version: "1")
+        let schema = Schema()
+        let model = schema.createModel()
         let user = try! model.createEntity({ (entity) throws -> Void in
             try entity.setName("User")
             let pk = try entity.createAttribute({ (attribute) throws -> Void in
