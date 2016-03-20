@@ -14,6 +14,9 @@
 		3AD908B71C9A331500346527 /* AttributeTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD908B61C9A331500346527 /* AttributeTypeExtension.swift */; };
 		3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */; };
 		3AEF05E01C8D0788001238E7 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEF05DF1C8D0788001238E7 /* FileModel.swift */; };
+		773D25861C9F3123009814A0 /* NibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773D25831C9F3123009814A0 /* NibDesignable.swift */; };
+		773D25871C9F3123009814A0 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773D25841C9F3123009814A0 /* TitleCell.swift */; };
+		773D25881C9F3123009814A0 /* TitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773D25851C9F3123009814A0 /* TitleCell.xib */; };
 		7798B0D51C87C32900A7F965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B0D41C87C32900A7F965 /* AppDelegate.swift */; };
 		7798B0D71C87C32900A7F965 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B0D61C87C32900A7F965 /* ViewController.swift */; };
 		7798B0D91C87C32900A7F965 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7798B0D81C87C32900A7F965 /* Assets.xcassets */; };
@@ -54,6 +57,9 @@
 		3AD908B61C9A331500346527 /* AttributeTypeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeTypeExtension.swift; sourceTree = "<group>"; };
 		3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaContentGenerator.swift; sourceTree = "<group>"; };
 		3AEF05DF1C8D0788001238E7 /* FileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
+		773D25831C9F3123009814A0 /* NibDesignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibDesignable.swift; sourceTree = "<group>"; };
+		773D25841C9F3123009814A0 /* TitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
+		773D25851C9F3123009814A0 /* TitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleCell.xib; sourceTree = "<group>"; };
 		7798B0D11C87C32900A7F965 /* RealmModelGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmModelGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7798B0D41C87C32900A7F965 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7798B0D61C87C32900A7F965 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +114,16 @@
 			name = File;
 			sourceTree = "<group>";
 		};
+		773D25821C9F310E009814A0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				773D25831C9F3123009814A0 /* NibDesignable.swift */,
+				773D25841C9F3123009814A0 /* TitleCell.swift */,
+				773D25851C9F3123009814A0 /* TitleCell.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		7798B0C81C87C32900A7F965 = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +147,7 @@
 		7798B0D31C87C32900A7F965 /* RealmModelGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				773D25821C9F310E009814A0 /* Views */,
 				3AEF05DE1C8D076B001238E7 /* File */,
 				7798B0FF1C87C60B00A7F965 /* Schema */,
 				7798B0D41C87C32900A7F965 /* AppDelegate.swift */,
@@ -286,6 +303,7 @@
 			files = (
 				7798B0D91C87C32900A7F965 /* Assets.xcassets in Resources */,
 				7798B0DC1C87C32900A7F965 /* Main.storyboard in Resources */,
+				773D25881C9F3123009814A0 /* TitleCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +339,8 @@
 				7798B1091C87FBE800A7F965 /* Relationship.swift in Sources */,
 				7798B1031C87CDA600A7F965 /* Entity.swift in Sources */,
 				7798B1011C87C63B00A7F965 /* Model.swift in Sources */,
+				773D25861C9F3123009814A0 /* NibDesignable.swift in Sources */,
+				773D25871C9F3123009814A0 /* TitleCell.swift in Sources */,
 				77A49E311C9C8BFE0047873C /* IO.swift in Sources */,
 				3A76FF121C8E0AD00036362D /* SwiftContentGenerator.swift in Sources */,
 				7798B0D71C87C32900A7F965 /* ViewController.swift in Sources */,

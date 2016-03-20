@@ -10,18 +10,21 @@ import Cocoa
 import Quartz
 
 @IBDesignable
-class TitleCell: NibDesignableTableCellView, NSTextFieldDelegate {
+class TitleCell: NibDesignableView, NSTextFieldDelegate {
+    static let IDENTIFIER = "TitleCell"
 
     @IBOutlet var titleTextField:NSTextField! {
         willSet {
             newValue!.delegate = self
         }
     }
+    
     @IBOutlet var letterTextField:NSTextField!
     
     override func nibDidInitialize() {
-        Swift.print("\(__FUNCTION__)")
-        self.wantsLayer = true
+//        Swift.print("\(__FUNCTION__)")
+//        self.wantsLayer = true
+        //self.identifier = TitleCell.IDENTIFIER
     }
     
     @IBInspectable var letterColor:NSColor? {
@@ -55,14 +58,14 @@ class TitleCell: NibDesignableTableCellView, NSTextFieldDelegate {
     }
     
     func control(control: NSControl, textShouldBeginEditing fieldEditor: NSText) -> Bool {
-        Swift.print("\(__FUNCTION__)")
-        self.layer!.backgroundColor = NSColor.blueColor().CGColor
+//        Swift.print("\(__FUNCTION__)")
+//        self.layer!.backgroundColor = NSColor.blueColor().CGColor
         return true
     }
     
     func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        Swift.print("\(__FUNCTION__)")
-        self.layer!.backgroundColor = NSColor.redColor().CGColor
+//        Swift.print("\(__FUNCTION__)")
+//        self.layer!.backgroundColor = NSColor.redColor().CGColor
         return true
     }
 }

@@ -50,12 +50,7 @@ extension NibDesignableProtocol {
     private func setupNib() {
         let view = self.loadNib()
         self.nibContainerView.addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        let bindings = ["view": view]
-        self.nibContainerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|[view]|", options:[], metrics:nil, views: bindings))
-        self.nibContainerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|[view]|", options:[], metrics:nil, views: bindings))
+        view.matchParent()
         nibDidInitialize()
     }
 }
@@ -74,6 +69,15 @@ extension NSView {
     }
     
     public func nibDidInitialize() {}
+    
+    private func matchParent() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        let bindings = ["view": self]
+        self.superview!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+            "H:|[view]|", options:[], metrics:nil, views: bindings))
+        self.superview!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+            "V:|[view]|", options:[], metrics:nil, views: bindings))
+    }
 }
 
 @IBDesignable

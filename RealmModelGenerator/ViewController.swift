@@ -8,7 +8,25 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
+
+    //MARK: - NSTableViewDataSource
+    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+        return 1000
+    }
+    
+    //MARK: - NSTableViewDelegate
+    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+//        let cell =  tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: self)!
+//        let titleCell = cell.subviews.filter({$0 is TitleCell}).first as! TitleCell
+//        titleCell.title = "\(row)"
+//        return cell
+        
+        let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
+        cell.title = "\(row)"
+        return cell
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
