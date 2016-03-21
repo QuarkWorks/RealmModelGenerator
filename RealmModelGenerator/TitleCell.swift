@@ -21,10 +21,8 @@ class TitleCell: NibDesignableView, NSTextFieldDelegate {
     
     @IBOutlet var letterTextField:NSTextField!
     
-    override func nibDidInitialize() {
-//        Swift.print("\(__FUNCTION__)")
-//        self.wantsLayer = true
-        //self.identifier = TitleCell.IDENTIFIER
+    override func nibDidLoad() {
+        super.nibDidLoad()
     }
     
     @IBInspectable var letterColor:NSColor? {
@@ -58,14 +56,10 @@ class TitleCell: NibDesignableView, NSTextFieldDelegate {
     }
     
     func control(control: NSControl, textShouldBeginEditing fieldEditor: NSText) -> Bool {
-//        Swift.print("\(__FUNCTION__)")
-//        self.layer!.backgroundColor = NSColor.blueColor().CGColor
         return true
     }
     
     func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-//        Swift.print("\(__FUNCTION__)")
-//        self.layer!.backgroundColor = NSColor.redColor().CGColor
         return true
     }
 }

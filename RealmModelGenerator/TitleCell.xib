@@ -51,7 +51,7 @@
                 <constraint firstAttribute="trailing" secondItem="ApS-rj-fAc" secondAttribute="trailing" constant="8" id="key-ah-ZIX"/>
                 <constraint firstItem="ApS-rj-fAc" firstAttribute="leading" secondItem="BzI-NG-lrh" secondAttribute="trailing" constant="8" id="pMS-ev-j8K"/>
             </constraints>
-            <point key="canvasLocation" x="600.5" y="618"/>
+            <point key="canvasLocation" x="673.5" y="782"/>
         </customView>
     </objects>
 </document>

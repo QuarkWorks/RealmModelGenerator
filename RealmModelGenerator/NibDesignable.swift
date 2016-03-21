@@ -23,7 +23,7 @@ public protocol NibDesignableProtocol: NSObjectProtocol {
      */
     func nibName() -> String
     
-    func nibDidInitialize()
+    func nibDidLoad()
 }
 
 extension NibDesignableProtocol {
@@ -51,7 +51,7 @@ extension NibDesignableProtocol {
         let view = self.loadNib()
         self.nibContainerView.addSubview(view)
         view.matchParent()
-        nibDidInitialize()
+        nibDidLoad()
     }
 }
 
@@ -68,7 +68,7 @@ extension NSView {
         return self.dynamicType.description().componentsSeparatedByString(".").last!
     }
     
-    public func nibDidInitialize() {}
+    public func nibDidLoad() {}
     
     private func matchParent() {
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -83,6 +83,8 @@ extension NSView {
 @IBDesignable
 public class NibDesignableView: NSView, NibDesignableProtocol {
     
+    var isInterfaceBuilder:Bool = false
+    
     // MARK: - Initializer
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -93,6 +95,11 @@ public class NibDesignableView: NSView, NibDesignableProtocol {
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setupNib()
+    }
+    
+    public override func prepareForInterfaceBuilder() {
+        self.isInterfaceBuilder = true
+        super.prepareForInterfaceBuilder()
     }
 }
 

@@ -30,6 +30,8 @@
 		7798B1091C87FBE800A7F965 /* Relationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7798B1081C87FBE800A7F965 /* Relationship.swift */; };
 		77A49E311C9C8BFE0047873C /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A49E301C9C8BFE0047873C /* IO.swift */; };
 		77A5521D1C88F02000658EAF /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A5521C1C88F02000658EAF /* Schema.swift */; };
+		77D8277D1C9F8DD500E22CEE /* EntitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D8277C1C9F8DD500E22CEE /* EntitiesView.swift */; };
+		77D8277F1C9F8E1800E22CEE /* EntitiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,8 @@
 		7798B1081C87FBE800A7F965 /* Relationship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Relationship.swift; sourceTree = "<group>"; };
 		77A49E301C9C8BFE0047873C /* IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
 		77A5521C1C88F02000658EAF /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
+		77D8277C1C9F8DD500E22CEE /* EntitiesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntitiesView.swift; sourceTree = "<group>"; };
+		77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EntitiesView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,9 +121,11 @@
 		773D25821C9F310E009814A0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				773D25831C9F3123009814A0 /* NibDesignable.swift */,
 				773D25841C9F3123009814A0 /* TitleCell.swift */,
 				773D25851C9F3123009814A0 /* TitleCell.xib */,
+				773D25831C9F3123009814A0 /* NibDesignable.swift */,
+				77D8277C1C9F8DD500E22CEE /* EntitiesView.swift */,
+				77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -302,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7798B0D91C87C32900A7F965 /* Assets.xcassets in Resources */,
+				77D8277F1C9F8E1800E22CEE /* EntitiesView.xib in Resources */,
 				7798B0DC1C87C32900A7F965 /* Main.storyboard in Resources */,
 				773D25881C9F3123009814A0 /* TitleCell.xib in Resources */,
 			);
@@ -329,6 +336,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AAF1BDE1C91F3D70096C31D /* ObjectCContentGenerator.swift in Sources */,
+				77D8277D1C9F8DD500E22CEE /* EntitiesView.swift in Sources */,
 				3AAF1BDC1C91F06A0096C31D /* Tools.swift in Sources */,
 				77A5521D1C88F02000658EAF /* Schema.swift in Sources */,
 				3AD908B71C9A331500346527 /* AttributeTypeExtension.swift in Sources */,
