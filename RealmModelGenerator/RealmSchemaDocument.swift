@@ -12,7 +12,7 @@ class RealmSchemaDocument: NSDocument {
     static let TAG = String(RealmSchemaDocument)
     
     var vc: ViewController!
-    var schema = Schema(name: Schema.DEFAULT)
+    var schema = Schema()
     
     override init() {
         super.init()

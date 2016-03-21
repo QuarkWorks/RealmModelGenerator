@@ -32,7 +32,7 @@ extension Schema {
         
         for modelDict in modelDicts {
             let model = self.createModel()
-//            try model.map(modelDict)
+            try model.map(modelDict, increaseVersion: false)
         }
     }
 }

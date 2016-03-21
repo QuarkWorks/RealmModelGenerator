@@ -9,8 +9,9 @@
 import Cocoa
 
 class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
+    static let TAG = NSStringFromClass(ViewController)
 
-    var schema: Schema = Schema(name: "")
+    var schema: Schema = Schema()
     
     //MARK: - NSTableViewDataSource
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
@@ -50,26 +51,25 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     //Called from menu bar
     //TODO: remove after adding ui to generate model
     @IBAction func generateModelExample(sender: AnyObject!) {
-//        Tools.generateModelExample(schema)
-//        if let currentModel = schema.getCurrentModel() {
-//            print(TAG + " version after generateSchemaExample = \(currentModel.version)")
-//        }
+        Tools.generateModelExample(schema)
+        if let currentModel = schema.getCurrentModel() {
+            print(ViewController.TAG + " version after generateSchemaExample = \(currentModel.version)")
+        }
     }
     
     //Called from menu bar
     @IBAction func increaseVersion(sender: AnyObject!) {
-//        schema.increaseVersion()
-//        if let currentModel = schema.getCurrentModel() {
-//            print(TAG + " version after createNewVersionModel = \(currentModel.version)")
-//        }
-//        do {
-//            try schema.increaseVersion()
-//        } catch {
-//            print("Cannot increase version")
-//        }
-//        if let currentModel = schema.getCurrentModel() {
-//            print(TAG + " version after createNewVersionModel = \(currentModel.version)")
-//        }
+        if let currentModel = schema.getCurrentModel() {
+            print(ViewController.TAG + " version before createNewVersionModel = \(currentModel.version)")
+        }
+        do {
+            try schema.increaseVersion()
+        } catch {
+            print(ViewController.TAG + " Cannot increase version")
+        }
+        if let currentModel = schema.getCurrentModel() {
+            print(ViewController.TAG + " version after createNewVersionModel = \(currentModel.version)")
+        }
     }
     
     //Called from menu bar

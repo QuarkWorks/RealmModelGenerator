@@ -27,45 +27,34 @@ class Schema {
         while self.models.contains({$0.version == "\(version)"}) {
             version++
         }
+        
+        if let currentModel = getCurrentModel() {
+            currentModel.setCanBeModified(false)
+        }
+        
         let model = Model(version: "\(version)", schema:self)
         try build(model)
         models.append(model)
+        
         return model
     }
-
-    
-//    func createModel(build:(Model)->Void = {_ in}) -> Model {
-//        let model = Model(version: "\(models.count+1)")
-//        
-//        if let currentModel = getCurrentModel() {
-//            currentModel.canBeModified = false
-//        }
-//
-//        return model
-//    }
     
     func setName(name:String) {
         self.name = name
     }
     
-//    func increaseVersion() throws -> Model {
-//        if let currentModel = getCurrentModel() {
-//            let currentModelDict = currentModel.toDictionary()
-//            
-//            let model = createModel()
-//            let entities = currentModelDict[Model.ENTITIES] as? [NSDictionary]
-//            for entityDict in entities! {
-//                let entityObject = entityDict as! [String:AnyObject]
-////                _ = try! Entity.init(dictionary: entityObject, model: model)
-//            }
-//            
-//            try model.map(currentModelDict, increaseVersion: true)
-//            
-//            return model
-//        } else {
-//            return createModel()
-//        }
-//    }
+    func increaseVersion() throws -> Model {
+        if let currentModel = getCurrentModel() {
+            let currentModelDict = currentModel.toDictionary()
+            
+            let model = createModel()
+            try model.map(currentModelDict, increaseVersion: true)
+            
+            return model
+        } else {
+            return createModel()
+        }
+    }
     
     func getCurrentModel() -> Model? {
         for model in models {
