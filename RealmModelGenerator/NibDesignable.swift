@@ -98,13 +98,16 @@ public class NibDesignableView: NSView, NibDesignableProtocol {
     }
     
     public override func prepareForInterfaceBuilder() {
-        self.isInterfaceBuilder = true
         super.prepareForInterfaceBuilder()
+        self.isInterfaceBuilder = true
     }
 }
 
 @IBDesignable
 public class NibDesignableTableCellView: NSTableCellView, NibDesignableProtocol {
+    
+    var isInterfaceBuilder:Bool = false
+    
     // MARK: - Initializer
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -115,5 +118,10 @@ public class NibDesignableTableCellView: NSTableCellView, NibDesignableProtocol 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setupNib()
+    }
+    
+    public override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        self.isInterfaceBuilder = true
     }
 }

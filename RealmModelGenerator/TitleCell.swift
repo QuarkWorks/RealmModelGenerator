@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import Quartz
 
 @IBDesignable
 class TitleCell: NibDesignableView, NSTextFieldDelegate {

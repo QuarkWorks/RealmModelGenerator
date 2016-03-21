@@ -693,18 +693,26 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
+                <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lpH-KY-zPc" customClass="EntitiesView" customModule="RealmModelGenerator" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="lpH-KY-zPc" customClass="EntitiesView" customModule="RealmModelGenerator" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="243" height="270"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="243" id="qUD-r1-KGC"/>
+                                </constraints>
                             </customView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="lpH-KY-zPc" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="6xH-tA-0XZ"/>
+                            <constraint firstAttribute="bottom" secondItem="lpH-KY-zPc" secondAttribute="bottom" id="Ysz-fd-esl"/>
+                            <constraint firstItem="lpH-KY-zPc" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="id7-No-hd8"/>
+                        </constraints>
                     </view>
                 </viewController>
-                <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="655"/>
         </scene>

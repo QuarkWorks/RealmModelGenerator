@@ -32,6 +32,7 @@
 		77A5521D1C88F02000658EAF /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A5521C1C88F02000658EAF /* Schema.swift */; };
 		77D8277D1C9F8DD500E22CEE /* EntitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D8277C1C9F8DD500E22CEE /* EntitiesView.swift */; };
 		77D8277F1C9F8E1800E22CEE /* EntitiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */; };
+		77D827811C9FA9E100E22CEE /* ViewTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D827801C9FA9E100E22CEE /* ViewTools.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		77A5521C1C88F02000658EAF /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 		77D8277C1C9F8DD500E22CEE /* EntitiesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntitiesView.swift; sourceTree = "<group>"; };
 		77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EntitiesView.xib; sourceTree = "<group>"; };
+		77D827801C9FA9E100E22CEE /* ViewTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewTools.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				773D25831C9F3123009814A0 /* NibDesignable.swift */,
 				77D8277C1C9F8DD500E22CEE /* EntitiesView.swift */,
 				77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */,
+				77D827801C9FA9E100E22CEE /* ViewTools.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				7798B1011C87C63B00A7F965 /* Model.swift in Sources */,
 				773D25861C9F3123009814A0 /* NibDesignable.swift in Sources */,
 				773D25871C9F3123009814A0 /* TitleCell.swift in Sources */,
+				77D827811C9FA9E100E22CEE /* ViewTools.swift in Sources */,
 				77A49E311C9C8BFE0047873C /* IO.swift in Sources */,
 				3A76FF121C8E0AD00036362D /* SwiftContentGenerator.swift in Sources */,
 				7798B0D71C87C32900A7F965 /* ViewController.swift in Sources */,
