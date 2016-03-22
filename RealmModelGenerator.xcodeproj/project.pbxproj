@@ -132,13 +132,13 @@
 		3AEF05DE1C8D076B001238E7 /* Generator */ = {
 			isa = PBXGroup;
 			children = (
-				3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */,
-				3A7E774E1C97744400408325 /* BaseContentGenerator.swift */,
 				3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */,
 				3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */,
 				3AAF1BDD1C91F3D70096C31D /* ObjectCContentGenerator.swift */,
 				3AD908B41C99E16100346527 /* Language.swift */,
 				3AD908B61C9A331500346527 /* AttributeTypeExtension.swift */,
+				3A7E774E1C97744400408325 /* BaseContentGenerator.swift */,
+				3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */,
 				3AEF05DF1C8D0788001238E7 /* FileModel.swift */,
 			);
 			name = Generator;
@@ -189,15 +189,6 @@
 				7798B0D81C87C32900A7F965 /* Assets.xcassets */,
 				7798B0DA1C87C32900A7F965 /* Main.storyboard */,
 				7798B0DD1C87C32900A7F965 /* Info.plist */,
-				3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */,
-				3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */,
-				3AAF1BDB1C91F06A0096C31D /* Tools.swift */,
-				3AAF1BDD1C91F3D70096C31D /* ObjectCContentGenerator.swift */,
-				3AD908B41C99E16100346527 /* Language.swift */,
-				3AD908B61C9A331500346527 /* AttributeTypeExtension.swift */,
-				3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */,
-				3A7E774E1C97744400408325 /* BaseContentGenerator.swift */,
-				3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */,
 				3A321FEF1CA0CC4E00FCEF48 /* EntitieViewController.swift */,
 			);
 			path = RealmModelGenerator;

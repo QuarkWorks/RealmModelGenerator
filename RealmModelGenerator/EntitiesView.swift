@@ -16,6 +16,8 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     @IBOutlet var addButton:NSButton!
     @IBOutlet var removeButton:NSButton!
     
+    private var entities:[Entity] = []
+    
     override func nibDidLoad() {
         super.nibDidLoad()
     }
@@ -25,7 +27,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         if self.isInterfaceBuilder {
             return 20
         }
-        return 20
+        return entities.count
     }
     
     //MARK: - NSTableViewDelegate
@@ -35,11 +37,23 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
             cell.title = "Entity"
             return cell
         }
-        cell.title = "\(row)"
+        cell.title = entities[row].name
         return cell
     }
     
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
+    }
+    
+    func setEntities(entities: [Entity]) {
+        self.entities = entities
+    }
+    
+    func tableViewSelectionDidChange(notification: NSNotification) {
+        let tableView = notification.object as! NSTableView
+        let index = tableView.selectedRow
+        let selectedEntity = entities[index]
+        Swift.print(selectedEntity.name)
+        Swift.print(index)
     }
 }

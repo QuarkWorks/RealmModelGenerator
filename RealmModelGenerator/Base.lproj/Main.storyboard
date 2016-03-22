@@ -708,7 +708,7 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="501" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dF5-QM-BwJ">
@@ -721,7 +721,7 @@
                     </view>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="75" y="654"/>
+            <point key="canvasLocation" x="120.5" y="643"/>
         </scene>
         <!--Entities View Controller-->
         <scene sceneID="wef-eP-KuX">
@@ -742,6 +742,9 @@
                             <constraint firstItem="lpH-KY-zPc" firstAttribute="top" secondItem="6am-FB-D9f" secondAttribute="top" id="yna-DL-EGB"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="entitiesView" destination="lpH-KY-zPc" id="sj0-zX-Iuh"/>
+                    </connections>
                 </viewController>
                 <customObject id="OYI-ca-AYH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
