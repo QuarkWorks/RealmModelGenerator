@@ -23,9 +23,9 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     //MARK: - NSTableViewDataSource
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         if self.isInterfaceBuilder {
-            return 1
+            return 20
         }
-        return 1000
+        return 20
     }
     
     //MARK: - NSTableViewDelegate

@@ -711,22 +711,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="lpH-KY-zPc" customClass="EntitiesView" customModule="RealmModelGenerator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="243" height="270"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="243" id="qUD-r1-KGC"/>
-                                </constraints>
-                            </customView>
+                            <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dF5-QM-BwJ">
+                                <rect key="frame" x="0.0" y="0.0" width="166" height="270"/>
+                                <connections>
+                                    <segue destination="4Kj-ze-ZKn" kind="embed" id="Qxa-hB-mkw"/>
+                                </connections>
+                            </containerView>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="lpH-KY-zPc" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="6xH-tA-0XZ"/>
-                            <constraint firstAttribute="bottom" secondItem="lpH-KY-zPc" secondAttribute="bottom" id="Ysz-fd-esl"/>
-                            <constraint firstItem="lpH-KY-zPc" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="id7-No-hd8"/>
-                        </constraints>
                     </view>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="654"/>
+        </scene>
+        <!--Entities View Controller-->
+        <scene sceneID="wef-eP-KuX">
+            <objects>
+                <viewController id="4Kj-ze-ZKn" customClass="EntitiesViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="6am-FB-D9f">
+                        <rect key="frame" x="0.0" y="0.0" width="163" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="lpH-KY-zPc" customClass="EntitiesView" customModule="RealmModelGenerator" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="163" height="270"/>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="lpH-KY-zPc" firstAttribute="leading" secondItem="6am-FB-D9f" secondAttribute="leading" id="47j-eJ-Q3m"/>
+                            <constraint firstAttribute="bottom" secondItem="lpH-KY-zPc" secondAttribute="bottom" id="HbA-c0-D6c"/>
+                            <constraint firstAttribute="trailing" secondItem="lpH-KY-zPc" secondAttribute="trailing" id="Uw4-Tz-OVG"/>
+                            <constraint firstItem="lpH-KY-zPc" firstAttribute="top" secondItem="6am-FB-D9f" secondAttribute="top" id="yna-DL-EGB"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="OYI-ca-AYH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-358.5" y="654"/>
         </scene>
     </scenes>
 </document>

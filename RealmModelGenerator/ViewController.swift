@@ -13,18 +13,18 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     
     var schema: Schema = Schema()
     
-    //    //MARK: - NSTableViewDataSource
-    //    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-    //        return 1000
-    //    }
-    //
-    //    //MARK: - NSTableViewDelegate
-    //    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-    //        let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
-    //        cell.title = "\(row)"
-    //        return cell
-    //    }
-    
+//    //MARK: - NSTableViewDataSource
+//    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+//        return 1000
+//    }
+//    
+//    //MARK: - NSTableViewDelegate
+//    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+//        let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
+//        cell.title = "\(row)"
+//        return cell
+//    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
