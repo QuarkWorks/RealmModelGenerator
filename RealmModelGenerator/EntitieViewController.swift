@@ -9,20 +9,32 @@
 import Cocoa
 
 
-class EntitiesViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
+class EntitiesViewController: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource {
     static let TAG = NSStringFromClass(EntitiesViewController)
     
     @IBOutlet weak var entitiesView: EntitiesView!
     
+    private var schema:Schema = Schema()
+    private var model: Model = Schema.init().createModel()
+    private var entities:[Entity] = []
+    private var selectedIndex = -1
+    
+    override func viewWillAppear() {
+        entitiesView.delegate = self
+        entitiesView.dataSource = self
+        
+        if let currentModel = schema.getCurrentModel() {
+            model = currentModel
+        } else {
+            model = schema.createModel()
+        }
+
+        entities = model.entities
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let schema = Schema(name: "")
-        let model = Model(version: "model", schema: schema)
-        let entity = Entity(name: "abc", model: model)
-        let entities = [entity, entity]
-        entitiesView.setEntities(entities)
-        
     }
     
     override var representedObject: AnyObject? {
@@ -31,12 +43,36 @@ class EntitiesViewController: NSViewController, NSTableViewDelegate, NSTableView
         }
     }
     
-    func tableViewSelectionDidChange(notification: NSNotification) {
-        print("haha")
+    //MARK: - EntitiesViewDelegate
+    func entitiesView(entitiesView: NSTableView, viewForTableColmn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let cell = entitiesView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
+        cell.title = entities[row].name
+        return cell
     }
     
-    func tableView(tableView: EntitiesView, numberOfRowsInSection section: Int) -> Int {
-        print("oh")
-        return 0
+    func entitiesViewSelectionDidChange(notification: NSNotification) {
+        let tableView = notification.object as! NSTableView
+        selectedIndex = tableView.selectedRow
+    }
+    
+    func numberOfRowsInEntitiesView(entitiesView: EntitiesView) -> Int {
+        return entities.count
+        
+    }
+    
+    func addEntityInEntitiesView(entitiesView: EntitiesView) {
+        entities.append(model.createEntity())
+        selectedIndex = -1
+    }
+    
+    func removeEntityInEntitiesView(entitiesView: EntitiesView) {
+        if (selectedIndex >= 0 && selectedIndex < entities.count) {
+            model.removeEntity(entities[selectedIndex])
+            entities.removeAtIndex(selectedIndex)
+        }
+    }
+    
+    func setSchema(schema: Schema) {
+        self.schema = schema
     }
 }

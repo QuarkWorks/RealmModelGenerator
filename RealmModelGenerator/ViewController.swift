@@ -8,14 +8,29 @@
 
 import Cocoa
 
-class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
+class ViewController: NSViewController {
     static let TAG = NSStringFromClass(ViewController)
     
     var schema: Schema = Schema()
+    
+    @IBOutlet weak var leftDivider: NSView!
+    @IBOutlet weak var rightDivider: NSView!
+    @IBOutlet weak var leftContainer: NSView!
 
+    override func viewWillAppear() {
+        leftDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
+        rightDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
+        
+        let mainStoryboard: NSStoryboard = NSStoryboard(name: "Main", bundle: nil)
+        let entitiesViewController = mainStoryboard.instantiateControllerWithIdentifier("EntitiesViewController") as! EntitiesViewController
+        entitiesViewController.setSchema(Schema.init())
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.view.wantsLayer = true
     }
     
     override var representedObject: AnyObject? {
@@ -27,12 +42,12 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     func generateFileContent(entity:Entity, language:Language) -> [String] {
         
         switch language {
-        case .Swift:
-            return SwiftContentGenerator(entity: entity).getContent()
-        case .Objc:
-            return ObjectCContentGenerator(entity: entity).getContent()
-        case .Java:
-            return JavaContentGenerator(entity: entity).getContent()
+            case .Swift:
+                return SwiftContentGenerator(entity: entity).getContent()
+            case .Objc:
+                return ObjectCContentGenerator(entity: entity).getContent()
+            case .Java:
+                return JavaContentGenerator(entity: entity).getContent()
         }
     }
     
@@ -83,20 +98,20 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
             let content = generateFileContent(entity, language: language)
             if !content.first!.isEmpty {
                 switch language {
-                case .Java:
-                    let file = FileModel(name: entity.name, content: content.first!, fileExtension: "java");
-                    files.append(file)
-                    break
-                case .Swift:
-                    let file = FileModel(name: entity.name, content: content.first!, fileExtension: "swift");
-                    files.append(file)
-                    break;
-                case .Objc:
-                    let hFile = FileModel(name: entity.name, content: content.first!, fileExtension: "h");
-                    let mFile = FileModel(name: entity.name, content: content.last!, fileExtension: "m");
-                    files.append(hFile)
-                    files.append(mFile)
-                    break
+                    case .Java:
+                        let file = FileModel(name: entity.name, content: content.first!, fileExtension: "java");
+                        files.append(file)
+                        break
+                    case .Swift:
+                        let file = FileModel(name: entity.name, content: content.first!, fileExtension: "swift");
+                        files.append(file)
+                        break;
+                    case .Objc:
+                        let hFile = FileModel(name: entity.name, content: content.first!, fileExtension: "h");
+                        let mFile = FileModel(name: entity.name, content: content.last!, fileExtension: "m");
+                        files.append(hFile)
+                        files.append(mFile)
+                        break
                 }
             } else {
                 validEnties = false

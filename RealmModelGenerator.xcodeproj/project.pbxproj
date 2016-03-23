@@ -129,6 +129,15 @@
 			name = Tools;
 			sourceTree = "<group>";
 		};
+		3AEE8A0B1CA1FC440010F019 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7798B0D61C87C32900A7F965 /* ViewController.swift */,
+				3A321FEF1CA0CC4E00FCEF48 /* EntitieViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		3AEF05DE1C8D076B001238E7 /* Generator */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,16 +189,15 @@
 		7798B0D31C87C32900A7F965 /* RealmModelGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				3AEE8A0B1CA1FC440010F019 /* Controllers */,
 				773D25821C9F310E009814A0 /* Views */,
 				3AEF05DE1C8D076B001238E7 /* Generator */,
 				7798B0FF1C87C60B00A7F965 /* Schema */,
 				3A2A626B1C9C6BCE000EA9F6 /* Tools */,
 				7798B0D41C87C32900A7F965 /* AppDelegate.swift */,
-				7798B0D61C87C32900A7F965 /* ViewController.swift */,
 				7798B0D81C87C32900A7F965 /* Assets.xcassets */,
 				7798B0DA1C87C32900A7F965 /* Main.storyboard */,
 				7798B0DD1C87C32900A7F965 /* Info.plist */,
-				3A321FEF1CA0CC4E00FCEF48 /* EntitieViewController.swift */,
 			);
 			path = RealmModelGenerator;
 			sourceTree = "<group>";

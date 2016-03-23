@@ -35,6 +35,9 @@
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="addButton:" target="-1" id="LGb-G8-rPB"/>
+                            </connections>
                         </button>
                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JgL-H7-y5y">
                             <rect key="frame" x="29" y="0.0" width="30" height="30"/>
@@ -42,6 +45,9 @@
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="removeButton:" target="-1" id="pro-5I-gQo"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>

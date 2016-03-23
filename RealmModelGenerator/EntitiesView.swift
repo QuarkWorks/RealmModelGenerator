@@ -8,52 +8,69 @@
 
 import Cocoa
 
+public protocol EntitiesViewDataSource : NSObjectProtocol {
+    func numberOfRowsInEntitiesView(entitiesView:EntitiesView) -> Int
+    func entitiesView(tableView:NSTableView, viewForTableColmn tableColumn: NSTableColumn?, row: Int) -> NSView?
+}
+
+public protocol EntitiesViewDelegate : NSObjectProtocol {
+    func addEntityInEntitiesView(entitiesView:EntitiesView)
+    func removeEntityInEntitiesView(entitiesView:EntitiesView)
+    func entitiesViewSelectionDidChange(notification: NSNotification)
+}
+
 @IBDesignable
-class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource {
+public class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource {
     
     @IBOutlet var tableView:NSTableView!
-    
     @IBOutlet var addButton:NSButton!
     @IBOutlet var removeButton:NSButton!
     
-    private var entities:[Entity] = []
+    var dataSource:EntitiesViewDataSource?
+    var delegate:EntitiesViewDelegate?
     
-    override func nibDidLoad() {
+    override public func nibDidLoad() {
         super.nibDidLoad()
     }
     
+    override public func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+    }
+    
     //MARK: - NSTableViewDataSource
-    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+    public func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         if self.isInterfaceBuilder {
             return 20
         }
-        return entities.count
+        
+        if let numberOfItems = self.dataSource?.numberOfRowsInEntitiesView(self) {
+            return numberOfItems
+        }
+        
+        return 0
     }
     
     //MARK: - NSTableViewDelegate
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    public func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
         if (self.isInterfaceBuilder) {
             cell.title = "Entity"
             return cell
         }
-        cell.title = entities[row].name
-        return cell
+        return self.dataSource?.entitiesView(tableView, viewForTableColmn: tableColumn, row:row)
     }
     
-    override func prepareForInterfaceBuilder() {
-        super.prepareForInterfaceBuilder()
+    public func tableViewSelectionDidChange(notification: NSNotification) {
+        self.delegate?.entitiesViewSelectionDidChange(notification)
     }
     
-    func setEntities(entities: [Entity]) {
-        self.entities = entities
+    @IBAction func addButton(_: AnyObject) {
+        self.delegate!.addEntityInEntitiesView(self)
+        tableView.reloadData()
     }
     
-    func tableViewSelectionDidChange(notification: NSNotification) {
-        let tableView = notification.object as! NSTableView
-        let index = tableView.selectedRow
-        let selectedEntity = entities[index]
-        Swift.print(selectedEntity.name)
-        Swift.print(index)
+    @IBAction func removeButton(_: AnyObject) {
+        self.delegate?.removeEntityInEntitiesView(self)
+        tableView.reloadData()
     }
 }
