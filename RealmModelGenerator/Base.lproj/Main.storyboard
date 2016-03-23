@@ -714,19 +714,19 @@
                             <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dF5-QM-BwJ">
                                 <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
                                 <connections>
-                                    <segue destination="4Kj-ze-ZKn" kind="embed" id="Qxa-hB-mkw"/>
+                                    <segue destination="4Kj-ze-ZKn" kind="embed" identifier="EntitiesViewControllerSegue" id="Qxa-hB-mkw"/>
                                 </connections>
                             </containerView>
                             <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="420-fr-qut">
                                 <rect key="frame" x="200" y="0.0" width="400" height="540"/>
                                 <connections>
-                                    <segue destination="oMK-Do-o62" kind="embed" id="7MV-zg-pvn"/>
+                                    <segue destination="oMK-Do-o62" kind="embed" identifier="AttributesRelationshipsSegue" id="7MV-zg-pvn"/>
                                 </connections>
                             </containerView>
                             <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e17-Cb-9EH">
                                 <rect key="frame" x="600" y="0.0" width="200" height="540"/>
                                 <connections>
-                                    <segue destination="4QR-qq-Xan" kind="embed" id="PMk-6f-vvI"/>
+                                    <segue destination="4QR-qq-Xan" kind="embed" identifier="DetailsViewControllerSegue" id="PMk-6f-vvI"/>
                                 </connections>
                             </containerView>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tsO-ov-f2A">
@@ -738,7 +738,6 @@
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="leftContainer" destination="dF5-QM-BwJ" id="gGI-kh-RQ5"/>
                         <outlet property="leftDivider" destination="tsO-ov-f2A" id="Rl2-AL-a24"/>
                         <outlet property="rightDivider" destination="9Wf-oU-ck8" id="St4-lG-paJ"/>
                     </connections>

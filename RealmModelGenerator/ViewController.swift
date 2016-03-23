@@ -11,43 +11,51 @@ import Cocoa
 class ViewController: NSViewController {
     static let TAG = NSStringFromClass(ViewController)
     
-    var schema: Schema = Schema()
+    var schema: Schema = Schema(name:"ViewControllerSchema")
     
     @IBOutlet weak var leftDivider: NSView!
     @IBOutlet weak var rightDivider: NSView!
-    @IBOutlet weak var leftContainer: NSView!
 
-    override func viewWillAppear() {
-        leftDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
-        rightDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
-        
-        let mainStoryboard: NSStoryboard = NSStoryboard(name: "Main", bundle: nil)
-        let entitiesViewController = mainStoryboard.instantiateControllerWithIdentifier("EntitiesViewController") as! EntitiesViewController
-        entitiesViewController.setSchema(Schema.init())
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
         self.view.wantsLayer = true
+        leftDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
+        rightDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
     }
     
-    override var representedObject: AnyObject? {
-        didSet {
-            // Update the view, if already loaded.
+    //MARK: - prepareForSegue
+    override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
+        switch segue.identifier! {
+        case "EntitiesViewControllerSegue":
+            if let enititesViewController: EntitiesViewController = segue.destinationController as? EntitiesViewController {
+                enititesViewController.defaultSchema = schema
+            }
+            break;
+        case "AttributesRelationshipsSegue":
+            print("AttributesRelationshipsSegue");
+            break;
+        case "DetailsViewControllerSegue":
+            print("DetailsViewControllerSegue")
+            break;
+        default:
+            print("Wrong segue identifier")
+            break;
+            
         }
     }
     
+    //MARK: - generateFileContent
     func generateFileContent(entity:Entity, language:Language) -> [String] {
         
         switch language {
-            case .Swift:
-                return SwiftContentGenerator(entity: entity).getContent()
-            case .Objc:
-                return ObjectCContentGenerator(entity: entity).getContent()
-            case .Java:
-                return JavaContentGenerator(entity: entity).getContent()
+        case .Swift:
+            return SwiftContentGenerator(entity: entity).getContent()
+        case .Objc:
+            return ObjectCContentGenerator(entity: entity).getContent()
+        case .Java:
+            return JavaContentGenerator(entity: entity).getContent()
         }
     }
     
@@ -90,7 +98,7 @@ class ViewController: NSViewController {
         generateFileModels(.Swift)
     }
     
-    //MARK: generate FileModels
+    //MARK: - generate FileModels
     func generateFileModels(language: Language) {
         var files: [FileModel] = []
         var validEnties = true
@@ -98,20 +106,20 @@ class ViewController: NSViewController {
             let content = generateFileContent(entity, language: language)
             if !content.first!.isEmpty {
                 switch language {
-                    case .Java:
-                        let file = FileModel(name: entity.name, content: content.first!, fileExtension: "java");
-                        files.append(file)
-                        break
-                    case .Swift:
-                        let file = FileModel(name: entity.name, content: content.first!, fileExtension: "swift");
-                        files.append(file)
-                        break;
-                    case .Objc:
-                        let hFile = FileModel(name: entity.name, content: content.first!, fileExtension: "h");
-                        let mFile = FileModel(name: entity.name, content: content.last!, fileExtension: "m");
-                        files.append(hFile)
-                        files.append(mFile)
-                        break
+                case .Java:
+                    let file = FileModel(name: entity.name, content: content.first!, fileExtension: "java");
+                    files.append(file)
+                    break
+                case .Swift:
+                    let file = FileModel(name: entity.name, content: content.first!, fileExtension: "swift");
+                    files.append(file)
+                    break;
+                case .Objc:
+                    let hFile = FileModel(name: entity.name, content: content.first!, fileExtension: "h");
+                    let mFile = FileModel(name: entity.name, content: content.last!, fileExtension: "m");
+                    files.append(hFile)
+                    files.append(mFile)
+                    break
                 }
             } else {
                 validEnties = false
@@ -125,7 +133,7 @@ class ViewController: NSViewController {
         }
     }
     
-    //MARK: show a panel to choose path and save files
+    //MARK: - Show a panel to choose path and save files
     func choosePathAndSaveFile(files: [FileModel])
     {
         let openPanel = NSOpenPanel()
@@ -142,7 +150,7 @@ class ViewController: NSViewController {
         })
     }
     
-    //MARK: Save files to a path
+    //MARK: - Save files to a path
     func saveFile(files: [FileModel], toPath path: String)
     {
         var error : NSError?

@@ -8,37 +8,36 @@
 
 import Cocoa
 
-public protocol EntitiesViewDataSource : NSObjectProtocol {
+protocol EntitiesViewDataSource : NSObjectProtocol {
     func numberOfRowsInEntitiesView(entitiesView:EntitiesView) -> Int
-    func entitiesView(tableView:NSTableView, viewForTableColmn tableColumn: NSTableColumn?, row: Int) -> NSView?
+    func entitiesView(entitiesView:EntitiesView, titleForEntityAtIndex index:Int) -> String?
 }
 
-public protocol EntitiesViewDelegate : NSObjectProtocol {
+protocol EntitiesViewDelegate : NSObjectProtocol {
     func addEntityInEntitiesView(entitiesView:EntitiesView)
-    func removeEntityInEntitiesView(entitiesView:EntitiesView)
-    func entitiesViewSelectionDidChange(notification: NSNotification)
+    func removeEntityInEntitiesView(entitiesView:EntitiesView, index:Int?)
+    func entitiesView(entitiesView:EntitiesView, didRemoveEntityAtIndex index:Int?)
 }
 
 @IBDesignable
-public class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource {
+class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource {
     
     @IBOutlet var tableView:NSTableView!
     @IBOutlet var addButton:NSButton!
     @IBOutlet var removeButton:NSButton!
     
-    var dataSource:EntitiesViewDataSource?
-    var delegate:EntitiesViewDelegate?
+    weak var dataSource:EntitiesViewDataSource?
+    weak var delegate:EntitiesViewDelegate?
     
-    override public func nibDidLoad() {
+    var selectedIndex:Int?
+    
+    override func nibDidLoad() {
         super.nibDidLoad()
-    }
-    
-    override public func prepareForInterfaceBuilder() {
-        super.prepareForInterfaceBuilder()
+        removeButton.enabled = false
     }
     
     //MARK: - NSTableViewDataSource
-    public func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         if self.isInterfaceBuilder {
             return 20
         }
@@ -51,26 +50,45 @@ public class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDa
     }
     
     //MARK: - NSTableViewDelegate
-    public func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
         if (self.isInterfaceBuilder) {
             cell.title = "Entity"
             return cell
         }
-        return self.dataSource?.entitiesView(tableView, viewForTableColmn: tableColumn, row:row)
+        
+        if let title = self.dataSource?.entitiesView(self, titleForEntityAtIndex:row) {
+            cell.title = title
+        }
+        
+        return cell
     }
     
-    public func tableViewSelectionDidChange(notification: NSNotification) {
-        self.delegate?.entitiesViewSelectionDidChange(notification)
+    func tableViewSelectionDidChange(notification: NSNotification) {
+        let tableView = notification.object as! NSTableView
+        selectedIndex = tableView.selectedRow
+        self.delegate?.entitiesView(self, didRemoveEntityAtIndex:selectedIndex)
+        
+        removeButton.enabled = selectedIndex >= 0
     }
     
     @IBAction func addButton(_: AnyObject) {
-        self.delegate!.addEntityInEntitiesView(self)
-        tableView.reloadData()
+        self.delegate?.addEntityInEntitiesView(self)
+        reloadData()
     }
     
     @IBAction func removeButton(_: AnyObject) {
-        self.delegate?.removeEntityInEntitiesView(self)
+        self.delegate?.removeEntityInEntitiesView(self, index:selectedIndex)
+        reloadData()
+    }
+    
+    func reloadData() {
         tableView.reloadData()
+        resetSelectedIndexState()
+    }
+    
+    func resetSelectedIndexState() {
+        selectedIndex = nil
+        removeButton.enabled = false
     }
 }
