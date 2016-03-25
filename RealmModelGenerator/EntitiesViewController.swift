@@ -16,7 +16,6 @@ class EntitiesViewController: NSViewController, EntitiesViewDelegate, EntitiesVi
     
     private var schema = Schema();
     private var model: Model?
-    private var entities:[Entity] = []
     
     var defaultSchema: Schema?{
         willSet(defaultSchema) {
@@ -36,34 +35,27 @@ class EntitiesViewController: NSViewController, EntitiesViewDelegate, EntitiesVi
         } else {
             model = schema.createModel()
         }
-        
-        entities = model!.entities
     }
     
-    //MARK: EntitiesViewDelegate
-    func entitiesView(entitiesView:EntitiesView, titleForEntityAtIndex index:Int) -> String? {
-        return entities[index].name
-    }
-    
-    func entitiesView(entitiesView:EntitiesView, didRemoveEntityAtIndex index:Int?) {
-        //TODO: notify attribute, relationship, and entity detail data source change
-    }
-    
+    //MARK: - EntitiesViewDataSource
     func numberOfRowsInEntitiesView(entitiesView: EntitiesView) -> Int {
-        return entities.count
-        
+        return model!.entities.count
     }
     
+    func entitiesView(entitiesView:EntitiesView, titleForEntityAtIndex index:Int) -> String? {
+        return model!.entities[index].name
+    }
+    
+    //MARK: - EntitiesViewDelegate
     func addEntityInEntitiesView(entitiesView: EntitiesView) {
-        entities.append(model!.createEntity())
+        model!.createEntity()
     }
     
-    func removeEntityInEntitiesView(entitiesView: EntitiesView, index:Int?) {
-        if let selectedIndex = index {
-            if (selectedIndex >= 0 && selectedIndex < entities.count) {
-                model!.removeEntity(entities[selectedIndex])
-                entities.removeAtIndex(selectedIndex)
-            }
-        }
+    func entitiesView(entitiesView: EntitiesView, removeEntityAtIndex index: Int) {
+        model!.removeEntity(model!.entities[index])
+    }
+    
+    func entitiesView(entitiesView:EntitiesView, selectionChange index:Int) {
+        //TODO: notify attribute, relationship, and entity detail data source change
     }
 }

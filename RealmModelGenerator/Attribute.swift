@@ -12,7 +12,7 @@ class Attribute {
     static let TAG = NSStringFromClass(Attribute)
         
     private(set) var name:String
-    let entity:Entity
+    private(set) weak var entity:Entity!
     var isIgnored = false
     private(set) var isIndexed = false
     var isRequired = false

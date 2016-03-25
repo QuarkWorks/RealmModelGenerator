@@ -11,6 +11,10 @@ import Cocoa
 class ViewController: NSViewController {
     static let TAG = NSStringFromClass(ViewController)
     
+    static let entitiesViewControllerSegue = "EntitiesViewControllerSegue"
+    static let attributesRelationshipsSegue = "AttributesRelationshipsSegue"
+    static let detailsViewControllerSegue = "DetailsViewControllerSegue"
+    
     var schema: Schema = Schema(name:"ViewControllerSchema")
     
     @IBOutlet weak var leftDivider: NSView!
@@ -28,19 +32,19 @@ class ViewController: NSViewController {
     //MARK: - prepareForSegue
     override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
-        case "EntitiesViewControllerSegue":
+        case ViewController.entitiesViewControllerSegue:
             if let enititesViewController: EntitiesViewController = segue.destinationController as? EntitiesViewController {
                 enititesViewController.defaultSchema = schema
             }
             break;
-        case "AttributesRelationshipsSegue":
+        case ViewController.attributesRelationshipsSegue:
             print("AttributesRelationshipsSegue");
             break;
-        case "DetailsViewControllerSegue":
+        case ViewController.detailsViewControllerSegue:
             print("DetailsViewControllerSegue")
             break;
         default:
-            print("Wrong segue identifier")
+            //TODO: throw an NSAssertion().throw()
             break;
             
         }

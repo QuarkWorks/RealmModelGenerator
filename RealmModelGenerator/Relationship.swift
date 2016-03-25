@@ -12,7 +12,7 @@ class Relationship {
     static let TAG = NSStringFromClass(Relationship)
     
     private(set) var name:String
-    let entity:Entity
+    private(set) weak var entity:Entity!
     var destination:Entity?
     var isMany = false
     

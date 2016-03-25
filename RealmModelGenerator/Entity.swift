@@ -10,11 +10,11 @@ import Foundation
 
 class Entity {
     static let TAG = NSStringFromClass(Entity)
-    let model:Model
     
     private(set) var name:String
+    private(set) weak var model:Model!
     var superEntity: Entity? = nil
-    var isBaseClass = false;
+    var isBaseClass = false
     
     private(set) var primaryKey:Attribute?
     
