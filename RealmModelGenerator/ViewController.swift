@@ -41,7 +41,12 @@ class ViewController: NSViewController {
             print("AttributesRelationshipsSegue");
             break;
         case ViewController.detailsViewControllerSegue:
-            print("DetailsViewControllerSegue")
+            if let detailsViewController: DetailsViewController = segue.destinationController as? DetailsViewController {
+                
+                //TODO: remove hard code model and entity
+                let model  = schema.createModel()
+                detailsViewController.setEntity(model.createEntity())
+            }
             break;
         default:
             //TODO: throw an NSAssertion().throw()

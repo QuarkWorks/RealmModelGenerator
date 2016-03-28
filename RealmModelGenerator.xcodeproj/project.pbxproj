@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		3A2A626D1C9C6C12000EA9F6 /* GeneratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2A626C1C9C6C12000EA9F6 /* GeneratorError.swift */; };
+		3A2F96FC1CA9DEAA000AE584 /* EntityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F96FA1CA9DEAA000AE584 /* EntityDetailView.swift */; };
+		3A2F96FD1CA9DEAA000AE584 /* EntityDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A2F96FB1CA9DEAA000AE584 /* EntityDetailView.xib */; };
+		3A2F96FF1CA9DF6E000AE584 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F96FE1CA9DF6E000AE584 /* DetailsViewController.swift */; };
+		3A2F97021CA9DFAC000AE584 /* EntityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F97011CA9DFAC000AE584 /* EntityDetailViewController.swift */; };
+		3A2F97041CA9E6A2000AE584 /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F97031CA9E6A2000AE584 /* EmptyViewController.swift */; };
 		3A321FF01CA0CC4E00FCEF48 /* EntitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A321FEF1CA0CC4E00FCEF48 /* EntitiesViewController.swift */; };
 		3A76FF121C8E0AD00036362D /* SwiftContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */; };
 		3A7E774F1C97744400408325 /* BaseContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E774E1C97744400408325 /* BaseContentGenerator.swift */; };
@@ -58,6 +63,11 @@
 
 /* Begin PBXFileReference section */
 		3A2A626C1C9C6C12000EA9F6 /* GeneratorError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorError.swift; sourceTree = "<group>"; };
+		3A2F96FA1CA9DEAA000AE584 /* EntityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityDetailView.swift; sourceTree = "<group>"; };
+		3A2F96FB1CA9DEAA000AE584 /* EntityDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EntityDetailView.xib; sourceTree = "<group>"; };
+		3A2F96FE1CA9DF6E000AE584 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		3A2F97011CA9DFAC000AE584 /* EntityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityDetailViewController.swift; sourceTree = "<group>"; };
+		3A2F97031CA9E6A2000AE584 /* EmptyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
 		3A321FEF1CA0CC4E00FCEF48 /* EntitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntitiesViewController.swift; sourceTree = "<group>"; };
 		3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftContentGenerator.swift; sourceTree = "<group>"; };
 		3A7E774E1C97744400408325 /* BaseContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseContentGenerator.swift; sourceTree = "<group>"; };
@@ -129,11 +139,22 @@
 			name = Tools;
 			sourceTree = "<group>";
 		};
+		3A2F97001CA9DF7F000AE584 /* DetailViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3A2F97011CA9DFAC000AE584 /* EntityDetailViewController.swift */,
+				3A2F97031CA9E6A2000AE584 /* EmptyViewController.swift */,
+			);
+			name = DetailViewControllers;
+			sourceTree = "<group>";
+		};
 		3AEE8A0B1CA1FC440010F019 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				7798B0D61C87C32900A7F965 /* ViewController.swift */,
 				3A321FEF1CA0CC4E00FCEF48 /* EntitiesViewController.swift */,
+				3A2F96FE1CA9DF6E000AE584 /* DetailsViewController.swift */,
+				3A2F97001CA9DF7F000AE584 /* DetailViewControllers */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -162,6 +183,8 @@
 				77D8277C1C9F8DD500E22CEE /* EntitiesView.swift */,
 				77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */,
 				77D827801C9FA9E100E22CEE /* ViewTools.swift */,
+				3A2F96FA1CA9DEAA000AE584 /* EntityDetailView.swift */,
+				3A2F96FB1CA9DEAA000AE584 /* EntityDetailView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -341,6 +364,7 @@
 				7798B0D91C87C32900A7F965 /* Assets.xcassets in Resources */,
 				77D8277F1C9F8E1800E22CEE /* EntitiesView.xib in Resources */,
 				7798B0DC1C87C32900A7F965 /* Main.storyboard in Resources */,
+				3A2F96FD1CA9DEAA000AE584 /* EntityDetailView.xib in Resources */,
 				773D25881C9F3123009814A0 /* TitleCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,13 +399,16 @@
 				3AEF05E01C8D0788001238E7 /* FileModel.swift in Sources */,
 				3A321FF01CA0CC4E00FCEF48 /* EntitiesViewController.swift in Sources */,
 				7798B1071C87E8FD00A7F965 /* AttributeType.swift in Sources */,
+				3A2F97021CA9DFAC000AE584 /* EntityDetailViewController.swift in Sources */,
 				7798B1051C87E7CE00A7F965 /* Attribute.swift in Sources */,
 				7798B1091C87FBE800A7F965 /* Relationship.swift in Sources */,
 				3A7E774F1C97744400408325 /* BaseContentGenerator.swift in Sources */,
 				7798B1031C87CDA600A7F965 /* Entity.swift in Sources */,
+				3A2F96FF1CA9DF6E000AE584 /* DetailsViewController.swift in Sources */,
 				7798B1011C87C63B00A7F965 /* Model.swift in Sources */,
 				773D25861C9F3123009814A0 /* NibDesignable.swift in Sources */,
 				773D25871C9F3123009814A0 /* TitleCell.swift in Sources */,
+				3A2F96FC1CA9DEAA000AE584 /* EntityDetailView.swift in Sources */,
 				77D827811C9FA9E100E22CEE /* ViewTools.swift in Sources */,
 				77A49E311C9C8BFE0047873C /* IO.swift in Sources */,
 				3A2A626D1C9C6C12000EA9F6 /* GeneratorError.swift in Sources */,
@@ -389,6 +416,7 @@
 				7798B0D71C87C32900A7F965 /* ViewController.swift in Sources */,
 				3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */,
 				3ABD35E01C975E2D00A5C883 /* RealmSchemaDocument.swift in Sources */,
+				3A2F97041CA9E6A2000AE584 /* EmptyViewController.swift in Sources */,
 				7798B0D51C87C32900A7F965 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -803,17 +803,119 @@
             </objects>
             <point key="canvasLocation" x="155" y="1535"/>
         </scene>
-        <!--View Controller-->
+        <!--Entity Detail View Controller-->
+        <scene sceneID="hov-AP-CN9">
+            <objects>
+                <viewController storyboardIdentifier="EntityDetailViewController" id="ys1-zd-vEd" customClass="EntityDetailViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="eo4-iL-mpV">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iDW-u8-rgR">
+                                <rect key="frame" x="35" y="479" width="40" height="16"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name" id="4Ir-nv-CPU">
+                                    <font key="font" metaFont="system" size="12"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zBt-un-0Yz">
+                                <rect key="frame" x="-2" y="456" width="77" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Super Class" id="AnJ-AX-DqV">
+                                    <font key="font" metaFont="system" size="12"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z2k-Dz-bMD">
+                                <rect key="frame" x="77" y="476" width="117" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="7Ih-dL-KR4">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="entityNameDidChange:" target="ys1-zd-vEd" id="3Yo-hf-Qly"/>
+                                </connections>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zMc-sa-GsE">
+                                <rect key="frame" x="77" y="452" width="117" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="iVK-eI-7TJ">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="superClassDidChange:" target="ys1-zd-vEd" id="gVw-2e-jTZ"/>
+                                </connections>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uSZ-J7-3WE">
+                                <rect key="frame" x="70" y="5" width="61" height="25"/>
+                                <buttonCell key="cell" type="roundTextured" title="Refresh" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Jd3-le-JEC">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="refreshButton:" target="ys1-zd-vEd" id="pTU-1n-tG9"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8qZ-jb-9nh">
+                                <rect key="frame" x="4" y="514" width="41" height="18"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Entity" id="El1-1m-gG7">
+                                    <font key="font" metaFont="system" size="14"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="entityName" destination="Z2k-Dz-bMD" id="dfv-Jf-8gW"/>
+                        <outlet property="superClass" destination="zMc-sa-GsE" id="8wa-9D-MYy"/>
+                    </connections>
+                </viewController>
+                <customObject id="Zjk-8C-465" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-145" y="2198"/>
+        </scene>
+        <!--Details View Controller-->
         <scene sceneID="bwT-eQ-hSi">
             <objects>
-                <viewController id="4QR-qq-Xan" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailsViewController" id="4QR-qq-Xan" customClass="DetailsViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="heb-cf-9JN">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IaR-44-4ct">
-                                <rect key="frame" x="18" y="503" width="46" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Details" id="SUc-5i-xZa">
+                            <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0MJ-UX-Dr6">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
+                                <connections>
+                                    <segue destination="ys1-zd-vEd" kind="embed" identifier="EntityDetailViewController" id="jg5-Qg-pXQ"/>
+                                </connections>
+                            </containerView>
+                            <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Sk-ak-9lh">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
+                                <connections>
+                                    <segue destination="0OX-E8-0US" kind="embed" identifier="EmptyViewController" id="255-Vo-tJk"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                    </view>
+                </viewController>
+                <customObject id="8U0-t5-zkT" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="455" y="1535"/>
+        </scene>
+        <!--Empty View Controller-->
+        <scene sceneID="2nL-AS-KJM">
+            <objects>
+                <viewController storyboardIdentifier="EmptyViewController" id="0OX-E8-0US" customClass="EmptyViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="9Q7-Ib-E0S">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SYB-Un-r6S">
+                                <rect key="frame" x="79" y="262" width="43" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Empty" id="PJ5-RE-4RA">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -822,9 +924,9 @@
                         </subviews>
                     </view>
                 </viewController>
-                <customObject id="8U0-t5-zkT" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="YZ9-Ce-80H" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="455" y="1535"/>
+            <point key="canvasLocation" x="455" y="2198"/>
         </scene>
     </scenes>
 </document>
