@@ -41,11 +41,13 @@ class ViewController: NSViewController {
             print("AttributesRelationshipsSegue");
             break;
         case ViewController.detailsViewControllerSegue:
-            if let detailsViewController: DetailsViewController = segue.destinationController as? DetailsViewController {
+            if let detailsViewController: DetailsTabViewController = segue.destinationController as? DetailsTabViewController {
                 
                 //TODO: remove hard code model and entity
                 let model  = schema.createModel()
-                detailsViewController.setEntity(model.createEntity())
+//                detailsViewController.setEntity(model.createEntity())
+                detailsViewController.setAttribute(model.createEntity().createAttribute())
+//                detailsViewController.setRelationshi(Relationship.init(name: "relationship!", entity: model.createEntity()))
             }
             break;
         default:

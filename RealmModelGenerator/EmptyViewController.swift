@@ -9,5 +9,5 @@
 import Cocoa
 
 class EmptyViewController: NSViewController {
-    
+
 }

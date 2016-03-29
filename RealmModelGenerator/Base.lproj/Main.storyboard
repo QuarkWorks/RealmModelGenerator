@@ -726,7 +726,7 @@
                             <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e17-Cb-9EH">
                                 <rect key="frame" x="600" y="0.0" width="200" height="540"/>
                                 <connections>
-                                    <segue destination="4QR-qq-Xan" kind="embed" identifier="DetailsViewControllerSegue" id="PMk-6f-vvI"/>
+                                    <segue destination="b6x-cI-OeK" kind="embed" identifier="DetailsViewControllerSegue" id="qQk-nn-VPP"/>
                                 </connections>
                             </containerView>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tsO-ov-f2A">
@@ -803,18 +803,18 @@
             </objects>
             <point key="canvasLocation" x="155" y="1535"/>
         </scene>
-        <!--Entity Detail View Controller-->
+        <!--Entity-->
         <scene sceneID="hov-AP-CN9">
             <objects>
-                <viewController storyboardIdentifier="EntityDetailViewController" id="ys1-zd-vEd" customClass="EntityDetailViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="eo4-iL-mpV">
+                <viewController title="Entity" storyboardIdentifier="EntityDetailViewController" id="ys1-zd-vEd" customClass="EntityDetailViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" identifier="EntityDetailTabView" id="eo4-iL-mpV">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iDW-u8-rgR">
                                 <rect key="frame" x="35" y="479" width="40" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name" id="4Ir-nv-CPU">
-                                    <font key="font" metaFont="system" size="12"/>
+                                    <font key="font" metaFont="system" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -822,7 +822,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zBt-un-0Yz">
                                 <rect key="frame" x="-2" y="456" width="77" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Super Class" id="AnJ-AX-DqV">
-                                    <font key="font" metaFont="system" size="12"/>
+                                    <font key="font" metaFont="system" size="11"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -830,7 +830,7 @@
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z2k-Dz-bMD">
                                 <rect key="frame" x="77" y="476" width="117" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="7Ih-dL-KR4">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="system" size="11"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -841,7 +841,7 @@
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zMc-sa-GsE">
                                 <rect key="frame" x="77" y="452" width="117" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="iVK-eI-7TJ">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="system" size="11"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -876,39 +876,103 @@
                 </viewController>
                 <customObject id="Zjk-8C-465" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-145" y="2198"/>
+            <point key="canvasLocation" x="-145" y="2251"/>
         </scene>
-        <!--Details View Controller-->
-        <scene sceneID="bwT-eQ-hSi">
+        <!--Second View Controller-->
+        <scene sceneID="zzo-bb-zxL">
             <objects>
-                <viewController storyboardIdentifier="DetailsViewController" id="4QR-qq-Xan" customClass="DetailsViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="heb-cf-9JN">
+                <viewController title="" storyboardIdentifier="SecondViewController" id="9a5-Yx-qFG" customClass="SecondViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="PBR-dg-gBd">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0MJ-UX-Dr6">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
-                                <connections>
-                                    <segue destination="ys1-zd-vEd" kind="embed" identifier="EntityDetailViewController" id="jg5-Qg-pXQ"/>
-                                </connections>
-                            </containerView>
-                            <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Sk-ak-9lh">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
-                                <connections>
-                                    <segue destination="0OX-E8-0US" kind="embed" identifier="EmptyViewController" id="255-Vo-tJk"/>
-                                </connections>
-                            </containerView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZH-cz-krt">
+                                <rect key="frame" x="82" y="262" width="49" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="second" id="7sl-Gu-ge2">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </view>
                 </viewController>
-                <customObject id="8U0-t5-zkT" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="1B0-nK-kkf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="455" y="1535"/>
+            <point key="canvasLocation" x="934" y="2712"/>
         </scene>
-        <!--Empty View Controller-->
+        <!--Details Tab View Controller-->
+        <scene sceneID="btm-0h-JBq">
+            <objects>
+                <tabViewController selectedTabViewItemIndex="3" tabStyle="unspecified" canPropagateSelectedChildViewControllerTitle="NO" id="b6x-cI-OeK" customClass="DetailsTabViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabViewItems>
+                        <tabViewItem id="UgL-SR-SbH"/>
+                        <tabViewItem id="O0L-Xn-Wmk"/>
+                        <tabViewItem id="fS1-td-oej"/>
+                        <tabViewItem id="I5M-ih-fIc"/>
+                    </tabViewItems>
+                    <viewControllerTransitionOptions key="transitionOptions"/>
+                    <tabView key="tabView" id="znJ-bP-GA7">
+                        <rect key="frame" x="0.0" y="0.0" width="202" height="540"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <font key="font" metaFont="message"/>
+                        <tabViewItems/>
+                    </tabView>
+                    <connections>
+                        <outlet property="attributeDetailView" destination="O0L-Xn-Wmk" id="tt5-6a-Pzv"/>
+                        <outlet property="emptyView" destination="I5M-ih-fIc" id="0nP-9Z-Dpv"/>
+                        <outlet property="entityDetailView" destination="UgL-SR-SbH" id="Ez7-Ia-D1V"/>
+                        <outlet property="relationshipDetailView" destination="fS1-td-oej" id="bJr-BN-MFV"/>
+                        <segue destination="ys1-zd-vEd" kind="relationship" relationship="tabItems" id="1X1-Fp-mea"/>
+                        <segue destination="JUi-4w-7fx" kind="relationship" relationship="tabItems" id="Xj7-A0-Igo"/>
+                        <segue destination="aSq-Zm-x2t" kind="relationship" relationship="tabItems" id="hgA-9f-pdI"/>
+                        <segue destination="0OX-E8-0US" kind="relationship" relationship="tabItems" id="GjM-ep-wuH"/>
+                    </connections>
+                </tabViewController>
+                <customObject id="l3e-fd-WmH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="592" y="1415"/>
+        </scene>
+        <!--Attribute-->
+        <scene sceneID="gQF-CC-b0T">
+            <objects>
+                <viewController title="Attribute" id="JUi-4w-7fx" customClass="AttributeDetailViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="y8T-tK-92t">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUh-ou-wMC" customClass="AttributeDetailView" customModule="RealmModelGenerator" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
+                            </customView>
+                        </subviews>
+                    </view>
+                </viewController>
+                <customObject id="G4Y-Gp-VTP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="55" y="2251"/>
+        </scene>
+        <!--Relationship-->
+        <scene sceneID="zwk-cv-xaZ">
+            <objects>
+                <viewController title="Relationship" storyboardIdentifier="RelationshipViewController" id="aSq-Zm-x2t" customClass="RelationshipViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="ZyI-Nf-PJM">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4or-Xy-zl7" customClass="RelationshipDetailView" customModule="RealmModelGenerator" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
+                            </customView>
+                        </subviews>
+                    </view>
+                </viewController>
+                <customObject id="z8l-ON-uRI" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="255" y="2251"/>
+        </scene>
+        <!--Empty-->
         <scene sceneID="2nL-AS-KJM">
             <objects>
-                <viewController storyboardIdentifier="EmptyViewController" id="0OX-E8-0US" customClass="EmptyViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Empty" storyboardIdentifier="EmptyViewController" id="0OX-E8-0US" customClass="EmptyViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="9Q7-Ib-E0S">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -926,7 +990,7 @@
                 </viewController>
                 <customObject id="YZ9-Ce-80H" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="455" y="2198"/>
+            <point key="canvasLocation" x="457" y="2251"/>
         </scene>
     </scenes>
 </document>

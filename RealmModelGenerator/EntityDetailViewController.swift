@@ -12,19 +12,21 @@ class EntityDetailViewController : NSViewController {
     static let TAG = NSStringFromClass(EntityDetailViewController)
     
     var entity: Entity?
+    
     @IBOutlet weak var entityName: NSTextField!
-    
-    
     @IBOutlet weak var superClass: NSTextField!
     
     override func viewDidLoad() {
         print(EntityDetailViewController.TAG)
-        
         entityName.stringValue = "Child"
         superClass.stringValue = "Parent"
     }
     
-    func setEntiy(entity:Entity) {
+    override func viewWillAppear() {
+        print("entity:\(entity)")
+    }
+    
+    func setEntity(entity:Entity) {
         self.entity = entity
     }
     
