@@ -14,11 +14,12 @@ class RelationshipViewController: NSViewController {
     var relationship: Relationship?
     
     override func viewDidLoad() {
-        print(EntityDetailViewController.TAG)
+        super.viewDidLoad()
+//        print(RelationshipViewController.TAG)
     }
     
     override func viewWillAppear() {
-        print("relationship:\(relationship)")
+//        print("relationship:\(relationship)")
     }
     
     func setRelationship(relationship:Relationship) {

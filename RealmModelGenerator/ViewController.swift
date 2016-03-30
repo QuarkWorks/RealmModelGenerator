@@ -19,14 +19,50 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var leftDivider: NSView!
     @IBOutlet weak var rightDivider: NSView!
+    @IBOutlet weak var detailsContainerView: NSView!
+    
+    var selectedTabViewItemIndex = 0
+    var perforeSegue = false
+    
+    let detailsViewController = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("DetailsTabViewController") as! DetailsTabViewController
+    
+    let model  = Schema().createModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         self.view.wantsLayer = true
+       
         leftDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
         rightDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
+        
+
+        detailsContainerView.layer?.backgroundColor = NSColor.grayColor().CGColor
+    }
+    
+    @IBAction func checkEntityDetail(sender: AnyObject) {
+        detailsViewController.setEntity(model.createEntity())
+        detailsViewController.selectedTabViewItemIndex = 1
+        
+        detailsViewController.removeFromParentViewController()
+        detailsContainerView.addSubview(detailsViewController.view)
+    }
+    
+    @IBAction func checkAttributeDetail(sender: AnyObject) {
+        detailsViewController.setAttribute(model.createEntity().createAttribute())
+        detailsViewController.selectedTabViewItemIndex = 2
+        
+        detailsViewController.removeFromParentViewController()
+        detailsContainerView.addSubview(detailsViewController.view)
+    }
+    
+    @IBAction func checkRelationshipDetail(sender: AnyObject) {
+        detailsViewController.setRelationshi(Relationship.init(name: "relationship!", entity: model.createEntity()))
+        detailsViewController.selectedTabViewItemIndex = 3
+        
+        detailsViewController.removeFromParentViewController()
+        detailsContainerView.addSubview(detailsViewController.view)
     }
     
     //MARK: - prepareForSegue
@@ -48,6 +84,7 @@ class ViewController: NSViewController {
 //                detailsViewController.setEntity(model.createEntity())
                 detailsViewController.setAttribute(model.createEntity().createAttribute())
 //                detailsViewController.setRelationshi(Relationship.init(name: "relationship!", entity: model.createEntity()))
+                detailsViewController.selectedTabViewItemIndex = selectedTabViewItemIndex
             }
             break;
         default:

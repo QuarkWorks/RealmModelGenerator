@@ -718,7 +718,7 @@
                                 </connections>
                             </containerView>
                             <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="420-fr-qut">
-                                <rect key="frame" x="200" y="0.0" width="400" height="540"/>
+                                <rect key="frame" x="200" y="20" width="400" height="520"/>
                                 <connections>
                                     <segue destination="oMK-Do-o62" kind="embed" identifier="AttributesRelationshipsSegue" id="7MV-zg-pvn"/>
                                 </connections>
@@ -726,7 +726,7 @@
                             <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e17-Cb-9EH">
                                 <rect key="frame" x="600" y="0.0" width="200" height="540"/>
                                 <connections>
-                                    <segue destination="b6x-cI-OeK" kind="embed" identifier="DetailsViewControllerSegue" id="qQk-nn-VPP"/>
+                                    <segue destination="UU8-H8-eAQ" kind="embed" identifier="DetailsViewControllerSegue" id="Db7-vp-wy1"/>
                                 </connections>
                             </containerView>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tsO-ov-f2A">
@@ -735,9 +735,40 @@
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Wf-oU-ck8">
                                 <rect key="frame" x="599" y="0.0" width="1" height="540"/>
                             </customView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2fY-KP-aO6">
+                                <rect key="frame" x="354" y="-7" width="94" height="32"/>
+                                <buttonCell key="cell" type="push" title="Attribute" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rjv-Lo-Cj0">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkAttributeDetail:" target="XfG-lQ-9wD" id="tqE-FI-lQy"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ry-go-HkG">
+                                <rect key="frame" x="483" y="-7" width="115" height="32"/>
+                                <buttonCell key="cell" type="push" title="Relationship" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5Q1-TR-nvU">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkRelationshipDetail:" target="XfG-lQ-9wD" id="eql-4r-wUd"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VWF-r7-UYP">
+                                <rect key="frame" x="202" y="-7" width="75" height="32"/>
+                                <buttonCell key="cell" type="push" title="Entity" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L06-9W-gZ2">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkEntityDetail:" target="XfG-lQ-9wD" id="r8d-Hw-gfm"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="detailsContainerView" destination="e17-Cb-9EH" id="yUZ-uS-FDg"/>
                         <outlet property="leftDivider" destination="tsO-ov-f2A" id="Rl2-AL-a24"/>
                         <outlet property="rightDivider" destination="9Wf-oU-ck8" id="St4-lG-paJ"/>
                     </connections>
@@ -814,7 +845,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iDW-u8-rgR">
                                 <rect key="frame" x="35" y="479" width="40" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name" id="4Ir-nv-CPU">
-                                    <font key="font" metaFont="system" size="11"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -822,7 +853,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zBt-un-0Yz">
                                 <rect key="frame" x="-2" y="456" width="77" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Super Class" id="AnJ-AX-DqV">
-                                    <font key="font" metaFont="system" size="11"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -830,7 +861,7 @@
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z2k-Dz-bMD">
                                 <rect key="frame" x="77" y="476" width="117" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="7Ih-dL-KR4">
-                                    <font key="font" metaFont="system" size="11"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -841,7 +872,7 @@
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zMc-sa-GsE">
                                 <rect key="frame" x="77" y="452" width="117" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="iVK-eI-7TJ">
-                                    <font key="font" metaFont="system" size="11"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -901,38 +932,6 @@
             </objects>
             <point key="canvasLocation" x="934" y="2712"/>
         </scene>
-        <!--Details Tab View Controller-->
-        <scene sceneID="btm-0h-JBq">
-            <objects>
-                <tabViewController selectedTabViewItemIndex="3" tabStyle="unspecified" canPropagateSelectedChildViewControllerTitle="NO" id="b6x-cI-OeK" customClass="DetailsTabViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabViewItems>
-                        <tabViewItem id="UgL-SR-SbH"/>
-                        <tabViewItem id="O0L-Xn-Wmk"/>
-                        <tabViewItem id="fS1-td-oej"/>
-                        <tabViewItem id="I5M-ih-fIc"/>
-                    </tabViewItems>
-                    <viewControllerTransitionOptions key="transitionOptions"/>
-                    <tabView key="tabView" id="znJ-bP-GA7">
-                        <rect key="frame" x="0.0" y="0.0" width="202" height="540"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <font key="font" metaFont="message"/>
-                        <tabViewItems/>
-                    </tabView>
-                    <connections>
-                        <outlet property="attributeDetailView" destination="O0L-Xn-Wmk" id="tt5-6a-Pzv"/>
-                        <outlet property="emptyView" destination="I5M-ih-fIc" id="0nP-9Z-Dpv"/>
-                        <outlet property="entityDetailView" destination="UgL-SR-SbH" id="Ez7-Ia-D1V"/>
-                        <outlet property="relationshipDetailView" destination="fS1-td-oej" id="bJr-BN-MFV"/>
-                        <segue destination="ys1-zd-vEd" kind="relationship" relationship="tabItems" id="1X1-Fp-mea"/>
-                        <segue destination="JUi-4w-7fx" kind="relationship" relationship="tabItems" id="Xj7-A0-Igo"/>
-                        <segue destination="aSq-Zm-x2t" kind="relationship" relationship="tabItems" id="hgA-9f-pdI"/>
-                        <segue destination="0OX-E8-0US" kind="relationship" relationship="tabItems" id="GjM-ep-wuH"/>
-                    </connections>
-                </tabViewController>
-                <customObject id="l3e-fd-WmH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="592" y="1415"/>
-        </scene>
         <!--Attribute-->
         <scene sceneID="gQF-CC-b0T">
             <objects>
@@ -991,6 +990,38 @@
                 <customObject id="YZ9-Ce-80H" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="457" y="2251"/>
+        </scene>
+        <!--Details Tab View Controller-->
+        <scene sceneID="MAs-bE-Xrf">
+            <objects>
+                <tabViewController storyboardIdentifier="DetailsTabViewController" tabStyle="unspecified" canPropagateSelectedChildViewControllerTitle="NO" id="UU8-H8-eAQ" customClass="DetailsTabViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabViewItems>
+                        <tabViewItem identifier="emptyDetailView" id="r5s-HM-ssg"/>
+                        <tabViewItem identifier="entityDetailView" id="fXV-8T-vum"/>
+                        <tabViewItem identifier="attributeDetailView" id="2vK-x0-sAp"/>
+                        <tabViewItem identifier="relationshiDetailView" id="pna-n4-AEM"/>
+                    </tabViewItems>
+                    <viewControllerTransitionOptions key="transitionOptions" allowUserInteraction="YES"/>
+                    <tabView key="tabView" id="3Gz-dd-CDm">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <font key="font" metaFont="message"/>
+                        <tabViewItems/>
+                    </tabView>
+                    <connections>
+                        <outlet property="attributeDetailView" destination="2vK-x0-sAp" id="73m-jV-HIh"/>
+                        <outlet property="emptyView" destination="r5s-HM-ssg" id="BQP-YA-9n2"/>
+                        <outlet property="entityDetailView" destination="2vK-x0-sAp" id="PUw-W1-ska"/>
+                        <outlet property="relationshipDetailView" destination="pna-n4-AEM" id="xjJ-EA-RUY"/>
+                        <segue destination="0OX-E8-0US" kind="relationship" relationship="tabItems" id="FDc-Fz-R4H"/>
+                        <segue destination="ys1-zd-vEd" kind="relationship" relationship="tabItems" id="Y17-lS-xhv"/>
+                        <segue destination="JUi-4w-7fx" kind="relationship" relationship="tabItems" id="86Z-tf-sYV"/>
+                        <segue destination="aSq-Zm-x2t" kind="relationship" relationship="tabItems" id="Iab-p4-vnc"/>
+                    </connections>
+                </tabViewController>
+                <customObject id="WuT-tG-Yjr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="612" y="1434"/>
         </scene>
     </scenes>
 </document>

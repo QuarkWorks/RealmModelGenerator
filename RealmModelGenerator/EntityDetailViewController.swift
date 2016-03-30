@@ -23,7 +23,7 @@ class EntityDetailViewController : NSViewController {
     }
     
     override func viewWillAppear() {
-        print("entity:\(entity)")
+//        print("entity:\(entity)")
     }
     
     func setEntity(entity:Entity) {
@@ -40,7 +40,8 @@ class EntityDetailViewController : NSViewController {
     
     @IBAction func refreshButton(sender: AnyObject) {
         print("refresh button")
-        print("name:\(entityName.stringValue)")
-        print("superClass:\(superClass.stringValue)")
+//        print("name:\(entityName.stringValue)")
+//        print("superClass:\(superClass.stringValue)")
+        entityName.stringValue = "haha"
     }
 }
