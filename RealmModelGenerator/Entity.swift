@@ -54,7 +54,7 @@ class Entity {
         var count = 0
         while attributes.contains({$0.name == name}) {
             count++
-            name = "\(name)\(count)"
+            name = "Attribute\(count)"
         }
         
         let attribute = Attribute(name:name, entity:self)
