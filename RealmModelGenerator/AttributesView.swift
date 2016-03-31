@@ -1,35 +1,36 @@
 //
-//  EntitiesView.swift
+//  AttributesView.swift
 //  RealmModelGenerator
 //
-//  Created by Brandon Erbschloe on 3/20/16.
+//  Created by Zhaolong Zhong on 3/31/16.
 //  Copyright © 2016 QuarkWorks. All rights reserved.
 //
 
 import Cocoa
 
-@objc protocol EntitiesViewDataSource {
-    optional func numberOfRowsInEntitiesView(entitiesView:EntitiesView) -> Int
-    optional func entitiesView(entitiesView:EntitiesView, titleForEntityAtIndex index:Int) -> String?
+@objc protocol AttributesViewDataSource {
+    optional func numberOfRowsInAttributesView(attributesView:AttributesView) -> Int
+    optional func attributesView(attributesView:AttributesView, titleForAttributeAtIndex index:Int) -> String?
 }
 
-@objc protocol EntitiesViewDelegate {
-    optional func addEntityInEntitiesView(entitiesView:EntitiesView)
-    optional func entitiesView(entitiesView:EntitiesView, removeEntityAtIndex index:Int)
-    optional func entitiesView(entitiesView:EntitiesView, selectionChange index:Int)
-    optional func entitiesView(entitiesView:EntitiesView, shouldChangeEntityName name:String,
+@objc protocol AttributesViewDelegate {
+    optional func addAttributeInAttributesView(attributesView:AttributesView)
+    optional func attributesView(attributesView:AttributesView, removeAttributeAtIndex index:Int)
+    optional func attributesView(attributesView:AttributesView, selectionChange index:Int)
+    optional func attributesView(attributesView:AttributesView, shouldChangeAttributeName name:String,
         atIndex index:Int) -> Bool
 }
 
 @IBDesignable
-class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource, TitleCellDelegate {
+class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource, TitleCellDelegate {
+    static let TAG = NSStringFromClass(AttributesView)
     
     @IBOutlet var tableView:NSTableView!
-    @IBOutlet var addButton:NSButton!
-    @IBOutlet var removeButton:NSButton!
+    @IBOutlet weak var addButton: NSButton!
+    @IBOutlet weak var removeButton: NSButton!
     
-    weak var dataSource:EntitiesViewDataSource?
-    weak var delegate:EntitiesViewDelegate?
+    weak var dataSource:AttributesViewDataSource?
+    weak var delegate:AttributesViewDelegate?
     
     var selectedIndex:Int? {
         get {
@@ -44,19 +45,19 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
             }
         }
     }
-
+    
     override func nibDidLoad() {
         super.nibDidLoad()
         removeButton.enabled = false
     }
     
     //MARK: - NSTableViewDataSource
-     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         if self.isInterfaceBuilder {
             return 20
         }
         
-        if let numberOfItems = self.dataSource?.numberOfRowsInEntitiesView?(self) {
+        if let numberOfItems = self.dataSource?.numberOfRowsInAttributesView?(self) {
             return numberOfItems
         }
         
@@ -67,11 +68,11 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
         if (self.isInterfaceBuilder) {
-            cell.title = "Entity"
+            cell.title = "Attribute"
             return cell
         }
         
-        if let title = self.dataSource?.entitiesView?(self, titleForEntityAtIndex:row) {
+        if let title = self.dataSource?.attributesView?(self, titleForAttributeAtIndex:row) {
             cell.title = title
             cell.delegate = self
         }
@@ -84,7 +85,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         selectedIndex = tableView.selectedRow
         
         if let index = selectedIndex {
-            self.delegate?.entitiesView?(self, selectionChange:index)
+            self.delegate?.attributesView?(self, selectionChange: index)
         }
         
         removeButton.enabled = self.selectedIndex != nil
@@ -94,21 +95,21 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     func titleCell(titleCell: TitleCell, shouldChangeTitle title: String) -> Bool {
         let index = self.tableView.rowForView(titleCell)
         if index != -1 {
-            if let shouldChange = self.delegate?.entitiesView?(self, shouldChangeEntityName: title, atIndex: index) {
+            if let shouldChange = self.delegate?.attributesView?(self, shouldChangeAttributeName: title, atIndex: index) {
                 return shouldChange
             }
         }
         return true
     }
     
-    @IBAction func addButton(_: AnyObject) {
-        self.delegate?.addEntityInEntitiesView?(self)
+    @IBAction func addAttributeButton(sender: AnyObject) {
+        self.delegate?.addAttributeInAttributesView?(self)
         reloadData()
     }
-    
-    @IBAction func removeButton(_: AnyObject) {
+
+    @IBAction func removeAttributeButton(sender: AnyObject) {
         if let index = selectedIndex {
-            self.delegate?.entitiesView?(self, removeEntityAtIndex:index)
+            self.delegate?.attributesView?(self, removeAttributeAtIndex:index)
             tableView.reloadData()
         }
     }

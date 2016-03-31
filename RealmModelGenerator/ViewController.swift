@@ -8,11 +8,11 @@
 
 import Cocoa
 
-class ViewController: NSViewController, EntitiesViewControllerDelegate {
+class ViewController: NSViewController, EntitiesViewControllerDelegate, AttributesRelationViewControllerDelegate {
     static let TAG = NSStringFromClass(ViewController)
     
     static let entitiesViewControllerSegue = "EntitiesViewControllerSegue"
-    static let attributesRelationshipsSegue = "AttributesRelationshipsSegue"
+    static let attributesRelationshipsViewControllerSegue = "AttributesRelationshipsViewControllerSegue"
     static let detailsViewControllerSegue = "DetailsViewControllerSegue"
     
     var schema: Schema = Schema(name:"ViewControllerSchema")
@@ -38,10 +38,34 @@ class ViewController: NSViewController, EntitiesViewControllerDelegate {
         rightDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
     }
     
-    func entitySelected(entity: Entity) {
-        entityDetailViewController.setEntity(entity)
+    //MARK: - EntitiesViewController delegate
+    func entitySelected(entity: Entity?) {
         detailsContainerView.subviews[0].removeFromSuperview()
-        detailsContainerView.addSubview(entityDetailViewController.view)
+        if let entity = entity {
+            entityDetailViewController.setEntity(entity)
+            detailsContainerView.addSubview(entityDetailViewController.view)
+        } else {
+            
+            detailsContainerView.addSubview(emptyViewController.view)
+        }
+    }
+    
+    //MARK: - AttributesRelationshipsViewController delegate
+    func attributeSelected(attribute: Attribute?) {
+        detailsContainerView.subviews[0].removeFromSuperview()
+        if let attribute = attribute {
+        attributeDetailViewController.setAttribute(attribute)
+        detailsContainerView.addSubview(attributeDetailViewController.view)
+        } else {
+            detailsContainerView.addSubview(emptyViewController.view)
+        }
+    }
+    
+    //MARK: - AttributesRelationshipsViewController delegate
+    func relationshipSelected(relationship: Relationship?) {
+        relationshipDetailViewController.setRelationship(Relationship.init(name: "relationship!", entity: model.createEntity()))
+        detailsContainerView.subviews[0].removeFromSuperview()
+        detailsContainerView.addSubview(relationshipDetailViewController.view)
     }
     
     @IBAction func returnEmptyState(sender: AnyObject) {
@@ -76,7 +100,10 @@ class ViewController: NSViewController, EntitiesViewControllerDelegate {
                 enititesViewController.delegate = self
             }
             break;
-        case ViewController.attributesRelationshipsSegue:
+        case ViewController.attributesRelationshipsViewControllerSegue:
+            if let attributesRelationshipsViewController: AttributesRelationshipsViewController = segue.destinationController as? AttributesRelationshipsViewController {
+                attributesRelationshipsViewController.delegate = self
+            }
             break;
         case ViewController.detailsViewControllerSegue:
             break;

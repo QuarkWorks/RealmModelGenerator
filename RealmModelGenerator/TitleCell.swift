@@ -8,15 +8,15 @@
 
 import Cocoa
 
-protocol TitleCellDelegate : class{
-    func titleDidChange(newTitle: String)
+@objc protocol TitleCellDelegate {
+    optional func titleCell(titleCell:TitleCell, shouldChangeTitle title:String) -> Bool
 }
 
 @IBDesignable
 class TitleCell: NibDesignableView, NSTextFieldDelegate {
     static let IDENTIFIER = "TitleCell"
 
-    weak var delegate: TitleCellDelegate!
+    weak var delegate:TitleCellDelegate?
     
     @IBOutlet var titleTextField:NSTextField! {
         willSet {
@@ -60,15 +60,10 @@ class TitleCell: NibDesignableView, NSTextFieldDelegate {
         }
     }
     
-    func control(control: NSControl, textShouldBeginEditing fieldEditor: NSText) -> Bool {
-        return true
-    }
-    
     func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
+        if let shouldEnd = self.delegate?.titleCell?(self, shouldChangeTitle: fieldEditor.string!) {
+            return shouldEnd
+        }
         return true
-    }
-
-    @IBAction func titleDidChange(sender: AnyObject) {
-        delegate?.titleDidChange(title)
     }
 }

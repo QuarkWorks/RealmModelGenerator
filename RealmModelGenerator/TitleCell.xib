@@ -24,9 +24,6 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
-                    <connections>
-                        <action selector="titleDidChange:" target="-2" id="2ke-cx-pRG"/>
-                    </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BzI-NG-lrh">
                     <rect key="frame" x="8" y="6" width="20" height="20"/>

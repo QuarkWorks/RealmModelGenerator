@@ -19,8 +19,13 @@
 		3A2F97641CAB4305000AE584 /* AttributeDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A2F97621CAB4305000AE584 /* AttributeDetailView.xib */; };
 		3A2F97661CAB455A000AE584 /* AttributeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F97651CAB455A000AE584 /* AttributeDetailViewController.swift */; };
 		3A321FF01CA0CC4E00FCEF48 /* EntitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A321FEF1CA0CC4E00FCEF48 /* EntitiesViewController.swift */; };
+		3A5A167F1CADAAEA00E5B9ED /* AttributesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A167E1CADAAEA00E5B9ED /* AttributesViewController.swift */; };
+		3A5A16811CADAB1600E5B9ED /* AttributesRelationshipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16801CADAB1600E5B9ED /* AttributesRelationshipsViewController.swift */; };
+		3A5A16831CADAB5400E5B9ED /* RelationshipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16821CADAB5400E5B9ED /* RelationshipsViewController.swift */; };
 		3A76FF121C8E0AD00036362D /* SwiftContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */; };
 		3A7E774F1C97744400408325 /* BaseContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E774E1C97744400408325 /* BaseContentGenerator.swift */; };
+		3AA5635D1CACFE8D00A5B648 /* AttributesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA5635B1CACFE8D00A5B648 /* AttributesView.swift */; };
+		3AA5635E1CACFE8D00A5B648 /* AttributesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AA5635C1CACFE8D00A5B648 /* AttributesView.xib */; };
 		3AAF1BDC1C91F06A0096C31D /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF1BDB1C91F06A0096C31D /* Tools.swift */; };
 		3AAF1BDE1C91F3D70096C31D /* ObjectCContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF1BDD1C91F3D70096C31D /* ObjectCContentGenerator.swift */; };
 		3ABD35E01C975E2D00A5C883 /* RealmSchemaDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */; };
@@ -79,8 +84,13 @@
 		3A2F97621CAB4305000AE584 /* AttributeDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttributeDetailView.xib; sourceTree = "<group>"; };
 		3A2F97651CAB455A000AE584 /* AttributeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeDetailViewController.swift; sourceTree = "<group>"; };
 		3A321FEF1CA0CC4E00FCEF48 /* EntitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntitiesViewController.swift; sourceTree = "<group>"; };
+		3A5A167E1CADAAEA00E5B9ED /* AttributesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributesViewController.swift; sourceTree = "<group>"; };
+		3A5A16801CADAB1600E5B9ED /* AttributesRelationshipsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributesRelationshipsViewController.swift; sourceTree = "<group>"; };
+		3A5A16821CADAB5400E5B9ED /* RelationshipsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipsViewController.swift; sourceTree = "<group>"; };
 		3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftContentGenerator.swift; sourceTree = "<group>"; };
 		3A7E774E1C97744400408325 /* BaseContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseContentGenerator.swift; sourceTree = "<group>"; };
+		3AA5635B1CACFE8D00A5B648 /* AttributesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributesView.swift; sourceTree = "<group>"; };
+		3AA5635C1CACFE8D00A5B648 /* AttributesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttributesView.xib; sourceTree = "<group>"; };
 		3AAF1BDB1C91F06A0096C31D /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		3AAF1BDD1C91F3D70096C31D /* ObjectCContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectCContentGenerator.swift; sourceTree = "<group>"; };
 		3ABD35DF1C975E2D00A5C883 /* RealmSchemaDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmSchemaDocument.swift; sourceTree = "<group>"; };
@@ -149,7 +159,7 @@
 			name = Tools;
 			sourceTree = "<group>";
 		};
-		3A2F97001CA9DF7F000AE584 /* DetailViewControllers */ = {
+		3A2F97001CA9DF7F000AE584 /* Details */ = {
 			isa = PBXGroup;
 			children = (
 				3A2F97011CA9DFAC000AE584 /* EntityDetailViewController.swift */,
@@ -157,7 +167,17 @@
 				3A2F975F1CAB3AEB000AE584 /* RelationshipDetailViewController.swift */,
 				3A2F97031CA9E6A2000AE584 /* EmptyViewController.swift */,
 			);
-			name = DetailViewControllers;
+			name = Details;
+			sourceTree = "<group>";
+		};
+		3A5A16841CADAB7100E5B9ED /* AttributesRelationships */ = {
+			isa = PBXGroup;
+			children = (
+				3A5A16801CADAB1600E5B9ED /* AttributesRelationshipsViewController.swift */,
+				3A5A167E1CADAAEA00E5B9ED /* AttributesViewController.swift */,
+				3A5A16821CADAB5400E5B9ED /* RelationshipsViewController.swift */,
+			);
+			name = AttributesRelationships;
 			sourceTree = "<group>";
 		};
 		3A6DDC4A1CACA0D6007C6825 /* DetailViews */ = {
@@ -178,7 +198,8 @@
 			children = (
 				7798B0D61C87C32900A7F965 /* ViewController.swift */,
 				3A321FEF1CA0CC4E00FCEF48 /* EntitiesViewController.swift */,
-				3A2F97001CA9DF7F000AE584 /* DetailViewControllers */,
+				3A5A16841CADAB7100E5B9ED /* AttributesRelationships */,
+				3A2F97001CA9DF7F000AE584 /* Details */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -204,9 +225,11 @@
 				773D25841C9F3123009814A0 /* TitleCell.swift */,
 				773D25851C9F3123009814A0 /* TitleCell.xib */,
 				773D25831C9F3123009814A0 /* NibDesignable.swift */,
+				77D827801C9FA9E100E22CEE /* ViewTools.swift */,
 				77D8277C1C9F8DD500E22CEE /* EntitiesView.swift */,
 				77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */,
-				77D827801C9FA9E100E22CEE /* ViewTools.swift */,
+				3AA5635B1CACFE8D00A5B648 /* AttributesView.swift */,
+				3AA5635C1CACFE8D00A5B648 /* AttributesView.xib */,
 				3A6DDC4A1CACA0D6007C6825 /* DetailViews */,
 			);
 			name = Views;
@@ -389,6 +412,7 @@
 				7798B0DC1C87C32900A7F965 /* Main.storyboard in Resources */,
 				3A2F975E1CAB37D7000AE584 /* RelationshipDetailView.xib in Resources */,
 				3A2F97641CAB4305000AE584 /* AttributeDetailView.xib in Resources */,
+				3AA5635E1CACFE8D00A5B648 /* AttributesView.xib in Resources */,
 				3A2F96FD1CA9DEAA000AE584 /* EntityDetailView.xib in Resources */,
 				773D25881C9F3123009814A0 /* TitleCell.xib in Resources */,
 			);
@@ -418,6 +442,7 @@
 				3AAF1BDE1C91F3D70096C31D /* ObjectCContentGenerator.swift in Sources */,
 				77D8277D1C9F8DD500E22CEE /* EntitiesView.swift in Sources */,
 				3AAF1BDC1C91F06A0096C31D /* Tools.swift in Sources */,
+				3A5A16811CADAB1600E5B9ED /* AttributesRelationshipsViewController.swift in Sources */,
 				77A5521D1C88F02000658EAF /* Schema.swift in Sources */,
 				3A2F97661CAB455A000AE584 /* AttributeDetailViewController.swift in Sources */,
 				3AD908B71C9A331500346527 /* AttributeTypeExtension.swift in Sources */,
@@ -432,14 +457,17 @@
 				7798B1031C87CDA600A7F965 /* Entity.swift in Sources */,
 				7798B1011C87C63B00A7F965 /* Model.swift in Sources */,
 				773D25861C9F3123009814A0 /* NibDesignable.swift in Sources */,
+				3AA5635D1CACFE8D00A5B648 /* AttributesView.swift in Sources */,
 				773D25871C9F3123009814A0 /* TitleCell.swift in Sources */,
 				3A2F97631CAB4305000AE584 /* AttributeDetailView.swift in Sources */,
 				3A2F96FC1CA9DEAA000AE584 /* EntityDetailView.swift in Sources */,
+				3A5A16831CADAB5400E5B9ED /* RelationshipsViewController.swift in Sources */,
 				77D827811C9FA9E100E22CEE /* ViewTools.swift in Sources */,
 				77A49E311C9C8BFE0047873C /* IO.swift in Sources */,
 				3A2A626D1C9C6C12000EA9F6 /* GeneratorError.swift in Sources */,
 				3A2F975D1CAB37D7000AE584 /* RelationshipDetailView.swift in Sources */,
 				3A76FF121C8E0AD00036362D /* SwiftContentGenerator.swift in Sources */,
+				3A5A167F1CADAAEA00E5B9ED /* AttributesViewController.swift in Sources */,
 				7798B0D71C87C32900A7F965 /* ViewController.swift in Sources */,
 				3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */,
 				3A2F97601CAB3AEB000AE584 /* RelationshipDetailViewController.swift in Sources */,

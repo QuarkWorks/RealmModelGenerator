@@ -10,7 +10,7 @@ import Cocoa
 
 
 protocol EntitiesViewControllerDelegate {
-    func entitySelected(entity: Entity)
+    func entitySelected(entity: Entity?)
 }
 
 class EntitiesViewController: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource {
@@ -25,7 +25,7 @@ class EntitiesViewController: NSViewController, EntitiesViewDelegate, EntitiesVi
     
     var defaultSchema: Schema?{
         willSet(defaultSchema) {
-            schema = defaultSchema!;
+            schema = defaultSchema!
         }
     }
     
@@ -41,8 +41,9 @@ class EntitiesViewController: NSViewController, EntitiesViewDelegate, EntitiesVi
         } else {
             model = schema.createModel()
         }
+        
     }
-    
+
     //MARK: - EntitiesViewDataSource
     func numberOfRowsInEntitiesView(entitiesView: EntitiesView) -> Int {
         return model!.entities.count
@@ -54,33 +55,33 @@ class EntitiesViewController: NSViewController, EntitiesViewDelegate, EntitiesVi
     
     //MARK: - EntitiesViewDelegate
     func addEntityInEntitiesView(entitiesView: EntitiesView) {
+        print(entitiesView.window?.keyWindow)
         model!.createEntity()
     }
     
     func entitiesView(entitiesView: EntitiesView, removeEntityAtIndex index: Int) {
         model!.removeEntity(model!.entities[index])
+        self.delegate?.entitySelected(nil)
     }
     
     func entitiesView(entitiesView:EntitiesView, selectionChange index:Int) {
         self.delegate?.entitySelected(model!.entities[index])
+        //TODO: notify attribute, relationship, and entity detail data source change
     }
     
-    func entitiesView(entitiesView: EntitiesView, titleDidChangeForEntityAtIndex index: Int, newTitle: String) {
-        print(EntitiesViewController.TAG)
+    func entitiesView(entitiesView: EntitiesView, shouldChangeEntityName name: String, atIndex index: Int) -> Bool {
+        let entity = model!.entities[index]
         do {
-            try model!.entities[index].setName(newTitle)
-            print(model!.entities[index].name)
-            self.delegate?.entitySelected(model!.entities[index])
+            try entity.setName(name)
+            self.delegate?.entitySelected(entity)
         } catch {
-            print("Error in resetting entity name.")
-            
-            entitiesView.tableView.reloadData()
-            
             let alert = NSAlert()
             alert.messageText = "Error"
             alert.addButtonWithTitle("OK")
-            alert.informativeText = "There is an entity with the same name."
+            alert.informativeText = "Unable to rename entity: \(entity.name) to: \(name). There is an entity with the same name."
             alert.runModal()
+            return false
         }
+        return true
     }
 }

@@ -15,15 +15,15 @@ class AttributeDetailViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print(AttributeDetailViewController.TAG)
     }
     
     override func viewWillAppear() {
-//        print("attribute:\(attribute)")
+        if attribute != nil {
+            print(attribute!.name)
+        }
     }
     
     func setAttribute(attribute: Attribute?) {
         self.attribute = attribute
     }
-    
 }
