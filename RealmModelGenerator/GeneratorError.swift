@@ -12,4 +12,5 @@ enum GeneratorError: ErrorType {
     case InvalidAttribteType(attribute: Attribute)
     case InvalidRelationshiDestination(relationship: Relationship)
     case InvalidFileContent(errorMsg: String)
+    case Other(errorMsg: String)
 }

@@ -17,10 +17,11 @@ import Cocoa
     optional func addEntityInEntitiesView(entitiesView:EntitiesView)
     optional func entitiesView(entitiesView:EntitiesView, removeEntityAtIndex index:Int)
     optional func entitiesView(entitiesView:EntitiesView, selectionChange index:Int)
+    optional func entitiesView(entitiesView:EntitiesView, titleDidChangeForEntityAtIndex index:Int, newTitle:String)
 }
 
 @IBDesignable
-class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource {
+class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource, TitleCellDelegate {
     
     @IBOutlet var tableView:NSTableView!
     @IBOutlet var addButton:NSButton!
@@ -71,6 +72,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         
         if let title = self.dataSource?.entitiesView?(self, titleForEntityAtIndex:row) {
             cell.title = title
+            cell.delegate = self
         }
         
         return cell
@@ -90,6 +92,10 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     @IBAction func addButton(_: AnyObject) {
         self.delegate?.addEntityInEntitiesView?(self)
         reloadData()
+    }
+    
+    func titleDidChange(newTitle: String) {
+        self.delegate?.entitiesView?(self, titleDidChangeForEntityAtIndex: tableView.selectedRow, newTitle: newTitle)
     }
     
     @IBAction func removeButton(_: AnyObject) {

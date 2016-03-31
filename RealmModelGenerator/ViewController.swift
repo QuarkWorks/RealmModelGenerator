@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, EntitiesViewControllerDelegate {
     static let TAG = NSStringFromClass(ViewController)
     
     static let entitiesViewControllerSegue = "EntitiesViewControllerSegue"
@@ -36,6 +36,12 @@ class ViewController: NSViewController {
        
         leftDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
         rightDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
+    }
+    
+    func entitySelected(entity: Entity) {
+        entityDetailViewController.setEntity(entity)
+        detailsContainerView.subviews[0].removeFromSuperview()
+        detailsContainerView.addSubview(entityDetailViewController.view)
     }
     
     @IBAction func returnEmptyState(sender: AnyObject) {
@@ -67,10 +73,10 @@ class ViewController: NSViewController {
         case ViewController.entitiesViewControllerSegue:
             if let enititesViewController: EntitiesViewController = segue.destinationController as? EntitiesViewController {
                 enititesViewController.defaultSchema = schema
+                enititesViewController.delegate = self
             }
             break;
         case ViewController.attributesRelationshipsSegue:
-            print("AttributesRelationshipsSegue");
             break;
         case ViewController.detailsViewControllerSegue:
             break;

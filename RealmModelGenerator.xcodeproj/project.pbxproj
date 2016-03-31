@@ -153,11 +153,24 @@
 			isa = PBXGroup;
 			children = (
 				3A2F97011CA9DFAC000AE584 /* EntityDetailViewController.swift */,
-				3A2F97031CA9E6A2000AE584 /* EmptyViewController.swift */,
-				3A2F975F1CAB3AEB000AE584 /* RelationshipDetailViewController.swift */,
 				3A2F97651CAB455A000AE584 /* AttributeDetailViewController.swift */,
+				3A2F975F1CAB3AEB000AE584 /* RelationshipDetailViewController.swift */,
+				3A2F97031CA9E6A2000AE584 /* EmptyViewController.swift */,
 			);
 			name = DetailViewControllers;
+			sourceTree = "<group>";
+		};
+		3A6DDC4A1CACA0D6007C6825 /* DetailViews */ = {
+			isa = PBXGroup;
+			children = (
+				3A2F96FA1CA9DEAA000AE584 /* EntityDetailView.swift */,
+				3A2F96FB1CA9DEAA000AE584 /* EntityDetailView.xib */,
+				3A2F975B1CAB37D7000AE584 /* RelationshipDetailView.swift */,
+				3A2F975C1CAB37D7000AE584 /* RelationshipDetailView.xib */,
+				3A2F97611CAB4305000AE584 /* AttributeDetailView.swift */,
+				3A2F97621CAB4305000AE584 /* AttributeDetailView.xib */,
+			);
+			name = DetailViews;
 			sourceTree = "<group>";
 		};
 		3AEE8A0B1CA1FC440010F019 /* Controllers */ = {
@@ -194,12 +207,7 @@
 				77D8277C1C9F8DD500E22CEE /* EntitiesView.swift */,
 				77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */,
 				77D827801C9FA9E100E22CEE /* ViewTools.swift */,
-				3A2F96FA1CA9DEAA000AE584 /* EntityDetailView.swift */,
-				3A2F96FB1CA9DEAA000AE584 /* EntityDetailView.xib */,
-				3A2F975B1CAB37D7000AE584 /* RelationshipDetailView.swift */,
-				3A2F975C1CAB37D7000AE584 /* RelationshipDetailView.xib */,
-				3A2F97611CAB4305000AE584 /* AttributeDetailView.swift */,
-				3A2F97621CAB4305000AE584 /* AttributeDetailView.xib */,
+				3A6DDC4A1CACA0D6007C6825 /* DetailViews */,
 			);
 			name = Views;
 			sourceTree = "<group>";

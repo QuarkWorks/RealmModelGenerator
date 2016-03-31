@@ -9,6 +9,10 @@
 import Cocoa
 
 
+protocol EntitiesViewControllerDelegate {
+    func entitySelected(entity: Entity)
+}
+
 class EntitiesViewController: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource {
     static let TAG = NSStringFromClass(EntitiesViewController)
     
@@ -16,6 +20,8 @@ class EntitiesViewController: NSViewController, EntitiesViewDelegate, EntitiesVi
     
     private var schema = Schema();
     private var model: Model?
+    
+    var delegate:EntitiesViewControllerDelegate?
     
     var defaultSchema: Schema?{
         willSet(defaultSchema) {
@@ -56,6 +62,25 @@ class EntitiesViewController: NSViewController, EntitiesViewDelegate, EntitiesVi
     }
     
     func entitiesView(entitiesView:EntitiesView, selectionChange index:Int) {
-        //TODO: notify attribute, relationship, and entity detail data source change
+        self.delegate?.entitySelected(model!.entities[index])
+    }
+    
+    func entitiesView(entitiesView: EntitiesView, titleDidChangeForEntityAtIndex index: Int, newTitle: String) {
+        print(EntitiesViewController.TAG)
+        do {
+            try model!.entities[index].setName(newTitle)
+            print(model!.entities[index].name)
+            self.delegate?.entitySelected(model!.entities[index])
+        } catch {
+            print("Error in resetting entity name.")
+            
+            entitiesView.tableView.reloadData()
+            
+            let alert = NSAlert()
+            alert.messageText = "Error"
+            alert.addButtonWithTitle("OK")
+            alert.informativeText = "There is an entity with the same name."
+            alert.runModal()
+        }
     }
 }

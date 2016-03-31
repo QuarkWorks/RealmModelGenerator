@@ -17,13 +17,14 @@ class EntityDetailViewController : NSViewController {
     @IBOutlet weak var superClass: NSTextField!
     
     override func viewDidLoad() {
-        print(EntityDetailViewController.TAG)
-        entityName.stringValue = "Child"
-        superClass.stringValue = "Parent"
+        super.viewDidLoad()
     }
     
     override func viewWillAppear() {
-//        print("entity:\(entity)")
+        if entity != nil {
+            entityName.stringValue = entity!.name
+            //TODO: Complete super class
+        }
     }
     
     func setEntity(entity:Entity) {
@@ -32,6 +33,7 @@ class EntityDetailViewController : NSViewController {
     
     @IBAction func entityNameDidChange(sender: AnyObject) {
         print("new entity name:\(entityName.stringValue)")
+        //TODO: notify entity table view data change
     }
     
     @IBAction func superClassDidChange(sender: AnyObject) {
@@ -39,9 +41,6 @@ class EntityDetailViewController : NSViewController {
     }
     
     @IBAction func refreshButton(sender: AnyObject) {
-        print("refresh button")
-//        print("name:\(entityName.stringValue)")
-//        print("superClass:\(superClass.stringValue)")
         entityName.stringValue = "haha"
     }
 }

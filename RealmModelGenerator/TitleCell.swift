@@ -8,10 +8,16 @@
 
 import Cocoa
 
+protocol TitleCellDelegate : class{
+    func titleDidChange(newTitle: String)
+}
+
 @IBDesignable
 class TitleCell: NibDesignableView, NSTextFieldDelegate {
     static let IDENTIFIER = "TitleCell"
 
+    weak var delegate: TitleCellDelegate!
+    
     @IBOutlet var titleTextField:NSTextField! {
         willSet {
             newValue!.delegate = self
@@ -60,5 +66,9 @@ class TitleCell: NibDesignableView, NSTextFieldDelegate {
     
     func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
         return true
+    }
+
+    @IBAction func titleDidChange(sender: AnyObject) {
+        delegate?.titleDidChange(title)
     }
 }
