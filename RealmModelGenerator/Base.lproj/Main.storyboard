@@ -726,7 +726,7 @@
                             <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e17-Cb-9EH">
                                 <rect key="frame" x="600" y="0.0" width="200" height="540"/>
                                 <connections>
-                                    <segue destination="UU8-H8-eAQ" kind="embed" identifier="DetailsViewControllerSegue" id="Db7-vp-wy1"/>
+                                    <segue destination="0OX-E8-0US" kind="embed" identifier="DetailsViewControllerSegue" id="wwt-LX-9li"/>
                                 </connections>
                             </containerView>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tsO-ov-f2A">
@@ -736,7 +736,7 @@
                                 <rect key="frame" x="599" y="0.0" width="1" height="540"/>
                             </customView>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2fY-KP-aO6">
-                                <rect key="frame" x="354" y="-7" width="94" height="32"/>
+                                <rect key="frame" x="397" y="-7" width="94" height="32"/>
                                 <buttonCell key="cell" type="push" title="Attribute" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rjv-Lo-Cj0">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -756,13 +756,23 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VWF-r7-UYP">
-                                <rect key="frame" x="202" y="-7" width="75" height="32"/>
+                                <rect key="frame" x="301" y="-7" width="75" height="32"/>
                                 <buttonCell key="cell" type="push" title="Entity" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L06-9W-gZ2">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="checkEntityDetail:" target="XfG-lQ-9wD" id="r8d-Hw-gfm"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bWZ-a5-j8f">
+                                <rect key="frame" x="203" y="-7" width="79" height="32"/>
+                                <buttonCell key="cell" type="push" title="Empty" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Oat-wE-aJI">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="returnEmptyState:" target="XfG-lQ-9wD" id="Fhv-8p-Vz2"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -907,7 +917,7 @@
                 </viewController>
                 <customObject id="Zjk-8C-465" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-145" y="2251"/>
+            <point key="canvasLocation" x="657" y="1535"/>
         </scene>
         <!--Second View Controller-->
         <scene sceneID="zzo-bb-zxL">
@@ -935,7 +945,7 @@
         <!--Attribute-->
         <scene sceneID="gQF-CC-b0T">
             <objects>
-                <viewController title="Attribute" id="JUi-4w-7fx" customClass="AttributeDetailViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Attribute" storyboardIdentifier="AttributeDetailViewController" id="JUi-4w-7fx" customClass="AttributeDetailViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="y8T-tK-92t">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -948,12 +958,12 @@
                 </viewController>
                 <customObject id="G4Y-Gp-VTP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="55" y="2251"/>
+            <point key="canvasLocation" x="859" y="1535"/>
         </scene>
         <!--Relationship-->
         <scene sceneID="zwk-cv-xaZ">
             <objects>
-                <viewController title="Relationship" storyboardIdentifier="RelationshipViewController" id="aSq-Zm-x2t" customClass="RelationshipViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Relationship" storyboardIdentifier="RelationshipDetailViewController" id="aSq-Zm-x2t" customClass="RelationshipDetailViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="ZyI-Nf-PJM">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -966,7 +976,7 @@
                 </viewController>
                 <customObject id="z8l-ON-uRI" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="255" y="2251"/>
+            <point key="canvasLocation" x="1061" y="1535"/>
         </scene>
         <!--Empty-->
         <scene sceneID="2nL-AS-KJM">
@@ -989,39 +999,7 @@
                 </viewController>
                 <customObject id="YZ9-Ce-80H" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="457" y="2251"/>
-        </scene>
-        <!--Details Tab View Controller-->
-        <scene sceneID="MAs-bE-Xrf">
-            <objects>
-                <tabViewController storyboardIdentifier="DetailsTabViewController" tabStyle="unspecified" canPropagateSelectedChildViewControllerTitle="NO" id="UU8-H8-eAQ" customClass="DetailsTabViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabViewItems>
-                        <tabViewItem identifier="emptyDetailView" id="r5s-HM-ssg"/>
-                        <tabViewItem identifier="entityDetailView" id="fXV-8T-vum"/>
-                        <tabViewItem identifier="attributeDetailView" id="2vK-x0-sAp"/>
-                        <tabViewItem identifier="relationshiDetailView" id="pna-n4-AEM"/>
-                    </tabViewItems>
-                    <viewControllerTransitionOptions key="transitionOptions" allowUserInteraction="YES"/>
-                    <tabView key="tabView" id="3Gz-dd-CDm">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <font key="font" metaFont="message"/>
-                        <tabViewItems/>
-                    </tabView>
-                    <connections>
-                        <outlet property="attributeDetailView" destination="2vK-x0-sAp" id="73m-jV-HIh"/>
-                        <outlet property="emptyView" destination="r5s-HM-ssg" id="BQP-YA-9n2"/>
-                        <outlet property="entityDetailView" destination="2vK-x0-sAp" id="PUw-W1-ska"/>
-                        <outlet property="relationshipDetailView" destination="pna-n4-AEM" id="xjJ-EA-RUY"/>
-                        <segue destination="0OX-E8-0US" kind="relationship" relationship="tabItems" id="FDc-Fz-R4H"/>
-                        <segue destination="ys1-zd-vEd" kind="relationship" relationship="tabItems" id="Y17-lS-xhv"/>
-                        <segue destination="JUi-4w-7fx" kind="relationship" relationship="tabItems" id="86Z-tf-sYV"/>
-                        <segue destination="aSq-Zm-x2t" kind="relationship" relationship="tabItems" id="Iab-p4-vnc"/>
-                    </connections>
-                </tabViewController>
-                <customObject id="WuT-tG-Yjr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="612" y="1434"/>
+            <point key="canvasLocation" x="455" y="1535"/>
         </scene>
     </scenes>
 </document>

@@ -8,8 +8,8 @@
 
 import Cocoa
 
-class RelationshipViewController: NSViewController {
-    static let TAG = NSStringFromClass(RelationshipViewController)
+class RelationshipDetailViewController: NSViewController {
+    static let TAG = NSStringFromClass(RelationshipDetailViewController)
     
     var relationship: Relationship?
     

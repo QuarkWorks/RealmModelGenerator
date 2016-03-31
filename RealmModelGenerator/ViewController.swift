@@ -21,10 +21,10 @@ class ViewController: NSViewController {
     @IBOutlet weak var rightDivider: NSView!
     @IBOutlet weak var detailsContainerView: NSView!
     
-    var selectedTabViewItemIndex = 0
-    var perforeSegue = false
-    
-    let detailsViewController = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("DetailsTabViewController") as! DetailsTabViewController
+    let emptyViewController = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("EmptyViewController") as! EmptyViewController
+    let entityDetailViewController = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("EntityDetailViewController") as! EntityDetailViewController
+    let attributeDetailViewController = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("AttributeDetailViewController") as! AttributeDetailViewController
+    let relationshipDetailViewController = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("RelationshipDetailViewController") as! RelationshipDetailViewController
     
     let model  = Schema().createModel()
 
@@ -36,33 +36,29 @@ class ViewController: NSViewController {
        
         leftDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
         rightDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
-        
-
-        detailsContainerView.layer?.backgroundColor = NSColor.grayColor().CGColor
+    }
+    
+    @IBAction func returnEmptyState(sender: AnyObject) {
+        detailsContainerView.subviews[0].removeFromSuperview()
+        detailsContainerView.addSubview(emptyViewController.view)
     }
     
     @IBAction func checkEntityDetail(sender: AnyObject) {
-        detailsViewController.setEntity(model.createEntity())
-        detailsViewController.selectedTabViewItemIndex = 1
-        
-        detailsViewController.removeFromParentViewController()
-        detailsContainerView.addSubview(detailsViewController.view)
+        entityDetailViewController.setEntity(model.createEntity())
+        detailsContainerView.subviews[0].removeFromSuperview()
+        detailsContainerView.addSubview(entityDetailViewController.view)
     }
     
     @IBAction func checkAttributeDetail(sender: AnyObject) {
-        detailsViewController.setAttribute(model.createEntity().createAttribute())
-        detailsViewController.selectedTabViewItemIndex = 2
-        
-        detailsViewController.removeFromParentViewController()
-        detailsContainerView.addSubview(detailsViewController.view)
+        attributeDetailViewController.setAttribute(model.createEntity().createAttribute())
+        detailsContainerView.subviews[0].removeFromSuperview()
+        detailsContainerView.addSubview(attributeDetailViewController.view)
     }
     
     @IBAction func checkRelationshipDetail(sender: AnyObject) {
-        detailsViewController.setRelationshi(Relationship.init(name: "relationship!", entity: model.createEntity()))
-        detailsViewController.selectedTabViewItemIndex = 3
-        
-        detailsViewController.removeFromParentViewController()
-        detailsContainerView.addSubview(detailsViewController.view)
+        relationshipDetailViewController.setRelationship(Relationship.init(name: "relationship!", entity: model.createEntity()))
+        detailsContainerView.subviews[0].removeFromSuperview()
+        detailsContainerView.addSubview(relationshipDetailViewController.view)
     }
     
     //MARK: - prepareForSegue
@@ -77,20 +73,10 @@ class ViewController: NSViewController {
             print("AttributesRelationshipsSegue");
             break;
         case ViewController.detailsViewControllerSegue:
-            if let detailsViewController: DetailsTabViewController = segue.destinationController as? DetailsTabViewController {
-                
-                //TODO: remove hard code model and entity
-                let model  = schema.createModel()
-//                detailsViewController.setEntity(model.createEntity())
-                detailsViewController.setAttribute(model.createEntity().createAttribute())
-//                detailsViewController.setRelationshi(Relationship.init(name: "relationship!", entity: model.createEntity()))
-                detailsViewController.selectedTabViewItemIndex = selectedTabViewItemIndex
-            }
             break;
         default:
             //TODO: throw an NSAssertion().throw()
             break;
-            
         }
     }
     

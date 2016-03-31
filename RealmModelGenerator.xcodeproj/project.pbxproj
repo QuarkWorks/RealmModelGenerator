@@ -10,12 +10,11 @@
 		3A2A626D1C9C6C12000EA9F6 /* GeneratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2A626C1C9C6C12000EA9F6 /* GeneratorError.swift */; };
 		3A2F96FC1CA9DEAA000AE584 /* EntityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F96FA1CA9DEAA000AE584 /* EntityDetailView.swift */; };
 		3A2F96FD1CA9DEAA000AE584 /* EntityDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A2F96FB1CA9DEAA000AE584 /* EntityDetailView.xib */; };
-		3A2F96FF1CA9DF6E000AE584 /* DetailsTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F96FE1CA9DF6E000AE584 /* DetailsTabViewController.swift */; };
 		3A2F97021CA9DFAC000AE584 /* EntityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F97011CA9DFAC000AE584 /* EntityDetailViewController.swift */; };
 		3A2F97041CA9E6A2000AE584 /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F97031CA9E6A2000AE584 /* EmptyViewController.swift */; };
 		3A2F975D1CAB37D7000AE584 /* RelationshipDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F975B1CAB37D7000AE584 /* RelationshipDetailView.swift */; };
 		3A2F975E1CAB37D7000AE584 /* RelationshipDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A2F975C1CAB37D7000AE584 /* RelationshipDetailView.xib */; };
-		3A2F97601CAB3AEB000AE584 /* RelationshipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F975F1CAB3AEB000AE584 /* RelationshipViewController.swift */; };
+		3A2F97601CAB3AEB000AE584 /* RelationshipDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F975F1CAB3AEB000AE584 /* RelationshipDetailViewController.swift */; };
 		3A2F97631CAB4305000AE584 /* AttributeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F97611CAB4305000AE584 /* AttributeDetailView.swift */; };
 		3A2F97641CAB4305000AE584 /* AttributeDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A2F97621CAB4305000AE584 /* AttributeDetailView.xib */; };
 		3A2F97661CAB455A000AE584 /* AttributeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F97651CAB455A000AE584 /* AttributeDetailViewController.swift */; };
@@ -71,12 +70,11 @@
 		3A2A626C1C9C6C12000EA9F6 /* GeneratorError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorError.swift; sourceTree = "<group>"; };
 		3A2F96FA1CA9DEAA000AE584 /* EntityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityDetailView.swift; sourceTree = "<group>"; };
 		3A2F96FB1CA9DEAA000AE584 /* EntityDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EntityDetailView.xib; sourceTree = "<group>"; };
-		3A2F96FE1CA9DF6E000AE584 /* DetailsTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsTabViewController.swift; sourceTree = "<group>"; };
 		3A2F97011CA9DFAC000AE584 /* EntityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityDetailViewController.swift; sourceTree = "<group>"; };
 		3A2F97031CA9E6A2000AE584 /* EmptyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
 		3A2F975B1CAB37D7000AE584 /* RelationshipDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipDetailView.swift; sourceTree = "<group>"; };
 		3A2F975C1CAB37D7000AE584 /* RelationshipDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RelationshipDetailView.xib; sourceTree = "<group>"; };
-		3A2F975F1CAB3AEB000AE584 /* RelationshipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipViewController.swift; sourceTree = "<group>"; };
+		3A2F975F1CAB3AEB000AE584 /* RelationshipDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipDetailViewController.swift; sourceTree = "<group>"; };
 		3A2F97611CAB4305000AE584 /* AttributeDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeDetailView.swift; sourceTree = "<group>"; };
 		3A2F97621CAB4305000AE584 /* AttributeDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttributeDetailView.xib; sourceTree = "<group>"; };
 		3A2F97651CAB455A000AE584 /* AttributeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeDetailViewController.swift; sourceTree = "<group>"; };
@@ -156,7 +154,7 @@
 			children = (
 				3A2F97011CA9DFAC000AE584 /* EntityDetailViewController.swift */,
 				3A2F97031CA9E6A2000AE584 /* EmptyViewController.swift */,
-				3A2F975F1CAB3AEB000AE584 /* RelationshipViewController.swift */,
+				3A2F975F1CAB3AEB000AE584 /* RelationshipDetailViewController.swift */,
 				3A2F97651CAB455A000AE584 /* AttributeDetailViewController.swift */,
 			);
 			name = DetailViewControllers;
@@ -167,7 +165,6 @@
 			children = (
 				7798B0D61C87C32900A7F965 /* ViewController.swift */,
 				3A321FEF1CA0CC4E00FCEF48 /* EntitiesViewController.swift */,
-				3A2F96FE1CA9DF6E000AE584 /* DetailsTabViewController.swift */,
 				3A2F97001CA9DF7F000AE584 /* DetailViewControllers */,
 			);
 			name = Controllers;
@@ -425,7 +422,6 @@
 				7798B1091C87FBE800A7F965 /* Relationship.swift in Sources */,
 				3A7E774F1C97744400408325 /* BaseContentGenerator.swift in Sources */,
 				7798B1031C87CDA600A7F965 /* Entity.swift in Sources */,
-				3A2F96FF1CA9DF6E000AE584 /* DetailsTabViewController.swift in Sources */,
 				7798B1011C87C63B00A7F965 /* Model.swift in Sources */,
 				773D25861C9F3123009814A0 /* NibDesignable.swift in Sources */,
 				773D25871C9F3123009814A0 /* TitleCell.swift in Sources */,
@@ -438,7 +434,7 @@
 				3A76FF121C8E0AD00036362D /* SwiftContentGenerator.swift in Sources */,
 				7798B0D71C87C32900A7F965 /* ViewController.swift in Sources */,
 				3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */,
-				3A2F97601CAB3AEB000AE584 /* RelationshipViewController.swift in Sources */,
+				3A2F97601CAB3AEB000AE584 /* RelationshipDetailViewController.swift in Sources */,
 				3ABD35E01C975E2D00A5C883 /* RealmSchemaDocument.swift in Sources */,
 				3A2F97041CA9E6A2000AE584 /* EmptyViewController.swift in Sources */,
 				7798B0D51C87C32900A7F965 /* AppDelegate.swift in Sources */,
