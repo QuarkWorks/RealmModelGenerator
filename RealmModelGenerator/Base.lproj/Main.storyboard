@@ -718,7 +718,7 @@
                                 </connections>
                             </containerView>
                             <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="420-fr-qut">
-                                <rect key="frame" x="200" y="20" width="400" height="520"/>
+                                <rect key="frame" x="200" y="0.0" width="400" height="540"/>
                                 <connections>
                                     <segue destination="oMK-Do-o62" kind="embed" identifier="AttributesRelationshipsViewControllerSegue" id="7MV-zg-pvn"/>
                                 </connections>
@@ -735,50 +735,12 @@
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Wf-oU-ck8">
                                 <rect key="frame" x="599" y="0.0" width="1" height="540"/>
                             </customView>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2fY-KP-aO6">
-                                <rect key="frame" x="397" y="-7" width="94" height="32"/>
-                                <buttonCell key="cell" type="push" title="Attribute" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rjv-Lo-Cj0">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="checkAttributeDetail:" target="XfG-lQ-9wD" id="tqE-FI-lQy"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ry-go-HkG">
-                                <rect key="frame" x="483" y="-7" width="115" height="32"/>
-                                <buttonCell key="cell" type="push" title="Relationship" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5Q1-TR-nvU">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="checkRelationshipDetail:" target="XfG-lQ-9wD" id="eql-4r-wUd"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VWF-r7-UYP">
-                                <rect key="frame" x="301" y="-7" width="75" height="32"/>
-                                <buttonCell key="cell" type="push" title="Entity" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L06-9W-gZ2">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="checkEntityDetail:" target="XfG-lQ-9wD" id="r8d-Hw-gfm"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bWZ-a5-j8f">
-                                <rect key="frame" x="203" y="-7" width="79" height="32"/>
-                                <buttonCell key="cell" type="push" title="Empty" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Oat-wE-aJI">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="returnEmptyState:" target="XfG-lQ-9wD" id="Fhv-8p-Vz2"/>
-                                </connections>
-                            </button>
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="attributesRelationshipsContainerView" destination="420-fr-qut" id="gE9-ut-tzo"/>
                         <outlet property="detailsContainerView" destination="e17-Cb-9EH" id="yUZ-uS-FDg"/>
+                        <outlet property="entitiesContainerView" destination="dF5-QM-BwJ" id="fpo-4z-W4X"/>
                         <outlet property="leftDivider" destination="tsO-ov-f2A" id="Rl2-AL-a24"/>
                         <outlet property="rightDivider" destination="9Wf-oU-ck8" id="St4-lG-paJ"/>
                     </connections>
@@ -816,7 +778,7 @@
         <!--Attributes Relationships View Controller-->
         <scene sceneID="hne-yM-8PP">
             <objects>
-                <viewController id="oMK-Do-o62" customClass="AttributesRelationshipsViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AttributesRelationshipsViewController" id="oMK-Do-o62" customClass="AttributesRelationshipsViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="9E4-bE-Siw">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -835,6 +797,10 @@
                             </containerView>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="attributesContainerView" destination="750-dQ-YzS" id="fhy-fQ-PxM"/>
+                        <outlet property="relationshipsContainerView" destination="KwY-ho-WGM" id="gLN-ru-947"/>
+                    </connections>
                 </viewController>
                 <customObject id="sOh-XT-1QQ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -864,7 +830,7 @@
         <!--Relationships View Controller-->
         <scene sceneID="Kv4-5y-3jq">
             <objects>
-                <viewController id="gmJ-8X-IHf" customClass="RelationshipsViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RelationshipsViewController" id="gmJ-8X-IHf" customClass="RelationshipsViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Xf9-9V-Mux">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -892,67 +858,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iDW-u8-rgR">
-                                <rect key="frame" x="35" y="479" width="40" height="16"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name" id="4Ir-nv-CPU">
-                                    <font key="font" metaFont="smallSystem"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zBt-un-0Yz">
-                                <rect key="frame" x="-2" y="456" width="77" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Super Class" id="AnJ-AX-DqV">
-                                    <font key="font" metaFont="smallSystem"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z2k-Dz-bMD">
-                                <rect key="frame" x="77" y="476" width="117" height="22"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="7Ih-dL-KR4">
-                                    <font key="font" metaFont="smallSystem"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <action selector="entityNameDidChange:" target="ys1-zd-vEd" id="3Yo-hf-Qly"/>
-                                </connections>
-                            </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zMc-sa-GsE">
-                                <rect key="frame" x="77" y="452" width="117" height="22"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="iVK-eI-7TJ">
-                                    <font key="font" metaFont="smallSystem"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <action selector="superClassDidChange:" target="ys1-zd-vEd" id="gVw-2e-jTZ"/>
-                                </connections>
-                            </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uSZ-J7-3WE">
-                                <rect key="frame" x="70" y="5" width="61" height="25"/>
-                                <buttonCell key="cell" type="roundTextured" title="Refresh" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Jd3-le-JEC">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="refreshButton:" target="ys1-zd-vEd" id="pTU-1n-tG9"/>
-                                </connections>
-                            </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8qZ-jb-9nh">
-                                <rect key="frame" x="4" y="514" width="41" height="18"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Entity" id="El1-1m-gG7">
-                                    <font key="font" metaFont="system" size="14"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HWU-I6-IY3" customClass="EntityDetailView" customModule="RealmModelGenerator" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
+                            </customView>
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="entityName" destination="Z2k-Dz-bMD" id="dfv-Jf-8gW"/>
-                        <outlet property="superClass" destination="zMc-sa-GsE" id="8wa-9D-MYy"/>
+                        <outlet property="entityDetailView" destination="HWU-I6-IY3" id="G2D-HZ-Teb"/>
                     </connections>
                 </viewController>
                 <customObject id="Zjk-8C-465" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -995,6 +907,9 @@
                             </customView>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="attributeDetailView" destination="MUh-ou-wMC" id="gRI-V3-ocI"/>
+                    </connections>
                 </viewController>
                 <customObject id="G4Y-Gp-VTP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1021,21 +936,28 @@
         <!--Empty-->
         <scene sceneID="2nL-AS-KJM">
             <objects>
-                <viewController title="Empty" storyboardIdentifier="EmptyViewController" id="0OX-E8-0US" customClass="EmptyViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Empty" storyboardIdentifier="DetailsViewController" id="0OX-E8-0US" customClass="DetailsViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="9Q7-Ib-E0S">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SYB-Un-r6S">
-                                <rect key="frame" x="79" y="262" width="43" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Empty" id="PJ5-RE-4RA">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w0Q-K4-Wtg">
+                                <rect key="frame" x="82" y="262" width="43" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Empty" id="Yeo-Qp-VoI">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xK1-xc-fNS">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
+                            </containerView>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="detailsContainerView" destination="xK1-xc-fNS" id="XFy-Qy-dGC"/>
+                        <outlet property="emptyTextField" destination="w0Q-K4-Wtg" id="D4j-cc-Z5k"/>
+                    </connections>
                 </viewController>
                 <customObject id="YZ9-Ce-80H" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

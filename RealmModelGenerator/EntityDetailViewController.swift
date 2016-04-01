@@ -8,39 +8,49 @@
 
 import Cocoa
 
-class EntityDetailViewController : NSViewController {
+@objc protocol EntityDetailViewControllerDelegate {
+    optional func entityDetailDidChange(entityDetailViewController:EntityDetailViewController)
+}
+
+class EntityDetailViewController : NSViewController, EntityDetailViewDelegate {
     static let TAG = NSStringFromClass(EntityDetailViewController)
     
+    @IBOutlet weak var entityDetailView: EntityDetailView!
+    weak var delegate:EntityDetailViewControllerDelegate?
+
     var entity: Entity?
-    
-    @IBOutlet weak var entityName: NSTextField!
-    @IBOutlet weak var superClass: NSTextField!
+    var defaultEntity: Entity? {
+        willSet(defaultEntity) {
+            entity = defaultEntity
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        entityDetailView.delegate = self
     }
     
     override func viewWillAppear() {
         if entity != nil {
-            entityName.stringValue = entity!.name
+            entityDetailView.name = entity!.name
             //TODO: Complete super class
         }
     }
     
-    func setEntity(entity:Entity) {
-        self.entity = entity
-    }
-    
-    @IBAction func entityNameDidChange(sender: AnyObject) {
-        print("new entity name:\(entityName.stringValue)")
-        //TODO: notify entity table view data change
-    }
-    
-    @IBAction func superClassDidChange(sender: AnyObject) {
-        print("new super class:\(superClass.stringValue)")
-    }
-    
-    @IBAction func refreshButton(sender: AnyObject) {
-        entityName.stringValue = "haha"
+    //MARK - EntityDetailView delegate
+    func entityDetailView(entityDetailView: EntityDetailView, shouldChangeEntityName name: String) -> Bool {
+        do {
+            try self.entity!.setName(name)
+            self.delegate?.entityDetailDidChange?(self)
+        } catch {
+            let alert = NSAlert()
+            alert.messageText = "Error"
+            alert.addButtonWithTitle("OK")
+            alert.informativeText = "Unable to rename entity: \(entity!.name) to: \(name). There is an entity with the same name."
+            alert.runModal()
+            return false
+            
+        }
+        return true
     }
 }

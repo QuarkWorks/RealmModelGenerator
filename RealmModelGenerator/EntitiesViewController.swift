@@ -8,40 +8,34 @@
 
 import Cocoa
 
-
-protocol EntitiesViewControllerDelegate {
-    func entitySelected(entity: Entity?)
+@objc protocol EntitiesViewControllerDelegate {
+    optional func entiesViewController(entitiesViewController:EntitiesViewController, selectionChange index: Int)
 }
 
 class EntitiesViewController: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource {
     static let TAG = NSStringFromClass(EntitiesViewController)
     
+    static let SELECTED_NONE_INDEX = -1;
+    
     @IBOutlet weak var entitiesView: EntitiesView!
+    weak var delegate:EntitiesViewControllerDelegate?
     
-    private var schema = Schema();
     private var model: Model?
-    
-    var delegate:EntitiesViewControllerDelegate?
-    
-    var defaultSchema: Schema?{
-        willSet(defaultSchema) {
-            schema = defaultSchema!
+    var defaultModel: Model? {
+        willSet(defaultModel) {
+            model = defaultModel
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         entitiesView.delegate = self
         entitiesView.dataSource = self
-        
-        if let currentModel = schema.getCurrentModel() {
-            model = currentModel
-        } else {
-            model = schema.createModel()
-        }
-        
+    }
+    
+    override func viewWillAppear() {
+        entitiesView.reloadData()
     }
 
     //MARK: - EntitiesViewDataSource
@@ -55,25 +49,23 @@ class EntitiesViewController: NSViewController, EntitiesViewDelegate, EntitiesVi
     
     //MARK: - EntitiesViewDelegate
     func addEntityInEntitiesView(entitiesView: EntitiesView) {
-        print(entitiesView.window?.keyWindow)
         model!.createEntity()
     }
     
     func entitiesView(entitiesView: EntitiesView, removeEntityAtIndex index: Int) {
         model!.removeEntity(model!.entities[index])
-        self.delegate?.entitySelected(nil)
+        self.delegate?.entiesViewController?(self, selectionChange: EntitiesViewController.SELECTED_NONE_INDEX)
     }
     
     func entitiesView(entitiesView:EntitiesView, selectionChange index:Int) {
-        self.delegate?.entitySelected(model!.entities[index])
-        //TODO: notify attribute, relationship, and entity detail data source change
+        self.delegate?.entiesViewController?(self, selectionChange: index)
     }
     
     func entitiesView(entitiesView: EntitiesView, shouldChangeEntityName name: String, atIndex index: Int) -> Bool {
         let entity = model!.entities[index]
         do {
             try entity.setName(name)
-            self.delegate?.entitySelected(entity)
+            self.delegate?.entiesViewController?(self, selectionChange: index)
         } catch {
             let alert = NSAlert()
             alert.messageText = "Error"

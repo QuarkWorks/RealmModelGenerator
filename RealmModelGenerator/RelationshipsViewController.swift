@@ -9,10 +9,17 @@
 import Cocoa
 
 class RelationshipsViewController: NSViewController {
+    static let TAG = NSStringFromClass(RelationshipsViewController)
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
+    private var entity: Entity?
+    
+    var defaultEntity:Entity? {
+        willSet(defaultEntity) {
+            entity = defaultEntity
+        }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 }
