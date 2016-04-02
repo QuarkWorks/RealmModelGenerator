@@ -10,16 +10,16 @@
 		3A2A626D1C9C6C12000EA9F6 /* GeneratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2A626C1C9C6C12000EA9F6 /* GeneratorError.swift */; };
 		3A2F96FC1CA9DEAA000AE584 /* EntityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F96FA1CA9DEAA000AE584 /* EntityDetailView.swift */; };
 		3A2F96FD1CA9DEAA000AE584 /* EntityDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A2F96FB1CA9DEAA000AE584 /* EntityDetailView.xib */; };
-		3A2F97021CA9DFAC000AE584 /* EntityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F97011CA9DFAC000AE584 /* EntityDetailViewController.swift */; };
+		3A2F97021CA9DFAC000AE584 /* EntityDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F97011CA9DFAC000AE584 /* EntityDetailVC.swift */; };
 		3A2F975D1CAB37D7000AE584 /* RelationshipDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F975B1CAB37D7000AE584 /* RelationshipDetailView.swift */; };
 		3A2F975E1CAB37D7000AE584 /* RelationshipDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A2F975C1CAB37D7000AE584 /* RelationshipDetailView.xib */; };
-		3A2F97601CAB3AEB000AE584 /* RelationshipDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F975F1CAB3AEB000AE584 /* RelationshipDetailViewController.swift */; };
+		3A2F97601CAB3AEB000AE584 /* RelationshipDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F975F1CAB3AEB000AE584 /* RelationshipDetailVC.swift */; };
 		3A2F97631CAB4305000AE584 /* AttributeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F97611CAB4305000AE584 /* AttributeDetailView.swift */; };
 		3A2F97641CAB4305000AE584 /* AttributeDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A2F97621CAB4305000AE584 /* AttributeDetailView.xib */; };
-		3A2F97661CAB455A000AE584 /* AttributeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F97651CAB455A000AE584 /* AttributeDetailViewController.swift */; };
+		3A2F97661CAB455A000AE584 /* AttributeDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F97651CAB455A000AE584 /* AttributeDetailVC.swift */; };
 		3A321FF01CA0CC4E00FCEF48 /* EntitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A321FEF1CA0CC4E00FCEF48 /* EntitiesViewController.swift */; };
 		3A5A167F1CADAAEA00E5B9ED /* AttributesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A167E1CADAAEA00E5B9ED /* AttributesViewController.swift */; };
-		3A5A16811CADAB1600E5B9ED /* AttributesRelationshipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16801CADAB1600E5B9ED /* AttributesRelationshipsViewController.swift */; };
+		3A5A16811CADAB1600E5B9ED /* AttributesRelationshipsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16801CADAB1600E5B9ED /* AttributesRelationshipsVC.swift */; };
 		3A5A16831CADAB5400E5B9ED /* RelationshipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16821CADAB5400E5B9ED /* RelationshipsViewController.swift */; };
 		3A5A16861CAE1FD600E5B9ED /* ExportFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16851CAE1FD600E5B9ED /* ExportFiles.swift */; };
 		3A5A16881CAE23C400E5B9ED /* DetailType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16871CAE23C400E5B9ED /* DetailType.swift */; };
@@ -77,16 +77,16 @@
 		3A2A626C1C9C6C12000EA9F6 /* GeneratorError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorError.swift; sourceTree = "<group>"; };
 		3A2F96FA1CA9DEAA000AE584 /* EntityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityDetailView.swift; sourceTree = "<group>"; };
 		3A2F96FB1CA9DEAA000AE584 /* EntityDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EntityDetailView.xib; sourceTree = "<group>"; };
-		3A2F97011CA9DFAC000AE584 /* EntityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityDetailViewController.swift; sourceTree = "<group>"; };
+		3A2F97011CA9DFAC000AE584 /* EntityDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityDetailVC.swift; sourceTree = "<group>"; };
 		3A2F975B1CAB37D7000AE584 /* RelationshipDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipDetailView.swift; sourceTree = "<group>"; };
 		3A2F975C1CAB37D7000AE584 /* RelationshipDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RelationshipDetailView.xib; sourceTree = "<group>"; };
-		3A2F975F1CAB3AEB000AE584 /* RelationshipDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipDetailViewController.swift; sourceTree = "<group>"; };
+		3A2F975F1CAB3AEB000AE584 /* RelationshipDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipDetailVC.swift; sourceTree = "<group>"; };
 		3A2F97611CAB4305000AE584 /* AttributeDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeDetailView.swift; sourceTree = "<group>"; };
 		3A2F97621CAB4305000AE584 /* AttributeDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttributeDetailView.xib; sourceTree = "<group>"; };
-		3A2F97651CAB455A000AE584 /* AttributeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeDetailViewController.swift; sourceTree = "<group>"; };
+		3A2F97651CAB455A000AE584 /* AttributeDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeDetailVC.swift; sourceTree = "<group>"; };
 		3A321FEF1CA0CC4E00FCEF48 /* EntitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntitiesViewController.swift; sourceTree = "<group>"; };
 		3A5A167E1CADAAEA00E5B9ED /* AttributesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributesViewController.swift; sourceTree = "<group>"; };
-		3A5A16801CADAB1600E5B9ED /* AttributesRelationshipsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributesRelationshipsViewController.swift; sourceTree = "<group>"; };
+		3A5A16801CADAB1600E5B9ED /* AttributesRelationshipsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributesRelationshipsVC.swift; sourceTree = "<group>"; };
 		3A5A16821CADAB5400E5B9ED /* RelationshipsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipsViewController.swift; sourceTree = "<group>"; };
 		3A5A16851CAE1FD600E5B9ED /* ExportFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportFiles.swift; sourceTree = "<group>"; };
 		3A5A16871CAE23C400E5B9ED /* DetailType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailType.swift; sourceTree = "<group>"; };
@@ -167,9 +167,9 @@
 			isa = PBXGroup;
 			children = (
 				3A5A168B1CAE2D0600E5B9ED /* DetailsViewController.swift */,
-				3A2F97011CA9DFAC000AE584 /* EntityDetailViewController.swift */,
-				3A2F97651CAB455A000AE584 /* AttributeDetailViewController.swift */,
-				3A2F975F1CAB3AEB000AE584 /* RelationshipDetailViewController.swift */,
+				3A2F97011CA9DFAC000AE584 /* EntityDetailVC.swift */,
+				3A2F97651CAB455A000AE584 /* AttributeDetailVC.swift */,
+				3A2F975F1CAB3AEB000AE584 /* RelationshipDetailVC.swift */,
 				3A5A16871CAE23C400E5B9ED /* DetailType.swift */,
 			);
 			name = Details;
@@ -178,7 +178,7 @@
 		3A5A16841CADAB7100E5B9ED /* AttributesRelationships */ = {
 			isa = PBXGroup;
 			children = (
-				3A5A16801CADAB1600E5B9ED /* AttributesRelationshipsViewController.swift */,
+				3A5A16801CADAB1600E5B9ED /* AttributesRelationshipsVC.swift */,
 				3A5A167E1CADAAEA00E5B9ED /* AttributesViewController.swift */,
 				3A5A16821CADAB5400E5B9ED /* RelationshipsViewController.swift */,
 			);
@@ -448,16 +448,16 @@
 				3AAF1BDE1C91F3D70096C31D /* ObjectCContentGenerator.swift in Sources */,
 				77D8277D1C9F8DD500E22CEE /* EntitiesView.swift in Sources */,
 				3AAF1BDC1C91F06A0096C31D /* Tools.swift in Sources */,
-				3A5A16811CADAB1600E5B9ED /* AttributesRelationshipsViewController.swift in Sources */,
+				3A5A16811CADAB1600E5B9ED /* AttributesRelationshipsVC.swift in Sources */,
 				77A5521D1C88F02000658EAF /* Schema.swift in Sources */,
-				3A2F97661CAB455A000AE584 /* AttributeDetailViewController.swift in Sources */,
+				3A2F97661CAB455A000AE584 /* AttributeDetailVC.swift in Sources */,
 				3AD908B71C9A331500346527 /* AttributeTypeExtension.swift in Sources */,
 				3AD908B51C99E16100346527 /* Language.swift in Sources */,
 				3A5A168C1CAE2D0600E5B9ED /* DetailsViewController.swift in Sources */,
 				3AEF05E01C8D0788001238E7 /* FileModel.swift in Sources */,
 				3A321FF01CA0CC4E00FCEF48 /* EntitiesViewController.swift in Sources */,
 				7798B1071C87E8FD00A7F965 /* AttributeType.swift in Sources */,
-				3A2F97021CA9DFAC000AE584 /* EntityDetailViewController.swift in Sources */,
+				3A2F97021CA9DFAC000AE584 /* EntityDetailVC.swift in Sources */,
 				3A5A16881CAE23C400E5B9ED /* DetailType.swift in Sources */,
 				7798B1051C87E7CE00A7F965 /* Attribute.swift in Sources */,
 				3A5A16861CAE1FD600E5B9ED /* ExportFiles.swift in Sources */,
@@ -479,7 +479,7 @@
 				3A5A167F1CADAAEA00E5B9ED /* AttributesViewController.swift in Sources */,
 				7798B0D71C87C32900A7F965 /* ViewController.swift in Sources */,
 				3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */,
-				3A2F97601CAB3AEB000AE584 /* RelationshipDetailViewController.swift in Sources */,
+				3A2F97601CAB3AEB000AE584 /* RelationshipDetailVC.swift in Sources */,
 				3ABD35E01C975E2D00A5C883 /* RealmSchemaDocument.swift in Sources */,
 				7798B0D51C87C32900A7F965 /* AppDelegate.swift in Sources */,
 			);

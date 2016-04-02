@@ -8,26 +8,22 @@
 
 import Cocoa
 
-@objc protocol EntityDetailViewControllerDelegate {
-    optional func entityDetailDidChange(entityDetailViewController:EntityDetailViewController)
+protocol EntityDetailVCDelegate: class {
+    func entityDetailVC(entityDetailVC:EntityDetailVC, detailDidChangeFor entity:Entity)
 }
 
-class EntityDetailViewController : NSViewController, EntityDetailViewDelegate {
-    static let TAG = NSStringFromClass(EntityDetailViewController)
+class EntityDetailVC : NSViewController, EntityDetailViewDelegate {
+    static let TAG = NSStringFromClass(EntityDetailVC)
     
-    @IBOutlet weak var entityDetailView: EntityDetailView!
-    weak var delegate:EntityDetailViewControllerDelegate?
-
-    var entity: Entity?
-    var defaultEntity: Entity? {
-        willSet(defaultEntity) {
-            entity = defaultEntity
-        }
+    @IBOutlet weak var entityDetailView: EntityDetailView! {
+        didSet { entityDetailView.delegate = self }
     }
+    
+    weak var entity: Entity?
+    weak var delegate:EntityDetailVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        entityDetailView.delegate = self
     }
     
     override func viewWillAppear() {
@@ -41,7 +37,7 @@ class EntityDetailViewController : NSViewController, EntityDetailViewDelegate {
     func entityDetailView(entityDetailView: EntityDetailView, shouldChangeEntityName name: String) -> Bool {
         do {
             try self.entity!.setName(name)
-            self.delegate?.entityDetailDidChange?(self)
+            self.delegate?.entityDetailVC(self, detailDidChangeFor: self.entity!)
         } catch {
             let alert = NSAlert()
             alert.messageText = "Error"

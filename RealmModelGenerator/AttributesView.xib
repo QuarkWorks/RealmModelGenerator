@@ -28,7 +28,7 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="addAttributeButton:" target="-1" id="cgu-no-6zV"/>
+                                <action selector="addAttributeButtonOnClick:" target="-2" id="bei-V0-LFH"/>
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w2N-1H-eui">
@@ -38,7 +38,7 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="removeAttributeButton:" target="-1" id="9kJ-OY-BPv"/>
+                                <action selector="removeAttributeOnClick:" target="-2" id="3yQ-3B-h3M"/>
                             </connections>
                         </button>
                     </subviews>
@@ -69,7 +69,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" viewBased="YES" floatsGroupRows="NO" id="53D-9T-IlF">
-                                <rect key="frame" x="0.0" y="0.0" width="400.5" height="121"/>
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -98,6 +98,9 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="title" value="Attribute"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="letter" value="A"/>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="ibDelegate" destination="-2" id="2Gk-C9-Lgh"/>
+                                                </connections>
                                             </customView>
                                         </prototypeCellViews>
                                     </tableColumn>
@@ -110,7 +113,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                     </clipView>
-                    <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.5" horizontal="YES" id="qAk-32-cv0">
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.5" horizontal="YES" id="qAk-32-cv0">
                         <rect key="frame" x="0.0" y="121" width="400" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

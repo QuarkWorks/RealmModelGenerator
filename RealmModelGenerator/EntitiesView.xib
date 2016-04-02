@@ -36,7 +36,7 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="addButton:" target="-1" id="LGb-G8-rPB"/>
+                                <action selector="addButtonOnClick:" target="-1" id="fyt-WJ-7pb"/>
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JgL-H7-y5y">
@@ -46,7 +46,7 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="removeButton:" target="-1" id="pro-5I-gQo"/>
+                                <action selector="removeButtonOnClick:" target="-1" id="7Rj-OX-NBm"/>
                             </connections>
                         </button>
                     </subviews>
@@ -98,6 +98,9 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="title" value="Entity"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="letter" value="E"/>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="ibDelegate" destination="-2" id="GDh-mG-YG3"/>
+                                                </connections>
                                             </customView>
                                         </prototypeCellViews>
                                     </tableColumn>

@@ -8,67 +8,108 @@
 
 import Cocoa
 
-@objc protocol AttributesViewControllerDelegate {
-    optional func attributesViewController(attributesViewController: AttributesViewController, selectionChange index:Int)
+protocol AttributesVCDelegate: class {
+    func attributesVC(attributesVC: AttributesViewController, selectedAttributeDidChange attribute:Attribute?)
 }
 
 class AttributesViewController: NSViewController, AttributesViewDelegate, AttributesViewDataSource {
     static let TAG = NSStringFromClass(AttributesViewController)
     
-    static let SELECTED_NONE_INDEX = -1
-    
-    @IBOutlet weak var attributesView: AttributesView!
-    
-    private var entity: Entity?
-    weak var delegate:AttributesViewControllerDelegate?
-    
-    var defaultEntity:Entity? {
-        willSet(defaultEntity) {
-            entity = defaultEntity
+    @IBOutlet weak var attributesView: AttributesView! {
+        didSet {
+            self.attributesView.delegate = self
+            self.attributesView.dataSource = self
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        attributesView.delegate = self
-        attributesView.dataSource = self
+    var entity: Entity? {
+        didSet {
+            invalidateViews()
+            selectedAttribute = nil
+        }
     }
     
-    override func viewWillAppear() {
-        attributesView.reloadData()
+    private weak var selectedAttribute: Attribute? {
+        didSet {
+            if oldValue === self.selectedAttribute { return }
+            invalidateSelectedIndex()
+            self.delegate?.attributesVC(self, selectedAttributeDidChange: self.selectedAttribute)
+        }
+    }
+
+    weak var delegate:AttributesVCDelegate?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    func invalidateViews() {
+        if !self.viewLoaded { return }
+        self.attributesView.reloadData()
+        invalidateSelectedIndex()
+    }
+    
+    func invalidateSelectedIndex() {
+        self.attributesView.selectedIndex = self.entity?.attributes.indexOf({$0 === self.selectedAttribute})
+    }
+    
+    //MARK: - Update selected attribute after its detail changed
+    func updateSelectedAttribute(selectedAttribute: Attribute) {
+        self.selectedAttribute = selectedAttribute
+        invalidateViews()
     }
     
     //MARK: - AttributesViewDataSource
     func numberOfRowsInAttributesView(attributesView: AttributesView) -> Int {
-        return (entity == nil) ? 0 : entity!.attributes.count
+        return (self.entity == nil) ? 0 : self.entity!.attributes.count
     }
     
-    func attributesView(attributesView: AttributesView, titleForAttributeAtIndex index: Int) -> String? {
-        return entity!.attributes[index].name
+    func attributesView(attributesView: AttributesView, titleForAttributeAtIndex index: Int) -> String {
+        return self.entity!.attributes[index].name
     }
     
     //MAKR: - AttributesViewDelegate
     func addAttributeInAttributesView(attributesView: AttributesView) {
-        if entity != nil {
-            entity!.createAttribute()
+        if self.entity != nil {
+            let attribute = self.entity!.createAttribute()
+            self.selectedAttribute = attribute
+            self.invalidateViews()
         }
     }
     
     func attributesView(attributesView: AttributesView, removeAttributeAtIndex index: Int) {
-        entity!.removeAttribute(entity!.attributes[index])
-        self.delegate?.attributesViewController?(self, selectionChange: AttributesViewController.SELECTED_NONE_INDEX)
+        let attribute = self.entity!.attributes[index]
+        let isSelectedAttribute = attribute === self.selectedAttribute
+        self.entity!.removeAttribute(self.entity!.attributes[index])
+        self.invalidateViews()
+        
+        if isSelectedAttribute {
+            if self.entity!.attributes.count == 0 {
+                self.selectedAttribute = nil
+            } else if index < self.entity!.attributes.count {
+                self.selectedAttribute = self.entity!.attributes[index]
+            } else {
+                self.selectedAttribute = self.entity!.attributes[self.entity!.attributes.count - 1]
+            }
+        }
+        
+        self.delegate?.attributesVC(self, selectedAttributeDidChange:self.selectedAttribute)
     }
     
-    func attributesView(attributesView: AttributesView, selectionChange index: Int) {
-        self.delegate?.attributesViewController?(self, selectionChange: index)
+    func attributesView(attributesView: AttributesView, selectedIndexDidChange index: Int?) {
+        if let index = index {
+            self.selectedAttribute = self.entity!.attributes[index]
+        } else {
+            self.selectedAttribute = nil
+        }
     }
     
     func attributesView(attributesView: AttributesView, shouldChangeAttributeName name: String, atIndex index: Int) -> Bool {
         let attribute = entity!.attributes[index]
         do {
             try attribute.setName(name)
-            self.delegate?.attributesViewController?(self, selectionChange: index)
+            defer { self.invalidateViews() }
+            self.delegate?.attributesVC(self, selectedAttributeDidChange: attribute)
         } catch {
             let alert = NSAlert()
             alert.messageText = "Error"

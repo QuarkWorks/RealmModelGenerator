@@ -25,12 +25,10 @@ class Schema {
     func createModel(@noescape build:(Model) throws -> Void) rethrows -> Model {
         var version = 1
         while self.models.contains({$0.version == "\(version)"}) {
-            version++
+            version += 1
         }
         
-        if let currentModel = getCurrentModel() {
-            currentModel.setCanBeModified(false)
-        }
+        self.models.forEach({$0.setCanBeModified(false)})
         
         let model = Model(version: "\(version)", schema:self)
         try build(model)
@@ -44,25 +42,15 @@ class Schema {
     }
     
     func increaseVersion() throws -> Model {
-        if let currentModel = getCurrentModel() {
-            let currentModelDict = currentModel.toDictionary()
-            
-            let model = createModel()
-            try model.map(currentModelDict, increaseVersion: true)
-            
-            return model
-        } else {
-            return createModel()
-        }
+        let currentModelDict = currentModel.toDictionary()
+        
+        let model = createModel()
+        try model.map(currentModelDict, increaseVersion: true)
+        
+        return model
     }
     
-    func getCurrentModel() -> Model? {
-        for model in models {
-            if model.canBeModified {
-                return model
-            }
-        }
-        
-        return nil
+    var currentModel:Model {
+        return self.models.filter({return $0.canBeModified}).first ?? createModel()
     }
 }

@@ -11,8 +11,8 @@ import Cocoa
 class RealmSchemaDocument: NSDocument {
     static let TAG = String(RealmSchemaDocument)
     
-    var vc: ViewController!
-    var schema = Schema()
+    private var vc: ViewController!
+    private var schema = Schema()
     
     override init() {
         super.init()
@@ -36,11 +36,6 @@ class RealmSchemaDocument: NSDocument {
         
         if let v = windowController.contentViewController as? ViewController {
             vc = v
-            
-            if schema.models.count == 0 {
-                schema.createModel()
-            }
-            
             vc.schema = schema
         }
         

@@ -8,38 +8,32 @@
 
 import Cocoa
 
-@objc protocol AttributeDetailViewControllerDelegate {
-    optional func attributeDetailDidChange(attributeDetailViewController:AttributeDetailViewController)
+protocol AttributeDetailVCDelegate: class {
+    func attributeDetailVC(attributeDetailVC:AttributeDetailVC, detailDidChangeFor attribute:Attribute)
 }
 
-class AttributeDetailViewController: NSViewController, AttributeDetailViewDelegate {
-    static let TAG = NSStringFromClass(AttributeDetailViewController)
+class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate {
+    static let TAG = NSStringFromClass(AttributeDetailVC)
 
-    @IBOutlet weak var attributeDetailView: AttributeDetailView!
-    weak var delegate: AttributeDetailViewControllerDelegate?
-    
-    var attribute: Attribute?
-    var defaultAttribute: Attribute? {
-        willSet(defaultAttribute) {
-            attribute = defaultAttribute
-        }
+    @IBOutlet weak var attributeDetailView: AttributeDetailView! {
+        didSet{ self.attributeDetailView.delegate = self }
     }
+    
+    weak var attribute: Attribute?
+    weak var delegate: AttributeDetailVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        attributeDetailView.delegate = self
     }
     
     override func viewWillAppear() {
-        if attribute != nil {
-            attributeDetailView.name = attribute!.name
-        }
+        attributeDetailView.name = attribute!.name ?? ""
     }
     
     func attributeDetailView(attributeDetailView: AttributeDetailView, shouldChangeAttributeName name: String) -> Bool {
         do {
             try self.attribute!.setName(name)
-            self.delegate?.attributeDetailDidChange?(self)
+            self.delegate?.attributeDetailVC(self, detailDidChangeFor: self.attribute!)
         } catch {
             let alert = NSAlert()
             alert.messageText = "Error"

@@ -26,23 +26,14 @@ extension ViewController {
     //TODO: remove after adding ui to generate model
     @IBAction func generateModelExample(sender: AnyObject!) {
         Tools.generateModelExample(schema)
-        if let currentModel = schema.getCurrentModel() {
-            print(ViewController.TAG + " version after generateSchemaExample = \(currentModel.version)")
-        }
     }
     
     //Called from menu bar
     @IBAction func increaseVersion(sender: AnyObject!) {
-        if let currentModel = schema.getCurrentModel() {
-            print(ViewController.TAG + " version before createNewVersionModel = \(currentModel.version)")
-        }
         do {
             try schema.increaseVersion()
         } catch {
             print(ViewController.TAG + " Cannot increase version")
-        }
-        if let currentModel = schema.getCurrentModel() {
-            print(ViewController.TAG + " version after createNewVersionModel = \(currentModel.version)")
         }
     }
     
@@ -65,7 +56,7 @@ extension ViewController {
     func generateFileModels(language: Language) {
         var files: [FileModel] = []
         var validEnties = true
-        for entity in schema.getCurrentModel()!.entities {
+        for entity in schema.currentModel.entities {
             let content = generateFileContent(entity, language: language)
             if !content.first!.isEmpty {
                 switch language {

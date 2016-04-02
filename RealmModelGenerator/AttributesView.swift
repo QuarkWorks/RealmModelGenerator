@@ -8,16 +8,16 @@
 
 import Cocoa
 
-@objc protocol AttributesViewDataSource {
-    optional func numberOfRowsInAttributesView(attributesView:AttributesView) -> Int
-    optional func attributesView(attributesView:AttributesView, titleForAttributeAtIndex index:Int) -> String?
+protocol AttributesViewDataSource: class {
+    func numberOfRowsInAttributesView(attributesView:AttributesView) -> Int
+    func attributesView(attributesView:AttributesView, titleForAttributeAtIndex index:Int) -> String
 }
 
-@objc protocol AttributesViewDelegate {
-    optional func addAttributeInAttributesView(attributesView:AttributesView)
-    optional func attributesView(attributesView:AttributesView, removeAttributeAtIndex index:Int)
-    optional func attributesView(attributesView:AttributesView, selectionChange index:Int)
-    optional func attributesView(attributesView:AttributesView, shouldChangeAttributeName name:String,
+protocol AttributesViewDelegate: class {
+    func addAttributeInAttributesView(attributesView:AttributesView)
+    func attributesView(attributesView:AttributesView, removeAttributeAtIndex index:Int)
+    func attributesView(attributesView:AttributesView, selectedIndexDidChange index:Int?)
+    func attributesView(attributesView:AttributesView, shouldChangeAttributeName name:String,
         atIndex index:Int) -> Bool
 }
 
@@ -26,10 +26,12 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     static let TAG = NSStringFromClass(AttributesView)
     
     @IBOutlet var tableView:NSTableView!
-    @IBOutlet weak var addButton: NSButton!
-    @IBOutlet weak var removeButton: NSButton!
+    @IBOutlet weak var addButton:NSButton!
+    @IBOutlet weak var removeButton:NSButton!
     
-    weak var dataSource:AttributesViewDataSource?
+    weak var dataSource:AttributesViewDataSource? {
+        didSet { self.reloadData() }
+    }
     weak var delegate:AttributesViewDelegate?
     
     var selectedIndex:Int? {
@@ -38,6 +40,10 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
         }
         
         set {
+            if (self.selectedIndex == newValue || (newValue == nil && self.tableView.selectedRow == -1)) {
+                return
+            }
+            
             if (newValue != nil) {
                 self.tableView.selectRowIndexes(NSIndexSet(index: newValue!), byExtendingSelection: false)
             } else {
@@ -46,18 +52,29 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
         }
     }
     
+    //MARK: Lifecycle
     override func nibDidLoad() {
         super.nibDidLoad()
         removeButton.enabled = false
     }
     
+    func reloadData() {
+        if !self.nibLoaded { return }
+        self.tableView.reloadData()
+        reloadRemoveButtonState()
+    }
+    
+    func reloadRemoveButtonState() {
+        self.removeButton.enabled = self.selectedIndex != nil
+    }
+    
     //MARK: - NSTableViewDataSource
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         if self.isInterfaceBuilder {
-            return 20
+            return 5
         }
         
-        if let numberOfItems = self.dataSource?.numberOfRowsInAttributesView?(self) {
+        if let numberOfItems = self.dataSource?.numberOfRowsInAttributesView(self) {
             return numberOfItems
         }
         
@@ -72,9 +89,11 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
             return cell
         }
         
-        if let title = self.dataSource?.attributesView?(self, titleForAttributeAtIndex:row) {
+        cell.delegate = self
+        
+        if let title = self.dataSource?.attributesView(self, titleForAttributeAtIndex:row) {
             cell.title = title
-            cell.delegate = self
+            
         }
         
         return cell
@@ -85,37 +104,33 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
         selectedIndex = tableView.selectedRow
         
         if let index = selectedIndex {
-            self.delegate?.attributesView?(self, selectionChange: index)
+            self.delegate?.attributesView(self, selectedIndexDidChange: index)
         }
         
         removeButton.enabled = self.selectedIndex != nil
+    }
+    
+    //MARK: - Events
+    @IBAction func addAttributeButtonOnClick(sender: AnyObject) {
+        self.delegate?.addAttributeInAttributesView(self)
+        reloadData()
+    }
+    
+    @IBAction func removeAttributeOnClick(sender: AnyObject) {
+        if let index = selectedIndex {
+            self.delegate?.attributesView(self, removeAttributeAtIndex:index)
+        }
     }
     
     //MARK: - TitleCellDelegate
     func titleCell(titleCell: TitleCell, shouldChangeTitle title: String) -> Bool {
         let index = self.tableView.rowForView(titleCell)
         if index != -1 {
-            if let shouldChange = self.delegate?.attributesView?(self, shouldChangeAttributeName: title, atIndex: index) {
+            if let shouldChange = self.delegate?.attributesView(self, shouldChangeAttributeName: title, atIndex: index) {
                 return shouldChange
             }
         }
+        
         return true
-    }
-    
-    @IBAction func addAttributeButton(sender: AnyObject) {
-        self.delegate?.addAttributeInAttributesView?(self)
-        reloadData()
-    }
-
-    @IBAction func removeAttributeButton(sender: AnyObject) {
-        if let index = selectedIndex {
-            self.delegate?.attributesView?(self, removeAttributeAtIndex:index)
-            tableView.reloadData()
-        }
-    }
-    
-    func reloadData() {
-        tableView.reloadData()
-        self.removeButton.enabled = self.selectedIndex != nil
     }
 }

@@ -775,10 +775,10 @@
             </objects>
             <point key="canvasLocation" x="-145" y="1535"/>
         </scene>
-        <!--Attributes Relationships View Controller-->
+        <!--Attributes RelationshipsVC-->
         <scene sceneID="hne-yM-8PP">
             <objects>
-                <viewController storyboardIdentifier="AttributesRelationshipsViewController" id="oMK-Do-o62" customClass="AttributesRelationshipsViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AttributesRelationshipsVC" id="oMK-Do-o62" customClass="AttributesRelationshipsVC" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="9E4-bE-Siw">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -853,7 +853,7 @@
         <!--Entity-->
         <scene sceneID="hov-AP-CN9">
             <objects>
-                <viewController title="Entity" storyboardIdentifier="EntityDetailViewController" id="ys1-zd-vEd" customClass="EntityDetailViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Entity" storyboardIdentifier="EntityDetailVC" id="ys1-zd-vEd" customClass="EntityDetailVC" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" identifier="EntityDetailTabView" id="eo4-iL-mpV">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -897,7 +897,7 @@
         <!--Attribute-->
         <scene sceneID="gQF-CC-b0T">
             <objects>
-                <viewController title="Attribute" storyboardIdentifier="AttributeDetailViewController" id="JUi-4w-7fx" customClass="AttributeDetailViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Attribute" storyboardIdentifier="AttributeDetailVC" id="JUi-4w-7fx" customClass="AttributeDetailVC" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="y8T-tK-92t">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -918,7 +918,7 @@
         <!--Relationship-->
         <scene sceneID="zwk-cv-xaZ">
             <objects>
-                <viewController title="Relationship" storyboardIdentifier="RelationshipDetailViewController" id="aSq-Zm-x2t" customClass="RelationshipDetailViewController" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Relationship" storyboardIdentifier="RelationshipDetailVC" id="aSq-Zm-x2t" customClass="RelationshipDetailVC" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="ZyI-Nf-PJM">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>

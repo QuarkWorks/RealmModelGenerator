@@ -8,20 +8,22 @@
 
 import Cocoa
 
-class ViewController: NSViewController, EntitiesViewControllerDelegate, AttributesRelationViewControllerDelegate, DetailsViewControllerDelegate {
+class ViewController: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDelegate, DetailsVCDelegate {
     static let TAG = NSStringFromClass(ViewController)
     
-    static let entitiesViewControllerSegue = "EntitiesViewControllerSegue"
-    static let attributesRelationshipsViewControllerSegue = "AttributesRelationshipsViewControllerSegue"
-    static let detailsViewControllerSegue = "DetailsViewControllerSegue"
+    let entitiesVC = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("EntitiesViewController") as! EntitiesViewController
+    let attributesRelationshipsVC = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("AttributesRelationshipsVC") as! AttributesRelationshipsVC
+    let detailsVC = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("DetailsViewController") as! DetailsViewController
     
-    var schema: Schema = Schema(name:"ViewControllerSchema")
-    var model: Model?
-    var entity: Entity?
+    var schema = Schema() {
+        didSet {
+            model = schema.currentModel
+            entitiesVC.schema = self.schema
+        }
+    }
     
-    let entitiesViewController = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("EntitiesViewController") as! EntitiesViewController
-    let attributesRelationshipsViewController = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("AttributesRelationshipsViewController") as! AttributesRelationshipsViewController
-    let detailsViewController = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("DetailsViewController") as! DetailsViewController
+    private weak var model: Model?
+    private weak var selectedEnity: Entity?
     
     @IBOutlet weak var leftDivider: NSView!
     @IBOutlet weak var rightDivider: NSView!
@@ -32,54 +34,67 @@ class ViewController: NSViewController, EntitiesViewControllerDelegate, Attribut
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        if let currentModel = schema.getCurrentModel() {
-            model = currentModel
-        } else {
-            model = schema.createModel()
-        }
         
         self.view.wantsLayer = true
         leftDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
         rightDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
         
-        entitiesViewController.delegate = self
-        attributesRelationshipsViewController.delegate = self
-        detailsViewController.delegate = self
+        entitiesVC.delegate = self
+        attributesRelationshipsVC.delegate = self
+        detailsVC.delegate = self
+    }
+    
+    override func viewWillAppear() {
+        // Because of loading schema after viewDidLoad so we need to update entities view
+        // TODO: Figure out a better way to handle it
+        entitiesVC.schema = self.schema
+        updateContainerView(entitiesContainerView, newView: entitiesVC.view)
     }
     
     //MARK: - EntitiesViewController delegate
-    func entiesViewController(entitiesViewController: EntitiesViewController, selectionChange index: Int) {
-        if index == EntitiesViewController.SELECTED_NONE_INDEX {
-            self.entity = nil
-            notifyDetailViewDataSourceChange(nil, detailType: DetailType.Empty)
-            
-        } else {
-            self.entity = model!.entities[index]
-            notifyDetailViewDataSourceChange(model!.entities[index], detailType: DetailType.Entity)
-        }
+    func entitiesVC(entitiesVC: EntitiesViewController, selectedEntityDidChange entity: Entity?) {
         
-        notifyAttributesRelationshipsDataChange()
+        self.selectedEnity = entity
+        if let entity = entity {
+            notifyDetailViewDataSourceChange(entity, detailType: DetailType.Entity)
+            notifyAttributesRelationshipsDataChange(entity, detailType: DetailType.Entity)
+        } else {
+            notifyDetailViewDataSourceChange(nil, detailType: DetailType.Empty)
+            notifyAttributesRelationshipsDataChange(nil, detailType: DetailType.Empty)
+        }
     }
     
-    //MARK: - AttributesRelationshipsViewController delegate
-    func attributesRelationshipsViewController(attributesRelationshipsViewController: AttributesRelationshipsViewController, selectionChange index: Int) {
-        
-        if index == AttributesViewController.SELECTED_NONE_INDEX {
+    //MARK: - AttributesRelationshipsViewController delegate - attribute
+    func attributesRelationshipsVC(attributesRelationshipsVC: AttributesRelationshipsVC, selectedAttributeDidChange attribute: Attribute?) {
+        if let index = self.selectedEnity?.attributes.indexOf({$0 === attribute}) {
+            if let attribute = selectedEnity?.attributes[index] {
+                notifyDetailViewDataSourceChange(attribute, detailType: DetailType.Attribute)
+            }
+        } else {
             notifyDetailViewDataSourceChange(nil, detailType: DetailType.Empty)
-        } else if let attribute = entity?.attributes[index] {
-            notifyDetailViewDataSourceChange(attribute, detailType: DetailType.Attribute)
         }
     }
+    
+    //MARK: - AttributesRelationshipsViewController delegate - relationship
+    func attributesRelationshipsVC(attributesRelationshipsVC: AttributesRelationshipsVC, selectedRelationshipDidChange relationship: Relationship?) {
+        if let index = self.selectedEnity?.relationships.indexOf({$0 === relationship}) {
+            if let relationship = selectedEnity?.relationships[index] {
+                notifyDetailViewDataSourceChange(relationship, detailType: DetailType.Relationship)
+            }
+        } else {
+            notifyDetailViewDataSourceChange(nil, detailType: DetailType.Empty)
+        }
+    }
+    
     
     //MARK: - DetailsViewController delegate
-    func notifiyDetailsChange(detailsViewController: DetailsViewController, detailChangedAt: String) {
-        switch DetailType.init(rawValueSafe: detailChangedAt) {
+    func detailsVC(detailsVC: DetailsViewController, detailObject: AnyObject, detailType: DetailType) {
+        switch detailType {
         case .Entity:
             notifyEntitiesViewDataSourceChange()
             break;
         case .Attribute:
-            notifyAttributesRelationshipsDataChange()
+            notifyAttributesRelationshipsDataChange(detailObject, detailType: detailType)
             break;
         case .Relationship:
             break;
@@ -90,80 +105,28 @@ class ViewController: NSViewController, EntitiesViewControllerDelegate, Attribut
     
     //MARK: - Notify entities view data change
     func notifyEntitiesViewDataSourceChange() {
-        entitiesContainerView.subviews[0].removeFromSuperview()
-        entitiesViewController.defaultModel = model
-        entitiesContainerView.addSubview(entitiesViewController.view)
+        entitiesVC.invalidateViews()
+        updateContainerView(entitiesContainerView, newView: entitiesVC.view)
     }
     
     //MARK: - Notify attributes and relationships view data change
-    func notifyAttributesRelationshipsDataChange() {
-        attributesRelationshipsContainerView.subviews[0].removeFromSuperview()
-        attributesRelationshipsViewController.defaultEntity = entity
-        attributesRelationshipsContainerView.addSubview(attributesRelationshipsViewController.view)
+    func notifyAttributesRelationshipsDataChange(detailObject: AnyObject?, detailType: DetailType) {
+        attributesRelationshipsVC.updateAttributeRelationship(detailObject, detailType: detailType)
+        updateContainerView(attributesRelationshipsContainerView, newView: attributesRelationshipsVC.view)
     }
     
     //MARK: - Notify detail view data source change
     func notifyDetailViewDataSourceChange(anyObject: AnyObject?, detailType: DetailType) {
-        detailsContainerView.subviews[0].removeFromSuperview()
-        
-        var isValid = true
-        
-        switch detailType {
-        case .Entity:
-            if let entity = anyObject as? Entity {
-                detailsViewController.setEntity(entity)
-            } else {
-                isValid = false
-            }
-            break
-        case .Attribute:
-            if let attribute = anyObject as? Attribute {
-                detailsViewController.setAttribute(attribute)
-            } else {
-                isValid = false
-            }
-            break
-        case .Relationship:
-            if let relationship = anyObject as? Relationship {
-                detailsViewController.setRelationship(relationship)
-            } else {
-                isValid = false
-            }
-            break
-        case .Empty:
-            detailsViewController.setEmpty()
-            break
-        }
-        
-        if !isValid {
-            detailsViewController.setEmpty()
-        }
-        
-        detailsContainerView.addSubview(detailsViewController.view)
+        detailsVC.updateDetailView(anyObject, detailType: detailType)
+        updateContainerView(detailsContainerView, newView: detailsVC.view)
     }
     
-    //MARK: - prepareForSegue
-    override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
-        switch segue.identifier! {
-        case ViewController.entitiesViewControllerSegue:
-            if let entitiesViewController: EntitiesViewController = segue.destinationController as? EntitiesViewController {
-                entitiesViewController.defaultModel = model
-                entitiesViewController.delegate = self
-            }
-            break;
-        case ViewController.attributesRelationshipsViewControllerSegue:
-            if let attributesRelationshipsViewController: AttributesRelationshipsViewController = segue.destinationController as? AttributesRelationshipsViewController {
-                attributesRelationshipsViewController.delegate = self
-            }
-            break;
-        case ViewController.detailsViewControllerSegue:
-            if let detailsViewController: DetailsViewController = segue.destinationController as? DetailsViewController {
-                detailsViewController.delegate = self
-            }
-            break;
-        default:
-            //TODO: throw an NSAssertion().throw()
-            break;
+    //MARK: - Update container view
+    func updateContainerView(containerView: NSView, newView: NSView) {
+        if containerView.subviews.count > 0 {
+            containerView.subviews[0].removeFromSuperview()
         }
+        
+        containerView.addSubview(newView)
     }
 }

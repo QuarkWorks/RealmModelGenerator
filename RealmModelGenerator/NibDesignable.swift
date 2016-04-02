@@ -24,6 +24,8 @@ public protocol NibDesignableProtocol: NSObjectProtocol {
     func nibName() -> String
     
     func nibDidLoad()
+    
+    var nibLoaded:Bool {get set}
 }
 
 extension NibDesignableProtocol {
@@ -51,6 +53,7 @@ extension NibDesignableProtocol {
         let view = self.loadNib()
         self.nibContainerView.addSubview(view)
         view.matchParent()
+        nibLoaded = true
         nibDidLoad()
     }
 }
@@ -83,7 +86,8 @@ extension NSView {
 @IBDesignable
 public class NibDesignableView: NSView, NibDesignableProtocol {
     
-    var isInterfaceBuilder:Bool = false
+    private(set) var isInterfaceBuilder:Bool = false
+    public var nibLoaded:Bool = false
     
     // MARK: - Initializer
     override public init(frame: CGRect) {
@@ -106,7 +110,8 @@ public class NibDesignableView: NSView, NibDesignableProtocol {
 @IBDesignable
 public class NibDesignableTableCellView: NSTableCellView, NibDesignableProtocol {
     
-    var isInterfaceBuilder:Bool = false
+    private(set) var isInterfaceBuilder:Bool = false
+    public var nibLoaded:Bool = false
     
     // MARK: - Initializer
     override public init(frame: CGRect) {

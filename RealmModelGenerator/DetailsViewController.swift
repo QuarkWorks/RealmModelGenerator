@@ -8,21 +8,21 @@
 
 import Cocoa
 
-@objc protocol DetailsViewControllerDelegate {
-    optional func notifiyDetailsChange(detailsViewController:DetailsViewController, detailChangedAt:String)
+protocol DetailsVCDelegate: class {
+    func detailsVC(detailsVC:DetailsViewController, detailObject:AnyObject, detailType:DetailType)
 }
 
-class DetailsViewController: NSViewController, EntityDetailViewControllerDelegate, AttributeDetailViewControllerDelegate, RelationshipDetailViewControllerDelegate {
+class DetailsViewController: NSViewController, EntityDetailVCDelegate, AttributeDetailVCDelegate, RelationshipDetailVCDelegate {
     static let TAG = NSStringFromClass(DetailsViewController)
     
-    let entityDetailViewController = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("EntityDetailViewController") as! EntityDetailViewController
-    let attributeDetailViewController = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("AttributeDetailViewController") as! AttributeDetailViewController
-    let relationshipDetailViewController = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("RelationshipDetailViewController") as! RelationshipDetailViewController
+    let entityDetailVC = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("EntityDetailVC") as! EntityDetailVC
+    let attributeDetailVC = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("AttributeDetailVC") as! AttributeDetailVC
+    let relationshipDetailVC = NSStoryboard(name: "Main", bundle: nil).instantiateControllerWithIdentifier("RelationshipDetailVC") as! RelationshipDetailVC
     
     @IBOutlet weak var detailsContainerView: NSView!
     @IBOutlet weak var emptyTextField: NSTextField!
     
-    var delegate: DetailsViewControllerDelegate?
+    weak var delegate: DetailsVCDelegate?
     
     private var detailType: DetailType?
     private var entity: Entity?
@@ -32,9 +32,9 @@ class DetailsViewController: NSViewController, EntityDetailViewControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        entityDetailViewController.delegate = self
-        attributeDetailViewController.delegate = self
-        relationshipDetailViewController.delegate = self
+        entityDetailVC.delegate = self
+        attributeDetailVC.delegate = self
+        relationshipDetailVC.delegate = self
     }
     
     override func viewWillAppear() {
@@ -46,17 +46,17 @@ class DetailsViewController: NSViewController, EntityDetailViewControllerDelegat
             emptyTextField.hidden = true
             switch detailType {
             case .Entity:
-                entityDetailViewController.entity = entity
-                entityDetailViewController.delegate = self
-                detailsContainerView.addSubview(entityDetailViewController.view)
+                entityDetailVC.entity = entity
+                entityDetailVC.delegate = self
+                detailsContainerView.addSubview(entityDetailVC.view)
                 break
             case .Attribute:
-                attributeDetailViewController.attribute = attribute
-                detailsContainerView.addSubview(attributeDetailViewController.view)
+                attributeDetailVC.attribute = attribute
+                detailsContainerView.addSubview(attributeDetailVC.view)
                 break
             case .Relationship:
-                relationshipDetailViewController.relationship = relationship
-                detailsContainerView.addSubview(relationshipDetailViewController.view)
+                relationshipDetailVC.relationship = relationship
+                detailsContainerView.addSubview(relationshipDetailVC.view)
                 break
             default:
                 emptyTextField.hidden = false
@@ -86,18 +86,53 @@ class DetailsViewController: NSViewController, EntityDetailViewControllerDelegat
         detailType = DetailType.Relationship
     }
     
+    func updateDetailView(anyObject: AnyObject?, detailType: DetailType) {
+        var isValid = true
+        
+        switch detailType {
+        case .Entity:
+            if let entity = anyObject as? Entity {
+                self.setEntity(entity)
+            } else {
+                isValid = false
+            }
+            break
+        case .Attribute:
+            if let attribute = anyObject as? Attribute {
+                self.setAttribute(attribute)
+            } else {
+                isValid = false
+            }
+            break
+        case .Relationship:
+            if let relationship = anyObject as? Relationship {
+                self.setRelationship(relationship)
+            } else {
+                isValid = false
+            }
+            break
+        case .Empty:
+            self.setEmpty()
+            break
+        }
+        
+        if !isValid {
+            self.setEmpty()
+        }
+    }
+
     //MARK: - EntityDetailViewController delegate
-    func entityDetailDidChange(entityDetailViewController: EntityDetailViewController) {
-        self.delegate?.notifiyDetailsChange?(self, detailChangedAt: DetailType.Entity.rawValue)
+    func entityDetailVC(entityDetailVC:EntityDetailVC, detailDidChangeFor entity:Entity) {
+        self.delegate?.detailsVC(self, detailObject: entity, detailType: DetailType.Entity)
     }
     
     //MARK: - AttributeDetailViewController delegate
-    func attributeDetailDidChange(attributeDetailViewController: AttributeDetailViewController) {
-        self.delegate?.notifiyDetailsChange?(self, detailChangedAt: DetailType.Attribute.rawValue)
+    func attributeDetailVC(attributeDetailVC:AttributeDetailVC, detailDidChangeFor attribute:Attribute) {
+        self.delegate?.detailsVC(self, detailObject: attribute, detailType: DetailType.Attribute)
     }
     
     //MARK: - RelatioinshipDetailViewController delegate
-    func relationshipDetailViewControllerDelegate(relationshipDetailViewControllerDelegate: RelationshipDetailViewControllerDelegate) {
-        self.delegate?.notifiyDetailsChange?(self, detailChangedAt: DetailType.Relationship.rawValue)
+    func relationshipDetailVC(relationshipDetailVC:RelationshipDetailVC, detailDidChangeFor relationship:Relationship) {
+        self.delegate?.detailsVC(self, detailObject: relationship, detailType: DetailType.Relationship)
     }
 }

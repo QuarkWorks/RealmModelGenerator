@@ -8,23 +8,25 @@
 
 import Cocoa
 
-@objc protocol TitleCellDelegate {
-    optional func titleCell(titleCell:TitleCell, shouldChangeTitle title:String) -> Bool
+protocol TitleCellDelegate: class {
+    func titleCell(titleCell:TitleCell, shouldChangeTitle title:String) -> Bool
 }
 
 @IBDesignable
 class TitleCell: NibDesignableView, NSTextFieldDelegate {
     static let IDENTIFIER = "TitleCell"
-
+    
+    @IBOutlet var titleTextField:NSTextField!
+    @IBOutlet var letterTextField:NSTextField!
+    
     weak var delegate:TitleCellDelegate?
     
-    @IBOutlet var titleTextField:NSTextField! {
-        willSet {
-            newValue!.delegate = self
-        }
+    // Workaround for Xcode bug that prevents you from connecting the delegate in the storyboard.
+    // Remove this extra property once Xcode gets fixed.
+    @IBOutlet var ibDelegate:AnyObject? {
+        set { self.delegate = newValue as? TitleCellDelegate }
+        get { return self.delegate }
     }
-    
-    @IBOutlet var letterTextField:NSTextField!
     
     override func nibDidLoad() {
         super.nibDidLoad()
@@ -61,9 +63,10 @@ class TitleCell: NibDesignableView, NSTextFieldDelegate {
     }
     
     func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        if let shouldEnd = self.delegate?.titleCell?(self, shouldChangeTitle: fieldEditor.string!) {
+        if let shouldEnd = self.delegate?.titleCell(self, shouldChangeTitle: fieldEditor.string!) {
             return shouldEnd
         }
+        
         return true
     }
 }
