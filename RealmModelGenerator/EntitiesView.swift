@@ -43,6 +43,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
                 return
             }
             
+            
             if (newValue != nil) {
                 self.tableView.selectRowIndexes(NSIndexSet(index: newValue!), byExtendingSelection: false)
             } else {

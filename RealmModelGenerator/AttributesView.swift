@@ -113,7 +113,6 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     //MARK: - Events
     @IBAction func addAttributeButtonOnClick(sender: AnyObject) {
         self.delegate?.addAttributeInAttributesView(self)
-        reloadData()
     }
     
     @IBAction func removeAttributeOnClick(sender: AnyObject) {

@@ -11,7 +11,7 @@ import Cocoa
 class RealmSchemaDocument: NSDocument {
     static let TAG = String(RealmSchemaDocument)
     
-    private var vc: ViewController!
+    private var mainVC: MainVC!
     private var schema = Schema()
     
     override init() {
@@ -34,9 +34,9 @@ class RealmSchemaDocument: NSDocument {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         let windowController = storyboard.instantiateControllerWithIdentifier("Document Window Controller") as! NSWindowController
         
-        if let v = windowController.contentViewController as? ViewController {
-            vc = v
-            vc.schema = schema
+        if let v = windowController.contentViewController as? MainVC {
+            mainVC = v
+            mainVC.schema = schema
         }
         
         self.addWindowController(windowController)
@@ -48,7 +48,7 @@ class RealmSchemaDocument: NSDocument {
         
         var arrayOfDictionaries = [NSDictionary]()
         
-        let schemaDict = vc.schema.toDictionary()
+        let schemaDict = mainVC.schema.toDictionary()
         arrayOfDictionaries.append(schemaDict)
         
         let data: NSData? = try NSJSONSerialization.dataWithJSONObject(arrayOfDictionaries, options: [])

@@ -9,15 +9,14 @@
 import Cocoa
 
 protocol RelationshipsVCDelegate: class {
-    func relationshipsVC(relationshipsVC: RelationshipsViewController, selectedRelationshipDidChange relationship:Relationship?)
+    func relationshipsVC(relationshipsVC: RelationshipsVC, selectedRelationshipDidChange relationship:Relationship?)
 }
 
-class RelationshipsViewController: NSViewController {
-    static let TAG = NSStringFromClass(RelationshipsViewController)
+class RelationshipsVC: NSViewController {
+    static let TAG = NSStringFromClass(RelationshipsVC)
 
     var entity: Entity? {
         didSet {
-//            invalidateViews()
             selectedRelationship = nil
         }
     }
@@ -25,15 +24,12 @@ class RelationshipsViewController: NSViewController {
     weak var selectedRelationship: Relationship? {
         didSet {
             if oldValue === self.selectedRelationship { return }
-//            invalidateSelectedIndex()
-//            self.delegate?.relationshipsVC(self, selectedRelationshipDidChange: self.selectedRelationship)
         }
     }
     
     //MARK: - Update selected attribute after its detail changed
     func updateSelectedAttribute(selectedRelationship: Relationship) {
         self.selectedRelationship = selectedRelationship
-//        invalidateViews()
     }
     
     weak var delegate:RelationshipsVCDelegate?

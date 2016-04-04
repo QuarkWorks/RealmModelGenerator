@@ -27,7 +27,9 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate {
     }
     
     override func viewWillAppear() {
-        attributeDetailView.name = attribute!.name ?? ""
+        if attribute != nil {
+            attributeDetailView.name = attribute!.name ?? ""
+        }
     }
     
     func attributeDetailView(attributeDetailView: AttributeDetailView, shouldChangeAttributeName name: String) -> Bool {
@@ -35,11 +37,7 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate {
             try self.attribute!.setName(name)
             self.delegate?.attributeDetailVC(self, detailDidChangeFor: self.attribute!)
         } catch {
-            let alert = NSAlert()
-            alert.messageText = "Error"
-            alert.addButtonWithTitle("OK")
-            alert.informativeText = "Unable to rename entity: \(attribute!.name) to: \(name). There is an entity with the same name."
-            alert.runModal()
+            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename attribute: \(attribute!.name) to: \(name). There is an attribute with the same name.")
             return false
 
         }

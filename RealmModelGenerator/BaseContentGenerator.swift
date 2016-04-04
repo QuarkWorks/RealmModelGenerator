@@ -17,27 +17,11 @@ class BaseContentGenerator {
         do {
             return try validEntity(entity)
         } catch GeneratorError.InvalidAttribteType(let attribute){
-            print("Entity \(entity.name) attribute \(attribute.name) has an unknown type.")
-            let alert = NSAlert()
-            alert.messageText = "Error"
-            alert.addButtonWithTitle("OK")
-            alert.informativeText = "Entity \(entity.name) attribute \(attribute.name) has an unknown type."
-            alert.runModal()
-            
+            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Entity \(entity.name) attribute \(attribute.name) has an unknown type.")
         } catch GeneratorError.InvalidRelationshiDestination(let relationship) {
-            print("Entity \(entity.name) relationship \(relationship.name) has an unknown destination.")
-            let alert = NSAlert()
-            alert.messageText = "Error"
-            alert.addButtonWithTitle("OK")
-            alert.informativeText = "Entity \(entity.name) relationship \(relationship.name) has an unknown destination."
-            alert.runModal()
+            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Entity \(entity.name) relationship \(relationship.name) has an unknown destination.")
         } catch {
-            print("Invalid entity \(entity.name)")
-            let alert = NSAlert()
-            alert.messageText = "Error"
-            alert.addButtonWithTitle("OK")
-            alert.informativeText = "Invalid entity \(entity.name)"
-            alert.runModal()
+            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Invalid entity \(entity.name)")
         }
         
         return false

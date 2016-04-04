@@ -9,11 +9,11 @@
 import Cocoa
 
 protocol AttributesVCDelegate: class {
-    func attributesVC(attributesVC: AttributesViewController, selectedAttributeDidChange attribute:Attribute?)
+    func attributesVC(attributesVC: AttributesVC, selectedAttributeDidChange attribute:Attribute?)
 }
 
-class AttributesViewController: NSViewController, AttributesViewDelegate, AttributesViewDataSource {
-    static let TAG = NSStringFromClass(AttributesViewController)
+class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewDataSource {
+    static let TAG = NSStringFromClass(AttributesVC)
     
     @IBOutlet weak var attributesView: AttributesView! {
         didSet {
@@ -22,7 +22,7 @@ class AttributesViewController: NSViewController, AttributesViewDelegate, Attrib
         }
     }
     
-    var entity: Entity? {
+    weak var entity: Entity? {
         didSet {
             invalidateViews()
             selectedAttribute = nil
@@ -111,11 +111,7 @@ class AttributesViewController: NSViewController, AttributesViewDelegate, Attrib
             defer { self.invalidateViews() }
             self.delegate?.attributesVC(self, selectedAttributeDidChange: attribute)
         } catch {
-            let alert = NSAlert()
-            alert.messageText = "Error"
-            alert.addButtonWithTitle("OK")
-            alert.informativeText = "Unable to rename attribute: \(attribute.name) to: \(name). There is an attribute with the same name."
-            alert.runModal()
+            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename attribute: \(attribute.name) to: \(name). There is an attribute with the same name.")
             return false
         }
         return true

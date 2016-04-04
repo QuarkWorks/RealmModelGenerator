@@ -9,11 +9,11 @@
 import Cocoa
 
 protocol EntitiesVCDelegate: class {
-    func entitiesVC(entitiesVC:EntitiesViewController, selectedEntityDidChange entity:Entity?)
+    func entitiesVC(entitiesVC:EntitiesVC, selectedEntityDidChange entity:Entity?)
 }
 
-class EntitiesViewController: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource {
-    static let TAG = NSStringFromClass(EntitiesViewController)
+class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource {
+    static let TAG = NSStringFromClass(EntitiesVC)
     
     @IBOutlet weak var entitiesView: EntitiesView! {
         didSet {
@@ -107,11 +107,7 @@ class EntitiesViewController: NSViewController, EntitiesViewDelegate, EntitiesVi
             defer { self.invalidateViews() }
             self.delegate?.entitiesVC(self, selectedEntityDidChange: entity)
         } catch {
-            let alert = NSAlert()
-            alert.messageText = "Error"
-            alert.addButtonWithTitle("OK")
-            alert.informativeText = "Unable to rename entity: \(entity.name) to: \(name). There is an entity with the same name."
-            alert.runModal()
+            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename entity: \(entity.name) to: \(name). There is an entity with the same name.")
             return false
         }
         return true

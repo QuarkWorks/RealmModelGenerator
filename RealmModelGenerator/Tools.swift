@@ -62,6 +62,15 @@ class Tools {
             $0.isMany = true
         })
     }
+    
+    static func popupAllert(messageText:String, buttonTitile:String, informativeText:String) {
+        let alert = NSAlert()
+        alert.messageText = messageText
+        alert.addButtonWithTitle(buttonTitile)
+        alert.informativeText = informativeText
+        alert.runModal()
+
+    }
 }
 
 //Reference: http://stackoverflow.com/a/28288340

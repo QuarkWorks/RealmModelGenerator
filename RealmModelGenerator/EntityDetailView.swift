@@ -38,7 +38,7 @@ class EntityDetailView: NibDesignableView, NSTextFieldDelegate {
     }
     
     func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        //TODO: identify text end editin in which field
+        //TODO: identify text end editing in which field
         if let shouldEnd = self.delegate?.entityDetailView(self, shouldChangeEntityName: fieldEditor.string!) {
             return shouldEnd
         }

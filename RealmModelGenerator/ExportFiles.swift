@@ -8,7 +8,7 @@
 
 import Cocoa
 
-extension ViewController {
+extension MainVC {
     //MARK: - generateFileContent
     func generateFileContent(entity:Entity, language:Language) -> [String] {
         
@@ -33,7 +33,7 @@ extension ViewController {
         do {
             try schema.increaseVersion()
         } catch {
-            print(ViewController.TAG + " Cannot increase version")
+            print(MainVC.TAG + " Cannot increase version")
         }
     }
     

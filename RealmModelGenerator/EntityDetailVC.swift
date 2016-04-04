@@ -19,7 +19,11 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate {
         didSet { entityDetailView.delegate = self }
     }
     
-    weak var entity: Entity?
+    weak var entity: Entity? {
+        didSet{
+            entityDetailView.name = entity!.name
+        }
+    }
     weak var delegate:EntityDetailVCDelegate?
     
     override func viewDidLoad() {
@@ -39,11 +43,7 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate {
             try self.entity!.setName(name)
             self.delegate?.entityDetailVC(self, detailDidChangeFor: self.entity!)
         } catch {
-            let alert = NSAlert()
-            alert.messageText = "Error"
-            alert.addButtonWithTitle("OK")
-            alert.informativeText = "Unable to rename entity: \(entity!.name) to: \(name). There is an entity with the same name."
-            alert.runModal()
+            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename entity: \(entity!.name) to: \(name). There is an entity with the same name.")
             return false
             
         }
