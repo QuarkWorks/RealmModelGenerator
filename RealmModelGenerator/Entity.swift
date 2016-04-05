@@ -12,7 +12,7 @@ class Entity {
     static let TAG = NSStringFromClass(Entity)
     
     private(set) var name:String
-    private(set) weak var model:Model!
+    internal(set) weak var model:Model!
     var superEntity: Entity? = nil
     var isBaseClass = false
     
@@ -40,9 +40,12 @@ class Entity {
         }
     }
     
+    let observable:Observable
+    
     internal init(name:String, model:Model) {
         self.name = name
         self.model = model
+        self.observable = DeferedObservable(observable: model.observable)
     }
     
     func createAttribute() -> Attribute {
@@ -58,7 +61,7 @@ class Entity {
         }
         
         let attribute = Attribute(name:name, entity:self)
-        try build(attribute) //the attribute is added to self.attributes after it build successfully
+        try build(attribute)
         attributes.append(attribute)
         return attribute;
     }
@@ -73,6 +76,7 @@ class Entity {
         }
         
         self.name = name
+        self.observable.notifyObservers()
     }
     
     func setPrimaryKey(primaryKey:Attribute?) throws {
@@ -87,6 +91,11 @@ class Entity {
     }
     
     func removeAttribute(attribute:Attribute) {
+        attribute.entity = nil
+        if self.primaryKey  === attribute {
+            self.primaryKey = nil
+        }
+        
         if let index = attributes.indexOf({$0 === attribute}) {
             attributes.removeAtIndex(index)
         }
@@ -106,8 +115,14 @@ class Entity {
         }
         
         let relationship = Relationship(name: name, entity: self)
+        defer {
+            if !relationships.contains({$0 === relationship}) {
+                relationship.entity = nil
+            }
+        }
+        
+        try build(relationship)
         relationships.append(relationship)
-        try build(relationship) //the relationship is added to selfrelationships after it build successfully
         return relationship
     }
     
@@ -119,5 +134,10 @@ class Entity {
     
     func removeFromModel() {
         self.model.removeEntity(self)
+        self.observable.notifyObservers()
+    }
+    
+    func isDeleted() -> Bool {
+        return self.model == nil
     }
 }

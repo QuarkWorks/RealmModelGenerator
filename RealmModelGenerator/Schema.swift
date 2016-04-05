@@ -14,8 +14,11 @@ class Schema {
     var name:String
     private(set) var models:[Model] = []
     
+    let observable:Observable
+    
     init(name:String = "") {
         self.name = name
+        self.observable = BaseObservable()
     }
     
     func createModel() -> Model {
@@ -28,7 +31,7 @@ class Schema {
             version += 1
         }
         
-        self.models.forEach({$0.setCanBeModified(false)})
+        self.models.forEach({$0.isModifiable = false})
         
         let model = Model(version: "\(version)", schema:self)
         try build(model)
@@ -51,6 +54,6 @@ class Schema {
     }
     
     var currentModel:Model {
-        return self.models.filter({return $0.canBeModified}).first ?? createModel()
+        return self.models.filter({return $0.isModifiable}).first ?? createModel()
     }
 }

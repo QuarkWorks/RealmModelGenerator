@@ -11,9 +11,9 @@ import Foundation
 class Model {
     static let TAG = NSStringFromClass(Model)
     
-    let schema:Schema
+    weak var schema:Schema!
     private(set) var version:String
-    private(set) var canBeModified:Bool = true
+    internal(set) var isModifiable:Bool = true
     private(set) var entities:[Entity] = []
     var entitiesByName:[String:Entity] {
         get {
@@ -25,9 +25,12 @@ class Model {
         }
     }
     
+    let observable:Observable
+    
     internal init(version:String, schema: Schema) {
         self.version = version
         self.schema = schema
+        self.observable = DeferedObservable(observable: schema.observable)
     }
     
     func createEntity() -> Entity {
@@ -49,16 +52,32 @@ class Model {
     }
     
     func removeEntity(entity:Entity) {
+        entity.model = nil
+        entities.forEach{ (e) in
+            e.relationships.forEach({ (r) in
+                if r.destination === entity {
+                    r.destination = nil
+                }
+            })
+            
+            if e.superEntity === entity {
+                e.superEntity = nil
+            }
+            
+        }
+        
         if let index = entities.indexOf({$0 === entity}) {
             entities.removeAtIndex(index)
         }
+        
+        self.observable.notifyObservers()
     }
     
     func setVersion(version:String) {
         self.version = version;
     }
     
-    func setCanBeModified(canBeModified:Bool) {
-        self.canBeModified = canBeModified
+    func isDeleted() -> Bool {
+        return self.schema == nil
     }
 }

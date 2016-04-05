@@ -39,13 +39,13 @@ extension Schema {
 
 extension Model {
     static let VERSION = "version"
-    static let CAN_BE_MODIFIED = "canBeModified"
+    static let IS_MODIFIABLE = "isModifiable"
     static let ENTITIES = "entities"
     
     func toDictionary() -> [String:AnyObject] {
         return [
             Model.VERSION:self.version,
-            Model.CAN_BE_MODIFIED:self.canBeModified,
+            Model.IS_MODIFIABLE:self.isModifiable,
             Model.ENTITIES:self.entities.map({$0.toDictionary()})
         ]
     }
@@ -55,7 +55,7 @@ extension Model {
             throw NSError(domain: Model.TAG, code: 0, userInfo: nil)
         }
         
-        guard let canBeModified = dictionary[Model.CAN_BE_MODIFIED] as? Bool else {
+        guard let isModifiable = dictionary[Model.IS_MODIFIABLE] as? Bool else {
             throw NSError(domain: Model.TAG, code: 0, userInfo: nil)
         }
         
@@ -67,7 +67,7 @@ extension Model {
             self.setVersion(version)
         }
         
-        self.setCanBeModified(canBeModified)
+        self.isModifiable = isModifiable
         
         var entityPairs:[(Entity, [String:AnyObject])] = []
         entityPairs.reserveCapacity(entitiesDict.count)

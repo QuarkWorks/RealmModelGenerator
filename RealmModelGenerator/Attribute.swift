@@ -12,7 +12,7 @@ class Attribute {
     static let TAG = NSStringFromClass(Attribute)
         
     private(set) var name:String
-    private(set) weak var entity:Entity!
+    internal(set) weak var entity:Entity!
     var isIgnored = false
     private(set) var isIndexed = false
     var isRequired = false
@@ -30,9 +30,12 @@ class Attribute {
         }
     }
     
+    let observable:Observable
+    
     internal init(name:String, entity:Entity) {
         self.name = name
         self.entity = entity
+        self.observable = DeferedObservable(observable: entity.observable)
     }
     
     func setName(name:String) throws {
@@ -45,6 +48,7 @@ class Attribute {
         }
         
         self.name = name
+        self.observable.notifyObservers()
     }
     
     func setIndexed(isIndexed:Bool) throws {
@@ -60,5 +64,10 @@ class Attribute {
     
     func removeFromEntity() {
         self.entity.removeAttribute(self)
+        self.observable.notifyObservers()
+    }
+    
+    func isDeleted() -> Bool {
+        return self.entity == nil
     }
 }

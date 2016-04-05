@@ -12,13 +12,19 @@ class Relationship {
     static let TAG = NSStringFromClass(Relationship)
     
     private(set) var name:String
-    private(set) weak var entity:Entity!
-    var destination:Entity?
-    var isMany = false
+    internal(set) weak var entity:Entity!
+    weak var destination:Entity? {
+        didSet { self.observable.notifyObservers() }
+    }
+    var isMany = false {
+        didSet { self.observable.notifyObservers() }
+    }
     
+    let observable: Observable
     internal init(name:String, entity:Entity) {
         self.name = name
         self.entity = entity
+        self.observable = DeferedObservable(observable: entity.observable)
     }
     
     func setName(name:String) throws {
@@ -30,9 +36,15 @@ class Relationship {
             throw NSError(domain: Relationship.TAG, code: 0, userInfo: nil)
         }
         self.name = name
+        self.observable.notifyObservers()
     }
     
     func removeFromEntity() {
         self.entity.removeRelationship(self)
+        self.observable.notifyObservers()
+    }
+    
+    func isDeleted() -> Bool {
+        return self.entity == nil
     }
 }
