@@ -11,6 +11,7 @@ import Cocoa
 protocol AttributesViewDataSource: class {
     func numberOfRowsInAttributesView(attributesView:AttributesView) -> Int
     func attributesView(attributesView:AttributesView, titleForAttributeAtIndex index:Int) -> String
+    func attributesView(attributesView:AttributesView, typeForAttributeAtIndex index:Int) -> AttributeType
 }
 
 protocol AttributesViewDelegate: class {
@@ -19,15 +20,21 @@ protocol AttributesViewDelegate: class {
     func attributesView(attributesView:AttributesView, selectedIndexDidChange index:Int?)
     func attributesView(attributesView:AttributesView, shouldChangeAttributeName name:String,
         atIndex index:Int) -> Bool
+    func attributesView(attributesView:AttributesView, atIndex index:Int, changeAttributeType attributeType:AttributeType)
 }
 
 @IBDesignable
-class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource, TitleCellDelegate {
+class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource, TitleCellDelegate, PopupCellDelegate {
     static let TAG = NSStringFromClass(AttributesView)
+    
+    let ATTRIBUTE_COLUMN_IDENTIFIER = "attribute"
+    let TYPE_COLUMN_IDENTIFIER = "type"
+    let ATTRIBUTE_TYPES = AttributeType.values.flatMap({$0.rawValue})
     
     @IBOutlet var tableView:NSTableView!
     @IBOutlet weak var addButton:NSButton!
     @IBOutlet weak var removeButton:NSButton!
+    @IBOutlet weak var typesPopupButton: NSTableCellView!
     
     weak var dataSource:AttributesViewDataSource? {
         didSet { self.reloadData() }
@@ -83,21 +90,43 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     
     //MARK: - NSTableViewDelegate
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
-        if (self.isInterfaceBuilder) {
-            cell.title = "Attribute"
+        
+        if tableColumn?.identifier == ATTRIBUTE_COLUMN_IDENTIFIER {
+        
+            let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
+            if (self.isInterfaceBuilder) {
+                cell.title = "Attribute"
+                return cell
+            }
+            
+            cell.delegate = self
+            
+            if let title = self.dataSource?.attributesView(self, titleForAttributeAtIndex:row) {
+                cell.title = title
+            }
+            
+            return cell
+            
+        } else {
+            let cell = tableView.makeViewWithIdentifier(PopUpCell.IDENTIFIER, owner: nil) as! PopUpCell
+            
+            cell.itemTitles = ATTRIBUTE_TYPES
+            cell.row = row
+            
+            if (self.isInterfaceBuilder) {
+                return cell
+            }
+            
+            cell.delegate = self
+    
+            if let attributeType = self.dataSource?.attributesView(self, typeForAttributeAtIndex: row) {
+                cell.selectedItemIndex = AttributeType.values.indexOf(attributeType)!
+            }
+            
             return cell
         }
-        
-        cell.delegate = self
-        
-        if let title = self.dataSource?.attributesView(self, titleForAttributeAtIndex:row) {
-            cell.title = title
-            
-        }
-        
-        return cell
     }
+    
     
     func tableViewSelectionDidChange(notification: NSNotification) {
         self.delegate?.attributesView(self, selectedIndexDidChange: self.selectedIndex)
@@ -127,5 +156,12 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
         }
         
         return true
+    }
+    
+    //MARK: - PopUpCellDelegate
+    func popUpCell(popUpCell: PopUpCell, selectedItemDidChangeIndex index: Int) {
+        let cellIndex = self.tableView.rowForView(popUpCell)
+        
+        self.delegate?.attributesView(self, atIndex:cellIndex, changeAttributeType: AttributeType.values[index])
     }
 }

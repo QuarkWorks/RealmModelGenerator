@@ -58,6 +58,11 @@ class Attribute {
         self.isIndexed = isIndexed
     }
     
+    func setType(type:AttributeType) {
+        self.type = type
+        self.observable.notifyObservers()
+    }
+    
     func removeIndexed() {
         try! self.setIndexed(false)
     }

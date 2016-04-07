@@ -18,6 +18,8 @@
 		3A2F97641CAB4305000AE584 /* AttributeDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A2F97621CAB4305000AE584 /* AttributeDetailView.xib */; };
 		3A2F97661CAB455A000AE584 /* AttributeDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F97651CAB455A000AE584 /* AttributeDetailVC.swift */; };
 		3A321FF01CA0CC4E00FCEF48 /* EntitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A321FEF1CA0CC4E00FCEF48 /* EntitiesVC.swift */; };
+		3A36CB9E1CB7341A0000EDFA /* PopUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A36CB9C1CB7341A0000EDFA /* PopUpCell.swift */; };
+		3A36CB9F1CB7341A0000EDFA /* PopUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A36CB9D1CB7341A0000EDFA /* PopUpCell.xib */; };
 		3A5A167F1CADAAEA00E5B9ED /* AttributesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A167E1CADAAEA00E5B9ED /* AttributesVC.swift */; };
 		3A5A16811CADAB1600E5B9ED /* AttributesRelationshipsMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16801CADAB1600E5B9ED /* AttributesRelationshipsMainVC.swift */; };
 		3A5A16831CADAB5400E5B9ED /* RelationshipsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16821CADAB5400E5B9ED /* RelationshipsVC.swift */; };
@@ -86,6 +88,8 @@
 		3A2F97621CAB4305000AE584 /* AttributeDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttributeDetailView.xib; sourceTree = "<group>"; };
 		3A2F97651CAB455A000AE584 /* AttributeDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeDetailVC.swift; sourceTree = "<group>"; };
 		3A321FEF1CA0CC4E00FCEF48 /* EntitiesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntitiesVC.swift; sourceTree = "<group>"; };
+		3A36CB9C1CB7341A0000EDFA /* PopUpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpCell.swift; sourceTree = "<group>"; };
+		3A36CB9D1CB7341A0000EDFA /* PopUpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopUpCell.xib; sourceTree = "<group>"; };
 		3A5A167E1CADAAEA00E5B9ED /* AttributesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributesVC.swift; sourceTree = "<group>"; };
 		3A5A16801CADAB1600E5B9ED /* AttributesRelationshipsMainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributesRelationshipsMainVC.swift; sourceTree = "<group>"; };
 		3A5A16821CADAB5400E5B9ED /* RelationshipsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipsVC.swift; sourceTree = "<group>"; };
@@ -206,7 +210,6 @@
 				7798B0D61C87C32900A7F965 /* MainVC.swift */,
 				3A321FEF1CA0CC4E00FCEF48 /* EntitiesVC.swift */,
 				3A5A16841CADAB7100E5B9ED /* AttributesRelationships */,
-				3A2F97001CA9DF7F000AE584 /* Details */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -238,6 +241,9 @@
 				77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */,
 				3AA5635B1CACFE8D00A5B648 /* AttributesView.swift */,
 				3AA5635C1CACFE8D00A5B648 /* AttributesView.xib */,
+				3A36CB9C1CB7341A0000EDFA /* PopUpCell.swift */,
+				3A36CB9D1CB7341A0000EDFA /* PopUpCell.xib */,
+				3A2F97001CA9DF7F000AE584 /* Details */,
 				3A6DDC4A1CACA0D6007C6825 /* DetailViews */,
 			);
 			name = Views;
@@ -424,6 +430,7 @@
 				3AA5635E1CACFE8D00A5B648 /* AttributesView.xib in Resources */,
 				3A2F96FD1CA9DEAA000AE584 /* EntityDetailView.xib in Resources */,
 				773D25881C9F3123009814A0 /* TitleCell.xib in Resources */,
+				3A36CB9F1CB7341A0000EDFA /* PopUpCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +492,7 @@
 				3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */,
 				3A2F97601CAB3AEB000AE584 /* RelationshipDetailVC.swift in Sources */,
 				3ABD35E01C975E2D00A5C883 /* RealmSchemaDocument.swift in Sources */,
+				3A36CB9E1CB7341A0000EDFA /* PopUpCell.swift in Sources */,
 				7798B0D51C87C32900A7F965 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

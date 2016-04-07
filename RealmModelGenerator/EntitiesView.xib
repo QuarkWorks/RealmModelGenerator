@@ -89,7 +89,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <customView identifier="TitleCell" id="LLX-Y0-NYF" customClass="TitleCell" customModule="RealmModelGenerator" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="257" height="32"/>
+                                                <rect key="frame" x="1" y="1" width="257" height="28"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="letterColor">

@@ -62,21 +62,20 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="keN-rt-PXW">
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="30" horizontalPageScroll="10" verticalLineScroll="30" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="keN-rt-PXW">
                     <rect key="frame" x="0.0" y="29" width="400" height="136"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="HeN-Ey-l8P">
-                        <rect key="frame" x="0.5" y="-0.5" width="400" height="136"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="136"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" viewBased="YES" floatsGroupRows="NO" id="53D-9T-IlF">
-                                <rect key="frame" x="0.0" y="0.0" width="400" height="136"/>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" headerView="aMb-H8-kVg" viewBased="YES" floatsGroupRows="NO" id="53D-9T-IlF">
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="113"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn width="397" minWidth="40" maxWidth="1000" id="ywV-LJ-dE8">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Attributes">
+                                    <tableColumn identifier="attribute" width="150" minWidth="40" maxWidth="1000" id="ywV-LJ-dE8" userLabel="attribute">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Attribute">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -86,10 +85,11 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="key"/>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <customView identifier="TitleCell" id="OqF-0o-Sm0" customClass="TitleCell" customModule="RealmModelGenerator" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="397" height="32"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="28"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="letterColor">
@@ -101,6 +101,31 @@
                                                 <connections>
                                                     <outlet property="ibDelegate" destination="-2" id="2Gk-C9-Lgh"/>
                                                 </connections>
+                                            </customView>
+                                        </prototypeCellViews>
+                                    </tableColumn>
+                                    <tableColumn identifier="type" width="250" minWidth="10" maxWidth="3.4028234663852886e+38" id="dLF-QK-hlL">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </tableHeaderCell>
+                                        <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="h2j-t8-XS3">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="key"/>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                        <prototypeCellViews>
+                                            <customView identifier="PopUpCell" id="rAL-ex-Tf7" customClass="PopUpCell" customModule="RealmModelGenerator" customModuleProvider="target">
+                                                <rect key="frame" x="150" y="0.0" width="250" height="28"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="selectedItemIndex">
+                                                        <integer key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </customView>
                                         </prototypeCellViews>
                                     </tableColumn>
@@ -121,6 +146,10 @@
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
+                    <tableHeaderView key="headerView" id="aMb-H8-kVg">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="23"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </tableHeaderView>
                 </scrollView>
             </subviews>
             <constraints>
