@@ -109,7 +109,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         do {
             try attribute.setName(name)
             defer { self.invalidateViews() }
-            self.delegate?.attributesVC(self, selectedAttributeDidChange: attribute)
+//            self.delegate?.attributesVC(self, selectedAttributeDidChange: attribute)
         } catch {
             Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename attribute: \(attribute.name) to: \(name). There is an attribute with the same name.")
             return false

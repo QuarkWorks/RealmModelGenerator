@@ -48,6 +48,7 @@ class Model {
         let entity = Entity(name:name, model:self)
         try build(entity) //the entity is added to self.entities after it build successfully
         entities.append(entity)
+        self.observable.notifyObservers()
         return entity
     }
     

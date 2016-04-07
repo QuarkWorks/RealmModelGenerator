@@ -56,30 +56,35 @@ class DetailsMainVC: NSViewController, EntityDetailVCDelegate, AttributeDetailVC
         detailsContainerView.addSubview(entityDetailVC.view)
         detailsContainerView.addSubview(attributeDetailVC.view)
         detailsContainerView.addSubview(relationshipDetailVC.view)
-        invalidViews()
-        setEmpty()
+        invalidViews(nil)
     }
     
-    func invalidViews() {
+    func invalidViews(viewController: NSViewController?) {
+        emptyTextField.hidden = viewController != nil
+        
         for childViewController in self.childViewControllers {
-            childViewController.view.hidden = true
+            if viewController != nil {
+                childViewController.view.hidden = viewController != childViewController
+            } else {
+                childViewController.view.hidden = true
+            }
         }
         
-        emptyTextField.hidden = true
+        
     }
     
     func setEmpty() {
-        emptyTextField.hidden = false
+        invalidViews(nil)
     }
     
     func setEntity(entity: Entity) {
         entityDetailVC.entity = entity
-        entityDetailVC.view.hidden = false
+        invalidViews(entityDetailVC)
     }
     
     func setAttribute(attribute: Attribute) {
         attributeDetailVC.attribute = attribute
-        attributeDetailVC.view.hidden = false
+        invalidViews(attributeDetailVC)
     }
     
     func setRelationship(relationship: Relationship) {
@@ -88,7 +93,6 @@ class DetailsMainVC: NSViewController, EntityDetailVCDelegate, AttributeDetailVC
     }
     
     func updateDetailView(anyObject: AnyObject?, detailType: DetailType) {
-        invalidViews()
         
         if anyObject == nil {
             self.setEmpty()

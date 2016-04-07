@@ -12,24 +12,30 @@ protocol AttributeDetailVCDelegate: class {
     func attributeDetailVC(attributeDetailVC:AttributeDetailVC, detailDidChangeFor attribute:Attribute)
 }
 
-class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate {
+class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer {
     static let TAG = NSStringFromClass(AttributeDetailVC)
 
     @IBOutlet weak var attributeDetailView: AttributeDetailView! {
         didSet{ self.attributeDetailView.delegate = self }
     }
     
-    weak var attribute: Attribute?
+    weak var attribute: Attribute! = nil {
+        didSet {
+            if attribute != nil {
+                attributeDetailView.name = attribute!.name ?? ""
+            }
+            attribute?.observable.addObserver(self)
+        }
+    }
     weak var delegate: AttributeDetailVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    override func viewWillAppear() {
-        if attribute != nil {
-            attributeDetailView.name = attribute!.name ?? ""
-        }
+    //MARK: Observer
+    func onChange(observable: Observable) {
+        attributeDetailView.name = attribute!.name ?? ""
     }
     
     func attributeDetailView(attributeDetailView: AttributeDetailView, shouldChangeAttributeName name: String) -> Bool {

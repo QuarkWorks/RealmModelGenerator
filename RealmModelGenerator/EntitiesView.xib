@@ -65,7 +65,7 @@
                 <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cf1-q4-9Wx">
                     <rect key="frame" x="0.0" y="30" width="260" height="286"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="l2V-4a-1QL">
-                        <rect key="frame" x="0.5" y="-0.5" width="260" height="286"/>
+                        <rect key="frame" x="0.5" y="0.0" width="260" height="286"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" viewBased="YES" floatsGroupRows="NO" id="ITD-bR-0y2">

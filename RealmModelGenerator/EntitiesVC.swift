@@ -12,7 +12,7 @@ protocol EntitiesVCDelegate: class {
     func entitiesVC(entitiesVC:EntitiesVC, selectedEntityDidChange entity:Entity?)
 }
 
-class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource {
+class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource, Observer {
     static let TAG = NSStringFromClass(EntitiesVC)
     
     @IBOutlet weak var entitiesView: EntitiesView! {
@@ -24,13 +24,17 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
     
     var schema = Schema() {
         didSet {
+            self.schema.observable.removeAllObservers()
+            self.model = self.schema.currentModel
             invalidateViews()
             selectedEntity = nil
         }
     }
     
-    private var model: Model {
-        return schema.currentModel
+    private var model: Model! = nil {
+        didSet{
+            self.model.observable.addObserver(self)
+        }
     }
     
     weak var selectedEntity: Entity? {
@@ -47,6 +51,11 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
         super.viewDidLoad()
     }
     
+    //MARK: Observer
+    func onChange(observable: Observable) {
+        self.invalidateViews()
+    }
+    
     func invalidateViews() {
         if !self.viewLoaded { return }
         self.entitiesView.reloadData()
@@ -59,7 +68,7 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
 
     //MARK: - EntitiesViewDataSource
     func numberOfRowsInEntitiesView(entitiesView: EntitiesView) -> Int {
-        return self.model.entities.count
+        return self.model != nil ? self.model.entities.count : 0
     }
     
     func entitiesView(entitiesView:EntitiesView, titleForEntityAtIndex index:Int) -> String {
@@ -70,14 +79,14 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
     func addEntityInEntitiesView(entitiesView: EntitiesView) {
         let entity = self.model.createEntity()
         self.selectedEntity = entity
-        self.invalidateViews()
+//        self.invalidateViews()
     }
     
     func entitiesView(entitiesView: EntitiesView, removeEntityAtIndex index: Int) {
         let entity = self.model.entities[index]
         let isSelectedEntity = entity === self.selectedEntity
         self.model.removeEntity(model.entities[index])
-        self.invalidateViews()
+//        self.invalidateViews()
         
         if isSelectedEntity {
             if self.model.entities.count == 0 {
@@ -88,8 +97,6 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
                 self.selectedEntity = self.model.entities[self.model.entities.count - 1]
             }
         }
-        
-        self.delegate?.entitiesVC(self, selectedEntityDidChange: self.selectedEntity)
     }
     
     func entitiesView(entitiesView: EntitiesView, selectedIndexDidChange index: Int?) {
@@ -104,8 +111,6 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
         let entity = model.entities[index]
         do {
             try entity.setName(name)
-            defer { self.invalidateViews() }
-            self.delegate?.entitiesVC(self, selectedEntityDidChange: entity)
         } catch {
             Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename entity: \(entity.name) to: \(name). There is an entity with the same name.")
             return false
