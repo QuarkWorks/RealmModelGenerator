@@ -24,17 +24,15 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
     
     var schema = Schema() {
         didSet {
-            self.schema.observable.removeAllObservers()
-            self.model = self.schema.currentModel
-            invalidateViews()
+            if oldValue === self.schema { return }
+            oldValue.observable.removeObserver(self)
+            self.schema.observable.addObserver(self)
             selectedEntity = nil
         }
     }
     
-    private var model: Model! = nil {
-        didSet{
-            self.model.observable.addObserver(self)
-        }
+    var model: Model {
+        return self.schema.currentModel
     }
     
     weak var selectedEntity: Entity? {
@@ -68,7 +66,7 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
 
     //MARK: - EntitiesViewDataSource
     func numberOfRowsInEntitiesView(entitiesView: EntitiesView) -> Int {
-        return self.model != nil ? self.model.entities.count : 0
+        return self.model.entities.count
     }
     
     func entitiesView(entitiesView:EntitiesView, titleForEntityAtIndex index:Int) -> String {
@@ -79,24 +77,21 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
     func addEntityInEntitiesView(entitiesView: EntitiesView) {
         let entity = self.model.createEntity()
         self.selectedEntity = entity
-//        self.invalidateViews()
     }
     
     func entitiesView(entitiesView: EntitiesView, removeEntityAtIndex index: Int) {
         let entity = self.model.entities[index]
-        let isSelectedEntity = entity === self.selectedEntity
-        self.model.removeEntity(model.entities[index])
-//        self.invalidateViews()
-        
-        if isSelectedEntity {
-            if self.model.entities.count == 0 {
+        if entity === self.selectedEntity {
+            if self.model.entities.count <= 1 {
                 self.selectedEntity = nil
-            } else if index < self.model.entities.count {
-                self.selectedEntity = self.model.entities[index]
+            } else if index == self.model.entities.count - 1 {
+                self.selectedEntity = self.model.entities[index - 1]
             } else {
-                self.selectedEntity = self.model.entities[self.model.entities.count - 1]
+                self.selectedEntity = self.model.entities[index + 1]
             }
         }
+        
+        self.model.removeEntity(entity)
     }
     
     func entitiesView(entitiesView: EntitiesView, selectedIndexDidChange index: Int?) {

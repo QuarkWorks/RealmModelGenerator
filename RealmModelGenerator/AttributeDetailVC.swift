@@ -8,10 +8,6 @@
 
 import Cocoa
 
-protocol AttributeDetailVCDelegate: class {
-    func attributeDetailVC(attributeDetailVC:AttributeDetailVC, detailDidChangeFor attribute:Attribute)
-}
-
 class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer {
     static let TAG = NSStringFromClass(AttributeDetailVC)
 
@@ -19,29 +15,31 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
         didSet{ self.attributeDetailView.delegate = self }
     }
     
-    weak var attribute: Attribute! = nil {
+    weak var attribute: Attribute? {
         didSet {
-            if attribute != nil {
-                attributeDetailView.name = attribute!.name ?? ""
-            }
-            attribute?.observable.addObserver(self)
+            if oldValue === self.attribute { return }
+            self.attribute?.observable.addObserver(self)
+            self.invalidateViews()
         }
     }
-    weak var delegate: AttributeDetailVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    //MARK: Observer
+    func invalidateViews() {
+        if !self.viewLoaded { return }
+        attributeDetailView.name = attribute!.name
+        //TODO: Add other details
+    }
+    
     func onChange(observable: Observable) {
-        attributeDetailView.name = attribute!.name ?? ""
+        self.invalidateViews()
     }
     
     func attributeDetailView(attributeDetailView: AttributeDetailView, shouldChangeAttributeName name: String) -> Bool {
         do {
             try self.attribute!.setName(name)
-            self.delegate?.attributeDetailVC(self, detailDidChangeFor: self.attribute!)
         } catch {
             Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename attribute: \(attribute!.name) to: \(name). There is an attribute with the same name.")
             return false

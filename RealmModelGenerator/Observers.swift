@@ -54,44 +54,48 @@ public extension Observable {
     }
 }
 
-public class DeferedObservable: Observable {
+public class DeferedObservable: Observable, Observer {
     private let observable:Observable
     private var weakHashTable = NSHashTable.weakObjectsHashTable()
     
     
     public init(observable: Observable) {
         self.observable = observable
+        self.observable.addObserver(self)
     }
     
     public func addObserver(observer: Observer) -> Void {
-        self.observable.addObserver(observer)
-        
         if !weakHashTable.containsObject(observer) {
             weakHashTable.addObject(observer)
         }
     }
     
     public func removeObserver(observer: Observer) -> Void {
-        self.observable.removeObserver(observer)
-        
         while weakHashTable.containsObject(observer) {
             weakHashTable.removeObject(observer)
         }
     }
     
     public func removeAllObservers() -> Void {
-        self.weakHashTable.allObjects.forEach({
-            self.observable.removeObserver($0 as! Observer)
-        })
         self.weakHashTable.removeAllObjects()
+    }
+    
+    public func removeFromParent() {
+        self.observable.removeObserver(self)
     }
     
     public func notifyObservers() -> Void {
         self.observable.notifyObservers()
     }
     
+    public func onChange(observable: Observable) {
+        self.weakHashTable.allObjects.forEach({
+            ($0 as! Observer).onChange(self)
+        })
+    }
+    
     deinit {
-        self.removeAllObservers()
+        self.removeFromParent()
     }
 }
 

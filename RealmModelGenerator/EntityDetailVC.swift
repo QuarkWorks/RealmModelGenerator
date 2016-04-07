@@ -8,32 +8,20 @@
 
 import Cocoa
 
-protocol EntityDetailVCDelegate: class {
-    func entityDetailVC(entityDetailVC:EntityDetailVC, detailDidChangeFor entity:Entity)
-}
-
 class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
     static let TAG = NSStringFromClass(EntityDetailVC)
     
     @IBOutlet weak var entityDetailView: EntityDetailView! {
         didSet { entityDetailView.delegate = self }
     }
-    
-    var token:ObserverToken? = nil
 
     weak var entity: Entity? {
         didSet{
-            entityDetailView.name = entity!.name
-            //TODO: Set super entity
-            if self.entity !== oldValue {
-//                self.token = self.entity?.observable.addObserveBlockBlock({_ in self.invalidateViews()}
-//                oldValue?.observable.removeObserver(self)
-                self.entity?.observable.addObserver(self)
-            }
+            if oldValue === self.entity { return }
+            self.entity?.observable.addObserver(self)
+            self.invalidateViews()
         }
     }
-    
-    weak var delegate:EntityDetailVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +30,7 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
     func invalidateViews() {
         if !self.viewLoaded { return }
         entityDetailView.name = entity!.name
+        //TODO: Add super class
     }
     
     //MARK: Observer
@@ -53,9 +42,6 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
     func entityDetailView(entityDetailView: EntityDetailView, shouldChangeEntityName name: String) -> Bool {
         do {
             try self.entity!.setName(name)
-//            self.delegate?.entityDetailVC(self, detailDidChangeFor: self.entity!)
-            self.entity!.model.observable.notifyObservers()
-//            self.entity?.observable.notifyObservers()
         } catch {
             Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename entity: \(entity!.name) to: \(name). There is an entity with the same name.")
             return false

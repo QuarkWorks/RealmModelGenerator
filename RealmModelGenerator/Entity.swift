@@ -63,6 +63,8 @@ class Entity {
         let attribute = Attribute(name:name, entity:self)
         try build(attribute)
         attributes.append(attribute)
+        self.observable.notifyObservers()
+        
         return attribute;
     }
     
@@ -99,6 +101,8 @@ class Entity {
         if let index = attributes.indexOf({$0 === attribute}) {
             attributes.removeAtIndex(index)
         }
+        
+        self.observable.notifyObservers()
     }
     
     func createRelationship() -> Relationship {

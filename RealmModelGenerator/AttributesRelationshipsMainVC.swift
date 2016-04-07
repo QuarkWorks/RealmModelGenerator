@@ -35,7 +35,7 @@ class AttributesRelationshipsMainVC: NSViewController, AttributesVCDelegate, Rel
     
     var entity: Entity? {
         didSet {
-            updateEntity(entity)
+            self.invalidateViews()
         }
     }
     
@@ -55,7 +55,7 @@ class AttributesRelationshipsMainVC: NSViewController, AttributesVCDelegate, Rel
         super.viewDidLoad()
     }
     
-    func updateEntity(entity: Entity?) {
+    func invalidateViews() {
         attributesVC.entity = entity
         relationshipsVC.entity = entity
     }

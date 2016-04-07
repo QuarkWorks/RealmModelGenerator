@@ -8,16 +8,10 @@
 
 import Cocoa
 
-protocol RelationshipDetailVCDelegate: class {
-    func relationshipDetailVC(relationshipDetailVC:RelationshipDetailVC, detailDidChangeFor relationship:Relationship)
-}
-
 class RelationshipDetailVC: NSViewController {
     static let TAG = NSStringFromClass(RelationshipDetailVC)
     
     weak var relationship: Relationship?
-    
-    weak var delegate: RelationshipDetailVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

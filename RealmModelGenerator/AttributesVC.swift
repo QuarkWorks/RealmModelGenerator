@@ -12,7 +12,7 @@ protocol AttributesVCDelegate: class {
     func attributesVC(attributesVC: AttributesVC, selectedAttributeDidChange attribute:Attribute?)
 }
 
-class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewDataSource {
+class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewDataSource, Observer {
     static let TAG = NSStringFromClass(AttributesVC)
     
     @IBOutlet weak var attributesView: AttributesView! {
@@ -24,7 +24,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     
     weak var entity: Entity? {
         didSet {
-            invalidateViews()
+            self.entity?.observable.addObserver(self)
             selectedAttribute = nil
         }
     }
@@ -41,6 +41,10 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    func onChange(observable: Observable) {
+        self.invalidateViews()
     }
     
     func invalidateViews() {
@@ -61,7 +65,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     
     //MARK: - AttributesViewDataSource
     func numberOfRowsInAttributesView(attributesView: AttributesView) -> Int {
-        return (self.entity == nil) ? 0 : self.entity!.attributes.count
+        return self.entity == nil ? 0 : self.entity!.attributes.count
     }
     
     func attributesView(attributesView: AttributesView, titleForAttributeAtIndex index: Int) -> String {
@@ -79,21 +83,17 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     
     func attributesView(attributesView: AttributesView, removeAttributeAtIndex index: Int) {
         let attribute = self.entity!.attributes[index]
-        let isSelectedAttribute = attribute === self.selectedAttribute
-        self.entity!.removeAttribute(self.entity!.attributes[index])
-        self.invalidateViews()
-        
-        if isSelectedAttribute {
-            if self.entity!.attributes.count == 0 {
+        if attribute === self.selectedAttribute {
+            if self.entity?.attributes.count <= 1 {
                 self.selectedAttribute = nil
-            } else if index < self.entity!.attributes.count {
-                self.selectedAttribute = self.entity!.attributes[index]
+            } else if index == self.entity!.attributes.count - 1 {
+                self.selectedAttribute = self.entity!.attributes[index - 1]
             } else {
-                self.selectedAttribute = self.entity!.attributes[self.entity!.attributes.count - 1]
+                self.selectedAttribute = self.entity!.attributes[index + 1]
             }
         }
         
-        self.delegate?.attributesVC(self, selectedAttributeDidChange:self.selectedAttribute)
+        self.entity!.removeAttribute(attribute)
     }
     
     func attributesView(attributesView: AttributesView, selectedIndexDidChange index: Int?) {
@@ -108,8 +108,6 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         let attribute = entity!.attributes[index]
         do {
             try attribute.setName(name)
-            defer { self.invalidateViews() }
-//            self.delegate?.attributesVC(self, selectedAttributeDidChange: attribute)
         } catch {
             Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename attribute: \(attribute.name) to: \(name). There is an attribute with the same name.")
             return false

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDelegate, DetailsVCDelegate {
+class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDelegate {
     static let TAG = NSStringFromClass(MainVC)
     
     private weak var model: Model?
@@ -16,28 +16,23 @@ class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDel
     
     @IBOutlet weak var leftDivider: NSView!
     @IBOutlet weak var rightDivider: NSView!
-    
     @IBOutlet weak var entitiesContainerView: NSView!
     @IBOutlet weak var attributesRelationshipsContainerView: NSView!
     @IBOutlet weak var detailsContainerView: NSView!
     
-    var entitiesVC:EntitiesVC! = nil {
+    private weak var entitiesVC:EntitiesVC! = nil {
         didSet {
             self.entitiesVC.delegate = self
         }
     }
     
-    var attributesRelationshipsMainVC:AttributesRelationshipsMainVC! = nil {
+    private weak var attributesRelationshipsMainVC:AttributesRelationshipsMainVC! = nil {
         didSet {
             self.attributesRelationshipsMainVC.delegate = self
         }
     }
     
-    var detailsVC:DetailsMainVC! = nil {
-        didSet {
-            self.detailsVC.delegate = self
-        }
-    }
+    private weak var detailsVC:DetailsMainVC! = nil
 
     var schema = Schema() {
         didSet {
@@ -55,8 +50,7 @@ class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDel
     }
     
     override func viewWillAppear() {
-        // Because of loading schema after viewDidLoad so we need to update entities view
-        // TODO: Figure out a better way to handle it
+        // Because of loading schema happens after viewDidLoad so we need to update schema in entities view
         entitiesVC.schema = self.schema
     }
     
@@ -92,22 +86,6 @@ class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDel
             }
         } else {
             detailsVC.updateDetailView(nil, detailType: DetailType.Empty)
-        }
-    }
-    
-    //MARK: - DetailsMainVC delegate
-    func detailsVC(detailsVC: DetailsMainVC, detailObject: AnyObject, detailType: DetailType) {
-        switch detailType {
-        case .Entity:
-            entitiesVC.invalidateViews()
-            break;
-        case .Attribute:
-            attributesRelationshipsMainVC.updateAttributeRelationship(detailObject, detailType: detailType)
-            break;
-        case .Relationship:
-            break;
-        default:
-            break;
         }
     }
     
