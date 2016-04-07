@@ -61,6 +61,11 @@ class Entity {
         }
         
         let attribute = Attribute(name:name, entity:self)
+        defer {
+            if !attributes.contains({$0 === attribute}) {
+                attribute.entity = nil
+            }
+        }
         try build(attribute)
         attributes.append(attribute)
         self.observable.notifyObservers()
@@ -127,13 +132,20 @@ class Entity {
         
         try build(relationship)
         relationships.append(relationship)
+        self.observable.notifyObservers()
+        
         return relationship
     }
     
     func removeRelationship(relationship:Relationship) {
+        relationship.entity = nil
+        relationship.destination = nil
+        
         if let index = relationships.indexOf({$0 === relationship}) {
             relationships.removeAtIndex(index)
         }
+        
+        self.observable.notifyObservers()
     }
     
     func removeFromModel() {

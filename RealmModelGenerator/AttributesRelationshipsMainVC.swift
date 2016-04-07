@@ -56,8 +56,8 @@ class AttributesRelationshipsMainVC: NSViewController, AttributesVCDelegate, Rel
     }
     
     func invalidateViews() {
-        attributesVC.entity = entity
-        relationshipsVC.entity = entity
+        self.attributesVC.entity = self.entity
+        self.relationshipsVC.entity = self.entity
     }
     
     //MARK: - AttributesVC delegate

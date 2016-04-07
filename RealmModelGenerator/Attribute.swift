@@ -64,7 +64,6 @@ class Attribute {
     
     func removeFromEntity() {
         self.entity.removeAttribute(self)
-        self.observable.notifyObservers()
     }
     
     func isDeleted() -> Bool {

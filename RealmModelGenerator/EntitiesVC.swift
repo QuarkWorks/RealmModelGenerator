@@ -25,7 +25,6 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
     var schema = Schema() {
         didSet {
             if oldValue === self.schema { return }
-            oldValue.observable.removeObserver(self)
             self.schema.observable.addObserver(self)
             selectedEntity = nil
         }

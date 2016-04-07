@@ -14,9 +14,10 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
     @IBOutlet weak var entityDetailView: EntityDetailView! {
         didSet { entityDetailView.delegate = self }
     }
-
-    weak var entity: Entity? {
+    
+    weak var entity:Entity? {
         didSet{
+            self.view.hidden = entity == nil
             if oldValue === self.entity { return }
             self.entity?.observable.addObserver(self)
             self.invalidateViews()
@@ -28,7 +29,7 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
     }
     
     func invalidateViews() {
-        if !self.viewLoaded { return }
+        if !self.viewLoaded || entity == nil { return }
         entityDetailView.name = entity!.name
         //TODO: Add super class
     }

@@ -36,7 +36,7 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="addButtonOnClick:" target="-1" id="fyt-WJ-7pb"/>
+                                <action selector="addButtonOnClick:" target="-2" id="SjN-o8-3nr"/>
                             </connections>
                         </button>
                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JgL-H7-y5y">
@@ -46,7 +46,7 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="removeButtonOnClick:" target="-1" id="7Rj-OX-NBm"/>
+                                <action selector="removeButtonOnClick:" target="-2" id="SlD-Oa-Q2f"/>
                             </connections>
                         </button>
                     </subviews>
@@ -69,7 +69,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" viewBased="YES" floatsGroupRows="NO" id="ITD-bR-0y2">
-                                <rect key="frame" x="0.0" y="0.0" width="260" height="286"/>
+                                <rect key="frame" x="0.0" y="0.0" width="260" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

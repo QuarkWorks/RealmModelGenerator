@@ -8,13 +8,28 @@
 
 import Cocoa
 
-class RelationshipDetailVC: NSViewController {
+class RelationshipDetailVC: NSViewController, Observer {
     static let TAG = NSStringFromClass(RelationshipDetailVC)
     
-    weak var relationship: Relationship?
+    weak var relationship:Relationship? {
+        didSet{
+            self.view.hidden = relationship == nil
+            if oldValue === self.relationship { return }
+            self.relationship?.observable.addObserver(self)
+            self.invalidateViews()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    func invalidateViews() {
+        
+    }
+    
+    func onChange(observable: Observable) {
+        
     }
     
     func setRelationship(relationship:Relationship) {

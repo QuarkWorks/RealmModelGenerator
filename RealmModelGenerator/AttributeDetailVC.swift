@@ -15,8 +15,9 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
         didSet{ self.attributeDetailView.delegate = self }
     }
     
-    weak var attribute: Attribute? {
-        didSet {
+    weak var attribute:Attribute? {
+        didSet{
+            self.view.hidden = attribute == nil
             if oldValue === self.attribute { return }
             self.attribute?.observable.addObserver(self)
             self.invalidateViews()
@@ -28,7 +29,7 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
     }
     
     func invalidateViews() {
-        if !self.viewLoaded { return }
+        if !self.viewLoaded || attribute == nil { return }
         attributeDetailView.name = attribute!.name
         //TODO: Add other details
     }

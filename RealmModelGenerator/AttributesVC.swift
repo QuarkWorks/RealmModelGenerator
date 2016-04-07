@@ -24,8 +24,10 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     
     weak var entity: Entity? {
         didSet {
+            if oldValue === self.entity { return }
             self.entity?.observable.addObserver(self)
             selectedAttribute = nil
+            self.invalidateViews()
         }
     }
     
