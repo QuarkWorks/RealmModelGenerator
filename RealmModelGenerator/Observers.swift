@@ -129,6 +129,6 @@ public class BaseObservable: Observable {
                 observer.onChange(sSelf)
             })
             sSelf.willNotify = false;
-            })
+        })
     }
 }

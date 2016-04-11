@@ -41,7 +41,6 @@ class Relationship {
     
     func removeFromEntity() {
         self.entity.removeRelationship(self)
-        self.observable.notifyObservers()
     }
     
     func isDeleted() -> Bool {

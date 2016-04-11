@@ -41,7 +41,7 @@ class Model {
         var name = "Entity"
         var count = 0;
         while entities.contains({$0.name == name}) {
-            count++
+            count += 1
             name = "Entity\(count)"
         }
         

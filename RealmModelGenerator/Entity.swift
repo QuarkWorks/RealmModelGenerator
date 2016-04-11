@@ -13,10 +13,10 @@ class Entity {
     
     private(set) var name:String
     internal(set) weak var model:Model!
-    var superEntity: Entity? = nil
+    weak var superEntity: Entity? = nil
     var isBaseClass = false
     
-    private(set) var primaryKey:Attribute?
+    private(set) weak var primaryKey:Attribute?
     
     private(set) var attributes:[Attribute] = []
     var attributesByName:[String:Attribute] {
@@ -56,7 +56,7 @@ class Entity {
         var name = "Attribute"
         var count = 0
         while attributes.contains({$0.name == name}) {
-            count++
+            count += 1
             name = "Attribute\(count)"
         }
         
@@ -119,7 +119,7 @@ class Entity {
         var count = 0
         
         while relationships.contains({$0.name == name}) {
-            count++
+            count += 1
             name = "Relationship\(count)"
         }
         
