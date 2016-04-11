@@ -711,31 +711,63 @@
                         <rect key="frame" x="0.0" y="0.0" width="800" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dF5-QM-BwJ">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
-                                <connections>
-                                    <segue destination="4Kj-ze-ZKn" kind="embed" identifier="EntitiesViewControllerSegue" id="Qxa-hB-mkw"/>
-                                </connections>
-                            </containerView>
-                            <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="420-fr-qut">
+                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="420-fr-qut">
                                 <rect key="frame" x="200" y="0.0" width="400" height="540"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="540" id="YiL-F9-kBr"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="vGB-Ru-qJJ"/>
+                                </constraints>
                                 <connections>
                                     <segue destination="oMK-Do-o62" kind="embed" identifier="AttributesRelationshipsViewControllerSegue" id="7MV-zg-pvn"/>
                                 </connections>
                             </containerView>
-                            <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e17-Cb-9EH">
+                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="e17-Cb-9EH">
                                 <rect key="frame" x="600" y="0.0" width="200" height="540"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="540" id="cMt-Cb-ITP"/>
+                                    <constraint firstAttribute="width" constant="200" id="zXD-lv-LJf"/>
+                                </constraints>
                                 <connections>
                                     <segue destination="0OX-E8-0US" kind="embed" identifier="DetailsViewControllerSegue" id="wwt-LX-9li"/>
                                 </connections>
                             </containerView>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tsO-ov-f2A">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="tsO-ov-f2A">
                                 <rect key="frame" x="199" y="0.0" width="1" height="540"/>
                             </customView>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Wf-oU-ck8">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="9Wf-oU-ck8">
                                 <rect key="frame" x="599" y="0.0" width="1" height="540"/>
                             </customView>
+                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="dF5-QM-BwJ">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="iB4-up-y1C"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="540" id="ug3-vo-jwC"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="4Kj-ze-ZKn" kind="embed" identifier="EntitiesViewControllerSegue" id="Qxa-hB-mkw"/>
+                                </connections>
+                            </containerView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="420-fr-qut" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="2KC-U5-YXt"/>
+                            <constraint firstItem="dF5-QM-BwJ" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="2eG-0w-5zs"/>
+                            <constraint firstAttribute="bottom" secondItem="e17-Cb-9EH" secondAttribute="bottom" id="3bz-eu-4LY"/>
+                            <constraint firstItem="9Wf-oU-ck8" firstAttribute="leading" secondItem="420-fr-qut" secondAttribute="trailing" constant="-1" id="9Ll-SS-MMX"/>
+                            <constraint firstItem="420-fr-qut" firstAttribute="leading" secondItem="tsO-ov-f2A" secondAttribute="trailing" id="9aJ-EA-uhy"/>
+                            <constraint firstItem="e17-Cb-9EH" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="C6f-4f-EZR"/>
+                            <constraint firstItem="420-fr-qut" firstAttribute="bottom" secondItem="9Wf-oU-ck8" secondAttribute="bottom" id="HWE-T3-FoW"/>
+                            <constraint firstItem="420-fr-qut" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="KFW-mp-Yn3"/>
+                            <constraint firstItem="420-fr-qut" firstAttribute="trailing" secondItem="9Wf-oU-ck8" secondAttribute="trailing" id="NFT-l7-DF3"/>
+                            <constraint firstAttribute="bottom" secondItem="420-fr-qut" secondAttribute="bottom" id="aYO-ox-ntT"/>
+                            <constraint firstItem="tsO-ov-f2A" firstAttribute="leading" secondItem="dF5-QM-BwJ" secondAttribute="trailing" constant="-1" id="dAz-k1-sBw"/>
+                            <constraint firstAttribute="trailing" secondItem="e17-Cb-9EH" secondAttribute="trailing" id="grc-F3-pyG"/>
+                            <constraint firstItem="420-fr-qut" firstAttribute="top" secondItem="tsO-ov-f2A" secondAttribute="top" id="m4a-D1-9hj"/>
+                            <constraint firstAttribute="bottom" secondItem="dF5-QM-BwJ" secondAttribute="bottom" id="mXr-hh-yfN"/>
+                            <constraint firstItem="420-fr-qut" firstAttribute="leading" secondItem="dF5-QM-BwJ" secondAttribute="trailing" id="rHa-WT-25P"/>
+                            <constraint firstItem="420-fr-qut" firstAttribute="bottom" secondItem="tsO-ov-f2A" secondAttribute="bottom" id="rYC-86-7eC"/>
+                            <constraint firstItem="dF5-QM-BwJ" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="sQS-bw-dHT"/>
+                            <constraint firstItem="420-fr-qut" firstAttribute="top" secondItem="9Wf-oU-ck8" secondAttribute="top" id="wjf-Lx-oSn"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="attributesRelationshipsContainerView" destination="420-fr-qut" id="gE9-ut-tzo"/>
@@ -783,19 +815,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="400" height="540"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <containerView identifier="relationshipsContainerView" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KwY-ho-WGM">
-                                <rect key="frame" x="0.0" y="140" width="400" height="200"/>
-                                <connections>
-                                    <segue destination="gmJ-8X-IHf" kind="embed" identifier="RelationshipsViewControllerSegue" id="Dbc-Vf-g7d"/>
-                                </connections>
-                            </containerView>
-                            <containerView identifier="attributesContainerView" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="750-dQ-YzS">
+                            <containerView identifier="attributesContainerView" translatesAutoresizingMaskIntoConstraints="NO" id="750-dQ-YzS">
                                 <rect key="frame" x="0.0" y="340" width="400" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="yzO-JF-jxL"/>
+                                </constraints>
                                 <connections>
                                     <segue destination="b2i-0O-NCg" kind="embed" identifier="AttributesViewControllerSegue" id="17z-N8-0a6"/>
                                 </connections>
                             </containerView>
+                            <containerView identifier="relationshipsContainerView" translatesAutoresizingMaskIntoConstraints="NO" id="KwY-ho-WGM">
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="340"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="340" id="DFa-86-n4G"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="gmJ-8X-IHf" kind="embed" identifier="RelationshipsViewControllerSegue" id="Dbc-Vf-g7d"/>
+                                </connections>
+                            </containerView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="KwY-ho-WGM" firstAttribute="leading" secondItem="9E4-bE-Siw" secondAttribute="leading" id="0c3-a4-jXl"/>
+                            <constraint firstAttribute="trailing" secondItem="KwY-ho-WGM" secondAttribute="trailing" id="H5g-d7-MyJ"/>
+                            <constraint firstAttribute="bottom" secondItem="KwY-ho-WGM" secondAttribute="bottom" id="N9A-iA-DVA"/>
+                            <constraint firstItem="KwY-ho-WGM" firstAttribute="top" secondItem="750-dQ-YzS" secondAttribute="bottom" id="YJ0-65-4Ss"/>
+                            <constraint firstItem="750-dQ-YzS" firstAttribute="leading" secondItem="9E4-bE-Siw" secondAttribute="leading" id="iZr-6k-fFQ"/>
+                            <constraint firstAttribute="trailing" secondItem="750-dQ-YzS" secondAttribute="trailing" id="k3S-xf-pCE"/>
+                            <constraint firstItem="750-dQ-YzS" firstAttribute="top" secondItem="9E4-bE-Siw" secondAttribute="top" id="mQP-Yr-V41"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="attributesContainerView" destination="750-dQ-YzS" id="fhy-fQ-PxM"/>
@@ -814,10 +861,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="roQ-Fs-5cO" customClass="AttributesView" customModule="RealmModelGenerator" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="roQ-Fs-5cO" customClass="AttributesView" customModule="RealmModelGenerator" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="Mlp-mu-Pu6"/>
+                                </constraints>
                             </customView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="roQ-Fs-5cO" firstAttribute="leading" secondItem="ocp-JW-XtL" secondAttribute="leading" id="AYq-ga-dK2"/>
+                            <constraint firstAttribute="trailing" secondItem="roQ-Fs-5cO" secondAttribute="trailing" id="HW8-1x-hLx"/>
+                            <constraint firstItem="roQ-Fs-5cO" firstAttribute="top" secondItem="ocp-JW-XtL" secondAttribute="top" id="KZh-gS-bHo"/>
+                            <constraint firstAttribute="bottom" secondItem="roQ-Fs-5cO" secondAttribute="bottom" id="Yum-dM-Zce"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="attributesView" destination="roQ-Fs-5cO" id="N2O-g4-KOK"/>
