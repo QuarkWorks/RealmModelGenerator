@@ -76,7 +76,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     }
     
     func attributesView(attributesView: AttributesView, typeForAttributeAtIndex index: Int) -> AttributeType {
-        return self.entity!.attributes[index].type
+        return self.selectedEntity!.attributes[index].type
     }
     
     //MAKR: - AttributesViewDelegate
@@ -122,6 +122,6 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     }
     
     func attributesView(attributesView: AttributesView, atIndex index: Int, changeAttributeType attributeType: AttributeType) {
-        self.entity!.attributes[index].setType(attributeType)
+        self.selectedEntity!.attributes[index].setType(attributeType)
     }
 }

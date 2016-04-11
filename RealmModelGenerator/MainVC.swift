@@ -66,9 +66,6 @@ class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDel
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.leftDivider.backgroundColor = NSColor.grayColor()
-        self.rightDivider.backgroundColor = NSColor.grayColor()
     }
     
     override func viewWillAppear() {
