@@ -40,19 +40,19 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
         }
         
         set {
-            if (self.selectedIndex == newValue || (newValue == nil && self.tableView.selectedRow == -1)) {
+            if self.selectedIndex == newValue || (newValue == nil && self.tableView.selectedRow == -1) {
                 return
             }
             
-            if (newValue != nil) {
-                self.tableView.selectRowIndexes(NSIndexSet(index: newValue!), byExtendingSelection: false)
+            if let newValue = newValue {
+                self.tableView.selectRowIndexes(NSIndexSet(index: newValue), byExtendingSelection: false)
             } else {
                 self.tableView.deselectAll(nil)
             }
         }
     }
     
-    //MARK: Lifecycle
+    //MARK: - Lifecycle
     override func nibDidLoad() {
         super.nibDidLoad()
         removeButton.enabled = false
@@ -100,23 +100,19 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     }
     
     func tableViewSelectionDidChange(notification: NSNotification) {
-        let tableView = notification.object as! NSTableView
-        selectedIndex = tableView.selectedRow
-        
-        if let index = selectedIndex {
-            self.delegate?.attributesView(self, selectedIndexDidChange: index)
-        }
-        
-        removeButton.enabled = self.selectedIndex != nil
+        self.delegate?.attributesView(self, selectedIndexDidChange: self.selectedIndex)
+        self.reloadRemoveButtonState()
     }
     
     //MARK: - Events
     @IBAction func addAttributeButtonOnClick(sender: AnyObject) {
+        self.window!.makeFirstResponder(self.tableView)
         self.delegate?.addAttributeInAttributesView(self)
     }
     
     @IBAction func removeAttributeOnClick(sender: AnyObject) {
         if let index = selectedIndex {
+            self.window!.makeFirstResponder(self.tableView)
             self.delegate?.attributesView(self, removeAttributeAtIndex:index)
         }
     }

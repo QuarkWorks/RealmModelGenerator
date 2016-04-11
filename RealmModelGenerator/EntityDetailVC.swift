@@ -17,8 +17,8 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
     
     weak var entity:Entity? {
         didSet{
-            self.view.hidden = entity == nil
             if oldValue === self.entity { return }
+            oldValue?.observable.removeObserver(self)
             self.entity?.observable.addObserver(self)
             self.invalidateViews()
         }

@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-
+//MARK: - EntitiesVCDelegate
 protocol EntitiesVCDelegate: class {
     func entitiesVC(entitiesVC:EntitiesVC, selectedEntityDidChange entity:Entity?)
 }
@@ -25,6 +25,7 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
     var schema = Schema() {
         didSet {
             if oldValue === self.schema { return }
+            oldValue.observable.removeObserver(self)
             self.schema.observable.addObserver(self)
             selectedEntity = nil
         }
@@ -44,15 +45,17 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
     
     weak var delegate:EntitiesVCDelegate?
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    //MARK: Observer
-    func onChange(observable: Observable) {
+    override func viewWillAppear() {
+        super.viewWillAppear()
         self.invalidateViews()
     }
     
+    //MARK: - Invalidation
     func invalidateViews() {
         if !self.viewLoaded { return }
         self.entitiesView.reloadData()
@@ -61,6 +64,11 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
     
     func invalidateSelectedIndex() {
         self.entitiesView.selectedIndex = self.model.entities.indexOf({$0 === self.selectedEntity})
+    }
+    
+    //MARK: - Observer
+    func onChange(observable: Observable) {
+        self.invalidateViews()
     }
 
     //MARK: - EntitiesViewDataSource

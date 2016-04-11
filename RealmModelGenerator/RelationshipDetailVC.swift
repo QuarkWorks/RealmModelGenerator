@@ -13,8 +13,8 @@ class RelationshipDetailVC: NSViewController, Observer {
     
     weak var relationship:Relationship? {
         didSet{
-            self.view.hidden = relationship == nil
             if oldValue === self.relationship { return }
+            oldValue?.observable.removeObserver(self)
             self.relationship?.observable.addObserver(self)
             self.invalidateViews()
         }
@@ -30,9 +30,5 @@ class RelationshipDetailVC: NSViewController, Observer {
     
     func onChange(observable: Observable) {
         
-    }
-    
-    func setRelationship(relationship:Relationship) {
-        self.relationship = relationship
     }
 }

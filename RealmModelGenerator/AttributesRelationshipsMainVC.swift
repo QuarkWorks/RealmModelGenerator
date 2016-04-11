@@ -16,13 +16,13 @@ protocol AttributesRelationshipsVCDelegate: class {
 class AttributesRelationshipsMainVC: NSViewController, AttributesVCDelegate, RelationshipsVCDelegate {
     static let TAG = NSStringFromClass(AttributesRelationshipsMainVC)
     
-    var attributesVC:AttributesVC! = nil {
+    var attributesVC:AttributesVC! {
         didSet {
             self.attributesVC.delegate = self
         }
     }
     
-    var relationshipsVC:RelationshipsVC! = nil {
+    var relationshipsVC:RelationshipsVC! {
         didSet {
             self.relationshipsVC.delegate = self
         }
@@ -33,60 +33,61 @@ class AttributesRelationshipsMainVC: NSViewController, AttributesVCDelegate, Rel
     
     weak var delegate: AttributesRelationshipsVCDelegate?
     
-    var entity: Entity? {
+    weak var selectedEntity:Entity? {
         didSet {
+            if self.selectedEntity === oldValue { return }
+            self.selectedAttribute = nil
+            self.selectedRelationship = nil
             self.invalidateViews()
         }
     }
     
-    var attribute: Attribute? {
+    weak var selectedAttribute: Attribute? {
         didSet {
-            attributesVC.updateSelectedAttribute(self.attribute!)
+            if self.selectedAttribute === oldValue { return }
+            self.delegate?.attributesRelationshipsVC(self, selectedAttributeDidChange: self.selectedAttribute)
+            self.invalidateViews()
         }
     }
     
-    var relationship: Relationship? {
+    weak var selectedRelationship: Relationship? {
         didSet {
-            relationshipsVC.selectedRelationship = self.relationship
+            if self.selectedRelationship === oldValue { return }
+            self.delegate?.attributesRelationshipsVC(self, selectedRelationshipDidChange: self.selectedRelationship)
+            self.invalidateViews()
         }
     }
 
+    //MARK - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        self.invalidateViews()
+    }
+    
+    
+    //MARK - Invalidation
     func invalidateViews() {
-        self.attributesVC.entity = self.entity
-        self.relationshipsVC.entity = self.entity
+        if !viewLoaded { return }
+        self.attributesVC.selectedEntity = self.selectedEntity
+        self.relationshipsVC.entity = self.selectedEntity
     }
     
     //MARK: - AttributesVC delegate
     func attributesVC(attributesVC: AttributesVC, selectedAttributeDidChange attribute:Attribute?) {
-        self.delegate?.attributesRelationshipsVC(self, selectedAttributeDidChange: attribute)
+        self.selectedAttribute = attribute
     }
     
     //MARK: - RelationshipsVC delegate
     func relationshipsVC(relationshipsVC: RelationshipsVC, selectedRelationshipDidChange relationship: Relationship?) {
-        self.delegate?.attributesRelationshipsVC(self, selectedRelationshipDidChange: relationship)
+        self.selectedRelationship = relationship
     }
     
-    func updateAttributeRelationship(detailObject: AnyObject?, detailType: DetailType) {
-        switch detailType {
-        case .Entity:
-            self.entity = detailObject as? Entity
-            break;
-        case .Attribute:
-            self.attribute = detailObject as? Attribute
-            break
-        case .Relationship:
-            self.relationship = detailObject as? Relationship
-        case .Empty:
-            self.entity = nil
-            break;
-        }
-    }
     
-    //MARK: - PrepareForSegue
+    //MARK: - Segue
     override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
         if segue.destinationController is AttributesVC {
             self.attributesVC = segue.destinationController as! AttributesVC

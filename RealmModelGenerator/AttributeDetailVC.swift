@@ -17,8 +17,8 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
     
     weak var attribute:Attribute? {
         didSet{
-            self.view.hidden = attribute == nil
             if oldValue === self.attribute { return }
+            oldValue?.observable.removeObserver(self)
             self.attribute?.observable.addObserver(self)
             self.invalidateViews()
         }

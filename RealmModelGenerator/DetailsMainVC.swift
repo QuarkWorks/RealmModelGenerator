@@ -18,7 +18,41 @@ class DetailsMainVC: NSViewController {
     @IBOutlet weak var detailsContainerView: NSView!
     @IBOutlet weak var emptyTextField: NSTextField!
     
-    private var detailType: DetailType?
+    weak var selectedEntity:Entity? {
+        didSet {
+            if self.selectedEntity === oldValue { return }
+            self.selectedAttribute = nil
+            self.selectedRelationship = nil
+            self.invalidateViews()
+        }
+    }
+    
+    weak var selectedAttribute: Attribute? {
+        didSet {
+            if self.selectedAttribute === oldValue { return }
+            self.invalidateViews()
+        }
+    }
+    
+    weak var selectedRelationship: Relationship? {
+        didSet {
+            if self.selectedRelationship === oldValue { return }
+            self.invalidateViews()
+        }
+    }
+    
+    var detailType: DetailType {
+        if selectedEntity != nil {
+            if selectedAttribute != nil {
+                return .Attribute
+            }
+            if selectedRelationship != nil {
+                return .Relationship
+            }
+            return .Entity
+        }
+        return .Empty
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +60,7 @@ class DetailsMainVC: NSViewController {
         entityDetailVC = self.storyboard!.instantiateControllerWithIdentifier("EntityDetailVC") as! EntityDetailVC
         attributeDetailVC = self.storyboard!.instantiateControllerWithIdentifier("AttributeDetailVC") as! AttributeDetailVC
         relationshipDetailVC = self.storyboard!.instantiateControllerWithIdentifier("RelationshipDetailVC") as! RelationshipDetailVC
-    }
-    
-    override func viewWillAppear() {
+        
         self.addChildViewController(entityDetailVC)
         self.addChildViewController(attributeDetailVC)
         self.addChildViewController(relationshipDetailVC)
@@ -36,37 +68,32 @@ class DetailsMainVC: NSViewController {
         detailsContainerView.addSubview(entityDetailVC.view)
         detailsContainerView.addSubview(attributeDetailVC.view)
         detailsContainerView.addSubview(relationshipDetailVC.view)
-        
-        invalidViews()
     }
     
-    func invalidViews() {
-        entityDetailVC.entity = nil
-        attributeDetailVC.attribute = nil
-        relationshipDetailVC.relationship = nil
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        invalidateViews()
     }
     
-    func updateDetailView(detail: AnyObject?, detailType: DetailType) {
-        invalidViews()
+    func invalidateViews() {
+        entityDetailVC.entity = self.selectedEntity
+        attributeDetailVC.attribute = self.selectedAttribute
+        relationshipDetailVC.relationship = self.selectedRelationship
         
-        emptyTextField.hidden = detail != nil
+        self.emptyTextField.hidden = true
+        self.entityDetailVC.view.hidden = true
+        self.attributeDetailVC.view.hidden = true
+        self.relationshipDetailVC.view.hidden = true
         
-        if detail == nil {
-            return
-        }
-        
-        switch detailType {
+        switch self.detailType {
         case .Entity:
-                entityDetailVC.entity = (detail as! Entity)
-            break
+            self.entityDetailVC.view.hidden = false
         case .Attribute:
-            attributeDetailVC.attribute = (detail as! Attribute)
-            break
+            self.attributeDetailVC.view.hidden = false
         case .Relationship:
-            relationshipDetailVC.relationship = (detail as! Relationship)
-            break
+            self.relationshipDetailVC.view.hidden = false
         case .Empty:
-            break
+            self.emptyTextField.hidden = false
         }
     }
 }

@@ -22,10 +22,11 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         }
     }
     
-    weak var entity: Entity? {
+    weak var selectedEntity: Entity? {
         didSet {
-            if oldValue === self.entity { return }
-            self.entity?.observable.addObserver(self)
+            if oldValue === self.selectedEntity { return }
+            oldValue?.observable.removeObserver(self)
+            self.selectedEntity?.observable.addObserver(self)
             selectedAttribute = nil
             self.invalidateViews()
         }
@@ -56,7 +57,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     }
     
     func invalidateSelectedIndex() {
-        self.attributesView.selectedIndex = self.entity?.attributes.indexOf({$0 === self.selectedAttribute})
+        self.attributesView.selectedIndex = self.selectedEntity?.attributes.indexOf({$0 === self.selectedAttribute})
     }
     
     //MARK: - Update selected attribute after its detail changed
@@ -67,47 +68,46 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     
     //MARK: - AttributesViewDataSource
     func numberOfRowsInAttributesView(attributesView: AttributesView) -> Int {
-        return self.entity == nil ? 0 : self.entity!.attributes.count
+        return self.selectedEntity == nil ? 0 : self.selectedEntity!.attributes.count
     }
     
     func attributesView(attributesView: AttributesView, titleForAttributeAtIndex index: Int) -> String {
-        return self.entity!.attributes[index].name
+        return self.selectedEntity!.attributes[index].name
     }
     
     //MAKR: - AttributesViewDelegate
     func addAttributeInAttributesView(attributesView: AttributesView) {
-        if self.entity != nil {
-            let attribute = self.entity!.createAttribute()
+        if self.selectedEntity != nil {
+            let attribute = self.selectedEntity!.createAttribute()
             self.selectedAttribute = attribute
-            self.invalidateViews()
         }
     }
     
     func attributesView(attributesView: AttributesView, removeAttributeAtIndex index: Int) {
-        let attribute = self.entity!.attributes[index]
+        let attribute = self.selectedEntity!.attributes[index]
         if attribute === self.selectedAttribute {
-            if self.entity?.attributes.count <= 1 {
+            if self.selectedEntity!.attributes.count <= 1 {
                 self.selectedAttribute = nil
-            } else if index == self.entity!.attributes.count - 1 {
-                self.selectedAttribute = self.entity!.attributes[index - 1]
+            } else if index == self.selectedEntity!.attributes.count - 1 {
+                self.selectedAttribute = self.selectedEntity!.attributes[index - 1]
             } else {
-                self.selectedAttribute = self.entity!.attributes[index + 1]
+                self.selectedAttribute = self.selectedEntity!.attributes[index + 1]
             }
         }
         
-        self.entity!.removeAttribute(attribute)
+        self.selectedEntity!.removeAttribute(attribute)
     }
     
     func attributesView(attributesView: AttributesView, selectedIndexDidChange index: Int?) {
         if let index = index {
-            self.selectedAttribute = self.entity!.attributes[index]
+            self.selectedAttribute = self.selectedEntity!.attributes[index]
         } else {
             self.selectedAttribute = nil
         }
     }
     
     func attributesView(attributesView: AttributesView, shouldChangeAttributeName name: String, atIndex index: Int) -> Bool {
-        let attribute = entity!.attributes[index]
+        let attribute = selectedEntity!.attributes[index]
         do {
             try attribute.setName(name)
         } catch {

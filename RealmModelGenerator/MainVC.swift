@@ -11,28 +11,25 @@ import Cocoa
 class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDelegate {
     static let TAG = NSStringFromClass(MainVC)
     
-    private weak var model: Model?
-    private weak var selectedEnity: Entity?
-    
     @IBOutlet weak var leftDivider: NSView!
     @IBOutlet weak var rightDivider: NSView!
     @IBOutlet weak var entitiesContainerView: NSView!
     @IBOutlet weak var attributesRelationshipsContainerView: NSView!
     @IBOutlet weak var detailsContainerView: NSView!
     
-    private weak var entitiesVC:EntitiesVC! = nil {
+    private weak var entitiesVC:EntitiesVC! {
         didSet {
             self.entitiesVC.delegate = self
         }
     }
     
-    private weak var attributesRelationshipsMainVC:AttributesRelationshipsMainVC! = nil {
+    private weak var attributesRelationshipsMainVC:AttributesRelationshipsMainVC! {
         didSet {
             self.attributesRelationshipsMainVC.delegate = self
         }
     }
     
-    private weak var detailsVC:DetailsMainVC! = nil
+    private weak var detailsVC:DetailsMainVC!
 
     var schema = Schema() {
         didSet {
@@ -41,58 +38,79 @@ class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDel
         }
     }
     
+    private weak var model: Model?
+    
+    weak var selectedEntity:Entity? {
+        didSet {
+            if self.selectedEntity === oldValue { return }
+            self.selectedAttribute = nil
+            self.selectedRelationship = nil
+            self.invalidateViews()
+        }
+    }
+    
+    weak var selectedAttribute: Attribute? {
+        didSet {
+            if self.selectedAttribute === oldValue { return }
+            self.invalidateViews()
+        }
+    }
+    
+    weak var selectedRelationship: Relationship? {
+        didSet {
+            if self.selectedRelationship === oldValue { return }
+            self.invalidateViews()
+        }
+    }
+    
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.wantsLayer = true
-        leftDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
-        rightDivider.layer?.backgroundColor = NSColor.grayColor().CGColor
+        self.leftDivider.backgroundColor = NSColor.grayColor()
+        self.rightDivider.backgroundColor = NSColor.grayColor()
     }
     
     override func viewWillAppear() {
         // Because of loading schema happens after viewDidLoad so we need to update schema in entities view
-        entitiesVC.schema = self.schema
+        self.invalidateViews()
+    }
+    
+    
+    //MARK: - Validation
+    func invalidateViews() {
+        if !self.viewLoaded { return }
+        self.entitiesVC.selectedEntity = self.selectedEntity
+        
+        self.detailsVC.selectedEntity = self.selectedEntity
+        self.detailsVC.selectedAttribute = self.selectedAttribute
+        self.detailsVC.selectedRelationship = self.selectedRelationship
+        
+        self.attributesRelationshipsMainVC.selectedEntity = self.selectedEntity
+        self.attributesRelationshipsMainVC.selectedAttribute = self.selectedAttribute
+        self.attributesRelationshipsMainVC.selectedRelationship = self.selectedRelationship
     }
     
     //MARK: - EntitiesVC delegate
     func entitiesVC(entitiesVC: EntitiesVC, selectedEntityDidChange entity: Entity?) {
-        self.selectedEnity = entity
-        
-        if let entity = entity {
-            detailsVC.updateDetailView(entity, detailType: DetailType.Entity)
-            attributesRelationshipsMainVC.updateAttributeRelationship(entity, detailType: DetailType.Entity)
-        } else {
-            detailsVC.updateDetailView(nil, detailType: DetailType.Entity)
-            attributesRelationshipsMainVC.updateAttributeRelationship(nil, detailType: DetailType.Empty)
-        }
+        self.selectedEntity = entity
     }
     
     //MARK: - AttributesRelationshipsViewController delegate - attribute
     func attributesRelationshipsVC(attributesRelationshipsVC: AttributesRelationshipsMainVC, selectedAttributeDidChange attribute: Attribute?) {
-        if let index = self.selectedEnity?.attributes.indexOf({$0 === attribute}) {
-            if let attribute = selectedEnity?.attributes[index] {
-                detailsVC.updateDetailView(attribute, detailType: DetailType.Attribute)
-            }
-        } else {
-            detailsVC.updateDetailView(nil, detailType: DetailType.Empty)
-        }
+        self.selectedAttribute = attribute
     }
     
     //MARK: - AttributesRelationshipsViewController delegate - relationship
     func attributesRelationshipsVC(attributesRelationshipsVC: AttributesRelationshipsMainVC, selectedRelationshipDidChange relationship: Relationship?) {
-        if let index = self.selectedEnity?.relationships.indexOf({$0 === relationship}) {
-            if let relationship = selectedEnity?.relationships[index] {
-                detailsVC.updateDetailView(relationship, detailType: DetailType.Relationship)
-            }
-        } else {
-            detailsVC.updateDetailView(nil, detailType: DetailType.Empty)
-        }
+        self.selectedRelationship = relationship
     }
     
-    //MARK: - PrepareForSegue
+    //MARK: - Segue
     override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
         if segue.destinationController is EntitiesVC {
             self.entitiesVC = segue.destinationController as! EntitiesVC
+            self.entitiesVC.schema = self.schema
         } else if segue.destinationController is AttributesRelationshipsMainVC {
             self.attributesRelationshipsMainVC = segue.destinationController as! AttributesRelationshipsMainVC
         } else if segue.destinationController is DetailsMainVC {

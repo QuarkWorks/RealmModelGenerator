@@ -39,13 +39,13 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         }
         
         set {
-            if (self.selectedIndex == newValue || (newValue == nil && self.tableView.selectedRow == -1)) {
+            if self.selectedIndex == newValue || (newValue == nil && self.tableView.selectedRow == -1) {
                 return
             }
             
             
-            if (newValue != nil) {
-                self.tableView.selectRowIndexes(NSIndexSet(index: newValue!), byExtendingSelection: false)
+            if let newValue = newValue {
+                self.tableView.selectRowIndexes(NSIndexSet(index: newValue), byExtendingSelection: false)
             } else {
                 self.tableView.deselectAll(nil)
             }
@@ -99,23 +99,19 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     }
     
     func tableViewSelectionDidChange(notification: NSNotification) {
-        let tableView = notification.object as! NSTableView
-        selectedIndex = tableView.selectedRow
-        
-        if let index = selectedIndex {
-            self.delegate?.entitiesView(self, selectedIndexDidChange:index)
-        }
-        
-        removeButton.enabled = self.selectedIndex != nil
+        self.delegate?.entitiesView(self, selectedIndexDidChange: self.selectedIndex)
+        self.reloadRemoveButtonState()
     }
     
     //MARK: - Events
     @IBAction func addButtonOnClick(_: AnyObject) {
+        self.window!.makeFirstResponder(self.tableView)
         self.delegate?.addEntityInEntitiesView(self)
     }
     
     @IBAction func removeButtonOnClick(_: AnyObject) {
         if let index = selectedIndex {
+            self.window!.makeFirstResponder(self.tableView)
             self.delegate?.entitiesView(self, removeEntityAtIndex:index)
         }
     }
