@@ -18,6 +18,7 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     
     @IBOutlet var nameTextField:NSTextField!
     
+    @IBOutlet weak var attributeTypePopUpButton: NSPopUpButton!
     weak var delegate:AttributeDetailViewDelegate?
     
     override func nibDidLoad() {
@@ -35,5 +36,9 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
             return shouldEnd
         }
         return true
+    }
+    
+    func menuDidClose(menu: NSMenu) {
+        Swift.print("menuDidClose")
     }
 }

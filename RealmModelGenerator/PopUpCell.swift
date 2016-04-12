@@ -13,7 +13,7 @@ protocol PopupCellDelegate: class {
 }
 
 @IBDesignable
-class PopUpCell: NibDesignableView, NSTextFieldDelegate {
+class PopUpCell: NibDesignableView {
     static let IDENTIFIER = "PopUpCell"
     
     @IBOutlet weak var popUpButton: NSPopUpButton!

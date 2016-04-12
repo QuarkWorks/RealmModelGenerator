@@ -10,15 +10,16 @@ import Cocoa
 
 protocol EntityDetailViewDelegate: class {
     func entityDetailView(entityDetailView:EntityDetailView, shouldChangeEntityName name:String) -> Bool
+    func entityDetailView(entityDetailView:EntityDetailView, selectedSuperEnityDidChangeIndex index:Int)
 }
 
 @IBDesignable
-class EntityDetailView: NibDesignableView, NSTextFieldDelegate {
+class EntityDetailView: NibDesignableView, NSTextFieldDelegate, NSMenuDelegate {
     static let TAG = NSStringFromClass(EntityDetailView)
     
     @IBOutlet var nameTextField:NSTextField!
-    @IBOutlet var superClassTextField:NSTextField!
     
+    @IBOutlet weak var superClassPopUpButton: NSPopUpButton!
     weak var delegate:EntityDetailViewDelegate?
     
     override func nibDidLoad() {
@@ -31,17 +32,35 @@ class EntityDetailView: NibDesignableView, NSTextFieldDelegate {
         get { return self.nameTextField.stringValue }
     }
     
-    @IBInspectable var superClassName:String {
-        set { self.superClassTextField.stringValue = newValue }
+    @IBInspectable var superClassNames:[String] {
+        set {
+            self.superClassPopUpButton.removeAllItems()
+            self.superClassPopUpButton.addItemsWithTitles(newValue)
+        }
         
-        get { return self.superClassTextField.stringValue }
+        get {
+            return self.superClassPopUpButton.itemTitles
+        }
+    }
+    
+    @IBInspectable var selectedItemIndex:Int {
+        set {
+            self.superClassPopUpButton.selectItemAtIndex(newValue)
+        }
+        
+        get {
+            return self.superClassPopUpButton.indexOfSelectedItem
+        }
     }
     
     func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        //TODO: identify text end editing in which field
         if let shouldEnd = self.delegate?.entityDetailView(self, shouldChangeEntityName: fieldEditor.string!) {
             return shouldEnd
         }
         return true
+    }
+    
+    @IBAction func superClassChanged(sender: NSPopUpButton) {
+        self.delegate?.entityDetailView(self, selectedSuperEnityDidChangeIndex: selectedItemIndex)
     }
 }

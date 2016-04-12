@@ -8,33 +8,33 @@
         <customObject id="-2" userLabel="File's Owner" customClass="EntityDetailView" customModule="RealmModelGenerator" customModuleProvider="target">
             <connections>
                 <outlet property="nameTextField" destination="nLk-wr-U4G" id="649-vJ-iAx"/>
-                <outlet property="superClassTextField" destination="K9M-Sk-uaA" id="Q3Z-Vf-vCK"/>
+                <outlet property="superClassPopUpButton" destination="2oV-31-do6" id="gXm-46-N5c"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
+            <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6fF-an-cLa">
-                    <rect key="frame" x="35" y="479" width="40" height="16"/>
+                    <rect key="frame" x="41" y="480" width="40" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name" id="5M4-o6-smb">
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" size="11" name="Menlo-Regular"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cyv-Te-uvy">
-                    <rect key="frame" x="-2" y="456" width="77" height="17"/>
+                    <rect key="frame" x="4" y="446" width="77" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Super Class" id="QwY-KD-JoC">
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" size="11" name="Menlo-Regular"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nLk-wr-U4G">
-                    <rect key="frame" x="77" y="476" width="117" height="22"/>
+                    <rect key="frame" x="87" y="476" width="150" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Aj2-d1-KEu">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -42,17 +42,6 @@
                     </textFieldCell>
                     <connections>
                         <outlet property="delegate" destination="-2" id="Pj3-ic-Owd"/>
-                    </connections>
-                </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K9M-Sk-uaA">
-                    <rect key="frame" x="77" y="452" width="117" height="22"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="0mc-ej-I4j">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <outlet property="delegate" destination="-2" id="yuh-kK-Jej"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9q-db-ZSO">
@@ -63,8 +52,25 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2oV-31-do6">
+                    <rect key="frame" x="85" y="441" width="153" height="25"/>
+                    <popUpButtonCell key="cell" type="bevel" title="Item 1" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" allowsMixedState="YES" inset="2" selectedItem="j3u-eE-oz0" id="zxG-kS-tEr">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="doA-oy-bcy">
+                            <items>
+                                <menuItem title="Item 1" state="on" id="j3u-eE-oz0"/>
+                                <menuItem title="Item 2" id="RdP-Eo-2xL"/>
+                                <menuItem title="Item 3" id="5yA-SS-ZNL"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="superClassChanged:" target="-2" id="f4q-aq-4uQ"/>
+                    </connections>
+                </popUpButton>
             </subviews>
-            <point key="canvasLocation" x="175.5" y="58"/>
+            <point key="canvasLocation" x="-85" y="75"/>
         </customView>
     </objects>
 </document>
