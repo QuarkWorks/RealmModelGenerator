@@ -980,7 +980,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUh-ou-wMC" customClass="AttributeDetailView" customModule="RealmModelGenerator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
+                                <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
                             </customView>
                         </subviews>
                     </view>

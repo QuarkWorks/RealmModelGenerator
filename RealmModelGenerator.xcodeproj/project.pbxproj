@@ -191,15 +191,28 @@
 			name = AttributesRelationships;
 			sourceTree = "<group>";
 		};
+		3A635A3F1CBD724500BB0278 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				773D25841C9F3123009814A0 /* TitleCell.swift */,
+				773D25851C9F3123009814A0 /* TitleCell.xib */,
+				773D25831C9F3123009814A0 /* NibDesignable.swift */,
+				77D827801C9FA9E100E22CEE /* ViewTools.swift */,
+				3A36CB9C1CB7341A0000EDFA /* PopUpCell.swift */,
+				3A36CB9D1CB7341A0000EDFA /* PopUpCell.xib */,
+			);
+			name = base;
+			sourceTree = "<group>";
+		};
 		3A6DDC4A1CACA0D6007C6825 /* DetailViews */ = {
 			isa = PBXGroup;
 			children = (
 				3A2F96FA1CA9DEAA000AE584 /* EntityDetailView.swift */,
 				3A2F96FB1CA9DEAA000AE584 /* EntityDetailView.xib */,
-				3A2F975B1CAB37D7000AE584 /* RelationshipDetailView.swift */,
-				3A2F975C1CAB37D7000AE584 /* RelationshipDetailView.xib */,
 				3A2F97611CAB4305000AE584 /* AttributeDetailView.swift */,
 				3A2F97621CAB4305000AE584 /* AttributeDetailView.xib */,
+				3A2F975B1CAB37D7000AE584 /* RelationshipDetailView.swift */,
+				3A2F975C1CAB37D7000AE584 /* RelationshipDetailView.xib */,
 			);
 			name = DetailViews;
 			sourceTree = "<group>";
@@ -233,16 +246,11 @@
 		773D25821C9F310E009814A0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				773D25841C9F3123009814A0 /* TitleCell.swift */,
-				773D25851C9F3123009814A0 /* TitleCell.xib */,
-				773D25831C9F3123009814A0 /* NibDesignable.swift */,
-				77D827801C9FA9E100E22CEE /* ViewTools.swift */,
+				3A635A3F1CBD724500BB0278 /* base */,
 				77D8277C1C9F8DD500E22CEE /* EntitiesView.swift */,
 				77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */,
 				3AA5635B1CACFE8D00A5B648 /* AttributesView.swift */,
 				3AA5635C1CACFE8D00A5B648 /* AttributesView.xib */,
-				3A36CB9C1CB7341A0000EDFA /* PopUpCell.swift */,
-				3A36CB9D1CB7341A0000EDFA /* PopUpCell.xib */,
 				3A2F97001CA9DF7F000AE584 /* Details */,
 				3A6DDC4A1CACA0D6007C6825 /* DetailViews */,
 			);
