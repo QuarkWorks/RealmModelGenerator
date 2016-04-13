@@ -76,7 +76,6 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="key"/>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <customView identifier="TitleCell" id="OqF-0o-Sm0" customClass="TitleCell" customModule="RealmModelGenerator" customModuleProvider="target">
@@ -106,7 +105,6 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="key"/>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <customView identifier="PopUpCell" id="rAL-ex-Tf7" customClass="PopUpCell" customModule="RealmModelGenerator" customModuleProvider="target">

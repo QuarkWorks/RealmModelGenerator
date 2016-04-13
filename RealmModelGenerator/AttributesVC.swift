@@ -124,4 +124,9 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     func attributesView(attributesView: AttributesView, atIndex index: Int, changeAttributeType attributeType: AttributeType) {
         self.selectedEntity!.attributes[index].setType(attributeType)
     }
+    
+    func attributesView(attributesView: AttributesView, sortByColumnName name: String, ascending: Bool) {
+        //TODO: Sort attribute or type
+//        self.selectedEntity?.attributes.sort{ return $0.name > $1.name }.forEach({(a) in print(a.name)})
+    }
 }

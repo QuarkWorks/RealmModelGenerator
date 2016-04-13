@@ -21,14 +21,16 @@ protocol AttributesViewDelegate: class {
     func attributesView(attributesView:AttributesView, shouldChangeAttributeName name:String,
         atIndex index:Int) -> Bool
     func attributesView(attributesView:AttributesView, atIndex index:Int, changeAttributeType attributeType:AttributeType)
+    
+    func attributesView(attributesView:AttributesView, sortByColumnName name:String, ascending:Bool)
 }
 
 @IBDesignable
 class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource, TitleCellDelegate, PopupCellDelegate {
     static let TAG = NSStringFromClass(AttributesView)
     
-    let ATTRIBUTE_COLUMN_IDENTIFIER = "attribute"
-    let TYPE_COLUMN_IDENTIFIER = "type"
+    static let ATTRIBUTE_COLUMN = "attribute"
+    static let TYPE_COLUMN = "type"
     let ATTRIBUTE_TYPES = AttributeType.values.flatMap({$0.rawValue})
     
     @IBOutlet var tableView:NSTableView!
@@ -63,6 +65,11 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     override func nibDidLoad() {
         super.nibDidLoad()
         removeButton.enabled = false
+        
+        let descriptorAttribute = NSSortDescriptor(key: AttributesView.ATTRIBUTE_COLUMN, ascending: true)
+        let descriptorType = NSSortDescriptor(key: AttributesView.TYPE_COLUMN, ascending: true)
+        tableView.tableColumns[0].sortDescriptorPrototype = descriptorAttribute
+        tableView.tableColumns[1].sortDescriptorPrototype = descriptorType
     }
     
     func reloadData() {
@@ -88,10 +95,16 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
         return 0
     }
     
+    func tableView(tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
+
+        let sortDescriptor = tableView.sortDescriptors.first!
+        self.delegate?.attributesView(self, sortByColumnName: sortDescriptor.key!, ascending: sortDescriptor.ascending)
+    }
+    
     //MARK: - NSTableViewDelegate
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        if tableColumn?.identifier == ATTRIBUTE_COLUMN_IDENTIFIER {
+        if tableColumn?.identifier == AttributesView.ATTRIBUTE_COLUMN {
         
             let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
             if (self.isInterfaceBuilder) {
@@ -126,7 +139,6 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
             return cell
         }
     }
-    
     
     func tableViewSelectionDidChange(notification: NSNotification) {
         self.delegate?.attributesView(self, selectedIndexDidChange: self.selectedIndex)
