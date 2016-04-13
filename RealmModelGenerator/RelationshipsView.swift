@@ -1,45 +1,44 @@
 //
-//  AttributesView.swift
+//  RelationshipsView.swift
 //  RealmModelGenerator
 //
-//  Created by Zhaolong Zhong on 3/31/16.
+//  Created by Zhaolong Zhong on 4/12/16.
 //  Copyright © 2016 QuarkWorks. All rights reserved.
 //
 
 import Cocoa
 
-protocol AttributesViewDataSource: class {
-    func numberOfRowsInAttributesView(attributesView:AttributesView) -> Int
-    func attributesView(attributesView:AttributesView, titleForAttributeAtIndex index:Int) -> String
-    func attributesView(attributesView:AttributesView, typeForAttributeAtIndex index:Int) -> AttributeType
+protocol RelationshipsViewDataSource: class {
+    func numberOfRowsInRelationshipsView(relationshipsView:RelationshipsView) -> Int
+    func relationshipsView(relationshipsView:RelationshipsView, titleForRelationshipAtIndex index:Int) -> String
+    func relationshipsView(relationshipsView:RelationshipsView, destinationForRelationshipAtIndex index:Int) -> String
 }
 
-protocol AttributesViewDelegate: class {
-    func addAttributeInAttributesView(attributesView:AttributesView)
-    func attributesView(attributesView:AttributesView, removeAttributeAtIndex index:Int)
-    func attributesView(attributesView:AttributesView, selectedIndexDidChange index:Int?)
-    func attributesView(attributesView:AttributesView, shouldChangeAttributeName name:String,
+protocol RelationshipsViewDelegate: class {
+    func addRelationshipInRelationshipsView(relationshipsView:RelationshipsView)
+    func relationshipsView(relationshipsView:RelationshipsView, removeRelationshipAtIndex index:Int)
+    func relationshipsView(relationshipsView:RelationshipsView, selectedIndexDidChange index:Int?)
+    func relationshipsView(relationshipsView:RelationshipsView, shouldChangeRelationshipName name:String,
         atIndex index:Int) -> Bool
-    func attributesView(attributesView:AttributesView, atIndex index:Int, changeAttributeType attributeType:AttributeType)
+    func relationshipsView(relationshipsView:RelationshipsView, atIndex index:Int, changeDestination destinationName:String)
 }
 
 @IBDesignable
-class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource, TitleCellDelegate, PopupCellDelegate {
-    static let TAG = NSStringFromClass(AttributesView)
+class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource, TitleCellDelegate, PopupCellDelegate  {
+    static let TAG = NSStringFromClass(RelationshipsView)
     
-    let ATTRIBUTE_COLUMN_IDENTIFIER = "attribute"
-    let TYPE_COLUMN_IDENTIFIER = "type"
-    let ATTRIBUTE_TYPES = AttributeType.values.flatMap({$0.rawValue})
+    let REALATIONSHIP_COLUMN = "relationship"
+    let DESTINATION_COLUMN = "destination"
     
-    @IBOutlet var tableView:NSTableView!
-    @IBOutlet weak var addButton:NSButton!
-    @IBOutlet weak var removeButton:NSButton!
-    @IBOutlet weak var typesPopupButton: NSTableCellView!
+    @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var addButton: NSButton!
+    @IBOutlet weak var removeButton: NSButton!
+    @IBOutlet weak var destinationPopupButton: PopUpCell!
     
-    weak var dataSource:AttributesViewDataSource? {
+    weak var dataSource:RelationshipsViewDataSource? {
         didSet { self.reloadData() }
     }
-    weak var delegate:AttributesViewDelegate?
+    weak var delegate:RelationshipsViewDelegate?
     
     var selectedIndex:Int? {
         get {
@@ -58,6 +57,8 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
             }
         }
     }
+    
+    var destinationNames:[String] = []
     
     //MARK: - Lifecycle
     override func nibDidLoad() {
@@ -81,7 +82,7 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
             return 5
         }
         
-        if let numberOfItems = self.dataSource?.numberOfRowsInAttributesView(self) {
+        if let numberOfItems = self.dataSource?.numberOfRowsInRelationshipsView(self) {
             return numberOfItems
         }
         
@@ -90,18 +91,17 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     
     //MARK: - NSTableViewDelegate
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        
-        if tableColumn?.identifier == ATTRIBUTE_COLUMN_IDENTIFIER {
-        
+        if tableColumn?.identifier == REALATIONSHIP_COLUMN {
+            
             let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
             if (self.isInterfaceBuilder) {
-                cell.title = "Attribute"
+                cell.title = "Relationship"
                 return cell
             }
             
             cell.delegate = self
             
-            if let title = self.dataSource?.attributesView(self, titleForAttributeAtIndex:row) {
+            if let title = self.dataSource?.relationshipsView(self, titleForRelationshipAtIndex:row) {
                 cell.title = title
             }
             
@@ -110,7 +110,7 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
         } else {
             let cell = tableView.makeViewWithIdentifier(PopUpCell.IDENTIFIER, owner: nil) as! PopUpCell
             
-            cell.itemTitles = ATTRIBUTE_TYPES
+            cell.itemTitles = destinationNames
             cell.row = row
             
             if (self.isInterfaceBuilder) {
@@ -118,39 +118,39 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
             }
             
             cell.delegate = self
-    
-            if let attributeType = self.dataSource?.attributesView(self, typeForAttributeAtIndex: row) {
-                cell.selectedItemIndex = AttributeType.values.indexOf(attributeType)!
+            
+            if let destination = self.dataSource?.relationshipsView(self, destinationForRelationshipAtIndex: row) {
+                cell.selectedItemIndex = destinationNames.indexOf(destination)!
             }
             
             return cell
         }
     }
     
-    
     func tableViewSelectionDidChange(notification: NSNotification) {
-        self.delegate?.attributesView(self, selectedIndexDidChange: self.selectedIndex)
+        self.delegate?.relationshipsView(self, selectedIndexDidChange: self.selectedIndex)
         self.reloadRemoveButtonState()
     }
     
     //MARK: - Events
-    @IBAction func addAttributeButtonOnClick(sender: AnyObject) {
+    @IBAction func addRelationshipOnClick(sender: AnyObject) {
         self.window!.makeFirstResponder(self.tableView)
-        self.delegate?.addAttributeInAttributesView(self)
+        self.delegate?.addRelationshipInRelationshipsView(self)
     }
     
-    @IBAction func removeAttributeOnClick(sender: AnyObject) {
+    @IBAction func removeRelationshipOnClick(sender: AnyObject) {
         if let index = selectedIndex {
             self.window!.makeFirstResponder(self.tableView)
-            self.delegate?.attributesView(self, removeAttributeAtIndex:index)
+            self.delegate?.relationshipsView(self, removeRelationshipAtIndex:index)
         }
     }
     
     //MARK: - TitleCellDelegate
     func titleCell(titleCell: TitleCell, shouldChangeTitle title: String) -> Bool {
         let index = self.tableView.rowForView(titleCell)
+        
         if index != -1 {
-            if let shouldChange = self.delegate?.attributesView(self, shouldChangeAttributeName: title, atIndex: index) {
+            if let shouldChange = self.delegate?.relationshipsView(self, shouldChangeRelationshipName: title, atIndex: index) {
                 return shouldChange
             }
         }
@@ -160,8 +160,7 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     
     //MARK: - PopUpCellDelegate
     func popUpCell(popUpCell: PopUpCell, selectedItemDidChangeIndex index: Int) {
-        
         let cellIndex = self.tableView.rowForView(popUpCell)
-        self.delegate?.attributesView(self, atIndex:cellIndex, changeAttributeType: AttributeType.values[index])
+        self.delegate?.relationshipsView(self, atIndex:cellIndex, changeDestination: destinationNames[index])
     }
 }

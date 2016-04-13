@@ -935,16 +935,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VO8-K7-waA">
-                                <rect key="frame" x="18" y="163" width="85" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Relationships" id="y0e-lU-9GB">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="7Av-2J-fg1" customClass="RelationshipsView" customModule="RealmModelGenerator" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
+                            </customView>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="7Av-2J-fg1" secondAttribute="bottom" id="0ES-0O-xBT"/>
+                            <constraint firstItem="7Av-2J-fg1" firstAttribute="leading" secondItem="Xf9-9V-Mux" secondAttribute="leading" id="HQU-Kr-U9b"/>
+                            <constraint firstItem="7Av-2J-fg1" firstAttribute="top" secondItem="Xf9-9V-Mux" secondAttribute="top" id="Uau-hT-HXa"/>
+                            <constraint firstAttribute="trailing" secondItem="7Av-2J-fg1" secondAttribute="trailing" id="uKn-gd-GCr"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="relationshipsView" destination="7Av-2J-fg1" id="BQn-F5-1Qt"/>
+                    </connections>
                 </viewController>
                 <customObject id="LuB-yT-5ZM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

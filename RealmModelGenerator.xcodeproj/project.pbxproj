@@ -26,6 +26,8 @@
 		3A5A16861CAE1FD600E5B9ED /* ExportFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16851CAE1FD600E5B9ED /* ExportFiles.swift */; };
 		3A5A16881CAE23C400E5B9ED /* DetailType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16871CAE23C400E5B9ED /* DetailType.swift */; };
 		3A5A168C1CAE2D0600E5B9ED /* DetailsMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A168B1CAE2D0600E5B9ED /* DetailsMainVC.swift */; };
+		3A635A421CBD9EFF00BB0278 /* RelationshipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A635A401CBD9EFF00BB0278 /* RelationshipsView.swift */; };
+		3A635A431CBD9EFF00BB0278 /* RelationshipsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A635A411CBD9EFF00BB0278 /* RelationshipsView.xib */; };
 		3A76FF121C8E0AD00036362D /* SwiftContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */; };
 		3A7E774F1C97744400408325 /* BaseContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E774E1C97744400408325 /* BaseContentGenerator.swift */; };
 		3A96DEDE1CB46DB6000BBEF6 /* Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96DEDD1CB46DB6000BBEF6 /* Observers.swift */; };
@@ -96,6 +98,8 @@
 		3A5A16851CAE1FD600E5B9ED /* ExportFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportFiles.swift; sourceTree = "<group>"; };
 		3A5A16871CAE23C400E5B9ED /* DetailType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailType.swift; sourceTree = "<group>"; };
 		3A5A168B1CAE2D0600E5B9ED /* DetailsMainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsMainVC.swift; sourceTree = "<group>"; };
+		3A635A401CBD9EFF00BB0278 /* RelationshipsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipsView.swift; sourceTree = "<group>"; };
+		3A635A411CBD9EFF00BB0278 /* RelationshipsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RelationshipsView.xib; sourceTree = "<group>"; };
 		3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftContentGenerator.swift; sourceTree = "<group>"; };
 		3A7E774E1C97744400408325 /* BaseContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseContentGenerator.swift; sourceTree = "<group>"; };
 		3A96DEDD1CB46DB6000BBEF6 /* Observers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observers.swift; sourceTree = "<group>"; };
@@ -251,6 +255,8 @@
 				77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */,
 				3AA5635B1CACFE8D00A5B648 /* AttributesView.swift */,
 				3AA5635C1CACFE8D00A5B648 /* AttributesView.xib */,
+				3A635A401CBD9EFF00BB0278 /* RelationshipsView.swift */,
+				3A635A411CBD9EFF00BB0278 /* RelationshipsView.xib */,
 				3A2F97001CA9DF7F000AE584 /* Details */,
 				3A6DDC4A1CACA0D6007C6825 /* DetailViews */,
 			);
@@ -436,6 +442,7 @@
 				3A2F975E1CAB37D7000AE584 /* RelationshipDetailView.xib in Resources */,
 				3A2F97641CAB4305000AE584 /* AttributeDetailView.xib in Resources */,
 				3AA5635E1CACFE8D00A5B648 /* AttributesView.xib in Resources */,
+				3A635A431CBD9EFF00BB0278 /* RelationshipsView.xib in Resources */,
 				3A2F96FD1CA9DEAA000AE584 /* EntityDetailView.xib in Resources */,
 				773D25881C9F3123009814A0 /* TitleCell.xib in Resources */,
 				3A36CB9F1CB7341A0000EDFA /* PopUpCell.xib in Resources */,
@@ -481,6 +488,7 @@
 				7798B1051C87E7CE00A7F965 /* Attribute.swift in Sources */,
 				3A5A16861CAE1FD600E5B9ED /* ExportFiles.swift in Sources */,
 				7798B1091C87FBE800A7F965 /* Relationship.swift in Sources */,
+				3A635A421CBD9EFF00BB0278 /* RelationshipsView.swift in Sources */,
 				3A7E774F1C97744400408325 /* BaseContentGenerator.swift in Sources */,
 				7798B1031C87CDA600A7F965 /* Entity.swift in Sources */,
 				7798B1011C87C63B00A7F965 /* Model.swift in Sources */,

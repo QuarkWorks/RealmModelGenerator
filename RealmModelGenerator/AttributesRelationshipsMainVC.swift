@@ -68,12 +68,11 @@ class AttributesRelationshipsMainVC: NSViewController, AttributesVCDelegate, Rel
         self.invalidateViews()
     }
     
-    
     //MARK - Invalidation
     func invalidateViews() {
         if !viewLoaded { return }
         self.attributesVC.selectedEntity = self.selectedEntity
-        self.relationshipsVC.entity = self.selectedEntity
+        self.relationshipsVC.selectedEntity = self.selectedEntity
     }
     
     //MARK: - AttributesVC delegate
