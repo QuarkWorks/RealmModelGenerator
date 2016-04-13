@@ -10,7 +10,7 @@ import Cocoa
 
 protocol EntityDetailViewDelegate: class {
     func entityDetailView(entityDetailView:EntityDetailView, shouldChangeEntityName name:String) -> Bool
-    func entityDetailView(entityDetailView:EntityDetailView, selectedSuperEnityDidChangeIndex index:Int)
+    func entityDetailView(entityDetailView:EntityDetailView, selectedSuperClassDidChange superEntity:String)
 }
 
 @IBDesignable
@@ -61,6 +61,6 @@ class EntityDetailView: NibDesignableView, NSTextFieldDelegate, NSMenuDelegate {
     }
     
     @IBAction func superClassChanged(sender: NSPopUpButton) {
-        self.delegate?.entityDetailView(self, selectedSuperEnityDidChangeIndex: selectedItemIndex)
+        self.delegate?.entityDetailView(self, selectedSuperClassDidChange: superClassNames[selectedItemIndex])
     }
 }

@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="240" height="34"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IBk-w0-V7W">
+                <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="IBk-w0-V7W">
                     <rect key="frame" x="-2" y="4" width="234" height="26"/>
                     <popUpButtonCell key="cell" type="check" title="Item 1" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" allowsMixedState="YES" inset="2" selectedItem="fdD-mS-1KG" id="2Nf-Wh-0xn">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -34,6 +34,12 @@
                     </popUpButtonCell>
                 </popUpButton>
             </subviews>
+            <constraints>
+                <constraint firstItem="IBk-w0-V7W" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="G0z-NT-8x6"/>
+                <constraint firstAttribute="bottom" secondItem="IBk-w0-V7W" secondAttribute="bottom" constant="6" id="XqQ-uH-oXJ"/>
+                <constraint firstItem="IBk-w0-V7W" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="6" id="jyC-6F-o4B"/>
+                <constraint firstAttribute="trailing" secondItem="IBk-w0-V7W" secondAttribute="trailing" constant="10" id="qtU-YX-bLl"/>
+            </constraints>
             <point key="canvasLocation" x="157" y="255"/>
         </customView>
     </objects>
