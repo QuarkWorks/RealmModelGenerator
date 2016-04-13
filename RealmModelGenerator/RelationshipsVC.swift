@@ -57,7 +57,9 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
         if !self.viewLoaded { return }
         self.entityNameList = ["None"]
         self.selectedEntity?.model.entities.forEach{(e) in entityNameList.append(e.name)}
-        self.entityNameList.removeAtIndex(self.entityNameList.indexOf(self.selectedEntity!.name)!)
+        if self.selectedEntity != nil {
+            self.entityNameList.removeAtIndex(self.entityNameList.indexOf(self.selectedEntity!.name)!)
+        }
         self.relationshipsView.destinationNames = entityNameList
         self.relationshipsView.reloadData()
         invalidateSelectedIndex()
