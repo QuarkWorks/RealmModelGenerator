@@ -1005,7 +1005,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4or-Xy-zl7" customClass="RelationshipDetailView" customModule="RealmModelGenerator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="540"/>
+                                <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
                             </customView>
                         </subviews>
                     </view>
