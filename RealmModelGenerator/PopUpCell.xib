@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IBk-w0-V7W">
-                    <rect key="frame" x="-2" y="4" width="244" height="26"/>
+                    <rect key="frame" x="-2" y="4" width="234" height="26"/>
                     <popUpButtonCell key="cell" type="check" title="Item 1" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" allowsMixedState="YES" inset="2" selectedItem="fdD-mS-1KG" id="2Nf-Wh-0xn">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="menu"/>

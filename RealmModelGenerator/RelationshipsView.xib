@@ -8,7 +8,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="RelationshipsView" customModule="RealmModelGenerator" customModuleProvider="target">
             <connections>
                 <outlet property="addButton" destination="Qu4-CR-yDS" id="0am-WI-6sD"/>
-                <outlet property="destinationPopupButton" destination="AUY-SJ-DC2" id="v6Z-lP-YsL"/>
                 <outlet property="removeButton" destination="MA3-R5-A4Z" id="z3C-m6-pv5"/>
                 <outlet property="tableView" destination="lNB-g1-Tiv" id="58D-Cq-OmI"/>
             </connections>

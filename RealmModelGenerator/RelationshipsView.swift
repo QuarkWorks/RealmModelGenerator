@@ -33,7 +33,6 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var addButton: NSButton!
     @IBOutlet weak var removeButton: NSButton!
-    @IBOutlet weak var destinationPopupButton: PopUpCell!
     
     weak var dataSource:RelationshipsViewDataSource? {
         didSet { self.reloadData() }

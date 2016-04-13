@@ -139,7 +139,6 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
                 }
             }
         }
-
     }
     
     @IBAction func attributeTypeChanged(sender: NSPopUpButton) {

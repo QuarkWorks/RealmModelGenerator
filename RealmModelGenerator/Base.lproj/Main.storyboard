@@ -717,6 +717,9 @@
                                 <subviews>
                                     <containerView translatesAutoresizingMaskIntoConstraints="NO" id="dF5-QM-BwJ">
                                         <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="250" id="90k-8A-3Yt"/>
+                                        </constraints>
                                         <connections>
                                             <segue destination="4Kj-ze-ZKn" kind="embed" identifier="EntitiesViewControllerSegue" id="Qxa-hB-mkw"/>
                                         </connections>
@@ -731,11 +734,11 @@
                                 </constraints>
                             </customView>
                             <customView id="92j-cn-kUt">
-                                <rect key="frame" x="251" y="0.0" width="408" height="540"/>
+                                <rect key="frame" x="251" y="0.0" width="407" height="540"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <containerView translatesAutoresizingMaskIntoConstraints="NO" id="420-fr-qut">
-                                        <rect key="frame" x="0.0" y="0.0" width="408" height="540"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="407" height="540"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="gmj-de-EYE"/>
                                         </constraints>
@@ -746,19 +749,20 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="420-fr-qut" secondAttribute="bottom" id="H0N-8w-jFR"/>
-                                    <constraint firstItem="420-fr-qut" firstAttribute="leading" secondItem="92j-cn-kUt" secondAttribute="leading" id="Hbf-Pw-8Qb"/>
+                                    <constraint firstItem="420-fr-qut" firstAttribute="leading" secondItem="92j-cn-kUt" secondAttribute="leading" priority="250" id="Hbf-Pw-8Qb"/>
                                     <constraint firstAttribute="trailing" secondItem="420-fr-qut" secondAttribute="trailing" id="lcB-et-Yhk"/>
                                     <constraint firstItem="420-fr-qut" firstAttribute="top" secondItem="92j-cn-kUt" secondAttribute="top" id="oo1-i1-Snf"/>
+                                    <constraint firstItem="420-fr-qut" firstAttribute="width" secondItem="92j-cn-kUt" secondAttribute="width" id="w44-pt-zEK"/>
                                 </constraints>
                             </customView>
                             <customView id="qgX-Tl-Q14">
-                                <rect key="frame" x="660" y="0.0" width="249" height="540"/>
+                                <rect key="frame" x="659" y="0.0" width="250" height="540"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <containerView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e17-Cb-9EH">
+                                    <containerView translatesAutoresizingMaskIntoConstraints="NO" id="e17-Cb-9EH">
                                         <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" placeholder="YES" id="6so-qs-4GD"/>
+                                            <constraint firstAttribute="width" constant="250" id="5Oi-rk-Key"/>
                                         </constraints>
                                         <connections>
                                             <segue destination="0OX-E8-0US" kind="embed" identifier="DetailsViewControllerSegue" id="wwt-LX-9li"/>
@@ -1009,6 +1013,9 @@
                             </customView>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="relationshipDetailView" destination="4or-Xy-zl7" id="wqy-fS-9GF"/>
+                    </connections>
                 </viewController>
                 <customObject id="z8l-ON-uRI" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
