@@ -18,42 +18,33 @@
             <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="qzU-B3-mob" userLabel="Controls">
-                    <rect key="frame" x="0.0" y="0.0" width="400" height="30"/>
-                    <subviews>
-                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CLC-uE-aYL">
-                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="c3N-Pk-L3t">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="addAttributeButtonOnClick:" target="-2" id="bei-V0-LFH"/>
-                            </connections>
-                        </button>
-                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w2N-1H-eui">
-                            <rect key="frame" x="29" y="0.0" width="30" height="30"/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="MBv-Al-Blm">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="removeAttributeOnClick:" target="-2" id="3yQ-3B-h3M"/>
-                            </connections>
-                        </button>
-                    </subviews>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CLC-uE-aYL">
+                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="Czf-ch-J1k"/>
+                        <constraint firstAttribute="height" constant="30" id="Ue5-8M-xgK"/>
+                        <constraint firstAttribute="width" constant="30" id="sBC-al-cUt"/>
                     </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                            <integer key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" red="0.62352941179999999" green="0.62352941179999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </customView>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="c3N-Pk-L3t">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="addAttributeButtonOnClick:" target="-2" id="bei-V0-LFH"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w2N-1H-eui">
+                    <rect key="frame" x="30" y="0.0" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="4CW-5f-4jb"/>
+                    </constraints>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="MBv-Al-Blm">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="removeAttributeOnClick:" target="-2" id="3yQ-3B-h3M"/>
+                    </connections>
+                </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cNE-RX-9bd">
                     <rect key="frame" x="-2" y="173" width="404" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Attributes" id="lHD-r3-Cph">
@@ -153,15 +144,17 @@
                 </scrollView>
             </subviews>
             <constraints>
+                <constraint firstItem="w2N-1H-eui" firstAttribute="leading" secondItem="YdE-MN-aNx" secondAttribute="leading" constant="30" id="032-HA-MEU"/>
                 <constraint firstItem="cNE-RX-9bd" firstAttribute="leading" secondItem="YdE-MN-aNx" secondAttribute="leading" id="3S1-1N-I8A"/>
+                <constraint firstAttribute="bottom" secondItem="keN-rt-PXW" secondAttribute="bottom" constant="29" id="4mY-Eg-sVc"/>
                 <constraint firstItem="keN-rt-PXW" firstAttribute="leading" secondItem="YdE-MN-aNx" secondAttribute="leading" id="65l-EO-1e7"/>
-                <constraint firstItem="qzU-B3-mob" firstAttribute="top" secondItem="keN-rt-PXW" secondAttribute="bottom" constant="-1" id="8jM-zg-yAz"/>
+                <constraint firstItem="CLC-uE-aYL" firstAttribute="leading" secondItem="keN-rt-PXW" secondAttribute="leading" id="BDH-mS-MFn"/>
                 <constraint firstItem="keN-rt-PXW" firstAttribute="top" secondItem="cNE-RX-9bd" secondAttribute="bottom" constant="8" symbolic="YES" id="NLV-eg-d9i"/>
-                <constraint firstItem="qzU-B3-mob" firstAttribute="leading" secondItem="YdE-MN-aNx" secondAttribute="leading" id="VSj-jq-4Eu"/>
-                <constraint firstAttribute="bottom" secondItem="qzU-B3-mob" secondAttribute="bottom" id="YAL-VI-8LI"/>
                 <constraint firstAttribute="trailing" secondItem="keN-rt-PXW" secondAttribute="trailing" id="ZtY-ec-06R"/>
+                <constraint firstItem="w2N-1H-eui" firstAttribute="bottom" secondItem="CLC-uE-aYL" secondAttribute="bottom" id="aSd-L8-9r4"/>
                 <constraint firstItem="cNE-RX-9bd" firstAttribute="centerX" secondItem="keN-rt-PXW" secondAttribute="centerX" id="aYE-ve-LMr"/>
-                <constraint firstAttribute="trailing" secondItem="qzU-B3-mob" secondAttribute="trailing" id="e0v-ix-cCj"/>
+                <constraint firstItem="w2N-1H-eui" firstAttribute="top" secondItem="CLC-uE-aYL" secondAttribute="top" id="nCq-dF-4ez"/>
+                <constraint firstAttribute="bottom" secondItem="w2N-1H-eui" secondAttribute="bottom" id="oPm-kA-ck3"/>
                 <constraint firstItem="keN-rt-PXW" firstAttribute="top" secondItem="YdE-MN-aNx" secondAttribute="top" constant="35" id="y23-In-a6f"/>
             </constraints>
             <point key="canvasLocation" x="46" y="191"/>
