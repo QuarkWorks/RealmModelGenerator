@@ -75,6 +75,10 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         return self.selectedEntity!.attributes[index].name
     }
     
+    func attributesView(attributesView: AttributesView, typeForAttributeAtIndex index: Int) -> AttributeType {
+        return self.selectedEntity!.attributes[index].type
+    }
+    
     //MAKR: - AttributesViewDelegate
     func addAttributeInAttributesView(attributesView: AttributesView) {
         if self.selectedEntity != nil {
@@ -115,5 +119,9 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
             return false
         }
         return true
+    }
+    
+    func attributesView(attributesView: AttributesView, atIndex index: Int, changeAttributeType attributeType: AttributeType) {
+        self.selectedEntity!.attributes[index].setType(attributeType)
     }
 }

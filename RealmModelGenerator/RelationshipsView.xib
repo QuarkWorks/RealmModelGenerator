@@ -5,103 +5,100 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="AttributesView" customModule="RealmModelGenerator" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="RelationshipsView" customModule="RealmModelGenerator" customModuleProvider="target">
             <connections>
-                <outlet property="addButton" destination="CLC-uE-aYL" id="z3c-0n-cBV"/>
-                <outlet property="removeButton" destination="w2N-1H-eui" id="UYb-eW-P21"/>
-                <outlet property="tableView" destination="53D-9T-IlF" id="YjI-YO-mKd"/>
+                <outlet property="addButton" destination="Qu4-CR-yDS" id="0am-WI-6sD"/>
+                <outlet property="removeButton" destination="MA3-R5-A4Z" id="z3C-m6-pv5"/>
+                <outlet property="tableView" destination="lNB-g1-Tiv" id="58D-Cq-OmI"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="YdE-MN-aNx">
+        <customView id="M49-0X-eva">
             <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CLC-uE-aYL">
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qu4-CR-yDS">
                     <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="Ue5-8M-xgK"/>
-                        <constraint firstAttribute="width" constant="30" id="sBC-al-cUt"/>
+                        <constraint firstAttribute="height" constant="30" id="1I0-zi-WOL"/>
+                        <constraint firstAttribute="width" constant="30" id="Eyf-e3-6G5"/>
                     </constraints>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="c3N-Pk-L3t">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="rxz-Op-pQ5">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="addAttributeButtonOnClick:" target="-2" id="bei-V0-LFH"/>
+                        <action selector="addRelationshipOnClick:" target="-2" id="fNx-xN-NG2"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w2N-1H-eui">
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MA3-R5-A4Z">
                     <rect key="frame" x="30" y="0.0" width="30" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="30" id="4CW-5f-4jb"/>
+                        <constraint firstAttribute="width" constant="30" id="LQN-Rg-M0s"/>
                     </constraints>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="MBv-Al-Blm">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="ci2-oO-Loe">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="removeAttributeOnClick:" target="-2" id="3yQ-3B-h3M"/>
+                        <action selector="removeRelationshipOnClick:" target="-2" id="qAq-ee-S0j"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cNE-RX-9bd">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g3j-VN-eE3">
                     <rect key="frame" x="-2" y="173" width="404" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Attributes" id="lHD-r3-Cph">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Relationshps" id="Dyh-kC-wy6">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="30" horizontalPageScroll="10" verticalLineScroll="30" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="keN-rt-PXW">
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="30" horizontalPageScroll="10" verticalLineScroll="30" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9S-t2-oc8">
                     <rect key="frame" x="0.0" y="29" width="400" height="136"/>
-                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="HeN-Ey-l8P">
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="03N-TJ-Hed">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="136"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" headerView="aMb-H8-kVg" viewBased="YES" floatsGroupRows="NO" id="53D-9T-IlF">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" headerView="xX4-yD-Dk9" viewBased="YES" floatsGroupRows="NO" id="lNB-g1-Tiv">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="113"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="attribute" width="150" minWidth="40" maxWidth="1000" id="ywV-LJ-dE8" userLabel="attribute">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Attribute">
+                                    <tableColumn identifier="relationship" width="150" minWidth="40" maxWidth="1000" id="tmm-lp-8v8" userLabel="attribute">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Relationship">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
-                                        <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="e4o-jf-wyH">
-                                            <font key="font" metaFont="smallSystem"/>
+                                        <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="NOE-Ri-Djy">
+                                            <font key="font" size="11" name="Menlo-Regular"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="key"/>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <customView identifier="TitleCell" id="OqF-0o-Sm0" customClass="TitleCell" customModule="RealmModelGenerator" customModuleProvider="target">
+                                            <customView identifier="TitleCell" id="51M-Fj-uU6" customClass="TitleCell" customModule="RealmModelGenerator" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="28"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="letterColor">
-                                                        <color key="value" red="0.57647058823529407" green="0.38431372549019605" blue="0.33725490196078434" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="value" red="0.57647058819999997" green="0.38431372549999998" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Attribute"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Relationship"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="letter" value="A"/>
                                                 </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <outlet property="ibDelegate" destination="-2" id="2Gk-C9-Lgh"/>
-                                                </connections>
                                             </customView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="type" width="250" minWidth="10" maxWidth="3.4028234663852886e+38" id="dLF-QK-hlL">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
+                                    <tableColumn identifier="destination" width="250" minWidth="10" maxWidth="3.4028234663852886e+38" id="U1Q-mU-Ksr">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Destination">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
-                                        <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="h2j-t8-XS3">
+                                        <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="DkI-s4-CaK">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -109,7 +106,7 @@
                                         <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="key"/>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <customView identifier="PopUpCell" id="rAL-ex-Tf7" customClass="PopUpCell" customModule="RealmModelGenerator" customModuleProvider="target">
+                                            <customView identifier="PopUpCell" id="AUY-SJ-DC2" customClass="PopUpCell" customModule="RealmModelGenerator" customModuleProvider="target">
                                                 <rect key="frame" x="150" y="0.0" width="250" height="28"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <userDefinedRuntimeAttributes>
@@ -122,42 +119,42 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <outlet property="dataSource" destination="-2" id="4s9-GA-yPu"/>
-                                    <outlet property="delegate" destination="-2" id="xK7-cA-lxv"/>
+                                    <outlet property="dataSource" destination="-2" id="daG-m5-hG8"/>
+                                    <outlet property="delegate" destination="-2" id="8uf-km-7QW"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="qAk-32-cv0">
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="NHf-IG-4Ee">
                         <rect key="frame" x="0.0" y="121" width="400" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="6L6-Ld-ZtP">
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Cab-9N-Xph">
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <tableHeaderView key="headerView" id="aMb-H8-kVg">
+                    <tableHeaderView key="headerView" id="xX4-yD-Dk9">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="23"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
             </subviews>
             <constraints>
-                <constraint firstItem="w2N-1H-eui" firstAttribute="leading" secondItem="YdE-MN-aNx" secondAttribute="leading" constant="30" id="032-HA-MEU"/>
-                <constraint firstItem="cNE-RX-9bd" firstAttribute="leading" secondItem="YdE-MN-aNx" secondAttribute="leading" id="3S1-1N-I8A"/>
-                <constraint firstAttribute="bottom" secondItem="keN-rt-PXW" secondAttribute="bottom" constant="29" id="4mY-Eg-sVc"/>
-                <constraint firstItem="keN-rt-PXW" firstAttribute="leading" secondItem="YdE-MN-aNx" secondAttribute="leading" id="65l-EO-1e7"/>
-                <constraint firstItem="CLC-uE-aYL" firstAttribute="leading" secondItem="keN-rt-PXW" secondAttribute="leading" id="BDH-mS-MFn"/>
-                <constraint firstItem="keN-rt-PXW" firstAttribute="top" secondItem="cNE-RX-9bd" secondAttribute="bottom" constant="8" symbolic="YES" id="NLV-eg-d9i"/>
-                <constraint firstAttribute="trailing" secondItem="keN-rt-PXW" secondAttribute="trailing" id="ZtY-ec-06R"/>
-                <constraint firstItem="w2N-1H-eui" firstAttribute="bottom" secondItem="CLC-uE-aYL" secondAttribute="bottom" id="aSd-L8-9r4"/>
-                <constraint firstItem="cNE-RX-9bd" firstAttribute="centerX" secondItem="keN-rt-PXW" secondAttribute="centerX" id="aYE-ve-LMr"/>
-                <constraint firstItem="w2N-1H-eui" firstAttribute="top" secondItem="CLC-uE-aYL" secondAttribute="top" id="nCq-dF-4ez"/>
-                <constraint firstAttribute="bottom" secondItem="w2N-1H-eui" secondAttribute="bottom" id="oPm-kA-ck3"/>
-                <constraint firstItem="keN-rt-PXW" firstAttribute="top" secondItem="YdE-MN-aNx" secondAttribute="top" constant="35" id="y23-In-a6f"/>
+                <constraint firstItem="Qu4-CR-yDS" firstAttribute="top" secondItem="MA3-R5-A4Z" secondAttribute="top" id="6kT-kZ-uc8"/>
+                <constraint firstItem="g3j-VN-eE3" firstAttribute="centerX" secondItem="N9S-t2-oc8" secondAttribute="centerX" id="7iQ-EX-nlR"/>
+                <constraint firstAttribute="bottom" secondItem="N9S-t2-oc8" secondAttribute="bottom" constant="29" id="8sN-pC-YAE"/>
+                <constraint firstItem="N9S-t2-oc8" firstAttribute="leading" secondItem="Qu4-CR-yDS" secondAttribute="leading" id="DqZ-Fg-iLa"/>
+                <constraint firstItem="N9S-t2-oc8" firstAttribute="leading" secondItem="M49-0X-eva" secondAttribute="leading" id="Fy8-Ij-KDS"/>
+                <constraint firstItem="N9S-t2-oc8" firstAttribute="top" secondItem="M49-0X-eva" secondAttribute="top" constant="35" id="KWl-dE-vwV"/>
+                <constraint firstItem="N9S-t2-oc8" firstAttribute="top" secondItem="g3j-VN-eE3" secondAttribute="bottom" constant="8" symbolic="YES" id="NL7-sr-z9u"/>
+                <constraint firstItem="MA3-R5-A4Z" firstAttribute="bottom" secondItem="Qu4-CR-yDS" secondAttribute="bottom" id="RZO-zt-FEO"/>
+                <constraint firstAttribute="trailing" secondItem="N9S-t2-oc8" secondAttribute="trailing" id="Sfw-Sm-fDq"/>
+                <constraint firstAttribute="bottom" secondItem="MA3-R5-A4Z" secondAttribute="bottom" id="bKd-2j-gmd"/>
+                <constraint firstItem="MA3-R5-A4Z" firstAttribute="leading" secondItem="M49-0X-eva" secondAttribute="leading" constant="30" id="cDt-T3-dNV"/>
+                <constraint firstItem="g3j-VN-eE3" firstAttribute="leading" secondItem="M49-0X-eva" secondAttribute="leading" id="mow-WM-qKC"/>
             </constraints>
-            <point key="canvasLocation" x="46" y="191"/>
+            <point key="canvasLocation" x="67" y="186"/>
         </customView>
     </objects>
     <resources>

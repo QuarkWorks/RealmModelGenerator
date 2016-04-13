@@ -18,12 +18,16 @@
 		3A2F97641CAB4305000AE584 /* AttributeDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A2F97621CAB4305000AE584 /* AttributeDetailView.xib */; };
 		3A2F97661CAB455A000AE584 /* AttributeDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F97651CAB455A000AE584 /* AttributeDetailVC.swift */; };
 		3A321FF01CA0CC4E00FCEF48 /* EntitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A321FEF1CA0CC4E00FCEF48 /* EntitiesVC.swift */; };
+		3A36CB9E1CB7341A0000EDFA /* PopUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A36CB9C1CB7341A0000EDFA /* PopUpCell.swift */; };
+		3A36CB9F1CB7341A0000EDFA /* PopUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A36CB9D1CB7341A0000EDFA /* PopUpCell.xib */; };
 		3A5A167F1CADAAEA00E5B9ED /* AttributesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A167E1CADAAEA00E5B9ED /* AttributesVC.swift */; };
 		3A5A16811CADAB1600E5B9ED /* AttributesRelationshipsMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16801CADAB1600E5B9ED /* AttributesRelationshipsMainVC.swift */; };
 		3A5A16831CADAB5400E5B9ED /* RelationshipsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16821CADAB5400E5B9ED /* RelationshipsVC.swift */; };
 		3A5A16861CAE1FD600E5B9ED /* ExportFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16851CAE1FD600E5B9ED /* ExportFiles.swift */; };
 		3A5A16881CAE23C400E5B9ED /* DetailType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A16871CAE23C400E5B9ED /* DetailType.swift */; };
 		3A5A168C1CAE2D0600E5B9ED /* DetailsMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A168B1CAE2D0600E5B9ED /* DetailsMainVC.swift */; };
+		3A635A421CBD9EFF00BB0278 /* RelationshipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A635A401CBD9EFF00BB0278 /* RelationshipsView.swift */; };
+		3A635A431CBD9EFF00BB0278 /* RelationshipsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A635A411CBD9EFF00BB0278 /* RelationshipsView.xib */; };
 		3A76FF121C8E0AD00036362D /* SwiftContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */; };
 		3A7E774F1C97744400408325 /* BaseContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E774E1C97744400408325 /* BaseContentGenerator.swift */; };
 		3A96DEDE1CB46DB6000BBEF6 /* Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96DEDD1CB46DB6000BBEF6 /* Observers.swift */; };
@@ -86,12 +90,16 @@
 		3A2F97621CAB4305000AE584 /* AttributeDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttributeDetailView.xib; sourceTree = "<group>"; };
 		3A2F97651CAB455A000AE584 /* AttributeDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeDetailVC.swift; sourceTree = "<group>"; };
 		3A321FEF1CA0CC4E00FCEF48 /* EntitiesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntitiesVC.swift; sourceTree = "<group>"; };
+		3A36CB9C1CB7341A0000EDFA /* PopUpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpCell.swift; sourceTree = "<group>"; };
+		3A36CB9D1CB7341A0000EDFA /* PopUpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopUpCell.xib; sourceTree = "<group>"; };
 		3A5A167E1CADAAEA00E5B9ED /* AttributesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributesVC.swift; sourceTree = "<group>"; };
 		3A5A16801CADAB1600E5B9ED /* AttributesRelationshipsMainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributesRelationshipsMainVC.swift; sourceTree = "<group>"; };
 		3A5A16821CADAB5400E5B9ED /* RelationshipsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipsVC.swift; sourceTree = "<group>"; };
 		3A5A16851CAE1FD600E5B9ED /* ExportFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportFiles.swift; sourceTree = "<group>"; };
 		3A5A16871CAE23C400E5B9ED /* DetailType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailType.swift; sourceTree = "<group>"; };
 		3A5A168B1CAE2D0600E5B9ED /* DetailsMainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsMainVC.swift; sourceTree = "<group>"; };
+		3A635A401CBD9EFF00BB0278 /* RelationshipsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipsView.swift; sourceTree = "<group>"; };
+		3A635A411CBD9EFF00BB0278 /* RelationshipsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RelationshipsView.xib; sourceTree = "<group>"; };
 		3A76FF111C8E0AD00036362D /* SwiftContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftContentGenerator.swift; sourceTree = "<group>"; };
 		3A7E774E1C97744400408325 /* BaseContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseContentGenerator.swift; sourceTree = "<group>"; };
 		3A96DEDD1CB46DB6000BBEF6 /* Observers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observers.swift; sourceTree = "<group>"; };
@@ -187,15 +195,28 @@
 			name = AttributesRelationships;
 			sourceTree = "<group>";
 		};
+		3A635A3F1CBD724500BB0278 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				773D25841C9F3123009814A0 /* TitleCell.swift */,
+				773D25851C9F3123009814A0 /* TitleCell.xib */,
+				773D25831C9F3123009814A0 /* NibDesignable.swift */,
+				77D827801C9FA9E100E22CEE /* ViewTools.swift */,
+				3A36CB9C1CB7341A0000EDFA /* PopUpCell.swift */,
+				3A36CB9D1CB7341A0000EDFA /* PopUpCell.xib */,
+			);
+			name = base;
+			sourceTree = "<group>";
+		};
 		3A6DDC4A1CACA0D6007C6825 /* DetailViews */ = {
 			isa = PBXGroup;
 			children = (
 				3A2F96FA1CA9DEAA000AE584 /* EntityDetailView.swift */,
 				3A2F96FB1CA9DEAA000AE584 /* EntityDetailView.xib */,
-				3A2F975B1CAB37D7000AE584 /* RelationshipDetailView.swift */,
-				3A2F975C1CAB37D7000AE584 /* RelationshipDetailView.xib */,
 				3A2F97611CAB4305000AE584 /* AttributeDetailView.swift */,
 				3A2F97621CAB4305000AE584 /* AttributeDetailView.xib */,
+				3A2F975B1CAB37D7000AE584 /* RelationshipDetailView.swift */,
+				3A2F975C1CAB37D7000AE584 /* RelationshipDetailView.xib */,
 			);
 			name = DetailViews;
 			sourceTree = "<group>";
@@ -206,7 +227,6 @@
 				7798B0D61C87C32900A7F965 /* MainVC.swift */,
 				3A321FEF1CA0CC4E00FCEF48 /* EntitiesVC.swift */,
 				3A5A16841CADAB7100E5B9ED /* AttributesRelationships */,
-				3A2F97001CA9DF7F000AE584 /* Details */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -230,14 +250,14 @@
 		773D25821C9F310E009814A0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				773D25841C9F3123009814A0 /* TitleCell.swift */,
-				773D25851C9F3123009814A0 /* TitleCell.xib */,
-				773D25831C9F3123009814A0 /* NibDesignable.swift */,
-				77D827801C9FA9E100E22CEE /* ViewTools.swift */,
+				3A635A3F1CBD724500BB0278 /* base */,
 				77D8277C1C9F8DD500E22CEE /* EntitiesView.swift */,
 				77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */,
 				3AA5635B1CACFE8D00A5B648 /* AttributesView.swift */,
 				3AA5635C1CACFE8D00A5B648 /* AttributesView.xib */,
+				3A635A401CBD9EFF00BB0278 /* RelationshipsView.swift */,
+				3A635A411CBD9EFF00BB0278 /* RelationshipsView.xib */,
+				3A2F97001CA9DF7F000AE584 /* Details */,
 				3A6DDC4A1CACA0D6007C6825 /* DetailViews */,
 			);
 			name = Views;
@@ -422,8 +442,10 @@
 				3A2F975E1CAB37D7000AE584 /* RelationshipDetailView.xib in Resources */,
 				3A2F97641CAB4305000AE584 /* AttributeDetailView.xib in Resources */,
 				3AA5635E1CACFE8D00A5B648 /* AttributesView.xib in Resources */,
+				3A635A431CBD9EFF00BB0278 /* RelationshipsView.xib in Resources */,
 				3A2F96FD1CA9DEAA000AE584 /* EntityDetailView.xib in Resources */,
 				773D25881C9F3123009814A0 /* TitleCell.xib in Resources */,
+				3A36CB9F1CB7341A0000EDFA /* PopUpCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +488,7 @@
 				7798B1051C87E7CE00A7F965 /* Attribute.swift in Sources */,
 				3A5A16861CAE1FD600E5B9ED /* ExportFiles.swift in Sources */,
 				7798B1091C87FBE800A7F965 /* Relationship.swift in Sources */,
+				3A635A421CBD9EFF00BB0278 /* RelationshipsView.swift in Sources */,
 				3A7E774F1C97744400408325 /* BaseContentGenerator.swift in Sources */,
 				7798B1031C87CDA600A7F965 /* Entity.swift in Sources */,
 				7798B1011C87C63B00A7F965 /* Model.swift in Sources */,
@@ -485,6 +508,7 @@
 				3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */,
 				3A2F97601CAB3AEB000AE584 /* RelationshipDetailVC.swift in Sources */,
 				3ABD35E01C975E2D00A5C883 /* RealmSchemaDocument.swift in Sources */,
+				3A36CB9E1CB7341A0000EDFA /* PopUpCell.swift in Sources */,
 				7798B0D51C87C32900A7F965 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

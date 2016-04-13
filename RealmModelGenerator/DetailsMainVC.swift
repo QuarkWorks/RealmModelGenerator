@@ -17,6 +17,7 @@ class DetailsMainVC: NSViewController {
     
     @IBOutlet weak var detailsContainerView: NSView!
     @IBOutlet weak var emptyTextField: NSTextField!
+    var isAttributeSelected = false
     
     weak var selectedEntity:Entity? {
         didSet {
@@ -30,6 +31,7 @@ class DetailsMainVC: NSViewController {
     weak var selectedAttribute: Attribute? {
         didSet {
             if self.selectedAttribute === oldValue { return }
+            self.isAttributeSelected = true
             self.invalidateViews()
         }
     }
@@ -37,13 +39,14 @@ class DetailsMainVC: NSViewController {
     weak var selectedRelationship: Relationship? {
         didSet {
             if self.selectedRelationship === oldValue { return }
+            self.isAttributeSelected = false
             self.invalidateViews()
         }
     }
     
     var detailType: DetailType {
         if selectedEntity != nil {
-            if selectedAttribute != nil {
+            if selectedAttribute != nil && (self.isAttributeSelected || selectedRelationship == nil) {
                 return .Attribute
             }
             if selectedRelationship != nil {

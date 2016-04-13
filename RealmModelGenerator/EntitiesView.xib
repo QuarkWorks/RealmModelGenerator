@@ -18,6 +18,20 @@
             <rect key="frame" x="0.0" y="0.0" width="260" height="351"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xzm-mU-UMd">
+                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="Kqn-a2-Fsr"/>
+                        <constraint firstAttribute="height" constant="30" id="fJk-YP-epN"/>
+                    </constraints>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="h0z-hF-EHX">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="addButtonOnClick:" target="-2" id="SjN-o8-3nr"/>
+                    </connections>
+                </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TSS-KQ-ebZ">
                     <rect key="frame" x="6" y="324" width="248" height="19"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Entities" id="fVo-mV-pHZ">
@@ -26,46 +40,10 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="PYy-vs-mdu" userLabel="Controls">
-                    <rect key="frame" x="0.0" y="0.0" width="260" height="30"/>
-                    <subviews>
-                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xzm-mU-UMd">
-                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="h0z-hF-EHX">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="addButtonOnClick:" target="-2" id="SjN-o8-3nr"/>
-                            </connections>
-                        </button>
-                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JgL-H7-y5y">
-                            <rect key="frame" x="29" y="0.0" width="30" height="30"/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="glk-vR-4Y7">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="removeButtonOnClick:" target="-2" id="SlD-Oa-Q2f"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="30" id="RrW-ei-6wj"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                            <integer key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" red="0.62352941176470589" green="0.62352941176470589" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </customView>
                 <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cf1-q4-9Wx">
                     <rect key="frame" x="0.0" y="30" width="260" height="286"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="l2V-4a-1QL">
-                        <rect key="frame" x="0.5" y="0.0" width="260" height="286"/>
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="286"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" viewBased="YES" floatsGroupRows="NO" id="ITD-bR-0y2">
@@ -89,7 +67,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <customView identifier="TitleCell" id="LLX-Y0-NYF" customClass="TitleCell" customModule="RealmModelGenerator" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="257" height="32"/>
+                                                <rect key="frame" x="1" y="1" width="257" height="28"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="letterColor">
@@ -122,18 +100,33 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JgL-H7-y5y">
+                    <rect key="frame" x="30" y="0.0" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="guG-gX-Uwa"/>
+                    </constraints>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" id="glk-vR-4Y7">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="removeButtonOnClick:" target="-2" id="SlD-Oa-Q2f"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="cf1-q4-9Wx" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="1fx-ql-RYu"/>
-                <constraint firstAttribute="bottom" secondItem="PYy-vs-mdu" secondAttribute="bottom" id="DUH-Oz-8en"/>
                 <constraint firstItem="TSS-KQ-ebZ" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="8" id="EEv-GN-zbl"/>
-                <constraint firstAttribute="trailing" secondItem="PYy-vs-mdu" secondAttribute="trailing" id="Egf-HU-Rex"/>
-                <constraint firstItem="PYy-vs-mdu" firstAttribute="top" secondItem="cf1-q4-9Wx" secondAttribute="bottom" id="UVh-Kp-F97"/>
+                <constraint firstItem="Xzm-mU-UMd" firstAttribute="top" secondItem="JgL-H7-y5y" secondAttribute="top" id="PNS-hL-cHW"/>
+                <constraint firstItem="JgL-H7-y5y" firstAttribute="top" secondItem="cf1-q4-9Wx" secondAttribute="bottom" id="Why-qy-vw3"/>
                 <constraint firstAttribute="trailing" secondItem="cf1-q4-9Wx" secondAttribute="trailing" id="Xr5-M8-Dzo"/>
+                <constraint firstAttribute="bottom" secondItem="Xzm-mU-UMd" secondAttribute="bottom" id="al1-9P-hGz"/>
                 <constraint firstItem="cf1-q4-9Wx" firstAttribute="top" secondItem="TSS-KQ-ebZ" secondAttribute="bottom" constant="8" id="fYu-Bp-2pH"/>
-                <constraint firstItem="PYy-vs-mdu" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="jWD-6i-3Sy"/>
+                <constraint firstItem="Xzm-mU-UMd" firstAttribute="bottom" secondItem="JgL-H7-y5y" secondAttribute="bottom" id="iX4-kg-ccg"/>
+                <constraint firstItem="cf1-q4-9Wx" firstAttribute="leading" secondItem="Xzm-mU-UMd" secondAttribute="leading" id="moX-oh-eRH"/>
                 <constraint firstAttribute="trailing" secondItem="TSS-KQ-ebZ" secondAttribute="trailing" constant="8" id="s6g-MX-gDC"/>
                 <constraint firstItem="TSS-KQ-ebZ" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="8" id="tSN-vO-8zx"/>
+                <constraint firstItem="JgL-H7-y5y" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="30" id="vKQ-Va-mEd"/>
             </constraints>
             <point key="canvasLocation" x="204" y="222.5"/>
         </customView>

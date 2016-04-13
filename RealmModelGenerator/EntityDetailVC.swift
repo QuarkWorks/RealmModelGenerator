@@ -24,6 +24,9 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
         }
     }
     
+    var entityNameList:[String] = ["None"]
+    
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -31,15 +34,21 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
     func invalidateViews() {
         if !self.viewLoaded || entity == nil { return }
         entityDetailView.name = entity!.name
-        //TODO: Add super class
+        entityNameList = ["None"]
+        self.entity?.model.entities.forEach{ (e) in entityNameList.append(e.name) }
+        entityNameList.removeAtIndex(entityNameList.indexOf(self.entity!.name)!)
+        entityDetailView.superClassNames = entityNameList
+        if let superEntity = self.entity?.superEntity {
+            entityDetailView.selectedItemIndex = entityNameList.indexOf(superEntity.name)!
+        }
     }
     
-    //MARK: Observer
+    //MARK: - Observer
     func onChange(observable: Observable) {
         self.invalidateViews()
     }
     
-    //MARK - EntityDetailView delegate
+    //MARK: - EntityDetailView delegate
     func entityDetailView(entityDetailView: EntityDetailView, shouldChangeEntityName name: String) -> Bool {
         do {
             try self.entity!.setName(name)
@@ -49,5 +58,9 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
             
         }
         return true
+    }
+    
+    func entityDetailView(entityDetailView: EntityDetailView, selectedSuperClassDidChange superEntity: String) {
+        self.entity?.superEntity = self.entity?.model.entities.filter({$0.name == superEntity}).first
     }
 }
