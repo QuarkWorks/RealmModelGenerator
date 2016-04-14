@@ -28,12 +28,21 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
             oldValue?.observable.removeObserver(self)
             self.selectedEntity?.observable.addObserver(self)
             selectedAttribute = nil
+            if let entity = self.selectedEntity {
+                self.attributes = entity.attributes
+            } else {
+                self.attributes = []
+            }
             self.invalidateViews()
         }
     }
     
+    private var attributes:[Attribute] = []
+    weak var previousSelectedAttribute: Attribute?
+    
     private weak var selectedAttribute: Attribute? {
         didSet {
+             previousSelectedAttribute = oldValue
             if oldValue === self.selectedAttribute { return }
             invalidateSelectedIndex()
             self.delegate?.attributesVC(self, selectedAttributeDidChange: self.selectedAttribute)
@@ -42,22 +51,38 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
 
     weak var delegate:AttributesVCDelegate?
     
+    private var acending:Bool = true {
+        didSet{
+            self.invalidateViews()
+        }
+    }
+    
+    private var isSortByType = false {
+        didSet{
+            self.invalidateViews()
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     func onChange(observable: Observable) {
+        if self.selectedEntity?.attributes.count != attributes.count {
+            attributes = (self.selectedEntity?.attributes)!
+        }
         self.invalidateViews()
     }
     
     func invalidateViews() {
         if !self.viewLoaded { return }
+        updateItemsOrder()
         self.attributesView.reloadData()
         invalidateSelectedIndex()
     }
     
     func invalidateSelectedIndex() {
-        self.attributesView.selectedIndex = self.selectedEntity?.attributes.indexOf({$0 === self.selectedAttribute})
+        self.attributesView.selectedIndex = self.attributes.indexOf({$0 === self.selectedAttribute})
     }
     
     //MARK: - Update selected attribute after its detail changed
@@ -66,36 +91,55 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         invalidateViews()
     }
     
+    func updateItemsOrder() {
+        if selectedEntity == nil { return }
+        if acending {
+            if isSortByType {
+                attributes = self.selectedEntity!.attributes.sort{ return $0.type.rawValue < $1.type.rawValue }
+            } else {
+                attributes = self.selectedEntity!.attributes.sort{ return $0.name < $1.name }
+            }
+        } else {
+            if isSortByType {
+                attributes = self.selectedEntity!.attributes.sort{ return $0.type.rawValue > $1.type.rawValue }
+            } else {
+                attributes = self.selectedEntity!.attributes.sort{ return $0.name > $1.name }
+            }
+        }
+    }
+    
     //MARK: - AttributesViewDataSource
     func numberOfRowsInAttributesView(attributesView: AttributesView) -> Int {
-        return self.selectedEntity == nil ? 0 : self.selectedEntity!.attributes.count
+        return self.selectedEntity == nil ? 0 : self.attributes.count
     }
     
     func attributesView(attributesView: AttributesView, titleForAttributeAtIndex index: Int) -> String {
-        return self.selectedEntity!.attributes[index].name
+        return self.attributes[index].name
     }
     
     func attributesView(attributesView: AttributesView, typeForAttributeAtIndex index: Int) -> AttributeType {
-        return self.selectedEntity!.attributes[index].type
+        return self.attributes[index].type
     }
     
     //MAKR: - AttributesViewDelegate
     func addAttributeInAttributesView(attributesView: AttributesView) {
         if self.selectedEntity != nil {
             let attribute = self.selectedEntity!.createAttribute()
-            self.selectedAttribute = attribute
+            //TODO: any better way to handle selectedAttribute?
+            self.attributes.append(attribute)
+            self.selectedAttribute = self.attributes.last
         }
     }
     
     func attributesView(attributesView: AttributesView, removeAttributeAtIndex index: Int) {
-        let attribute = self.selectedEntity!.attributes[index]
+        let attribute = self.attributes[index]
         if attribute === self.selectedAttribute {
-            if self.selectedEntity!.attributes.count <= 1 {
+            if self.attributes.count <= 1 {
                 self.selectedAttribute = nil
             } else if index == self.selectedEntity!.attributes.count - 1 {
-                self.selectedAttribute = self.selectedEntity!.attributes[index - 1]
+                self.selectedAttribute = self.attributes[index - 1]
             } else {
-                self.selectedAttribute = self.selectedEntity!.attributes[index + 1]
+                self.selectedAttribute = self.attributes[index + 1]
             }
         }
         
@@ -104,14 +148,14 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     
     func attributesView(attributesView: AttributesView, selectedIndexDidChange index: Int?) {
         if let index = index {
-            self.selectedAttribute = self.selectedEntity!.attributes[index]
+            self.selectedAttribute = self.attributes[index]
         } else {
             self.selectedAttribute = nil
         }
     }
     
     func attributesView(attributesView: AttributesView, shouldChangeAttributeName name: String, atIndex index: Int) -> Bool {
-        let attribute = selectedEntity!.attributes[index]
+        let attribute = self.attributes[index]
         do {
             try attribute.setName(name)
         } catch {
@@ -122,11 +166,14 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     }
     
     func attributesView(attributesView: AttributesView, atIndex index: Int, changeAttributeType attributeType: AttributeType) {
-        self.selectedEntity!.attributes[index].setType(attributeType)
+        self.attributes[index].setType(attributeType)
     }
     
     func attributesView(attributesView: AttributesView, sortByColumnName name: String, ascending: Bool) {
-        //TODO: Sort attribute or type
-//        self.selectedEntity?.attributes.sort{ return $0.name > $1.name }.forEach({(a) in print(a.name)})
+        if previousSelectedAttribute != nil {
+            self.selectedAttribute = previousSelectedAttribute
+        }
+        self.acending = ascending
+        self.isSortByType = name == AttributesView.TYPE_COLUMN ? true : false
     }
 }
