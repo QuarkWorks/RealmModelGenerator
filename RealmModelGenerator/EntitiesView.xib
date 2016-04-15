@@ -19,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xzm-mU-UMd">
-                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                    <rect key="frame" x="8" y="0.0" width="30" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="30" id="Kqn-a2-Fsr"/>
                         <constraint firstAttribute="height" constant="30" id="fJk-YP-epN"/>
@@ -40,20 +40,19 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cf1-q4-9Wx">
-                    <rect key="frame" x="0.0" y="30" width="260" height="286"/>
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="30" horizontalPageScroll="10" verticalLineScroll="30" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cf1-q4-9Wx">
+                    <rect key="frame" x="8" y="30" width="244" height="286"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="l2V-4a-1QL">
-                        <rect key="frame" x="0.0" y="0.0" width="260" height="286"/>
+                        <rect key="frame" x="0.0" y="0.0" width="244" height="286"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" viewBased="YES" floatsGroupRows="NO" id="ITD-bR-0y2">
-                                <rect key="frame" x="0.0" y="0.0" width="260" height="0.0"/>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" viewBased="YES" floatsGroupRows="NO" id="ITD-bR-0y2">
+                                <rect key="frame" x="0.0" y="0.0" width="244" height="286"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn width="257" minWidth="40" maxWidth="1000" id="XbA-49-V5S">
+                                    <tableColumn width="241" minWidth="40" maxWidth="1000" id="XbA-49-V5S">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Entities">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -67,7 +66,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <customView identifier="TitleCell" id="LLX-Y0-NYF" customClass="TitleCell" customModule="RealmModelGenerator" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="257" height="28"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="241" height="28"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="letterColor">
@@ -115,11 +114,11 @@
                 </button>
             </subviews>
             <constraints>
-                <constraint firstItem="cf1-q4-9Wx" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="1fx-ql-RYu"/>
+                <constraint firstItem="cf1-q4-9Wx" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="8" id="1fx-ql-RYu"/>
                 <constraint firstItem="TSS-KQ-ebZ" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="8" id="EEv-GN-zbl"/>
                 <constraint firstItem="Xzm-mU-UMd" firstAttribute="top" secondItem="JgL-H7-y5y" secondAttribute="top" id="PNS-hL-cHW"/>
                 <constraint firstItem="JgL-H7-y5y" firstAttribute="top" secondItem="cf1-q4-9Wx" secondAttribute="bottom" id="Why-qy-vw3"/>
-                <constraint firstAttribute="trailing" secondItem="cf1-q4-9Wx" secondAttribute="trailing" id="Xr5-M8-Dzo"/>
+                <constraint firstAttribute="trailing" secondItem="cf1-q4-9Wx" secondAttribute="trailing" constant="8" id="Xr5-M8-Dzo"/>
                 <constraint firstAttribute="bottom" secondItem="Xzm-mU-UMd" secondAttribute="bottom" id="al1-9P-hGz"/>
                 <constraint firstItem="cf1-q4-9Wx" firstAttribute="top" secondItem="TSS-KQ-ebZ" secondAttribute="bottom" constant="8" id="fYu-Bp-2pH"/>
                 <constraint firstItem="Xzm-mU-UMd" firstAttribute="bottom" secondItem="JgL-H7-y5y" secondAttribute="bottom" id="iX4-kg-ccg"/>

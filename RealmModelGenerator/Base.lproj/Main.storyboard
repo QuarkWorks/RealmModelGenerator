@@ -715,22 +715,32 @@
                                 <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <containerView translatesAutoresizingMaskIntoConstraints="NO" id="dF5-QM-BwJ">
+                                    <visualEffectView appearanceType="vibrantLight" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="5uM-ha-LMe">
                                         <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
+                                        <subviews>
+                                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="dF5-QM-BwJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="250" id="90k-8A-3Yt"/>
+                                                </constraints>
+                                                <connections>
+                                                    <segue destination="4Kj-ze-ZKn" kind="embed" identifier="EntitiesViewControllerSegue" id="Qxa-hB-mkw"/>
+                                                </connections>
+                                            </containerView>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="250" id="90k-8A-3Yt"/>
+                                            <constraint firstItem="dF5-QM-BwJ" firstAttribute="leading" secondItem="5uM-ha-LMe" secondAttribute="leading" id="6pg-2E-pYl"/>
+                                            <constraint firstAttribute="width" constant="250" id="QPA-xf-ODu"/>
+                                            <constraint firstItem="dF5-QM-BwJ" firstAttribute="top" secondItem="5uM-ha-LMe" secondAttribute="top" id="lJY-lx-PwS"/>
+                                            <constraint firstAttribute="bottom" secondItem="dF5-QM-BwJ" secondAttribute="bottom" id="yNX-lQ-eOt"/>
                                         </constraints>
-                                        <connections>
-                                            <segue destination="4Kj-ze-ZKn" kind="embed" identifier="EntitiesViewControllerSegue" id="Qxa-hB-mkw"/>
-                                        </connections>
-                                    </containerView>
+                                    </visualEffectView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="dF5-QM-BwJ" firstAttribute="leading" secondItem="5bL-np-8pe" secondAttribute="leading" id="Juh-WC-yjq"/>
-                                    <constraint firstAttribute="trailing" secondItem="dF5-QM-BwJ" secondAttribute="trailing" id="NrC-qp-coh"/>
-                                    <constraint firstItem="dF5-QM-BwJ" firstAttribute="top" secondItem="5bL-np-8pe" secondAttribute="top" id="h6s-NM-FO9"/>
-                                    <constraint firstAttribute="bottom" secondItem="dF5-QM-BwJ" secondAttribute="bottom" id="pBR-cx-W9M"/>
-                                    <constraint firstItem="dF5-QM-BwJ" firstAttribute="top" secondItem="5bL-np-8pe" secondAttribute="top" id="umN-kL-pqX"/>
+                                    <constraint firstItem="5uM-ha-LMe" firstAttribute="top" secondItem="5bL-np-8pe" secondAttribute="top" id="16l-OE-1xh"/>
+                                    <constraint firstAttribute="bottom" secondItem="5uM-ha-LMe" secondAttribute="bottom" id="Nz2-8g-DyS"/>
+                                    <constraint firstItem="5uM-ha-LMe" firstAttribute="leading" secondItem="5bL-np-8pe" secondAttribute="leading" id="RHR-Ap-AeE"/>
+                                    <constraint firstAttribute="trailing" secondItem="5uM-ha-LMe" secondAttribute="trailing" id="x7k-0J-aiD"/>
                                 </constraints>
                             </customView>
                             <customView id="92j-cn-kUt">

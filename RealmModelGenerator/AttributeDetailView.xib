@@ -26,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3xQ-hn-hqv">
-                    <rect key="frame" x="6" y="514" width="240" height="17"/>
+                    <rect key="frame" x="6" y="514" width="238" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="OsD-6d-v57"/>
                     </constraints>
@@ -45,7 +45,7 @@
                     </textFieldCell>
                 </textField>
                 <textField identifier="nameTextField" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nt8-h9-QDa">
-                    <rect key="frame" x="80" y="477" width="164" height="22"/>
+                    <rect key="frame" x="80" y="477" width="162" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="attribute" drawsBackground="YES" id="1H9-1b-oPp">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -67,7 +67,7 @@
                     </connections>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OgQ-sP-c3K">
-                    <rect key="frame" x="78" y="369" width="169" height="26"/>
+                    <rect key="frame" x="78" y="369" width="167" height="26"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="Xqi-YE-djg">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="11" name=".AppleSystemUIFont"/>
@@ -180,7 +180,7 @@
                 <constraint firstItem="814-XZ-iyg" firstAttribute="leading" secondItem="goE-ZA-b9j" secondAttribute="trailing" constant="17" id="WPM-eh-idL"/>
                 <constraint firstItem="iUY-5c-XAZ" firstAttribute="leading" secondItem="isW-xR-GZI" secondAttribute="leading" id="X7u-Xw-R8z"/>
                 <constraint firstItem="iUY-5c-XAZ" firstAttribute="baseline" secondItem="l4p-Id-g72" secondAttribute="baseline" id="a51-rO-pNw"/>
-                <constraint firstAttribute="trailing" secondItem="3xQ-hn-hqv" secondAttribute="trailing" constant="6" id="cHS-Pl-aCf"/>
+                <constraint firstAttribute="trailing" secondItem="3xQ-hn-hqv" secondAttribute="trailing" constant="8" id="cHS-Pl-aCf"/>
                 <constraint firstAttribute="trailing" secondItem="iUY-5c-XAZ" secondAttribute="trailing" constant="11" id="dc1-Lz-puA"/>
                 <constraint firstItem="3xQ-hn-hqv" firstAttribute="trailing" secondItem="OgQ-sP-c3K" secondAttribute="trailing" id="f1d-aK-4Us"/>
                 <constraint firstItem="2td-2N-DxQ" firstAttribute="top" secondItem="b5o-4X-7HO" secondAttribute="bottom" constant="8" symbolic="YES" id="hWr-52-2e1"/>

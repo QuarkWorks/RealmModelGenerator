@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Cyv-Te-uvy">
-                    <rect key="frame" x="4" y="446" width="77" height="17"/>
+                    <rect key="frame" x="6" y="446" width="77" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="pcW-IO-3MA"/>
                     </constraints>
@@ -31,7 +31,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nLk-wr-U4G">
-                    <rect key="frame" x="87" y="476" width="156" height="22"/>
+                    <rect key="frame" x="89" y="476" width="152" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Aj2-d1-KEu">
                         <font key="font" size="11" name="Menlo-Regular"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -42,7 +42,7 @@
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r9q-db-ZSO">
-                    <rect key="frame" x="4" y="514" width="241" height="18"/>
+                    <rect key="frame" x="6" y="514" width="237" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="18" id="nQX-EY-FsB"/>
                     </constraints>
@@ -53,7 +53,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="2oV-31-do6">
-                    <rect key="frame" x="85" y="441" width="160" height="25"/>
+                    <rect key="frame" x="87" y="441" width="156" height="25"/>
                     <popUpButtonCell key="cell" type="bevel" title="Item 1" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" allowsMixedState="YES" inset="2" selectedItem="j3u-eE-oz0" id="zxG-kS-tEr">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name=".AppleSystemUIFont"/>
@@ -70,7 +70,7 @@
                     </connections>
                 </popUpButton>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6fF-an-cLa">
-                    <rect key="frame" x="4" y="480" width="76" height="16"/>
+                    <rect key="frame" x="6" y="480" width="76" height="16"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="16" id="Lrt-at-4i1"/>
                     </constraints>
@@ -94,7 +94,7 @@
                 <constraint firstItem="Cyv-Te-uvy" firstAttribute="centerX" secondItem="6fF-an-cLa" secondAttribute="centerX" id="fvQ-Y0-5S7"/>
                 <constraint firstItem="nLk-wr-U4G" firstAttribute="top" secondItem="r9q-db-ZSO" secondAttribute="bottom" constant="16" id="gFv-G8-2yA"/>
                 <constraint firstItem="2oV-31-do6" firstAttribute="centerY" secondItem="Cyv-Te-uvy" secondAttribute="centerY" id="rX0-2W-uxm"/>
-                <constraint firstItem="r9q-db-ZSO" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="6" id="vje-Wp-F50"/>
+                <constraint firstItem="r9q-db-ZSO" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="vje-Wp-F50"/>
                 <constraint firstItem="r9q-db-ZSO" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="xMx-tz-m97"/>
                 <constraint firstItem="r9q-db-ZSO" firstAttribute="trailing" secondItem="nLk-wr-U4G" secondAttribute="trailing" id="zjH-C9-QIG"/>
             </constraints>
