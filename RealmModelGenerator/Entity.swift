@@ -95,6 +95,7 @@ class Entity {
         
         self.primaryKey = primaryKey
         try! self.primaryKey?.setIndexed(true)
+        self.observable.notifyObservers()
     }
     
     func removeAttribute(attribute:Attribute) {

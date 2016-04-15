@@ -103,6 +103,13 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
                 attributes = self.selectedEntity!.attributes.sort{ return $0.name > $1.name }
             }
         }
+        
+        if let primaryKey = self.selectedEntity!.primaryKey {
+            if let pk = attributes.filter({$0 === primaryKey}).first {
+                attributes.removeAtIndex(attributes.indexOf{$0 === pk}!)
+                attributes.insert(pk, atIndex: 0)
+            }
+        }
     }
     
     //MARK: - AttributesViewDataSource
