@@ -67,7 +67,7 @@
                                 <tableColumns>
                                     <tableColumn identifier="relationship" width="150" minWidth="40" maxWidth="1000" id="tmm-lp-8v8" userLabel="attribute">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Relationship">
-                                            <font key="font" metaFont="systemMedium" size="11"/>
+                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -76,7 +76,7 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="key"/>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="relationship"/>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <customView identifier="TitleCell" id="51M-Fj-uU6" customClass="TitleCell" customModule="RealmModelGenerator" customModuleProvider="target">
@@ -94,7 +94,7 @@
                                     </tableColumn>
                                     <tableColumn identifier="destination" width="234" minWidth="10" maxWidth="3.4028234663852886e+38" id="U1Q-mU-Ksr">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Destination">
-                                            <font key="font" metaFont="systemMedium" size="11"/>
+                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
@@ -103,7 +103,7 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="key"/>
+                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="destination"/>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <customView identifier="PopUpCell" id="AUY-SJ-DC2" customClass="PopUpCell" customModule="RealmModelGenerator" customModuleProvider="target">

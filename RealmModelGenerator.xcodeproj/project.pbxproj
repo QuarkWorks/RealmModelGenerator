@@ -195,7 +195,7 @@
 			name = AttributesRelationships;
 			sourceTree = "<group>";
 		};
-		3A635A3F1CBD724500BB0278 /* base */ = {
+		3A635A3F1CBD724500BB0278 /* Base */ = {
 			isa = PBXGroup;
 			children = (
 				773D25841C9F3123009814A0 /* TitleCell.swift */,
@@ -205,7 +205,7 @@
 				3A36CB9C1CB7341A0000EDFA /* PopUpCell.swift */,
 				3A36CB9D1CB7341A0000EDFA /* PopUpCell.xib */,
 			);
-			name = base;
+			name = Base;
 			sourceTree = "<group>";
 		};
 		3A6DDC4A1CACA0D6007C6825 /* DetailViews */ = {
@@ -250,7 +250,7 @@
 		773D25821C9F310E009814A0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3A635A3F1CBD724500BB0278 /* base */,
+				3A635A3F1CBD724500BB0278 /* Base */,
 				77D8277C1C9F8DD500E22CEE /* EntitiesView.swift */,
 				77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */,
 				3AA5635B1CACFE8D00A5B648 /* AttributesView.swift */,

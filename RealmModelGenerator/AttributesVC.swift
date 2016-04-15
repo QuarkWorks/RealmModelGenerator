@@ -37,9 +37,6 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         }
     }
     
-    private var attributes:[Attribute] = []
-    weak var previousSelectedAttribute: Attribute?
-    
     private weak var selectedAttribute: Attribute? {
         didSet {
              previousSelectedAttribute = oldValue
@@ -48,35 +45,35 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
             self.delegate?.attributesVC(self, selectedAttributeDidChange: self.selectedAttribute)
         }
     }
-
-    weak var delegate:AttributesVCDelegate?
     
+    private var attributes: [Attribute] = []
+    weak var previousSelectedAttribute: Attribute?
+
     private var acending:Bool = true {
-        didSet{
-            self.invalidateViews()
-        }
+        didSet{ self.invalidateViews() }
     }
     
     private var isSortByType = false {
-        didSet{
-            self.invalidateViews()
-        }
+        didSet{ self.invalidateViews() }
     }
 
+    weak var delegate: AttributesVCDelegate?
+    
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     func onChange(observable: Observable) {
-        if self.selectedEntity?.attributes.count != attributes.count {
-            attributes = (self.selectedEntity?.attributes)!
+        if self.selectedEntity?.attributes.count != self.attributes.count {
+            self.attributes = (self.selectedEntity?.attributes)!
         }
         self.invalidateViews()
     }
     
     func invalidateViews() {
         if !self.viewLoaded { return }
-        updateItemsOrder()
+        updateItemOrder()
         self.attributesView.reloadData()
         invalidateSelectedIndex()
     }
@@ -91,7 +88,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         invalidateViews()
     }
     
-    func updateItemsOrder() {
+    func updateItemOrder() {
         if selectedEntity == nil { return }
         if acending {
             if isSortByType {
@@ -110,7 +107,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     
     //MARK: - AttributesViewDataSource
     func numberOfRowsInAttributesView(attributesView: AttributesView) -> Int {
-        return self.selectedEntity == nil ? 0 : self.attributes.count
+        return self.attributes.count
     }
     
     func attributesView(attributesView: AttributesView, titleForAttributeAtIndex index: Int) -> String {
@@ -125,9 +122,10 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     func addAttributeInAttributesView(attributesView: AttributesView) {
         if self.selectedEntity != nil {
             let attribute = self.selectedEntity!.createAttribute()
-            //TODO: any better way to handle selectedAttribute?
+            // We don't need to reload attributes and we append new attriube to current list
+            // and update the list
             self.attributes.append(attribute)
-            self.selectedAttribute = self.attributes.last
+            self.selectedAttribute = attribute
         }
     }
     
@@ -136,7 +134,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         if attribute === self.selectedAttribute {
             if self.attributes.count <= 1 {
                 self.selectedAttribute = nil
-            } else if index == self.selectedEntity!.attributes.count - 1 {
+            } else if index == self.attributes.count - 1 {
                 self.selectedAttribute = self.attributes[index - 1]
             } else {
                 self.selectedAttribute = self.attributes[index + 1]

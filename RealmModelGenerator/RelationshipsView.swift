@@ -21,14 +21,16 @@ protocol RelationshipsViewDelegate: class {
     func relationshipsView(relationshipsView:RelationshipsView, shouldChangeRelationshipName name:String,
         atIndex index:Int) -> Bool
     func relationshipsView(relationshipsView:RelationshipsView, atIndex index:Int, changeDestination destinationName:String)
+    func relationshipsView(relationshipsView:RelationshipsView, sortByColumnName name:String, ascending:Bool)
+
 }
 
 @IBDesignable
 class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource, TitleCellDelegate, PopupCellDelegate  {
     static let TAG = NSStringFromClass(RelationshipsView)
     
-    let REALATIONSHIP_COLUMN = "relationship"
-    let DESTINATION_COLUMN = "destination"
+    static let REALATIONSHIP_COLUMN = "relationship"
+    static let DESTINATION_COLUMN = "destination"
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var addButton: NSButton!
@@ -63,6 +65,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     override func nibDidLoad() {
         super.nibDidLoad()
         removeButton.enabled = false
+        setUpDefaultSortDescriptor()
     }
     
     func reloadData() {
@@ -73,6 +76,13 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     
     func reloadRemoveButtonState() {
         self.removeButton.enabled = self.selectedIndex != nil
+    }
+    
+    func setUpDefaultSortDescriptor() {
+        let descriptorAttribute = NSSortDescriptor(key: RelationshipsView.REALATIONSHIP_COLUMN, ascending: true)
+        let descriptorType = NSSortDescriptor(key: RelationshipsView.DESTINATION_COLUMN, ascending: true)
+        tableView.tableColumns[0].sortDescriptorPrototype = descriptorAttribute
+        tableView.tableColumns[1].sortDescriptorPrototype = descriptorType
     }
     
     //MARK: - NSTableViewDataSource
@@ -90,7 +100,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     
     //MARK: - NSTableViewDelegate
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        if tableColumn?.identifier == REALATIONSHIP_COLUMN {
+        if tableColumn?.identifier == RelationshipsView.REALATIONSHIP_COLUMN {
             
             let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
             if (self.isInterfaceBuilder) {
@@ -124,6 +134,12 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
             
             return cell
         }
+    }
+    
+    func tableView(tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
+        
+        let sortDescriptor = tableView.sortDescriptors.first!
+        self.delegate?.relationshipsView(self, sortByColumnName: sortDescriptor.key!, ascending: sortDescriptor.ascending)
     }
     
     func tableViewSelectionDidChange(notification: NSNotification) {

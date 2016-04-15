@@ -65,11 +65,7 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     override func nibDidLoad() {
         super.nibDidLoad()
         removeButton.enabled = false
-        
-        let descriptorAttribute = NSSortDescriptor(key: AttributesView.ATTRIBUTE_COLUMN, ascending: true)
-        let descriptorType = NSSortDescriptor(key: AttributesView.TYPE_COLUMN, ascending: true)
-        tableView.tableColumns[0].sortDescriptorPrototype = descriptorAttribute
-        tableView.tableColumns[1].sortDescriptorPrototype = descriptorType
+        setUpDefaultSortDescriptor()
     }
     
     func reloadData() {
@@ -80,6 +76,13 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     
     func reloadRemoveButtonState() {
         self.removeButton.enabled = self.selectedIndex != nil
+    }
+    
+    func setUpDefaultSortDescriptor() {
+        let descriptorAttribute = NSSortDescriptor(key: AttributesView.ATTRIBUTE_COLUMN, ascending: true)
+        let descriptorType = NSSortDescriptor(key: AttributesView.TYPE_COLUMN, ascending: true)
+        tableView.tableColumns[0].sortDescriptorPrototype = descriptorAttribute
+        tableView.tableColumns[1].sortDescriptorPrototype = descriptorType
     }
     
     //MARK: - NSTableViewDataSource
@@ -93,12 +96,6 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
         }
         
         return 0
-    }
-    
-    func tableView(tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
-
-        let sortDescriptor = tableView.sortDescriptors.first!
-        self.delegate?.attributesView(self, sortByColumnName: sortDescriptor.key!, ascending: sortDescriptor.ascending)
     }
     
     //MARK: - NSTableViewDelegate
@@ -138,6 +135,12 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
             
             return cell
         }
+    }
+    
+    func tableView(tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
+        
+        let sortDescriptor = tableView.sortDescriptors.first!
+        self.delegate?.attributesView(self, sortByColumnName: sortDescriptor.key!, ascending: sortDescriptor.ascending)
     }
     
     func tableViewSelectionDidChange(notification: NSNotification) {
