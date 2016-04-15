@@ -47,7 +47,7 @@
                 <textField identifier="nameTextField" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nt8-h9-QDa">
                     <rect key="frame" x="80" y="477" width="162" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="attribute" drawsBackground="YES" id="1H9-1b-oPp">
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" size="11" name="Menlo-Regular"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -70,7 +70,7 @@
                     <rect key="frame" x="78" y="369" width="167" height="26"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="Xqi-YE-djg">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="11" name=".AppleSystemUIFont"/>
+                        <font key="font" size="11" name="Menlo-Regular"/>
                         <menu key="menu" id="WfM-cG-Ro3">
                             <items>
                                 <menuItem title="Item 1" id="Nhs-VF-bGu"/>

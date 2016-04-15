@@ -12,57 +12,6 @@ import AddressBook
 class Tools {
     static let TAG = NSStringFromClass(Tools)
     
-    static func generateModelExample(schema: Schema) {
-        let model = schema.createModel()
-        let user = try! model.createEntity({ (entity) throws -> Void in
-            try entity.setName("User")
-            let pk = try entity.createAttribute({ (attribute) throws -> Void in
-                try attribute.setName("id")
-                attribute.type = .String
-            })
-            try entity.setPrimaryKey(pk)
-            
-            try entity.createAttribute({ (attribute) throws -> Void in
-                try attribute.setName("phone")
-                attribute.type = .String
-                attribute.isRequired = true
-                try attribute.setIndexed(true)
-            })
-        })
-        
-        let child = try! model.createEntity ({ (entity) throws -> Void in
-            try entity.setName("Child")
-            let pk = entity.createAttribute({
-                try! $0.setName("id")
-                $0.type = .Long
-            })
-            
-            try entity.setPrimaryKey(pk)
-            
-            try entity.createAttribute({
-                try $0.setName("childName")
-                $0.defaultValue = "Bob"
-                $0.type = .String
-                $0.hasDefault = true
-            })
-            
-            try entity.createAttribute({
-                try $0.setName("age")
-                $0.defaultValue = "10"
-                $0.type = .Int
-                $0.hasDefault = true
-                $0.isIgnored = true
-                try! $0.setIndexed(true)
-            })
-        })
-        
-        user.createRelationship({
-            try! $0.setName("children")
-            $0.destination = child
-            $0.isMany = true
-        })
-    }
-    
     static func popupAllert(messageText:String, buttonTitile:String, informativeText:String) {
         let alert = NSAlert()
         alert.messageText = messageText
@@ -73,7 +22,6 @@ class Tools {
     }
 }
 
-//Reference: http://stackoverflow.com/a/28288340
 extension String {
     var first: String {
         return String(characters.prefix(1))

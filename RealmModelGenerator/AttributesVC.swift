@@ -92,24 +92,26 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         if selectedEntity == nil { return }
         if acending {
             if isSortByType {
-                attributes = self.selectedEntity!.attributes.sort{ return $0.type.rawValue < $1.type.rawValue }
+                self.attributes = self.selectedEntity!.attributes.sort{ return $0.type.rawValue < $1.type.rawValue }
             } else {
-                attributes = self.selectedEntity!.attributes.sort{ return $0.name < $1.name }
+                self.attributes = self.selectedEntity!.attributes.sort{ return $0.name < $1.name }
             }
         } else {
             if isSortByType {
-                attributes = self.selectedEntity!.attributes.sort{ return $0.type.rawValue > $1.type.rawValue }
+                self.attributes = self.selectedEntity!.attributes.sort{ return $0.type.rawValue > $1.type.rawValue }
             } else {
-                attributes = self.selectedEntity!.attributes.sort{ return $0.name > $1.name }
+                self.attributes = self.selectedEntity!.attributes.sort{ return $0.name > $1.name }
             }
         }
         
         if let primaryKey = self.selectedEntity!.primaryKey {
-            if let pk = attributes.filter({$0 === primaryKey}).first {
-                attributes.removeAtIndex(attributes.indexOf{$0 === pk}!)
-                attributes.insert(pk, atIndex: 0)
+            if let pk = self.attributes.filter({$0 === primaryKey}).first {
+                self.attributes.removeAtIndex(attributes.indexOf{$0 === pk}!)
+                self.attributes.insert(pk, atIndex: 0)
             }
         }
+        
+        self.selectedEntity?.attributes
     }
     
     //MARK: - AttributesViewDataSource

@@ -114,12 +114,6 @@
                                                 <action selector="increaseVersion:" target="Ady-hI-5gd" id="i6t-rd-k96"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Generate Model Example" id="9PZ-Fi-dwC">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="generateModelExample:" target="Ady-hI-5gd" id="XHD-UN-qoK"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>

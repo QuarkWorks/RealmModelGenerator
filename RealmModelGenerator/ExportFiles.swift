@@ -23,17 +23,11 @@ extension MainVC {
     }
     
     //Called from menu bar
-    //TODO: remove after adding ui to generate model
-    @IBAction func generateModelExample(sender: AnyObject!) {
-        Tools.generateModelExample(schema)
-    }
-    
-    //Called from menu bar
     @IBAction func increaseVersion(sender: AnyObject!) {
         do {
             try schema.increaseVersion()
         } catch {
-            print(MainVC.TAG + " Cannot increase version")
+            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Cannot increase version")
         }
     }
     
@@ -126,6 +120,8 @@ extension MainVC {
         if error == nil{
             //TODO: show success notification
             print("Success")
+        } else {
+            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "We an error when save file.")
         }
     }
 }

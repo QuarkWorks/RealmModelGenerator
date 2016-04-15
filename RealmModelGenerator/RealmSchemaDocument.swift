@@ -67,11 +67,13 @@ class RealmSchemaDocument: NSDocument {
         
         do {
             try parseSchemaJson(data)
+            return
         } catch GeneratorError.InvalidFileContent(let errorMsg) {
             print("Invalid JSON format: \(errorMsg)")
         }
         
-        throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+        Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Invalid content")
+//        throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
     }
     
     func parseSchemaJson(data: NSData) throws {

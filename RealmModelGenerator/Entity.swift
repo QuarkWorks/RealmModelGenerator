@@ -18,7 +18,18 @@ class Entity {
     
     private(set) weak var primaryKey:Attribute?
     
-    private(set) var attributes:[Attribute] = []
+    private(set) var attributes:[Attribute] = [] {
+        didSet{
+            self.attributes.sortInPlace({(e1, e2) -> Bool in
+                return e1.name < e2.name
+            })
+            
+            if primaryKey != nil {
+                self.attributes.removeAtIndex(self.attributes.indexOf{$0 === primaryKey!}!)
+                self.attributes.insert(primaryKey!, atIndex: 0)
+            }
+        }
+    }
     var attributesByName:[String:Attribute] {
         get {
             var attributesByName = [String:Attribute](minimumCapacity:self.attributes.count)
@@ -29,7 +40,13 @@ class Entity {
         }
     }
     
-    private(set) var relationships:[Relationship] = []
+    private(set) var relationships:[Relationship] = [] {
+        didSet{
+            self.relationships.sortInPlace({(e1, e2) -> Bool in
+                return e1.name < e2.name
+            })
+        }
+    }
     var relationshipsByName:[String:Relationship] {
         get {
             var relationshipsByName = Dictionary<String, Relationship>(minimumCapacity:self.relationships.count)

@@ -86,10 +86,12 @@ class JavaContentGenerator: BaseContentGenerator {
             attrDefination += "private " + attr.type.name(Language.Java, isRequired: false) + " " + attr.name
             if attr.hasDefault {
                 if attr.type == .String {
-                    attrDefination += " = \"" + attr.defaultValue + "\";\n"
+                    attrDefination += " = \"" + attr.defaultValue + "\";"
                 } else {
-                    attrDefination += " = " + attr.defaultValue + ";\n"
+                    attrDefination += " = " + attr.defaultValue + ";"
                 }
+            } else {
+                attrDefination += ";"
             }
             
             if !attrAnnotions.isEmpty {
@@ -121,7 +123,7 @@ class JavaContentGenerator: BaseContentGenerator {
             var setter = "\t"
             
             getter += "public " + attr.type.name(Language.Java, isRequired: false) + " get" + attr.name.uppercaseFirst + "(){\n"
-            getter += "\t\treturn " + attr.name + ";\n\t}\n\n"
+            getter += "\t\treturn this." + attr.name + ";\n\t}\n\n"
             
             setter += "public void set" + attr.name.uppercaseFirst + "(" + attr.type.name(Language.Java, isRequired: false) + " " + attr.name + "){\n"
             setter += "\t\tthis." + attr.name + " = " + attr.name + ";\n\t}\n\n"
@@ -137,13 +139,13 @@ class JavaContentGenerator: BaseContentGenerator {
             
             if relationship.isMany {
                 getter += "public RealmList<" + relationship.destination!.name + "> get" + relationship.name.uppercaseFirst + "(){\n"
-                getter += "\t\treturn " + relationship.name + ";\n\t}\n\n"
+                getter += "\t\treturn this." + relationship.name + ";\n\t}\n\n"
                 
                 setter += "public void set" + relationship.name.uppercaseFirst + "(RealmList<" + relationship.destination!.name + "> " + relationship.name + "){\n"
                 setter += "\t\tthis." + relationship.name + " = " + relationship.name + ";\n\t}\n\n"
             } else {
                 getter += "public " + relationship.destination!.name + " get" + relationship.name.uppercaseFirst + "(){\n"
-                getter += "\t\treturn " + relationship.name + ";\n\t}\n\n"
+                getter += "\t\treturn this." + relationship.name + ";\n\t}\n\n"
                 
                 setter += "public void set" + relationship.name.uppercaseFirst + "(" + relationship.destination!.name + " " + relationship.name + "){\n"
                 setter += "\t\tthis." + relationship.name + " = " + relationship.name + ";\n\t}\n\n"
