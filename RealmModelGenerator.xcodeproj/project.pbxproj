@@ -40,6 +40,7 @@
 		3AD908B71C9A331500346527 /* AttributeTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD908B61C9A331500346527 /* AttributeTypeExtension.swift */; };
 		3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */; };
 		3AEF05E01C8D0788001238E7 /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEF05DF1C8D0788001238E7 /* FileModel.swift */; };
+		3AF05A381CC5B545002D8A10 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3AF05A371CC5B545002D8A10 /* AppIcon.icns */; };
 		773D25861C9F3123009814A0 /* NibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773D25831C9F3123009814A0 /* NibDesignable.swift */; };
 		773D25871C9F3123009814A0 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773D25841C9F3123009814A0 /* TitleCell.swift */; };
 		773D25881C9F3123009814A0 /* TitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773D25851C9F3123009814A0 /* TitleCell.xib */; };
@@ -112,6 +113,7 @@
 		3AD908B61C9A331500346527 /* AttributeTypeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeTypeExtension.swift; sourceTree = "<group>"; };
 		3AEF05DC1C8CD02F001238E7 /* JavaContentGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaContentGenerator.swift; sourceTree = "<group>"; };
 		3AEF05DF1C8D0788001238E7 /* FileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
+		3AF05A371CC5B545002D8A10 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		773D25831C9F3123009814A0 /* NibDesignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibDesignable.swift; sourceTree = "<group>"; };
 		773D25841C9F3123009814A0 /* TitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
 		773D25851C9F3123009814A0 /* TitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleCell.xib; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				3A2A626B1C9C6BCE000EA9F6 /* Tools */,
 				7798B0D41C87C32900A7F965 /* AppDelegate.swift */,
 				7798B0D81C87C32900A7F965 /* Assets.xcassets */,
+				3AF05A371CC5B545002D8A10 /* AppIcon.icns */,
 				7798B0DA1C87C32900A7F965 /* Main.storyboard */,
 				7798B0DD1C87C32900A7F965 /* Info.plist */,
 			);
@@ -446,6 +449,7 @@
 				3A2F96FD1CA9DEAA000AE584 /* EntityDetailView.xib in Resources */,
 				773D25881C9F3123009814A0 /* TitleCell.xib in Resources */,
 				3A36CB9F1CB7341A0000EDFA /* PopUpCell.xib in Resources */,
+				3AF05A381CC5B545002D8A10 /* AppIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
