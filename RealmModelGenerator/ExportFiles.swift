@@ -76,8 +76,6 @@ extension MainVC {
         
         if files.count > 0 && validEnties {
             choosePathAndSaveFile(files)
-        } else {
-            print("There's no entity.")
         }
     }
     
@@ -118,10 +116,29 @@ extension MainVC {
         }
         
         if error == nil{
-            //TODO: show success notification
-            print("Success")
+            self.showSuccess()
         } else {
             Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "We an error when save file.")
         }
+    }
+    
+    //MARK: - Show success notification
+    func showSuccess()
+    {
+        let notification = NSUserNotification()
+        notification.title = "Success!"
+        notification.informativeText = "Your realm model files have been generated successfully."
+        notification.deliveryDate = NSDate()
+        
+        let center = NSUserNotificationCenter.defaultUserNotificationCenter()
+        center.delegate = self
+        center.deliverNotification(notification)
+    }
+    
+    //MARK: - NSUserNotificationCenterDelegate
+    func userNotificationCenter(center: NSUserNotificationCenter,
+        shouldPresentNotification notification: NSUserNotification) -> Bool
+    {
+        return true
     }
 }

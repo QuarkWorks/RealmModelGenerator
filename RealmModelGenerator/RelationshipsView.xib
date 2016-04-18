@@ -87,7 +87,7 @@
                                                         <color key="value" red="0.57647058819999997" green="0.38431372549999998" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="title" value="Relationship"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="letter" value="A"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="letter" value="R"/>
                                                 </userDefinedRuntimeAttributes>
                                             </customView>
                                         </prototypeCellViews>

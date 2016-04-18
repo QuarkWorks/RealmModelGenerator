@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDelegate {
+class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDelegate, NSUserNotificationCenterDelegate {
     static let TAG = NSStringFromClass(MainVC)
     
     @IBOutlet weak var leftDivider: NSView!
