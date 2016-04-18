@@ -33,13 +33,16 @@ class RelationshipDetailVC: NSViewController, RelationshipDetailViewDelegate, Ob
     
     func invalidateViews() {
         if !self.viewLoaded || relationship == nil { return }
-        relationshipDetailView.name = self.relationship!.name
-        relationshipDetailView.isMany = self.relationship!.isMany
+        guard let relationship = self.relationship else {
+            return
+        }
+        relationshipDetailView.name = relationship.name
+        relationshipDetailView.isMany = relationship.isMany
         self.entityNameList = ["None"]
-        self.relationship?.entity?.model.entities.forEach{(e) in entityNameList.append(e.name)}
-        self.entityNameList.removeAtIndex(self.entityNameList.indexOf(self.relationship!.entity!.name)!)
+        relationship.entity!.model.entities.forEach{(e) in entityNameList.append(e.name)}
+        self.entityNameList.removeAtIndex(self.entityNameList.indexOf(relationship.entity!.name)!)
         self.relationshipDetailView.destinationNames = self.entityNameList
-        if let destination = self.relationship?.destination {
+        if let destination = relationship.destination {
             relationshipDetailView.selectedIndex = entityNameList.indexOf(destination.name)!
         } else {
             relationshipDetailView.selectedIndex = 0
@@ -64,7 +67,7 @@ class RelationshipDetailVC: NSViewController, RelationshipDetailViewDelegate, Ob
     
     func relationshipDetailView(attributeDetailView: RelationshipDetailView, shouldChangeRelationshipCheckBoxFor identifier: String, state: Bool) -> Bool {
         
-        self.relationship?.isMany = state
+        self.relationship!.isMany = state
         
         return true
     }
