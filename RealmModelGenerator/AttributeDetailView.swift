@@ -86,6 +86,14 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
             if self.previousSelectedIndex != newValue {
                 self.previousSelectedIndex = newValue
             }
+            
+            if ((AttributeType.values[newValue] == AttributeType.Unknown) || (AttributeType.values[newValue] == AttributeType.Blob)) {
+                self.defaultValueTextField.enabled = false
+                self.defaultCheckBox.enabled = false
+            } else {
+                self.defaultValueTextField.enabled = true
+                self.defaultCheckBox.enabled = true
+            }
         }
         
         get {
