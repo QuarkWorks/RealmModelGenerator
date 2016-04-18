@@ -173,7 +173,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     }
     
     func attributesView(attributesView: AttributesView, atIndex index: Int, changeAttributeType attributeType: AttributeType) {
-        self.attributes[index].setType(attributeType)
+        self.attributes[index].type = attributeType
     }
     
     func attributesView(attributesView: AttributesView, sortByColumnName name: String, ascending: Bool) {

@@ -9,22 +9,14 @@
 import Cocoa
 
 protocol AttributeDetailViewDelegate: class {
-    func attributeDetailView(attributeDetailView:AttributeDetailView, shouldChangeAttributeTextField newValue:String, identifier:String) -> Bool
-    func attributeDetailView(attributeDetailView:AttributeDetailView, shouldChangeAttributeCheckBoxFor identifier:String, state:Bool) -> Bool
+    func attributeDetailView(attributeDetailView:AttributeDetailView, shouldChangeAttributeTextField newValue:String, control:NSControl) -> Bool
+    func attributeDetailView(attributeDetailView:AttributeDetailView, shouldChangeAttributeCheckBoxFor sender:NSButton, state:Bool) -> Bool
     func attributeDetailView(attributeDetailView:AttributeDetailView, selectedTypeDidChange selectedIndex:Int) -> Bool
 }
 
 @IBDesignable
 class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     static let TAG = NSStringFromClass(AttributeDetailView)
-    
-    static let NAME_TEXTFEILD = "nameTextField"
-    static let DEFAULT_TEXTFIELD = "defaultTextField"
-    static let INGORED_CHECKBOX = "ignoredCheckBox"
-    static let INDEXED_CHECKBOX = "indexedCheckBox"
-    static let REQUIRED_CHECKBOX = "requiredCheckBox"
-    static let PRIMARY_CHECKBOX = "primaryCheckBox"
-    static let DEFAULT_CHECKBOX = "defaultCheckBox"
     
     private var previousSelectedIndex = 0;
     
@@ -108,7 +100,7 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     }
     
     func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        if let shouldEnd = self.delegate?.attributeDetailView(self, shouldChangeAttributeTextField: fieldEditor.string!, identifier: control.identifier!) {
+        if let shouldEnd = self.delegate?.attributeDetailView(self, shouldChangeAttributeTextField: fieldEditor.string!, control: control) {
             return shouldEnd
         }
         
@@ -116,22 +108,22 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     }
     
     @IBAction func checkBoxStateChanged(sender: NSButton) {
-        if let shouldChangeState = self.delegate?.attributeDetailView(self, shouldChangeAttributeCheckBoxFor: sender.identifier!, state: sender.state == 1) {
+        if let shouldChangeState = self.delegate?.attributeDetailView(self, shouldChangeAttributeCheckBoxFor: sender, state: sender.state == 1) {
             if shouldChangeState == false {
-                switch sender.identifier! {
-                case AttributeDetailView.INGORED_CHECKBOX:
+                switch sender {
+                case self.ignoredCheckBox:
                     ignoredCheckBox.state = 0
                     break;
-                case AttributeDetailView.INDEXED_CHECKBOX:
+                case self.indexedCheckBox:
                     indexedCheckBox.state = 0
                     break;
-                case AttributeDetailView.PRIMARY_CHECKBOX:
+                case self.primaryCheckBox:
                     primaryCheckBox.state = 0
                     break;
-                case AttributeDetailView.REQUIRED_CHECKBOX:
+                case self.requiredCheckBox:
                     requiredCheckBox.state = 0
                     break;
-                case AttributeDetailView.DEFAULT_CHECKBOX:
+                case self.defaultCheckBox:
                     defaultCheckBox.state = 0
                     break;
                 default:

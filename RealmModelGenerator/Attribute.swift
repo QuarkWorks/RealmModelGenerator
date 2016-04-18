@@ -28,6 +28,9 @@ class Attribute {
                 }
             }
         }
+        didSet {
+            self.observable.notifyObservers()
+        }
     }
     
     let observable:Observable
@@ -56,11 +59,6 @@ class Attribute {
             throw NSError(domain: Attribute.TAG, code: 0, userInfo: nil);
         }
         self.isIndexed = isIndexed
-    }
-    
-    func setType(type:AttributeType) {
-        self.type = type
-        self.observable.notifyObservers()
     }
     
     func removeIndexed() {

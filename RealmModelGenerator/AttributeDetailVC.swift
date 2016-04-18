@@ -31,14 +31,17 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
     
     func invalidateViews() {
         if !self.viewLoaded || attribute == nil { return }
-        attributeDetailView.name = self.attribute!.name
-        attributeDetailView.isIgnored = self.attribute!.isIgnored
-        attributeDetailView.isIndexed = self.attribute!.isIndexed
-        attributeDetailView.isPrimary = self.attribute!.entity.primaryKey === self.attribute
-        attributeDetailView.isRequired = self.attribute!.isRequired
-        attributeDetailView.hasDefault = self.attribute!.hasDefault
-        attributeDetailView.defaultValue = self.attribute!.defaultValue
-        attributeDetailView.selectedIndex =  AttributeType.values.indexOf(self.attribute!.type)!
+        guard let attribute = self.attribute else {
+            return
+        }
+        attributeDetailView.name = attribute.name
+        attributeDetailView.isIgnored = attribute.isIgnored
+        attributeDetailView.isIndexed = attribute.isIndexed
+        attributeDetailView.isPrimary = attribute.entity.primaryKey === attribute
+        attributeDetailView.isRequired = attribute.isRequired
+        attributeDetailView.hasDefault = attribute.hasDefault
+        attributeDetailView.defaultValue = attribute.defaultValue
+        attributeDetailView.selectedIndex =  AttributeType.values.indexOf(attribute.type)!
     }
     
     func onChange(observable: Observable) {
@@ -46,8 +49,8 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
     }
     
     //MARK: - AttributeDetailView delegate
-    func attributeDetailView(attributeDetailView: AttributeDetailView, shouldChangeAttributeTextField newValue: String, identifier:String) -> Bool {
-        if identifier == AttributeDetailView.NAME_TEXTFEILD {
+    func attributeDetailView(attributeDetailView: AttributeDetailView, shouldChangeAttributeTextField newValue: String, control:NSControl) -> Bool {
+        if control === self.attributeDetailView.nameTextField {
             do {
                 try self.attribute!.setName(newValue)
             } catch {
@@ -63,12 +66,12 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
         return true
     }
     
-    func attributeDetailView(attributeDetailView: AttributeDetailView, shouldChangeAttributeCheckBoxFor identifier: String, state: Bool) -> Bool {
-        switch identifier {
-        case AttributeDetailView.INGORED_CHECKBOX:
+    func attributeDetailView(attributeDetailView: AttributeDetailView, shouldChangeAttributeCheckBoxFor sender: NSButton, state: Bool) -> Bool {
+        switch sender {
+        case self.attributeDetailView.ignoredCheckBox:
             self.attribute?.isIgnored = state
             break;
-        case AttributeDetailView.INDEXED_CHECKBOX:
+        case self.attributeDetailView.indexedCheckBox:
             do {
                 try self.attribute?.setIndexed(state)
             } catch {
@@ -76,7 +79,7 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
                 return false
             }
             break;
-        case AttributeDetailView.PRIMARY_CHECKBOX:
+        case self.attributeDetailView.primaryCheckBox:
             if state {
                 do {
                     try self.attribute?.entity.setPrimaryKey(self.attribute)
@@ -90,10 +93,10 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
                 }
             }
             break;
-        case AttributeDetailView.REQUIRED_CHECKBOX:
+        case self.attributeDetailView.requiredCheckBox:
             self.attribute?.isRequired = state
             break;
-        case AttributeDetailView.DEFAULT_CHECKBOX:
+        case self.attributeDetailView.defaultCheckBox:
             self.attribute?.hasDefault = state
             break;
         default:
@@ -105,7 +108,7 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
     
     func attributeDetailView(attributeDetailView: AttributeDetailView, selectedTypeDidChange selectedIndex: Int) -> Bool {
         //TODO check if the selected type is allowed or not based on properties
-        self.attribute!.setType(AttributeType.values[selectedIndex])
+        self.attribute!.type = AttributeType.values[selectedIndex]
         return true
     }
 }
