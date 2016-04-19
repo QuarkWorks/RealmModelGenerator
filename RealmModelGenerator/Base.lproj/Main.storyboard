@@ -676,7 +676,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="RealmModelGenerator" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="124.5" y="2"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -694,7 +694,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="124" y="272"/>
         </scene>
         <!--MainVC-->
         <scene sceneID="hIz-AP-VOD">
@@ -794,31 +794,20 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="124.5" y="713"/>
+            <point key="canvasLocation" x="124.5" y="814"/>
         </scene>
         <!--EntitiesVC-->
         <scene sceneID="wef-eP-KuX">
             <objects>
                 <viewController storyboardIdentifier="EntitiesViewController" id="4Kj-ze-ZKn" customClass="EntitiesVC" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="6am-FB-D9f">
+                    <customView key="view" id="lpH-KY-zPc" customClass="EntitiesView" customModule="RealmModelGenerator" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="lpH-KY-zPc" customClass="EntitiesView" customModule="RealmModelGenerator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="hYj-Gd-xoj"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="540" id="vmh-Vh-VcA"/>
-                                </constraints>
-                            </customView>
-                        </subviews>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>
-                            <constraint firstItem="lpH-KY-zPc" firstAttribute="leading" secondItem="6am-FB-D9f" secondAttribute="leading" id="47j-eJ-Q3m"/>
-                            <constraint firstAttribute="bottom" secondItem="lpH-KY-zPc" secondAttribute="bottom" id="HbA-c0-D6c"/>
-                            <constraint firstAttribute="trailing" secondItem="lpH-KY-zPc" secondAttribute="trailing" id="Uw4-Tz-OVG"/>
-                            <constraint firstItem="lpH-KY-zPc" firstAttribute="top" secondItem="6am-FB-D9f" secondAttribute="top" id="yna-DL-EGB"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="hYj-Gd-xoj"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="540" id="vmh-Vh-VcA"/>
                         </constraints>
-                    </view>
+                    </customView>
                     <connections>
                         <outlet property="entitiesView" destination="lpH-KY-zPc" id="sj0-zX-Iuh"/>
                     </connections>
@@ -831,71 +820,60 @@
         <scene sceneID="hne-yM-8PP">
             <objects>
                 <viewController id="oMK-Do-o62" customClass="AttributesRelationshipsMainVC" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" id="9E4-bE-Siw">
+                    <splitView key="view" arrangesAllSubviews="NO" dividerStyle="thin" id="fCF-ph-lRp">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="540"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
-                            <splitView arrangesAllSubviews="NO" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="fCF-ph-lRp">
-                                <rect key="frame" x="0.0" y="0.0" width="400" height="540"/>
+                            <customView id="xOU-8h-eOg">
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="266"/>
+                                <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <customView id="xOU-8h-eOg">
-                                        <rect key="frame" x="0.0" y="0.0" width="400" height="266"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <subviews>
-                                            <containerView identifier="attributesContainerView" translatesAutoresizingMaskIntoConstraints="NO" id="750-dQ-YzS">
-                                                <rect key="frame" x="1" y="0.0" width="400" height="266"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="H3A-hK-Lwk"/>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="yzO-JF-jxL"/>
-                                                </constraints>
-                                                <connections>
-                                                    <segue destination="b2i-0O-NCg" kind="embed" identifier="AttributesViewControllerSegue" id="17z-N8-0a6"/>
-                                                </connections>
-                                            </containerView>
-                                        </subviews>
+                                    <containerView identifier="attributesContainerView" translatesAutoresizingMaskIntoConstraints="NO" id="750-dQ-YzS">
+                                        <rect key="frame" x="1" y="0.0" width="400" height="266"/>
                                         <constraints>
-                                            <constraint firstItem="750-dQ-YzS" firstAttribute="top" secondItem="xOU-8h-eOg" secondAttribute="top" id="0cB-JU-fZl"/>
-                                            <constraint firstAttribute="bottom" secondItem="750-dQ-YzS" secondAttribute="bottom" id="AOd-DS-HII"/>
-                                            <constraint firstAttribute="trailing" secondItem="750-dQ-YzS" secondAttribute="trailing" constant="-1" id="Qn5-Be-n02"/>
-                                            <constraint firstItem="750-dQ-YzS" firstAttribute="leading" secondItem="xOU-8h-eOg" secondAttribute="leading" constant="1" id="e2G-ye-Fdg"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="H3A-hK-Lwk"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="yzO-JF-jxL"/>
                                         </constraints>
-                                    </customView>
-                                    <customView id="869-Ao-yIq">
-                                        <rect key="frame" x="0.0" y="267" width="400" height="273"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <subviews>
-                                            <containerView identifier="relationshipsContainerView" translatesAutoresizingMaskIntoConstraints="NO" id="KwY-ho-WGM">
-                                                <rect key="frame" x="1" y="0.0" width="400" height="273"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="3j3-8o-0rJ"/>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="DFa-86-n4G"/>
-                                                </constraints>
-                                                <connections>
-                                                    <segue destination="gmJ-8X-IHf" kind="embed" identifier="RelationshipsViewControllerSegue" id="Dbc-Vf-g7d"/>
-                                                </connections>
-                                            </containerView>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="KwY-ho-WGM" firstAttribute="leading" secondItem="869-Ao-yIq" secondAttribute="leading" constant="1" id="MZE-2j-vDo"/>
-                                            <constraint firstAttribute="bottom" secondItem="KwY-ho-WGM" secondAttribute="bottom" id="rag-Qf-w9w"/>
-                                            <constraint firstItem="KwY-ho-WGM" firstAttribute="top" secondItem="869-Ao-yIq" secondAttribute="top" id="soJ-GK-HfY"/>
-                                            <constraint firstAttribute="trailing" secondItem="KwY-ho-WGM" secondAttribute="trailing" constant="-1" id="w0T-rh-hjd"/>
-                                        </constraints>
-                                    </customView>
+                                        <connections>
+                                            <segue destination="b2i-0O-NCg" kind="embed" identifier="AttributesViewControllerSegue" id="17z-N8-0a6"/>
+                                        </connections>
+                                    </containerView>
                                 </subviews>
-                                <holdingPriorities>
-                                    <real value="250"/>
-                                    <real value="250"/>
-                                </holdingPriorities>
-                            </splitView>
+                                <constraints>
+                                    <constraint firstItem="750-dQ-YzS" firstAttribute="top" secondItem="xOU-8h-eOg" secondAttribute="top" id="0cB-JU-fZl"/>
+                                    <constraint firstAttribute="bottom" secondItem="750-dQ-YzS" secondAttribute="bottom" id="AOd-DS-HII"/>
+                                    <constraint firstAttribute="trailing" secondItem="750-dQ-YzS" secondAttribute="trailing" constant="-1" id="Qn5-Be-n02"/>
+                                    <constraint firstItem="750-dQ-YzS" firstAttribute="leading" secondItem="xOU-8h-eOg" secondAttribute="leading" constant="1" id="e2G-ye-Fdg"/>
+                                </constraints>
+                            </customView>
+                            <customView id="869-Ao-yIq">
+                                <rect key="frame" x="0.0" y="267" width="400" height="273"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <containerView identifier="relationshipsContainerView" translatesAutoresizingMaskIntoConstraints="NO" id="KwY-ho-WGM">
+                                        <rect key="frame" x="1" y="0.0" width="400" height="273"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="3j3-8o-0rJ"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="DFa-86-n4G"/>
+                                        </constraints>
+                                        <connections>
+                                            <segue destination="gmJ-8X-IHf" kind="embed" identifier="RelationshipsViewControllerSegue" id="Dbc-Vf-g7d"/>
+                                        </connections>
+                                    </containerView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="KwY-ho-WGM" firstAttribute="leading" secondItem="869-Ao-yIq" secondAttribute="leading" constant="1" id="MZE-2j-vDo"/>
+                                    <constraint firstAttribute="bottom" secondItem="KwY-ho-WGM" secondAttribute="bottom" id="rag-Qf-w9w"/>
+                                    <constraint firstItem="KwY-ho-WGM" firstAttribute="top" secondItem="869-Ao-yIq" secondAttribute="top" id="soJ-GK-HfY"/>
+                                    <constraint firstAttribute="trailing" secondItem="KwY-ho-WGM" secondAttribute="trailing" constant="-1" id="w0T-rh-hjd"/>
+                                </constraints>
+                            </customView>
                         </subviews>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="fCF-ph-lRp" secondAttribute="bottom" id="5Ls-jJ-dOx"/>
-                            <constraint firstItem="fCF-ph-lRp" firstAttribute="top" secondItem="9E4-bE-Siw" secondAttribute="top" id="gNf-71-QT0"/>
-                            <constraint firstItem="fCF-ph-lRp" firstAttribute="leading" secondItem="9E4-bE-Siw" secondAttribute="leading" id="hRB-jN-PiF"/>
-                            <constraint firstAttribute="trailing" secondItem="fCF-ph-lRp" secondAttribute="trailing" id="ozI-Xk-vth"/>
-                        </constraints>
-                    </view>
+                        <holdingPriorities>
+                            <real value="250"/>
+                            <real value="250"/>
+                        </holdingPriorities>
+                    </splitView>
                     <connections>
                         <outlet property="attributesContainerView" destination="750-dQ-YzS" id="fhy-fQ-PxM"/>
                         <outlet property="relationshipsContainerView" destination="KwY-ho-WGM" id="gLN-ru-947"/>
@@ -903,127 +881,90 @@
                 </viewController>
                 <customObject id="sOh-XT-1QQ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="121" y="1535"/>
+            <point key="canvasLocation" x="124" y="1535"/>
         </scene>
         <!--AttributesVC-->
         <scene sceneID="2Sz-5Y-htt">
             <objects>
                 <viewController id="b2i-0O-NCg" customClass="AttributesVC" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="ocp-JW-XtL">
+                    <customView key="view" id="roQ-Fs-5cO" customClass="AttributesView" customModule="RealmModelGenerator" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="roQ-Fs-5cO" customClass="AttributesView" customModule="RealmModelGenerator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="Mlp-mu-Pu6"/>
-                                </constraints>
-                            </customView>
-                        </subviews>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>
-                            <constraint firstItem="roQ-Fs-5cO" firstAttribute="leading" secondItem="ocp-JW-XtL" secondAttribute="leading" id="AYq-ga-dK2"/>
-                            <constraint firstAttribute="trailing" secondItem="roQ-Fs-5cO" secondAttribute="trailing" id="HW8-1x-hLx"/>
-                            <constraint firstItem="roQ-Fs-5cO" firstAttribute="top" secondItem="ocp-JW-XtL" secondAttribute="top" id="KZh-gS-bHo"/>
-                            <constraint firstAttribute="bottom" secondItem="roQ-Fs-5cO" secondAttribute="bottom" id="Yum-dM-Zce"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="Mlp-mu-Pu6"/>
                         </constraints>
-                    </view>
+                    </customView>
                     <connections>
                         <outlet property="attributesView" destination="roQ-Fs-5cO" id="N2O-g4-KOK"/>
                     </connections>
                 </viewController>
                 <customObject id="Yeo-ps-aVW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-45" y="2087"/>
+            <point key="canvasLocation" x="-77" y="2087"/>
         </scene>
         <!--RelationshipsVC-->
         <scene sceneID="Kv4-5y-3jq">
             <objects>
                 <viewController id="gmJ-8X-IHf" customClass="RelationshipsVC" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="Xf9-9V-Mux">
+                    <customView key="view" id="7Av-2J-fg1" customClass="RelationshipsView" customModule="RealmModelGenerator" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="7Av-2J-fg1" customClass="RelationshipsView" customModule="RealmModelGenerator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
-                            </customView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="7Av-2J-fg1" secondAttribute="bottom" id="0ES-0O-xBT"/>
-                            <constraint firstItem="7Av-2J-fg1" firstAttribute="leading" secondItem="Xf9-9V-Mux" secondAttribute="leading" id="HQU-Kr-U9b"/>
-                            <constraint firstItem="7Av-2J-fg1" firstAttribute="top" secondItem="Xf9-9V-Mux" secondAttribute="top" id="Uau-hT-HXa"/>
-                            <constraint firstAttribute="trailing" secondItem="7Av-2J-fg1" secondAttribute="trailing" id="uKn-gd-GCr"/>
-                        </constraints>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                     <connections>
                         <outlet property="relationshipsView" destination="7Av-2J-fg1" id="BQn-F5-1Qt"/>
                     </connections>
                 </viewController>
                 <customObject id="LuB-yT-5ZM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="372" y="2087"/>
+            <point key="canvasLocation" x="331" y="2087"/>
         </scene>
         <!--Entity-->
         <scene sceneID="hov-AP-CN9">
             <objects>
                 <viewController title="Entity" storyboardIdentifier="EntityDetailVC" id="ys1-zd-vEd" customClass="EntityDetailVC" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" identifier="EntityDetailTabView" id="eo4-iL-mpV">
+                    <customView key="view" id="HWU-I6-IY3" customClass="EntityDetailView" customModule="RealmModelGenerator" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HWU-I6-IY3" customClass="EntityDetailView" customModule="RealmModelGenerator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
-                            </customView>
-                        </subviews>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                     <connections>
                         <outlet property="entityDetailView" destination="HWU-I6-IY3" id="G2D-HZ-Teb"/>
                     </connections>
                 </viewController>
                 <customObject id="Zjk-8C-465" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="700" y="1535"/>
+            <point key="canvasLocation" x="707" y="1535"/>
         </scene>
         <!--Attribute-->
         <scene sceneID="gQF-CC-b0T">
             <objects>
                 <viewController title="Attribute" storyboardIdentifier="AttributeDetailVC" id="JUi-4w-7fx" customClass="AttributeDetailVC" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="y8T-tK-92t">
+                    <customView key="view" id="MUh-ou-wMC" customClass="AttributeDetailView" customModule="RealmModelGenerator" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUh-ou-wMC" customClass="AttributeDetailView" customModule="RealmModelGenerator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
-                            </customView>
-                        </subviews>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                     <connections>
                         <outlet property="attributeDetailView" destination="MUh-ou-wMC" id="gRI-V3-ocI"/>
                     </connections>
                 </viewController>
                 <customObject id="G4Y-Gp-VTP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="952" y="1535"/>
+            <point key="canvasLocation" x="960" y="1535"/>
         </scene>
         <!--Relationship-->
         <scene sceneID="zwk-cv-xaZ">
             <objects>
                 <viewController title="Relationship" storyboardIdentifier="RelationshipDetailVC" id="aSq-Zm-x2t" customClass="RelationshipDetailVC" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="ZyI-Nf-PJM">
+                    <customView key="view" id="4or-Xy-zl7" customClass="RelationshipDetailView" customModule="RealmModelGenerator" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4or-Xy-zl7" customClass="RelationshipDetailView" customModule="RealmModelGenerator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
-                            </customView>
-                        </subviews>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                     <connections>
                         <outlet property="relationshipDetailView" destination="4or-Xy-zl7" id="wqy-fS-9GF"/>
                     </connections>
                 </viewController>
                 <customObject id="z8l-ON-uRI" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1203" y="1535"/>
+            <point key="canvasLocation" x="1213" y="1535"/>
         </scene>
         <!--Empty-->
         <scene sceneID="2nL-AS-KJM">
@@ -1069,7 +1010,7 @@
                 </viewController>
                 <customObject id="YZ9-Ce-80H" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="447.5" y="1535"/>
+            <point key="canvasLocation" x="454" y="1535"/>
         </scene>
     </scenes>
 </document>

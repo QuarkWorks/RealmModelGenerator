@@ -42,7 +42,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
         }
     }
     
-    private var acending:Bool = true {
+    private var ascending:Bool = true {
         didSet{ self.invalidateViews() }
     }
     
@@ -66,7 +66,10 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     func invalidateViews() {
         if !self.viewLoaded { return }
         updateDestinationList()
-        updateItemOrder()
+        
+        if isSortedByColumnHeader {
+            sortRelationships()
+        }
         self.relationshipsView.reloadData()
         invalidateSelectedIndex()
     }
@@ -87,13 +90,12 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
         self.relationshipsView.destinationNames = entityNameList
     }
     
-    func updateItemOrder() {
+    func sortRelationships() {
         guard let selectedEntity = self.selectedEntity else {
             return
         }
-        if !isSortedByColumnHeader { return }
         
-        if acending {
+        if ascending {
             if isSortByDestination {
                 selectedEntity.relationships.sortInPlace{ (e1, e2) -> Bool in
                     if let destination1 = e1.destination, destination2 = e2.destination {
@@ -173,11 +175,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     }
     
     func relationshipsView(relationshipsView: RelationshipsView, selectedIndexDidChange index: Int?) {
-        if let index = index {
-            self.selectedRelationship = self.selectedEntity?.relationships[index]
-        } else {
-            self.selectedRelationship = nil
-        }
+        self.selectedRelationship = index == nil ? nil : self.selectedEntity?.relationships[index!]
     }
     
     func relationshipsView(relationshipsView: RelationshipsView, shouldChangeRelationshipName name: String, atIndex index: Int) -> Bool {
@@ -198,7 +196,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     
     func relationshipsView(relationshipsView: RelationshipsView, sortByColumnName name: String, ascending: Bool) {
         self.isSortedByColumnHeader = true
-        self.acending = ascending
+        self.ascending = ascending
         self.isSortByDestination = name == RelationshipsView.DESTINATION_COLUMN ? true : false
     }
     
@@ -211,7 +209,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
         let draggedAttribute = selectedEntity.relationships[dragFromIndex]
         selectedEntity.relationships.removeAtIndex(dragFromIndex)
         
-        if dropToIndex >= self.selectedEntity?.relationships.count {
+        if dropToIndex >= selectedEntity.relationships.count {
             selectedEntity.relationships.insert(draggedAttribute, atIndex: dropToIndex - 1)
         } else {
             selectedEntity.relationships.insert(draggedAttribute, atIndex: dropToIndex)

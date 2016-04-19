@@ -40,7 +40,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         }
     }
 
-    private var acending:Bool = true {
+    private var ascending:Bool = true {
         didSet{ self.invalidateViews() }
     }
     
@@ -63,7 +63,10 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     
     func invalidateViews() {
         if !self.viewLoaded { return }
-        updateItemOrder()
+        
+        if isSortedByColumnHeader {
+            sortAttributes()
+        }
         self.attributesView.reloadData()
         invalidateSelectedIndex()
     }
@@ -78,13 +81,12 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         invalidateViews()
     }
     
-    func updateItemOrder() {
+    func sortAttributes() {
         guard let selectedEntity = self.selectedEntity else {
             return
         }
-        if !isSortedByColumnHeader { return }
         
-        if acending {
+        if ascending {
             if isSortByType {
                 selectedEntity.attributes.sortInPlace{ (e1, e2) -> Bool in
                     return e1.type.rawValue < e2.type.rawValue
@@ -152,11 +154,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     }
     
     func attributesView(attributesView: AttributesView, selectedIndexDidChange index: Int?) {
-        if let index = index {
-            self.selectedAttribute = self.selectedEntity?.attributes[index]
-        } else {
-            self.selectedAttribute = nil
-        }
+        self.selectedAttribute = index == nil ? nil : self.selectedEntity?.attributes[index!]
     }
     
     func attributesView(attributesView: AttributesView, shouldChangeAttributeName name: String, atIndex index: Int) -> Bool {
@@ -176,19 +174,23 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     
     func attributesView(attributesView: AttributesView, sortByColumnName name: String, ascending: Bool) {
         self.isSortedByColumnHeader = true
-        self.acending = ascending
+        self.ascending = ascending
         self.isSortByType = name == AttributesView.TYPE_COLUMN ? true : false
     }
     
     func attributesView(attributesView: AttributesView, dragFromIndex: Int, dropToIndex: Int) {
-        self.isSortedByColumnHeader = false
-        let draggedAttribute = self.selectedEntity!.attributes[dragFromIndex]
-        self.selectedEntity!.attributes.removeAtIndex(dragFromIndex)
+        guard let selectedEntity = self.selectedEntity else {
+            return
+        }
         
-        if dropToIndex >= self.selectedEntity?.attributes.count {
-            self.selectedEntity!.attributes.insert(draggedAttribute, atIndex: dropToIndex - 1)
+        self.isSortedByColumnHeader = false
+        let draggedAttribute = selectedEntity.attributes[dragFromIndex]
+        selectedEntity.attributes.removeAtIndex(dragFromIndex)
+        
+        if dropToIndex >= selectedEntity.attributes.count {
+            selectedEntity.attributes.insert(draggedAttribute, atIndex: dropToIndex - 1)
         } else {
-            self.selectedEntity!.attributes.insert(draggedAttribute, atIndex: dropToIndex)
+            selectedEntity.attributes.insert(draggedAttribute, atIndex: dropToIndex)
         }
         
         invalidateViews()

@@ -102,11 +102,7 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
     }
     
     func entitiesView(entitiesView: EntitiesView, selectedIndexDidChange index: Int?) {
-        if let index = index {
-            self.selectedEntity = self.model.entities[index]
-        } else {
-            self.selectedEntity = nil
-        }
+        self.selectedEntity = index == nil ? nil : self.model.entities[index!]
     }
     
     func entitiesView(entitiesView: EntitiesView, shouldChangeEntityName name: String, atIndex index: Int) -> Bool {
