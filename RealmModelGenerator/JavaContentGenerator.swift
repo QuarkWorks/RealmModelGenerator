@@ -109,7 +109,7 @@ class JavaContentGenerator: BaseContentGenerator {
             } else {
                 relationshipDefination += "private " + relationship.destination!.name + " " + relationship.name
             }
-            content += relationshipDefination + "\n";
+            content += relationshipDefination + ";\n";
         }
         
         content += "\n"

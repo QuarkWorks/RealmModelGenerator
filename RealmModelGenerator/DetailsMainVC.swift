@@ -71,6 +71,10 @@ class DetailsMainVC: NSViewController {
         detailsContainerView.addSubview(entityDetailVC.view)
         detailsContainerView.addSubview(attributeDetailVC.view)
         detailsContainerView.addSubview(relationshipDetailVC.view)
+        self.emptyTextField.hidden = false
+        self.entityDetailVC.view.hidden = true
+        self.attributeDetailVC.view.hidden = true
+        self.relationshipDetailVC.view.hidden = true
     }
     
     override func viewWillAppear() {

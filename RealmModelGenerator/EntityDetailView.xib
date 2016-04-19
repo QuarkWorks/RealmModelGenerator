@@ -53,10 +53,10 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="2oV-31-do6">
-                    <rect key="frame" x="87" y="441" width="156" height="25"/>
-                    <popUpButtonCell key="cell" type="bevel" title="Item 1" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" allowsMixedState="YES" inset="2" selectedItem="j3u-eE-oz0" id="zxG-kS-tEr">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name=".AppleSystemUIFont"/>
+                    <rect key="frame" x="87" y="440" width="156" height="26"/>
+                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" allowsMixedState="YES" inset="2" selectedItem="j3u-eE-oz0" id="zxG-kS-tEr">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" id="doA-oy-bcy">
                             <items>
                                 <menuItem title="Item 1" state="on" id="j3u-eE-oz0"/>
@@ -82,7 +82,7 @@
                 </textField>
             </subviews>
             <constraints>
-                <constraint firstItem="2oV-31-do6" firstAttribute="trailing" secondItem="nLk-wr-U4G" secondAttribute="trailing" id="0zS-i2-Nju"/>
+                <constraint firstItem="2oV-31-do6" firstAttribute="trailing" secondItem="nLk-wr-U4G" secondAttribute="trailing" constant="-1" id="0zS-i2-Nju"/>
                 <constraint firstItem="2oV-31-do6" firstAttribute="top" secondItem="nLk-wr-U4G" secondAttribute="bottom" constant="12" id="DTD-T1-vzr"/>
                 <constraint firstItem="6fF-an-cLa" firstAttribute="leading" secondItem="r9q-db-ZSO" secondAttribute="leading" id="JtV-a4-8UV"/>
                 <constraint firstItem="Cyv-Te-uvy" firstAttribute="leading" secondItem="6fF-an-cLa" secondAttribute="leading" id="Mma-Y6-H8u"/>
@@ -93,7 +93,7 @@
                 <constraint firstItem="nLk-wr-U4G" firstAttribute="baseline" secondItem="6fF-an-cLa" secondAttribute="firstBaseline" id="fFK-g0-TXE"/>
                 <constraint firstItem="Cyv-Te-uvy" firstAttribute="centerX" secondItem="6fF-an-cLa" secondAttribute="centerX" id="fvQ-Y0-5S7"/>
                 <constraint firstItem="nLk-wr-U4G" firstAttribute="top" secondItem="r9q-db-ZSO" secondAttribute="bottom" constant="16" id="gFv-G8-2yA"/>
-                <constraint firstItem="2oV-31-do6" firstAttribute="centerY" secondItem="Cyv-Te-uvy" secondAttribute="centerY" id="rX0-2W-uxm"/>
+                <constraint firstItem="2oV-31-do6" firstAttribute="centerY" secondItem="Cyv-Te-uvy" secondAttribute="centerY" constant="1" id="rX0-2W-uxm"/>
                 <constraint firstItem="r9q-db-ZSO" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="8" id="vje-Wp-F50"/>
                 <constraint firstItem="r9q-db-ZSO" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="xMx-tz-m97"/>
                 <constraint firstItem="r9q-db-ZSO" firstAttribute="trailing" secondItem="nLk-wr-U4G" secondAttribute="trailing" id="zjH-C9-QIG"/>
