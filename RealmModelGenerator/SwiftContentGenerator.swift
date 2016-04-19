@@ -43,7 +43,10 @@ class SwiftContentGenerator: BaseContentGenerator {
         // Append attributes
         for attr in entity.attributes {
             var attrDefination = ""
-            if (attr.isRequired) {
+            let primaryKey = self.entity.primaryKey
+            
+            // we treat required attribute as non-option one.
+            if (attr.isRequired || (primaryKey != nil && attr === primaryKey!)) {
                 if attr.hasDefault {
                     attrDefination += "\tdynamic var " + attr.name + attr.type.name(Language.Swift, isRequired: true) + " = " + attr.defaultValue
                     // handle empty string default
@@ -134,7 +137,7 @@ class SwiftContentGenerator: BaseContentGenerator {
     //MARK: Append primary key
     func appendPrimaryKey() {
         if let primarykey = entity.primaryKey {
-            content += "\toverride class func primaryKey() -> String? {\n"
+            content += "\toverride static func primaryKey() -> String? {\n"
             content += "\t\treturn \"" + primarykey.name + "\"\n"
             content += "\t}\n\n"
         }

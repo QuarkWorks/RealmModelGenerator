@@ -94,9 +94,6 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     func updateDestinationList() {
         self.entityNameList = ["None"]
         self.selectedEntity?.model.entities.forEach{(e) in entityNameList.append(e.name)}
-        if self.selectedEntity != nil {
-            self.entityNameList.removeAtIndex(self.entityNameList.indexOf(self.selectedEntity!.name)!)
-        }
         self.relationshipsView.destinationNames = entityNameList
     }
     

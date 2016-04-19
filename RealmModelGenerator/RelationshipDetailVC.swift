@@ -40,7 +40,6 @@ class RelationshipDetailVC: NSViewController, RelationshipDetailViewDelegate, Ob
         relationshipDetailView.isMany = relationship.isMany
         self.entityNameList = ["None"]
         relationship.entity!.model.entities.forEach{(e) in entityNameList.append(e.name)}
-        self.entityNameList.removeAtIndex(self.entityNameList.indexOf(relationship.entity!.name)!)
         self.relationshipDetailView.destinationNames = self.entityNameList
         if let destination = relationship.destination {
             relationshipDetailView.selectedIndex = entityNameList.indexOf(destination.name)!

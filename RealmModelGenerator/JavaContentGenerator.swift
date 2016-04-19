@@ -79,7 +79,7 @@ class JavaContentGenerator: BaseContentGenerator {
             }
             
             if attr.isRequired {
-                attrAnnotions += "\t@Require\n"
+                attrAnnotions += "\t@Required\n"
             }
             
             //Get attribute defination
