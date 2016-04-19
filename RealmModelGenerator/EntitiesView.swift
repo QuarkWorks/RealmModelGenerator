@@ -19,10 +19,13 @@ protocol EntitiesViewDelegate: class {
     func entitiesView(entitiesView:EntitiesView, selectedIndexDidChange index:Int?)
     func entitiesView(entitiesView:EntitiesView, shouldChangeEntityName name:String,
         atIndex index:Int) -> Bool
+    func entitiesView(entitiesView:EntitiesView, dragFromIndex:Int, dropToIndex:Int)
 }
 
 @IBDesignable
 class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource, TitleCellDelegate {
+    
+    let ROW_TYPE = "rowType"
     
     @IBOutlet var tableView:NSTableView!
     @IBOutlet var addButton:NSButton!
@@ -56,6 +59,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     override func nibDidLoad() {
         super.nibDidLoad()
         removeButton.enabled = false
+        tableView.registerForDraggedTypes([ROW_TYPE, NSFilenamesPboardType])
     }
     
     func reloadData() {
@@ -126,5 +130,42 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         }
         
         return true
+    }
+    
+    //MARK: - Copy the row to the pasteboard
+    func tableView(tableView: NSTableView, writeRowsWithIndexes: NSIndexSet, toPasteboard: NSPasteboard) -> Bool {
+        
+        let data = NSKeyedArchiver.archivedDataWithRootObject([writeRowsWithIndexes])
+        
+        toPasteboard.declareTypes([ROW_TYPE], owner:self)
+        toPasteboard.setData(data, forType:ROW_TYPE)
+        
+        return true
+    }
+    
+    //MARK: - Validate the drop
+    func tableView(tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
+        
+        tableView.setDropRow(row, dropOperation: NSTableViewDropOperation.Above)
+        return NSDragOperation.Move
+    }
+    
+    //MARK: - Handle the drop
+    func tableView(tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+        let pasteboard = info.draggingPasteboard()
+        let rowData = pasteboard.dataForType(ROW_TYPE)
+        
+        if(rowData != nil) {
+            var dataArray = NSKeyedUnarchiver.unarchiveObjectWithData(rowData!) as! Array<NSIndexSet>,
+            indexSet = dataArray[0]
+            
+            let movingFromIndex = indexSet.firstIndex
+            self.delegate?.entitiesView(self, dragFromIndex: movingFromIndex, dropToIndex: row)
+            
+            return true
+        }
+        else {
+            return false
+        }
     }
 }

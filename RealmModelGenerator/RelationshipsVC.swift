@@ -30,26 +30,17 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
             oldValue?.observable.removeObserver(self)
             self.selectedEntity?.observable.addObserver(self)
             selectedRelationship = nil
-            if let entity = self.selectedEntity {
-                self.relationships = entity.relationships
-            } else {
-                self.relationships = []
-            }
             self.invalidateViews()
         }
     }
     
     private weak var selectedRelationship: Relationship? {
         didSet {
-            previousSelectedRelationship = oldValue
             if oldValue === self.selectedRelationship { return }
             invalidateSelectedIndex()
             self.delegate?.relationshipsVC(self, selectedRelationshipDidChange: self.selectedRelationship)
         }
     }
-    
-    private var relationships: [Relationship] = []
-    weak var previousSelectedRelationship: Relationship?
     
     private var acending:Bool = true {
         didSet{ self.invalidateViews() }
@@ -59,6 +50,8 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
         didSet{ self.invalidateViews() }
     }
     
+    private var isSortedByColumnHeader = false
+    
     weak var delegate: RelationshipsVCDelegate?
     
     //MARK: - Lifecycle
@@ -67,9 +60,6 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     }
     
     func onChange(observable: Observable) {
-        if self.selectedEntity?.relationships.count != self.relationships.count {
-            self.relationships = (self.selectedEntity?.relationships)!
-        }
         self.invalidateViews()
     }
     
@@ -82,7 +72,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     }
     
     func invalidateSelectedIndex() {
-        self.relationshipsView.selectedIndex = self.relationships.indexOf({$0 === self.selectedRelationship})
+        self.relationshipsView.selectedIndex = self.selectedEntity?.relationships.indexOf({$0 === self.selectedRelationship})
     }
     
     //MARK: - Update selected relationship after its detail changed
@@ -98,53 +88,61 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     }
     
     func updateItemOrder() {
-        if selectedEntity == nil { return }
+        guard let selectedEntity = self.selectedEntity else {
+            return
+        }
+        if !isSortedByColumnHeader { return }
+        
         if acending {
             if isSortByDestination {
-                self.relationships = self.selectedEntity!.relationships.sort{
-                    if let destination0 = $0.destination, destination1 = $1.destination {
-                        return destination0.name < destination1.name
-                    } else if let destination0 = $0.destination {
-                        return destination0.name < entityNameList[0]
-                    } else if let destination1 = $1.destination {
-                        return entityNameList[0] < destination1.name
+                selectedEntity.relationships.sortInPlace{ (e1, e2) -> Bool in
+                    if let destination1 = e1.destination, destination2 = e2.destination {
+                        return destination1.name < destination2.name
+                    } else if let destination1 = e1.destination {
+                        return destination1.name < entityNameList[0]
+                    } else if let destination2 = e2.destination {
+                        return entityNameList[0] < destination2.name
                     } else {
                         return true
                     }
                 }
             } else {
-                self.relationships = self.selectedEntity!.relationships.sort{ return $0.name < $1.name }
+                selectedEntity.relationships.sortInPlace{ (e1, e2) -> Bool in
+                    return e1.name < e2.name
+                }
             }
         } else {
             if isSortByDestination {
-                self.relationships = self.selectedEntity!.relationships.sort{
-                    if let destination0 = $0.destination, destination1 = $1.destination {
-                        return destination0.name > destination1.name
-                    } else if let destination0 = $0.destination {
-                        return destination0.name > entityNameList[0]
-                    } else if let destination1 = $1.destination {
-                        return entityNameList[0] > destination1.name
+                selectedEntity.relationships.sortInPlace{ (e1, e2) -> Bool in
+                    if let destination1 = e1.destination, destination2 = e2.destination {
+                        return destination1.name > destination2.name
+                    } else if let destination1 = e1.destination {
+                        return destination1.name > entityNameList[0]
+                    } else if let destination2 = e2.destination {
+                        return entityNameList[0] > destination2.name
                     } else {
                         return true
                     }
                 }
             } else {
-                self.relationships = self.selectedEntity!.relationships.sort{ return $0.name > $1.name }
+                selectedEntity.relationships.sortInPlace{ (e1, e2) -> Bool in
+                    return e1.name > e2.name
+                }
             }
         }
     }
     
     //MARK: - RelationshipsViewDataSource
     func numberOfRowsInRelationshipsView(relationshipsView: RelationshipsView) -> Int {
-        return self.relationships.count
+        return self.selectedEntity == nil ? 0 : self.selectedEntity!.relationships.count
     }
     
     func relationshipsView(relationshipsView: RelationshipsView, titleForRelationshipAtIndex index: Int) -> String {
-        return self.relationships[index].name
+        return self.selectedEntity!.relationships[index].name
     }
     
     func relationshipsView(relationshipsView: RelationshipsView, destinationForRelationshipAtIndex index: Int) -> String {
-        if let destination = self.relationships[index].destination {
+        if let destination = self.selectedEntity?.relationships[index].destination {
             return destination.name
         } else {
             return entityNameList[0]
@@ -155,7 +153,6 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     func addRelationshipInRelationshipsView(relationshipsView: RelationshipsView) {
         if self.selectedEntity != nil {
             let relationship = self.selectedEntity!.createRelationship()
-            self.relationships.append(relationship)
             self.selectedRelationship = relationship
         }
     }
@@ -163,12 +160,12 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     func relationshipsView(relationshipsView: RelationshipsView, removeRelationshipAtIndex index: Int) {
         let relationship = self.selectedEntity!.relationships[index]
         if relationship === self.selectedRelationship {
-            if self.relationships.count <= 1 {
+            if self.selectedEntity?.relationships.count <= 1 {
                 self.selectedRelationship = nil
-            } else if index == self.relationships.count - 1 {
-                self.selectedRelationship = self.relationships[index - 1]
+            } else if index == self.selectedEntity!.relationships.count - 1 {
+                self.selectedRelationship = self.selectedEntity?.relationships[index - 1]
             } else {
-                self.selectedRelationship = self.relationships[index + 1]
+                self.selectedRelationship = self.selectedEntity?.relationships[index + 1]
             }
         }
         
@@ -177,7 +174,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     
     func relationshipsView(relationshipsView: RelationshipsView, selectedIndexDidChange index: Int?) {
         if let index = index {
-            self.selectedRelationship = self.relationships[index]
+            self.selectedRelationship = self.selectedEntity?.relationships[index]
         } else {
             self.selectedRelationship = nil
         }
@@ -196,14 +193,30 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     
     func relationshipsView(relationshipsView: RelationshipsView, atIndex index: Int, changeDestination destinationName: String) {
         let destination = selectedEntity?.model.entities.filter({$0.name == destinationName}).first
-        self.relationships[index].destination = destination
+        self.selectedEntity?.relationships[index].destination = destination
     }
     
     func relationshipsView(relationshipsView: RelationshipsView, sortByColumnName name: String, ascending: Bool) {
-        if previousSelectedRelationship != nil {
-            self.selectedRelationship = previousSelectedRelationship
-        }
+        self.isSortedByColumnHeader = true
         self.acending = ascending
         self.isSortByDestination = name == RelationshipsView.DESTINATION_COLUMN ? true : false
+    }
+    
+    func relationshipsView(relationshipsView: RelationshipsView, dragFromIndex: Int, dropToIndex: Int) {
+        guard let selectedEntity = self.selectedEntity else {
+            return
+        }
+        
+        self.isSortedByColumnHeader = false
+        let draggedAttribute = selectedEntity.relationships[dragFromIndex]
+        selectedEntity.relationships.removeAtIndex(dragFromIndex)
+        
+        if dropToIndex >= self.selectedEntity?.relationships.count {
+            selectedEntity.relationships.insert(draggedAttribute, atIndex: dropToIndex - 1)
+        } else {
+            selectedEntity.relationships.insert(draggedAttribute, atIndex: dropToIndex)
+        }
+        
+        invalidateViews()
     }
 }

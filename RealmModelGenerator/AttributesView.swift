@@ -21,8 +21,8 @@ protocol AttributesViewDelegate: class {
     func attributesView(attributesView:AttributesView, shouldChangeAttributeName name:String,
         atIndex index:Int) -> Bool
     func attributesView(attributesView:AttributesView, atIndex index:Int, changeAttributeType attributeType:AttributeType)
-    
     func attributesView(attributesView:AttributesView, sortByColumnName name:String, ascending:Bool)
+    func attributesView(attributesView:AttributesView, dragFromIndex:Int, dropToIndex:Int)
 }
 
 @IBDesignable
@@ -32,6 +32,7 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     static let ATTRIBUTE_COLUMN = "attribute"
     static let TYPE_COLUMN = "type"
     let ATTRIBUTE_TYPES = AttributeType.values.flatMap({$0.rawValue})
+    let ROW_TYPE = "rowType"
     
     @IBOutlet var tableView:NSTableView!
     @IBOutlet weak var addButton:NSButton!
@@ -65,6 +66,7 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     override func nibDidLoad() {
         super.nibDidLoad()
         removeButton.enabled = false
+        tableView.registerForDraggedTypes([ROW_TYPE, NSFilenamesPboardType])
         setUpDefaultSortDescriptor()
     }
     
@@ -178,5 +180,42 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
         
         let cellIndex = self.tableView.rowForView(popUpCell)
         self.delegate?.attributesView(self, atIndex:cellIndex, changeAttributeType: AttributeType.values[index])
+    }
+    
+    //MARK: - Copy the row to the pasteboard
+    func tableView(tableView: NSTableView, writeRowsWithIndexes: NSIndexSet, toPasteboard: NSPasteboard) -> Bool {
+        
+        let data = NSKeyedArchiver.archivedDataWithRootObject([writeRowsWithIndexes])
+        
+        toPasteboard.declareTypes([ROW_TYPE], owner:self)
+        toPasteboard.setData(data, forType:ROW_TYPE)
+        
+        return true
+    }
+    
+    //MARK: - Validate the drop
+    func tableView(tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
+        
+        tableView.setDropRow(row, dropOperation: NSTableViewDropOperation.Above)
+        return NSDragOperation.Move
+    }
+    
+    //MARK: - Handle the drop
+    func tableView(tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+        let pasteboard = info.draggingPasteboard()
+        let rowData = pasteboard.dataForType(ROW_TYPE)
+        
+        if(rowData != nil) {
+            var dataArray = NSKeyedUnarchiver.unarchiveObjectWithData(rowData!) as! Array<NSIndexSet>,
+            indexSet = dataArray[0]
+            
+            let movingFromIndex = indexSet.firstIndex
+            self.delegate?.attributesView(self, dragFromIndex: movingFromIndex, dropToIndex: row)
+            
+            return true
+        }
+        else {
+            return false
+        }
     }
 }

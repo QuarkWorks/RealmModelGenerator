@@ -14,7 +14,7 @@ class Model {
     weak var schema:Schema!
     private(set) var version:String
     internal(set) var isModifiable:Bool = true
-    private(set) var entities:[Entity] = []
+    internal(set) var entities:[Entity] = []
     var entitiesByName:[String:Entity] {
         get {
             var entitiesByName = [String:Entity](minimumCapacity:self.entities.count)

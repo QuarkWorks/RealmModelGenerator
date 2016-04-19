@@ -119,4 +119,17 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
         }
         return true
     }
+    
+    func entitiesView(entitiesView: EntitiesView, dragFromIndex: Int, dropToIndex: Int) {
+        let draggedEntity = self.model.entities[dragFromIndex]
+        self.model.entities.removeAtIndex(dragFromIndex)
+        
+        if dropToIndex >= self.model.entities.count {
+            self.model.entities.insert(draggedEntity, atIndex: dropToIndex - 1)
+        } else {
+            self.model.entities.insert(draggedEntity, atIndex: dropToIndex)
+        }
+        
+        invalidateViews()
+    }
 }

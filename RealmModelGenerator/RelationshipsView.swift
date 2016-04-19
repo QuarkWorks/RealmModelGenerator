@@ -22,7 +22,7 @@ protocol RelationshipsViewDelegate: class {
         atIndex index:Int) -> Bool
     func relationshipsView(relationshipsView:RelationshipsView, atIndex index:Int, changeDestination destinationName:String)
     func relationshipsView(relationshipsView:RelationshipsView, sortByColumnName name:String, ascending:Bool)
-
+    func relationshipsView(relationshipsView:RelationshipsView, dragFromIndex:Int, dropToIndex:Int)
 }
 
 @IBDesignable
@@ -31,6 +31,8 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     
     static let REALATIONSHIP_COLUMN = "relationship"
     static let DESTINATION_COLUMN = "destination"
+    
+    let ROW_TYPE = "rowType"
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var addButton: NSButton!
@@ -65,6 +67,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     override func nibDidLoad() {
         super.nibDidLoad()
         removeButton.enabled = false
+        tableView.registerForDraggedTypes([ROW_TYPE, NSFilenamesPboardType])
         setUpDefaultSortDescriptor()
     }
     
@@ -177,5 +180,42 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     func popUpCell(popUpCell: PopUpCell, selectedItemDidChangeIndex index: Int) {
         let cellIndex = self.tableView.rowForView(popUpCell)
         self.delegate?.relationshipsView(self, atIndex:cellIndex, changeDestination: destinationNames[index])
+    }
+    
+    //MARK: - Copy the row to the pasteboard
+    func tableView(tableView: NSTableView, writeRowsWithIndexes: NSIndexSet, toPasteboard: NSPasteboard) -> Bool {
+        
+        let data = NSKeyedArchiver.archivedDataWithRootObject([writeRowsWithIndexes])
+        
+        toPasteboard.declareTypes([ROW_TYPE], owner:self)
+        toPasteboard.setData(data, forType:ROW_TYPE)
+        
+        return true
+    }
+    
+    //MARK: - Validate the drop
+    func tableView(tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
+        
+        tableView.setDropRow(row, dropOperation: NSTableViewDropOperation.Above)
+        return NSDragOperation.Move
+    }
+    
+    //MARK: - Handle the drop
+    func tableView(tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+        let pasteboard = info.draggingPasteboard()
+        let rowData = pasteboard.dataForType(ROW_TYPE)
+        
+        if(rowData != nil) {
+            var dataArray = NSKeyedUnarchiver.unarchiveObjectWithData(rowData!) as! Array<NSIndexSet>,
+            indexSet = dataArray[0]
+            
+            let movingFromIndex = indexSet.firstIndex
+            self.delegate?.relationshipsView(self, dragFromIndex: movingFromIndex, dropToIndex: row)
+            
+            return true
+        }
+        else {
+            return false
+        }
     }
 }
