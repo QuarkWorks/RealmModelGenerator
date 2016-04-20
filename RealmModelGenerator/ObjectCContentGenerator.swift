@@ -11,10 +11,10 @@ import Foundation
 class ObjectCContentGenerator: BaseContentGenerator {
     static let TAG = NSStringFromClass(ObjectCContentGenerator)
     
-    var hContent = ""
-    var mContent = ""
+    private var hContent = ""
+    private var mContent = ""
     
-    var entity: Entity
+    private var entity: Entity
     
     init(entity: Entity) {
         self.entity = entity
@@ -23,22 +23,24 @@ class ObjectCContentGenerator: BaseContentGenerator {
     func getContent() -> Array<String> {
         
         if isValidEntity(entity) {
-            hContent += getHeaderComments(entity, fileExtension: "h")
-            
-            hContent += "#import <Realm/Realm.h>\n\n"
-            hContent += "@interface " + entity.name + " : " + "RLMObject\n\n"
-            
-            mContent += getHeaderComments(entity, fileExtension: "m")
-            mContent += "#import \"" + entity.name + ".h\"\n\n"
-            mContent += "@implementation " + entity.name + "\n\n"
-            
+            appendHeader()
             appendAttributes()
-            hContent += "@end\n"
-            hContent += "RLM_ARRAY_TYPE(" + entity.name + ")"
-            mContent += "@end\n"
         }
         
         return [hContent, mContent]
+    }
+    
+    //MARK: - Append header
+    func appendHeader() {
+        hContent += getHeaderComments(entity, fileExtension: "h")
+        
+        hContent += "#import <Realm/Realm.h>\n\n"
+        hContent += "@interface " + entity.name + " : " + "RLMObject\n\n"
+        
+        mContent += getHeaderComments(entity, fileExtension: "m")
+        mContent += "#import \"" + entity.name + ".h\"\n\n"
+        mContent += "@implementation " + entity.name + "\n\n"
+
     }
     
     //MARK: Append attributes and relicationships
@@ -110,6 +112,10 @@ class ObjectCContentGenerator: BaseContentGenerator {
         appendDefaultPropertyValues(defaultProperties)
         appendIgnoredProperties(ignoredProperties)
         appendRequiredProperties(requiredProperties)
+        
+        hContent += "@end\n"
+        hContent += "RLM_ARRAY_TYPE(" + entity.name + ")"
+        mContent += "@end\n"
     }
     
     //MARK: Append attributes for property

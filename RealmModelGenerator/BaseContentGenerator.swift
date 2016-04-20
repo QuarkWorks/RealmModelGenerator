@@ -11,8 +11,7 @@ import AddressBook
 
 class BaseContentGenerator {
     
-    // Check if an enity is valid or not, if not, print out error
-    // TODO: provide user with a popup with details of invalid entity
+    //MARK: - Check if entity is valid or not
     func isValidEntity(entity: Entity) -> Bool {
         do {
             return try validEntity(entity)
@@ -45,6 +44,7 @@ class BaseContentGenerator {
         return true
     }
     
+    //MARK: - Get header comments
     func getHeaderComments(entity: Entity, fileExtension: String) -> String {
         var content = ""
         content += "/**\n"

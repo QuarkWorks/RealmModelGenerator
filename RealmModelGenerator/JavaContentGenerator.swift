@@ -11,8 +11,8 @@ import Foundation
 class JavaContentGenerator: BaseContentGenerator {
     static let TAG = NSStringFromClass(JavaContentGenerator)
     
-    var content = ""
-    var entity: Entity
+    private var content = ""
+    private var entity: Entity
     
     init(entity: Entity) {
         self.entity = entity
@@ -30,7 +30,7 @@ class JavaContentGenerator: BaseContentGenerator {
         return [content]
     }
     
-    //MARK: Append header
+    //MARK: - Append header
     func appendHeader() {
         content += getHeaderComments(entity, fileExtension: "java")
         
@@ -42,7 +42,7 @@ class JavaContentGenerator: BaseContentGenerator {
         content += "\tprivate static final String TAG = " + entity.name + ".class.getSimpleName();\n\n"
     }
     
-    //MARK: Append RealmKeys
+    //MARK: - Append RealmKeys
     func appendRealmKeys() {
         content += "\tpublic static final class RealmKeys {"
         
@@ -55,7 +55,7 @@ class JavaContentGenerator: BaseContentGenerator {
         content += "\n\t}\n\n"
     }
     
-    //MARK: Append attributes and relicationships
+    //MARK: - Append attributes and relicationships
     func appendAttributes() {
         let primarykey = entity.primaryKey
         
@@ -64,7 +64,6 @@ class JavaContentGenerator: BaseContentGenerator {
             var attrAnnotions = ""
             var attrDefination = "\t"
             
-            //TODO: handle multiple annotions in the same property?
             //Get attribute annotions
             if primarykey?.name == attr.name {
                 attrAnnotions += "\t@PrimaryKey\n"
@@ -115,7 +114,7 @@ class JavaContentGenerator: BaseContentGenerator {
         content += "\n"
     }
     
-    //MARK: Append Getters and Setters
+    //MARK: - Append Getters and Setters
     func appendGettersAndSetters() {
         // Append attribute Getters and Setters
         for attr in entity.attributes {
@@ -158,7 +157,7 @@ class JavaContentGenerator: BaseContentGenerator {
         content += "}"
     }
     
-    // Check if we are going to import Date
+    //MARK: - Check if we are going to import Date
     func importDate() -> Bool {
         for attr in entity.attributes {
             if attr.type == .Date {

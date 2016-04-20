@@ -31,17 +31,17 @@ extension MainVC {
         }
     }
     
-    //Called from menu bar
+    //MARK: - Called from menu bar, exportToJava
     @IBAction func exportToJava(sender: AnyObject!) {
         generateFileModels(.Java)
     }
     
-    //Called from menu bar
+    //MARK: - Called from menu bar, exportToObjectC
     @IBAction func exportToObjectC(sender: AnyObject!) {
         generateFileModels(.Objc)
     }
     
-    //Called from menu bar
+    //MARK: - Called from menu bar, exportToSwift
     @IBAction func exportToSwift(sender: AnyObject!) {
         generateFileModels(.Swift)
     }
@@ -110,15 +110,11 @@ extension MainVC {
                 error = nSError
             }
             
-            if error != nil{
-                NSAlert(error: error!).runModal()
+            if error == nil{
+                self.showSuccess()
+            } else {
+                Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "We an error when save file.")
             }
-        }
-        
-        if error == nil{
-            self.showSuccess()
-        } else {
-            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "We an error when save file.")
         }
     }
     

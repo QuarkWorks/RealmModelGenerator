@@ -11,8 +11,8 @@ import Foundation
 class SwiftContentGenerator: BaseContentGenerator {
     static let TAG = NSStringFromClass(SwiftContentGenerator)
     
-    var content = ""
-    var entity: Entity
+    private var content = ""
+    private var entity: Entity
     
     init(entity: Entity) {
         self.entity = entity
@@ -21,21 +21,23 @@ class SwiftContentGenerator: BaseContentGenerator {
     func getContent() -> Array<String> {
         
         if isValidEntity(entity) {
-            content += getHeaderComments(entity, fileExtension: "swift")
-            
-            content += "import RealmSwift\n\n"
-            content += "class " + entity.name + ": Object {\n"
-            content += "\tstatic let TAG = NSStringFromClass(" + entity.name + ");\n\n"
-            
+            appendHeader()
             appendAttributes()
-            
-            content += "}"
         }
         
         return [content]
     }
     
-    //MARK: Append attributes and relicationships
+    //MARK: - Append header
+    func appendHeader() {
+        content += getHeaderComments(entity, fileExtension: "swift")
+        
+        content += "import RealmSwift\n\n"
+        content += "class " + entity.name + ": Object {\n"
+        content += "\tstatic let TAG = NSStringFromClass(" + entity.name + ");\n\n"
+    }
+    
+    //MARK: - Append attributes and relicationships
     func appendAttributes() {
         var indexedProperties = ""
         var ignoredProperties = ""
@@ -132,6 +134,8 @@ class SwiftContentGenerator: BaseContentGenerator {
         appendPrimaryKey()
         appendIndexedProperties(indexedProperties)
         appendIgnoredProperties(ignoredProperties)
+        
+        content += "}"
     }
     
     //MARK: Append primary key
