@@ -8,11 +8,9 @@
 
 import Cocoa
 
-class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDelegate, NSUserNotificationCenterDelegate {
+class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDelegate, NSUserNotificationCenterDelegate, VersionVCDelegate {
     static let TAG = NSStringFromClass(MainVC)
     
-    @IBOutlet weak var leftDivider: NSView!
-    @IBOutlet weak var rightDivider: NSView!
     @IBOutlet weak var entitiesContainerView: NSView!
     @IBOutlet weak var attributesRelationshipsContainerView: NSView!
     @IBOutlet weak var detailsContainerView: NSView!
@@ -31,10 +29,13 @@ class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDel
     
     private weak var detailsVC:DetailsMainVC!
 
-    var schema = Schema() {
+    private var isFirstTimeSetSchema = true
+    var schema:Schema?{
         didSet {
-            model = schema.currentModel
-            entitiesVC.schema = self.schema
+            if self.schema == nil { return }
+            self.model = self.schema!.currentModel
+            self.entitiesVC.schema = self.schema!
+            isFirstTimeSetSchema = false
         }
     }
     
@@ -88,6 +89,14 @@ class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDel
         self.attributesRelationshipsMainVC.selectedRelationship = self.selectedRelationship
     }
     
+    //MARK: -VersionVC delegate
+    func versionVC(versionVC: VersionVC, selectedModelDidChange currentModel: Model?) {
+        self.selectedEntity = nil
+        self.selectedAttribute = nil
+        self.selectedRelationship = nil
+        invalidateViews()
+    }
+    
     //MARK: - EntitiesVC delegate
     func entitiesVC(entitiesVC: EntitiesVC, selectedEntityDidChange entity: Entity?) {
         self.selectedEntity = entity
@@ -107,7 +116,6 @@ class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDel
     override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
         if segue.destinationController is EntitiesVC {
             self.entitiesVC = segue.destinationController as! EntitiesVC
-            self.entitiesVC.schema = self.schema
         } else if segue.destinationController is AttributesRelationshipsMainVC {
             self.attributesRelationshipsMainVC = segue.destinationController as! AttributesRelationshipsMainVC
         } else if segue.destinationController is DetailsMainVC {

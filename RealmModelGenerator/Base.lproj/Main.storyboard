@@ -108,10 +108,10 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Increase Version" id="YFC-YP-hiY">
+                                        <menuItem title="Version" id="YFC-YP-hiY">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="increaseVersion:" target="Ady-hI-5gd" id="i6t-rd-k96"/>
+                                                <action selector="versonMenuOnClick:" target="Ady-hI-5gd" id="cD9-BZ-A3D"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
@@ -695,6 +695,72 @@
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="124" y="272"/>
+        </scene>
+        <!--VersionVC-->
+        <scene sceneID="WNh-Wq-5sm">
+            <objects>
+                <viewController storyboardIdentifier="VersionVC" id="hZK-eQ-MV4" customClass="VersionVC" customModule="RealmModelGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="0Wo-5O-U6D">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="180"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LuV-Do-7iX">
+                                <rect key="frame" x="6" y="140" width="140" height="20"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Choose a version" id="bd6-YL-SWm">
+                                    <font key="font" size="13" name="Menlo-Regular"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1xG-w1-zu4">
+                                <rect key="frame" x="141" y="77" width="120" height="26"/>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="khb-uw-l4z" id="6xO-Fb-Jxd">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="iJD-l3-TiI">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="khb-uw-l4z"/>
+                                            <menuItem title="Item 2" id="hiP-sa-k7T"/>
+                                            <menuItem title="Item 3" id="4aX-BF-wlO"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                            </popUpButton>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TXH-x5-SGX">
+                                <rect key="frame" x="68" y="13" width="80" height="32"/>
+                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DQO-Bv-b7a">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="cancelButtonOnClick:" target="hZK-eQ-MV4" id="B9t-qG-1CG"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2TX-JE-DEJ">
+                                <rect key="frame" x="258" y="13" width="80" height="32"/>
+                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EW5-ie-eGV">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="okButtonOnClick:" target="hZK-eQ-MV4" id="mPm-XJ-MaJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="versionPopUpButton" destination="1xG-w1-zu4" id="mUz-68-5ku"/>
+                    </connections>
+                </viewController>
+                <customObject id="LEH-yW-j8o" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="632" y="203"/>
         </scene>
         <!--MainVC-->
         <scene sceneID="hIz-AP-VOD">

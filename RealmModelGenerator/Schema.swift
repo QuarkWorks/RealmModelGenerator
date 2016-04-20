@@ -31,12 +31,10 @@ class Schema {
             version += 1
         }
         
-        self.models.forEach({$0.isModifiable = false})
-        
         let model = Model(version: "\(version)", schema:self)
         try build(model)
         models.append(model)
-        
+
         return model
     }
     
@@ -46,6 +44,8 @@ class Schema {
     
     func increaseVersion() throws -> Model {
         let currentModelDict = currentModel.toDictionary()
+        
+        self.models.forEach({$0.isModifiable = false})
         
         let model = createModel()
         try model.map(currentModelDict, increaseVersion: true)

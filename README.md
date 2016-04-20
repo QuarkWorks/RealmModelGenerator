@@ -14,6 +14,7 @@ Realm Model Generator is a document based OSX tool that helps mobile developers 
 * set up default value
 * save Realm schema to a file
 * import Realm schema from a file 
+* version controll
 
 ## Version
 * Version: 0.0.1

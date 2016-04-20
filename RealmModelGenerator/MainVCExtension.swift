@@ -22,14 +22,18 @@ extension MainVC {
         }
     }
     
-    //Called from menu bar
-    @IBAction func increaseVersion(sender: AnyObject!) {
-        do {
-            try schema.increaseVersion()
-        } catch {
-            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Cannot increase version")
-        }
+    //MARK: - Called from menu bar, Version
+    @IBAction func versonMenuOnClick(sender: AnyObject!) {
+        let versionVC: VersionVC = {
+            return self.storyboard!.instantiateControllerWithIdentifier("VersionVC")
+                as! VersionVC
+        }()
+        versionVC.schema = self.schema!
+        versionVC.delegate = self
+        self.presentViewControllerAsSheet(versionVC)
+        
     }
+    
     
     //MARK: - Called from menu bar, exportToJava
     @IBAction func exportToJava(sender: AnyObject!) {
@@ -50,7 +54,7 @@ extension MainVC {
     func generateFileModels(language: Language) {
         var files: [FileModel] = []
         var validEnties = true
-        for entity in schema.currentModel.entities {
+        for entity in self.schema!.currentModel.entities {
             let content = generateFileContent(entity, language: language)
             if !content.first!.isEmpty {
                 switch language {

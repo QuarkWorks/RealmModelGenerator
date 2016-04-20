@@ -14,6 +14,8 @@ class RealmSchemaDocument: NSDocument {
     private var mainVC: MainVC!
     private var schema = Schema()
     
+    private var windowController:NSWindowController?
+    
     override init() {
         super.init()
         // Add your subclass-specific initialization here.
@@ -48,7 +50,7 @@ class RealmSchemaDocument: NSDocument {
         
         var arrayOfDictionaries = [NSDictionary]()
         
-        let schemaDict = mainVC.schema.toDictionary()
+        let schemaDict = mainVC.schema!.toDictionary()
         arrayOfDictionaries.append(schemaDict)
         
         let data: NSData? = try NSJSONSerialization.dataWithJSONObject(arrayOfDictionaries, options: [])
@@ -64,7 +66,6 @@ class RealmSchemaDocument: NSDocument {
         // Insert code here to read your document from the given data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning false.
         // You can also choose to override readFromFileWrapper:ofType:error: or readFromURL:ofType:error: instead.
         // If you override either of these, you should also override -isEntireFileLoaded to return false if the contents are lazily loaded.
-        
         do {
             try parseSchemaJson(data)
             return
