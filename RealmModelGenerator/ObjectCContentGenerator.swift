@@ -36,6 +36,9 @@ class ObjectCContentGenerator: BaseContentGenerator {
         
         hContent += "#import <Realm/Realm.h>\n\n"
         hContent += "@interface " + entity.name + " : " + "RLMObject\n\n"
+        if let superClass = self.entity.superEntity {
+            hContent += "@property " + superClass.name + " *\(superClass.name.lowercaseFirst);\n"
+        }
         
         mContent += getHeaderComments(entity, fileExtension: "m")
         mContent += "#import \"" + entity.name + ".h\"\n\n"
@@ -54,28 +57,28 @@ class ObjectCContentGenerator: BaseContentGenerator {
         for attr in entity.attributes {
             var attrDefination = "@property "
             
-            if attr.isRequired {
-                attrDefination += attr.type.name(Language.Objc, isRequired: true) + " "
-            } else {
-                attrDefination += attr.type.name(Language.Objc, isRequired: false)
-            }
+            // required
+            attrDefination += attr.type.name(Language.Objc, isRequired: attr.isRequired)
             
             attrDefination += attr.name + ";\n"
             hContent += attrDefination
             
             // indexed
             if attr.isIndexed {
-                indexedProperties += indexedProperties.isEmpty ? "" : "," + attr.name + "\""
+                indexedProperties += indexedProperties.isEmpty ? "" : ","
+                indexedProperties += "@\"" + attr.name + "\""
             }
             
             // ignored
             if attr.isIgnored {
-                ignoredProperties += ignoredProperties.isEmpty ? "" : "," + attr.name + "\""
+                ignoredProperties += ignoredProperties.isEmpty ? "" : ","
+                ignoredProperties += "@\"" + attr.name + "\""
             }
             
             // required
             if attr.isRequired {
-                requiredProperties += requiredProperties.isEmpty ? "" : "," + attr.name + "\""
+                requiredProperties += requiredProperties.isEmpty ? "" : ","
+                requiredProperties += "@\"" + attr.name + "\""
             }
             
             // default value
@@ -88,8 +91,8 @@ class ObjectCContentGenerator: BaseContentGenerator {
                     defaultValue += attr.defaultValue
                 }
                 
-                defaultProperties += defaultProperties.isEmpty ? "" : "," + defaultValue
-                
+                defaultProperties += defaultProperties.isEmpty ? "" : ","
+                defaultProperties += defaultValue
             }
         }
         
@@ -97,7 +100,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
         for relationship in entity.relationships {
             hContent += "@property "
             if relationship.isMany {
-                hContent += "RLMArray<" + (relationship.destination?.name)! + ">"
+                hContent += "RLMArray<\(relationship.destination!.name) *><\(relationship.destination!.name)>"
             } else {
                 hContent += (relationship.destination?.name)!
             }
@@ -113,6 +116,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
         appendIgnoredProperties(ignoredProperties)
         appendRequiredProperties(requiredProperties)
         
+        print(mContent)
         hContent += "@end\n"
         hContent += "RLM_ARRAY_TYPE(" + entity.name + ")"
         mContent += "@end\n"

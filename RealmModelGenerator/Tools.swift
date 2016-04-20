@@ -32,4 +32,8 @@ extension String {
     var uppercaseFirst: String {
         return first.uppercaseString + String(characters.dropFirst())
     }
+    
+    var lowercaseFirst: String {
+        return first.lowercaseString + String(characters.dropFirst())
+    }
 }

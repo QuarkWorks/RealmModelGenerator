@@ -33,7 +33,7 @@ class SwiftContentGenerator: BaseContentGenerator {
         content += getHeaderComments(entity, fileExtension: "swift")
         
         content += "import RealmSwift\n\n"
-        content += "class " + entity.name + ": Object {\n"
+        content += "class " + entity.name + ": \(entity.superEntity?.name ?? "Object") {\n"
         content += "\tstatic let TAG = NSStringFromClass(" + entity.name + ");\n\n"
     }
     
