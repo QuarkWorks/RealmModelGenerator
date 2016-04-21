@@ -780,9 +780,6 @@ DQ
                                         <subviews>
                                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="dF5-QM-BwJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="250" id="90k-8A-3Yt"/>
-                                                </constraints>
                                                 <connections>
                                                     <segue destination="4Kj-ze-ZKn" kind="embed" identifier="EntitiesViewControllerSegue" id="Qxa-hB-mkw"/>
                                                 </connections>
@@ -790,7 +787,7 @@ DQ
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="dF5-QM-BwJ" firstAttribute="leading" secondItem="5uM-ha-LMe" secondAttribute="leading" id="6pg-2E-pYl"/>
-                                            <constraint firstAttribute="width" constant="250" id="QPA-xf-ODu"/>
+                                            <constraint firstAttribute="trailing" secondItem="dF5-QM-BwJ" secondAttribute="trailing" id="c9Q-w0-WRX"/>
                                             <constraint firstItem="dF5-QM-BwJ" firstAttribute="top" secondItem="5uM-ha-LMe" secondAttribute="top" id="lJY-lx-PwS"/>
                                             <constraint firstAttribute="bottom" secondItem="dF5-QM-BwJ" secondAttribute="bottom" id="yNX-lQ-eOt"/>
                                         </constraints>
@@ -800,6 +797,7 @@ DQ
                                     <constraint firstItem="5uM-ha-LMe" firstAttribute="top" secondItem="5bL-np-8pe" secondAttribute="top" id="16l-OE-1xh"/>
                                     <constraint firstAttribute="bottom" secondItem="5uM-ha-LMe" secondAttribute="bottom" id="Nz2-8g-DyS"/>
                                     <constraint firstItem="5uM-ha-LMe" firstAttribute="leading" secondItem="5bL-np-8pe" secondAttribute="leading" id="RHR-Ap-AeE"/>
+                                    <constraint firstAttribute="width" constant="250" id="pML-3T-cFg"/>
                                     <constraint firstAttribute="trailing" secondItem="5uM-ha-LMe" secondAttribute="trailing" id="x7k-0J-aiD"/>
                                 </constraints>
                             </customView>
@@ -809,9 +807,6 @@ DQ
                                 <subviews>
                                     <containerView translatesAutoresizingMaskIntoConstraints="NO" id="420-fr-qut">
                                         <rect key="frame" x="0.0" y="0.0" width="407" height="540"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="gmj-de-EYE"/>
-                                        </constraints>
                                         <connections>
                                             <segue destination="oMK-Do-o62" kind="embed" identifier="AttributesRelationshipsViewControllerSegue" id="7MV-zg-pvn"/>
                                         </connections>
@@ -822,6 +817,7 @@ DQ
                                     <constraint firstItem="420-fr-qut" firstAttribute="leading" secondItem="92j-cn-kUt" secondAttribute="leading" priority="250" id="Hbf-Pw-8Qb"/>
                                     <constraint firstAttribute="trailing" secondItem="420-fr-qut" secondAttribute="trailing" id="lcB-et-Yhk"/>
                                     <constraint firstItem="420-fr-qut" firstAttribute="top" secondItem="92j-cn-kUt" secondAttribute="top" id="oo1-i1-Snf"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="skC-B6-Mi0"/>
                                     <constraint firstItem="420-fr-qut" firstAttribute="width" secondItem="92j-cn-kUt" secondAttribute="width" id="w44-pt-zEK"/>
                                 </constraints>
                             </customView>
@@ -831,9 +827,6 @@ DQ
                                 <subviews>
                                     <containerView translatesAutoresizingMaskIntoConstraints="NO" id="e17-Cb-9EH">
                                         <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="250" id="5Oi-rk-Key"/>
-                                        </constraints>
                                         <connections>
                                             <segue destination="0OX-E8-0US" kind="embed" identifier="DetailsViewControllerSegue" id="wwt-LX-9li"/>
                                         </connections>
@@ -844,6 +837,7 @@ DQ
                                     <constraint firstItem="e17-Cb-9EH" firstAttribute="leading" secondItem="qgX-Tl-Q14" secondAttribute="leading" id="EQt-Le-Xjo"/>
                                     <constraint firstAttribute="bottom" secondItem="e17-Cb-9EH" secondAttribute="bottom" id="TDo-KJ-HDK"/>
                                     <constraint firstItem="e17-Cb-9EH" firstAttribute="top" secondItem="qgX-Tl-Q14" secondAttribute="top" id="XBE-7y-xah"/>
+                                    <constraint firstAttribute="width" constant="250" id="abu-RJ-90l"/>
                                 </constraints>
                             </customView>
                         </subviews>
@@ -869,10 +863,6 @@ DQ
                     <customView key="view" id="lpH-KY-zPc" customClass="EntitiesView" customModule="RealmModelGenerator" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="hYj-Gd-xoj"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="540" id="vmh-Vh-VcA"/>
-                        </constraints>
                     </customView>
                     <connections>
                         <outlet property="entitiesView" destination="lpH-KY-zPc" id="sj0-zX-Iuh"/>
@@ -896,10 +886,6 @@ DQ
                                 <subviews>
                                     <containerView identifier="attributesContainerView" translatesAutoresizingMaskIntoConstraints="NO" id="750-dQ-YzS">
                                         <rect key="frame" x="1" y="0.0" width="400" height="266"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="H3A-hK-Lwk"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="yzO-JF-jxL"/>
-                                        </constraints>
                                         <connections>
                                             <segue destination="b2i-0O-NCg" kind="embed" identifier="AttributesViewControllerSegue" id="17z-N8-0a6"/>
                                         </connections>
@@ -907,6 +893,7 @@ DQ
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="750-dQ-YzS" firstAttribute="top" secondItem="xOU-8h-eOg" secondAttribute="top" id="0cB-JU-fZl"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="9aJ-Py-ita"/>
                                     <constraint firstAttribute="bottom" secondItem="750-dQ-YzS" secondAttribute="bottom" id="AOd-DS-HII"/>
                                     <constraint firstAttribute="trailing" secondItem="750-dQ-YzS" secondAttribute="trailing" constant="-1" id="Qn5-Be-n02"/>
                                     <constraint firstItem="750-dQ-YzS" firstAttribute="leading" secondItem="xOU-8h-eOg" secondAttribute="leading" constant="1" id="e2G-ye-Fdg"/>
@@ -918,10 +905,6 @@ DQ
                                 <subviews>
                                     <containerView identifier="relationshipsContainerView" translatesAutoresizingMaskIntoConstraints="NO" id="KwY-ho-WGM">
                                         <rect key="frame" x="1" y="0.0" width="400" height="273"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="3j3-8o-0rJ"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="DFa-86-n4G"/>
-                                        </constraints>
                                         <connections>
                                             <segue destination="gmJ-8X-IHf" kind="embed" identifier="RelationshipsViewControllerSegue" id="Dbc-Vf-g7d"/>
                                         </connections>
@@ -929,6 +912,7 @@ DQ
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="KwY-ho-WGM" firstAttribute="leading" secondItem="869-Ao-yIq" secondAttribute="leading" constant="1" id="MZE-2j-vDo"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="j2K-eY-H8K"/>
                                     <constraint firstAttribute="bottom" secondItem="KwY-ho-WGM" secondAttribute="bottom" id="rag-Qf-w9w"/>
                                     <constraint firstItem="KwY-ho-WGM" firstAttribute="top" secondItem="869-Ao-yIq" secondAttribute="top" id="soJ-GK-HfY"/>
                                     <constraint firstAttribute="trailing" secondItem="KwY-ho-WGM" secondAttribute="trailing" constant="-1" id="w0T-rh-hjd"/>
@@ -956,9 +940,6 @@ DQ
                     <customView key="view" id="roQ-Fs-5cO" customClass="AttributesView" customModule="RealmModelGenerator" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="400" id="Mlp-mu-Pu6"/>
-                        </constraints>
                     </customView>
                     <connections>
                         <outlet property="attributesView" destination="roQ-Fs-5cO" id="N2O-g4-KOK"/>
@@ -1053,13 +1034,12 @@ DQ
                                     </textField>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="Db4-n1-1Sb"/>
                                     <constraint firstItem="w0Q-K4-Wtg" firstAttribute="centerX" secondItem="3q5-ON-6B4" secondAttribute="centerX" id="Rwr-92-B5A"/>
                                     <constraint firstItem="w0Q-K4-Wtg" firstAttribute="centerY" secondItem="3q5-ON-6B4" secondAttribute="centerY" id="npf-e7-goT"/>
                                 </constraints>
                             </customView>
                             <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xK1-xc-fNS">
-                                <rect key="frame" x="0.0" y="0.0" width="249" height="540"/>
+                                <rect key="frame" x="0.0" y="0.0" width="250" height="540"/>
                             </containerView>
                         </subviews>
                         <constraints>
