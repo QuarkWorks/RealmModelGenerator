@@ -24,7 +24,7 @@ Realm Model Generator is a document based OSX tool that helps mobile developers 
 ## Installation
 To install:
 ```
-$ git clone git@github.com:berbschloe/RealmModelGenerator.git
+$ git clone git@github.com:QuarkWorks/RealmModelGenerator.git
 ```
 Build with Xcode version 7.2.1 on any Mac OS X 10.10 or above.
 
