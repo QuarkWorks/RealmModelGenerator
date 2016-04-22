@@ -22,7 +22,9 @@ Realm Model Generator is a document based OSX tool that helps mobile developers 
 	- Realm Java 0.88.2, Realm Swift 0.98.8, Realm Objective‑C 0.98.8
 
 ## Installation
-To install:
+You can download this app by right clicking [here](Realm Model Generator 1.0.dmg) and then clicking "Save Link As...".
+
+Or you can build from source:
 ```
 $ git clone git@github.com:QuarkWorks/RealmModelGenerator.git
 ```
@@ -30,7 +32,7 @@ Build with Xcode version 7.2.1 on any Mac OS X 10.10 or above.
 
 ## Bugs and Feedback
 
-For bugs, questions and discussions please use the [Github Issues](https://github.com/berbschloe/RealmModelGenerator/issues).
+For bugs, questions and discussions please use the [Github Issues](https://github.com/QuarkWorks/RealmModelGenerator/issues).
 
 We welcome pull requests.
 
