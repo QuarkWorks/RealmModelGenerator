@@ -22,6 +22,7 @@ class SwiftContentGenerator: BaseContentGenerator {
         
         if isValidEntity(entity) {
             appendHeader()
+            appendRealmKeys()
             appendAttributes()
         }
         
@@ -34,7 +35,18 @@ class SwiftContentGenerator: BaseContentGenerator {
         
         content += "import RealmSwift\n\n"
         content += "class " + entity.name + ": \(entity.superEntity?.name ?? "Object") {\n"
-        content += "\tstatic let TAG = NSStringFromClass(" + entity.name + ");\n\n"
+        content += "\tstatic let TAG = NSStringFromClass(" + entity.name + ");\n"
+    }
+    
+    //MARK: - Append RealmKeys
+    func appendRealmKeys() {
+        for attr in entity.attributes {
+            var realmKey = "\n"
+            realmKey += "\tstatic let " + getAllCapitalizedKeyName(attr.name) + " = \"" + attr.name + "\""
+            content += realmKey
+        }
+        
+        content += "\n\n"
     }
     
     //MARK: - Append attributes and relicationships
@@ -48,7 +60,7 @@ class SwiftContentGenerator: BaseContentGenerator {
             let primaryKey = self.entity.primaryKey
             
             // we treat required attribute as non-option one.
-            if (attr.isRequired || (primaryKey != nil && attr === primaryKey!)) {
+            if (attr.isRequired || attr.hasDefault || (primaryKey != nil && attr === primaryKey!)) {
                 if attr.hasDefault {
                     attrDefination += "\tdynamic var " + attr.name + attr.type.name(Language.Swift, isRequired: true) + " = " + attr.defaultValue
                     // handle empty string default

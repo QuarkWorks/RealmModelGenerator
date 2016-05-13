@@ -88,4 +88,18 @@ class BaseContentGenerator {
         return "\(components.day)/\(components.month)/\(components.year)"
     }
     
+    //MARK: - Get all capitalized key name
+    func getAllCapitalizedKeyName(name: String) -> String {
+        var result = ""
+        
+        for c in name.characters {
+            if ("A"..."Z").contains(c) {
+                result.appendContentsOf("_")
+            }
+            
+            result.append(c)
+        }
+        
+        return result.uppercaseString
+    }
 }

@@ -48,7 +48,7 @@ class JavaContentGenerator: BaseContentGenerator {
         
         for attr in entity.attributes {
             var realmKey = "\n"
-            realmKey += "\t\tpublic static final String " + attr.name.uppercaseString + "_KEY = \"" + attr.name.lowercaseString + "\";"
+            realmKey += "\t\tpublic static final String " + getAllCapitalizedKeyName(attr.name) + " = \"" + attr.name + "\";"
             content += realmKey
         }
         
