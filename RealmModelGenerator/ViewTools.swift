@@ -12,13 +12,13 @@ import Quartz
 extension NSView {
     var backgroundColor: NSColor? {
         get {
-            guard let layer = self.layer, backgroundColor = layer.backgroundColor else { return nil }
-            return NSColor(CGColor: backgroundColor)
+            guard let layer = self.layer, let backgroundColor = layer.backgroundColor else { return nil }
+            return NSColor(cgColor: backgroundColor)
         }
         
         set {
             self.wantsLayer = true
-            self.layer?.backgroundColor = newValue?.CGColor
+            self.layer?.backgroundColor = newValue?.cgColor
         }
     }
     
@@ -48,13 +48,13 @@ extension NSView {
     
     var borderColor :NSColor? {
         get {
-            guard let layer = self.layer, borderColor = layer.borderColor else { return nil }
-            return NSColor(CGColor: borderColor)
+            guard let layer = self.layer, let borderColor = layer.borderColor else { return nil }
+            return NSColor(cgColor: borderColor)
         }
         
         set {
             self.wantsLayer = true
-            self.layer?.borderColor = newValue?.CGColor
+            self.layer?.borderColor = newValue?.cgColor
         }
     }
 }
