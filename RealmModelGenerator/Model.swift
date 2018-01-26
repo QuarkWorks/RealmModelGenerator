@@ -1,5 +1,5 @@
 //
-//  Schema.swift
+//  Model.swift
 //  RealmModelGenerator
 //
 //  Created by Brandon Erbschloe on 3/2/16.
@@ -9,7 +9,7 @@
 import Foundation
 
 class Model {
-    static let TAG = NSStringFromClass(Model)
+    static let TAG = NSStringFromClass(Model.self)
     
     weak var schema:Schema!
     private(set) var version:String
@@ -34,13 +34,13 @@ class Model {
     }
     
     func createEntity() -> Entity {
-        return createEntity({_ in})
+        return createEntity(build: {_ in})
     }
     
-    func createEntity(@noescape build:(Entity) throws -> Void) rethrows -> Entity  {
+    func createEntity( build: (Entity) throws -> Void) rethrows -> Entity  {
         var name = "Entity"
         var count = 0;
-        while entities.contains({$0.name == name}) {
+        while entities.contains(where: {$0.name == name}) {
             count += 1
             name = "Entity\(count)"
         }
@@ -68,8 +68,8 @@ class Model {
             
         }
         
-        if let index = entities.indexOf({$0 === entity}) {
-            entities.removeAtIndex(index)
+        if let index = entities.index(where: {$0 === entity}) {
+            entities.remove(at: index)
         }
         
         self.observable.notifyObservers()
