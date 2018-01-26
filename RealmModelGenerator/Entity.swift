@@ -9,7 +9,7 @@
 import Foundation
 
 class Entity {
-    static let TAG = NSStringFromClass(Entity)
+    static let TAG = NSStringFromClass(Entity.self)
     
     private(set) var name:String
     internal(set) weak var model:Model!
@@ -49,20 +49,20 @@ class Entity {
     }
     
     func createAttribute() -> Attribute {
-        return createAttribute({_ in})
+        return createAttribute(build: {_ in})
     }
     
-    func createAttribute(@noescape build:(Attribute) throws -> Void) rethrows -> Attribute {
+    func createAttribute( build: (Attribute) throws -> Void) rethrows -> Attribute {
         var name = "Attribute"
         var count = 0
-        while attributes.contains({$0.name == name}) {
+        while attributes.contains(where: {$0.name == name}) {
             count += 1
             name = "Attribute\(count)"
         }
         
         let attribute = Attribute(name:name, entity:self)
         defer {
-            if !attributes.contains({$0 === attribute}) {
+            if !attributes.contains(where: {$0 === attribute}) {
                 attribute.entity = nil
             }
         }
@@ -94,7 +94,7 @@ class Entity {
         }
         
         self.primaryKey = primaryKey
-        try! self.primaryKey?.setIndexed(true)
+        try! self.primaryKey?.setIndexed(isIndexed: true)
         self.observable.notifyObservers()
     }
     
@@ -104,29 +104,29 @@ class Entity {
             self.primaryKey = nil
         }
         
-        if let index = attributes.indexOf({$0 === attribute}) {
-            attributes.removeAtIndex(index)
+        if let index = attributes.index(where: {$0 === attribute}) {
+            attributes.remove(at: index)
         }
         
         self.observable.notifyObservers()
     }
     
     func createRelationship() -> Relationship {
-        return createRelationship({_ in})
+        return createRelationship(build: {_ in})
     }
     
-    func createRelationship(@noescape build:(Relationship) throws -> Void) rethrows -> Relationship {
+    func createRelationship( build: (Relationship) throws -> Void) rethrows -> Relationship {
         var name = "Relationship"
         var count = 0
         
-        while relationships.contains({$0.name == name}) {
+        while relationships.contains(where: {$0.name == name}) {
             count += 1
             name = "Relationship\(count)"
         }
         
         let relationship = Relationship(name: name, entity: self)
         defer {
-            if !relationships.contains({$0 === relationship}) {
+            if !relationships.contains(where: {$0 === relationship}) {
                 relationship.entity = nil
             }
         }
@@ -142,15 +142,15 @@ class Entity {
         relationship.entity = nil
         relationship.destination = nil
         
-        if let index = relationships.indexOf({$0 === relationship}) {
-            relationships.removeAtIndex(index)
+        if let index = relationships.index(where: {$0 === relationship}) {
+            relationships.remove(at: index)
         }
         
         self.observable.notifyObservers()
     }
     
     func removeFromModel() {
-        self.model.removeEntity(self)
+        self.model.removeEntity(entity: self)
         self.observable.notifyObservers()
     }
     
