@@ -9,7 +9,7 @@
 import Foundation
 
 class Attribute {
-    static let TAG = NSStringFromClass(Attribute)
+    static let TAG = NSStringFromClass(Attribute.self)
         
     private(set) var name:String
     internal(set) weak var entity:Entity!
@@ -24,7 +24,7 @@ class Attribute {
             if !newValue.canBeIndexed() {
                 isIndexed = false
                 if entity.primaryKey === self {
-                    try! entity.setPrimaryKey(nil)
+                    try! entity.setPrimaryKey(primaryKey: nil)
                 }
             }
         }
@@ -62,11 +62,11 @@ class Attribute {
     }
     
     func removeIndexed() {
-        try! self.setIndexed(false)
+        try! self.setIndexed(isIndexed: false)
     }
     
     func removeFromEntity() {
-        self.entity.removeAttribute(self)
+        self.entity.removeAttribute(attribute: self)
     }
     
     func isDeleted() -> Bool {
