@@ -10,12 +10,12 @@ import Foundation
 import AddressBook
 
 class Tools {
-    static let TAG = NSStringFromClass(Tools)
+    static let TAG = NSStringFromClass(Tools.self)
     
     static func popupAllert(messageText:String, buttonTitile:String, informativeText:String) {
         let alert = NSAlert()
         alert.messageText = messageText
-        alert.addButtonWithTitle(buttonTitile)
+        alert.addButton(withTitle: buttonTitile)
         alert.informativeText = informativeText
         alert.runModal()
 
@@ -23,17 +23,17 @@ class Tools {
 }
 
 extension String {
-    var first: String {
-        return String(characters.prefix(1))
+    var first: Substring {
+        return self.prefix(1)
     }
-    var last: String {
-        return String(characters.suffix(1))
+    var last: Substring {
+        return self.suffix(1)
     }
     var uppercaseFirst: String {
-        return first.uppercaseString + String(characters.dropFirst())
+        return String(self.prefix(1).uppercased() + self.dropFirst())
     }
     
     var lowercaseFirst: String {
-        return first.lowercaseString + String(characters.dropFirst())
+        return String(self.prefix(1).lowercased() + self.dropFirst())
     }
 }
