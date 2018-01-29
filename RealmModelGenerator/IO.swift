@@ -237,9 +237,9 @@ extension Relationship {
             self.isMany = isMany
         }
         
-        if let destinationName = dictionary[Relationship.DESTINATION] as? String,
-            let destination = self.entity.model.entitiesByName[destinationName] {
-                self.destination = destination
+        //MARK  don't know about this.
+        if let destinationName = dictionary[Relationship.DESTINATION] as? String {
+                self.destination = self.entity.model.entitiesByName[destinationName]
         } else {
             destination = nil
         }
