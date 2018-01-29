@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum GeneratorError: ErrorType {
+enum GeneratorError: Error {
     case InvalidAttribteType(attribute: Attribute)
     case InvalidRelationshiDestination(relationship: Relationship)
     case InvalidFileContent(errorMsg: String)
