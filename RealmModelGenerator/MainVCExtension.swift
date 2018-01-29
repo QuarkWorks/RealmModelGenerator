@@ -1,5 +1,5 @@
 //
-//  ExportFiles.swift
+//  MainVCExtension.swift
 //  RealmModelGenerator
 //
 //  Created by Zhaolong Zhong on 3/31/16.
@@ -23,9 +23,9 @@ extension MainVC {
     }
     
     //MARK: - Called from menu bar, Version
-    @IBAction func versonMenuOnClick(sender: AnyObject!) {
+    @IBAction func versonMenuOnClick(sender: Any!) {
         let versionVC: VersionVC = {
-            return self.storyboard!.instantiateControllerWithIdentifier("VersionVC")
+            return self.storyboard!.instantiateController(withIdentifier: "VersionVC")
                 as! VersionVC
         }()
         versionVC.schema = self.schema!
@@ -36,18 +36,18 @@ extension MainVC {
     
     
     //MARK: - Called from menu bar, exportToJava
-    @IBAction func exportToJava(sender: AnyObject!) {
-        generateFileModels(.Java)
+    @IBAction func exportToJava(sender: Any!) {
+        generateFileModels(language: .Java)
     }
     
     //MARK: - Called from menu bar, exportToObjectC
-    @IBAction func exportToObjectC(sender: AnyObject!) {
-        generateFileModels(.Objc)
+    @IBAction func exportToObjectC(sender: Any!) {
+        generateFileModels(language: .Objc)
     }
     
     //MARK: - Called from menu bar, exportToSwift
-    @IBAction func exportToSwift(sender: AnyObject!) {
-        generateFileModels(.Swift)
+    @IBAction func exportToSwift(sender: Any!) {
+        generateFileModels(language: .Swift)
     }
     
     //MARK: - generate FileModels
@@ -55,7 +55,7 @@ extension MainVC {
         var files: [FileModel] = []
         var validEnties = true
         for entity in self.schema!.currentModel.entities {
-            let content = generateFileContent(entity, language: language)
+            let content = generateFileContent(entity: entity, language: language)
             if !content.first!.isEmpty {
                 switch language {
                 case .Java:
@@ -79,7 +79,7 @@ extension MainVC {
         }
         
         if files.count > 0 && validEnties {
-            choosePathAndSaveFile(files)
+            choosePathAndSaveFile(files: files)
         }
     }
     
@@ -93,9 +93,9 @@ extension MainVC {
         openPanel.canChooseDirectories = true
         openPanel.canCreateDirectories = true
         openPanel.prompt = "Choose"
-        openPanel.beginSheetModalForWindow(view.window!, completionHandler: { (button : Int) -> Void in
+        openPanel.beginSheetModal(for: view.window!, completionHandler: { (button : Int) -> Void in
             if button == NSFileHandlingPanelOKButton{
-                self.saveFile(files, toPath:openPanel.URL!.path!)
+                self.saveFile(files: files, toPath:openPanel.url!.path)
             }
         })
     }
@@ -109,7 +109,7 @@ extension MainVC {
             let filePath = "\(path)/\(file.name).\(file.fileExtension)"
             
             do {
-                try file.content.writeToFile(filePath, atomically: false, encoding: NSUTF8StringEncoding)
+                try file.content.write(toFile: filePath, atomically: false, encoding: String.Encoding.utf8)
             } catch let nSError as NSError {
                 error = nSError
             }
@@ -117,7 +117,7 @@ extension MainVC {
             if error == nil{
                 self.showSuccess()
             } else {
-                Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "We an error when save file.")
+                Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "We an error when save file.")
             }
         }
     }
@@ -128,11 +128,11 @@ extension MainVC {
         let notification = NSUserNotification()
         notification.title = "Success!"
         notification.informativeText = "Your realm model files have been generated successfully."
-        notification.deliveryDate = NSDate()
+        notification.deliveryDate = NSDate() as Date
         
-        let center = NSUserNotificationCenter.defaultUserNotificationCenter()
+        let center = NSUserNotificationCenter.default
         center.delegate = self
-        center.deliverNotification(notification)
+        center.deliver(notification)
     }
     
     //MARK: - NSUserNotificationCenterDelegate
