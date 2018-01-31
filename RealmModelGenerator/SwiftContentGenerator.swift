@@ -9,7 +9,7 @@
 import Foundation
 
 class SwiftContentGenerator: BaseContentGenerator {
-    static let TAG = NSStringFromClass(SwiftContentGenerator)
+    static let TAG = NSStringFromClass(SwiftContentGenerator.self)
     
     private var content = ""
     private var entity: Entity
@@ -20,7 +20,7 @@ class SwiftContentGenerator: BaseContentGenerator {
     
     func getContent() -> Array<String> {
         
-        if isValidEntity(entity) {
+        if isValidEntity(entity: entity) {
             appendHeader()
             appendRealmKeys()
             appendAttributes()
@@ -31,7 +31,7 @@ class SwiftContentGenerator: BaseContentGenerator {
     
     //MARK: - Append header
     func appendHeader() {
-        content += getHeaderComments(entity, fileExtension: "swift")
+        content += getHeaderComments(entity: entity, fileExtension: "swift")
         
         content += "import RealmSwift\n\n"
         content += "class " + entity.name + ": \(entity.superEntity?.name ?? "Object") {\n"
@@ -42,7 +42,7 @@ class SwiftContentGenerator: BaseContentGenerator {
     func appendRealmKeys() {
         for attr in entity.attributes {
             var realmKey = "\n"
-            realmKey += "\tstatic let " + getAllCapitalizedKeyName(attr.name) + " = \"" + attr.name + "\""
+            realmKey += "\tstatic let " + getAllCapitalizedKeyName(name: attr.name) + " = \"" + attr.name + "\""
             content += realmKey
         }
         
@@ -62,13 +62,13 @@ class SwiftContentGenerator: BaseContentGenerator {
             // we treat required attribute as non-option one.
             if (attr.isRequired || attr.hasDefault || (primaryKey != nil && attr === primaryKey!)) {
                 if attr.hasDefault {
-                    attrDefination += "\tdynamic var " + attr.name + attr.type.name(Language.Swift, isRequired: true) + " = " + attr.defaultValue
+                    attrDefination += "\tdynamic var " + attr.name + attr.type.name(language: Language.Swift, isRequired: true) + " = " + attr.defaultValue
                     // handle empty string default
                     if attr.defaultValue == "" {
                         attrDefination += "\"\""
                     }
                 } else {
-                    attrDefination += "\tdynamic var " + attr.name + attr.type.name(Language.Swift, isRequired: true) + " = "
+                    attrDefination += "\tdynamic var " + attr.name + attr.type.name(language: Language.Swift, isRequired: true) + " = "
                     switch attr.type {
                     case .Bool:
                         attrDefination += "false"
@@ -102,9 +102,9 @@ class SwiftContentGenerator: BaseContentGenerator {
                     }
                 }
             } else if (attr.type == .Bool || attr.type == .Int || attr.type == .Short || attr.type == .Long || attr.type == .Float || attr.type == .Double){
-                attrDefination += "\tlet " + attr.name + " = RealmOptional<" + attr.type.name(Language.Swift, isRequired: false) + ">()"
+                attrDefination += "\tlet " + attr.name + " = RealmOptional<" + attr.type.name(language: Language.Swift, isRequired: false) + ">()"
             } else {
-                attrDefination += "\tdynamic var " + attr.name + attr.type.name(Language.Swift, isRequired: false) + " = nil"
+                attrDefination += "\tdynamic var " + attr.name + attr.type.name(language: Language.Swift, isRequired: false) + " = nil"
             }
             
             content += attrDefination
@@ -144,8 +144,8 @@ class SwiftContentGenerator: BaseContentGenerator {
         content += "\n"
         
         appendPrimaryKey()
-        appendIndexedProperties(indexedProperties)
-        appendIgnoredProperties(ignoredProperties)
+        appendIndexedProperties(indexProperties: indexedProperties)
+        appendIgnoredProperties(ignoredProperties: ignoredProperties)
         
         content += "}"
     }
