@@ -6,10 +6,14 @@
 //  Copyright © 2016 QuarkWorks. All rights reserved.
 //
 
+//  --:MARK:--
+//  KILL THIS FEATURE
+//
+
 import Foundation
 
 class ObjectCContentGenerator: BaseContentGenerator {
-    static let TAG = NSStringFromClass(ObjectCContentGenerator)
+    static let TAG = NSStringFromClass(ObjectCContentGenerator.self)
     
     private var hContent = ""
     private var mContent = ""
@@ -22,7 +26,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
     
     func getContent() -> Array<String> {
         
-        if isValidEntity(entity) {
+        if isValidEntity(entity: entity) {
             appendHeader()
             appendAttributes()
         }
@@ -32,7 +36,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
     
     //MARK: - Append header
     func appendHeader() {
-        hContent += getHeaderComments(entity, fileExtension: "h")
+        hContent += getHeaderComments(entity: entity, fileExtension: "h")
         
         hContent += "#import <Realm/Realm.h>\n\n"
         hContent += "@interface " + entity.name + " : " + "RLMObject\n\n"
@@ -40,7 +44,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
             hContent += "@property " + superClass.name + " *\(superClass.name.lowercaseFirst);\n"
         }
         
-        mContent += getHeaderComments(entity, fileExtension: "m")
+        mContent += getHeaderComments(entity: entity, fileExtension: "m")
         mContent += "#import \"" + entity.name + ".h\"\n\n"
         mContent += "@implementation " + entity.name + "\n\n"
 
@@ -58,7 +62,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
             var attrDefination = "@property "
             
             // required
-            attrDefination += attr.type.name(Language.Objc, isRequired: attr.isRequired)
+            attrDefination += attr.type.name(language: Language.Objc, isRequired: attr.isRequired)
             
             attrDefination += attr.name + ";\n"
             hContent += attrDefination
@@ -111,10 +115,10 @@ class ObjectCContentGenerator: BaseContentGenerator {
         hContent += "\n"
         
         appendPrimaryKey()
-        appendIndexedProperties(indexedProperties)
-        appendDefaultPropertyValues(defaultProperties)
-        appendIgnoredProperties(ignoredProperties)
-        appendRequiredProperties(requiredProperties)
+        appendIndexedProperties(indexedProperties: indexedProperties)
+        appendDefaultPropertyValues(defaultProperties: defaultProperties)
+        appendIgnoredProperties(ignoredProperties: ignoredProperties)
+        appendRequiredProperties(requiredProperties: requiredProperties)
         
         print(mContent)
         hContent += "@end\n"
@@ -140,7 +144,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
             return
         }
         
-        let primaryKeyType: String = primaryKey!.type.name(Language.Objc, isRequired: false)
+        let primaryKeyType: String = primaryKey!.type.name(language: Language.Objc, isRequired: false)
         
         mContent += "+(" + primaryKeyType + ")primaryKey {\n"
         mContent += "\treturn @\"" + primaryKey!.name + "\";\n"
