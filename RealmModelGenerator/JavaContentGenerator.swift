@@ -1,5 +1,5 @@
 //
-//  FileContentGenerator.swift
+//  JavaContentGenerator.swift
 //  RealmModelGenerator
 //
 //  Created by Zhaolong Zhong on 3/6/16.
@@ -9,7 +9,7 @@
 import Foundation
 
 class JavaContentGenerator: BaseContentGenerator {
-    static let TAG = NSStringFromClass(JavaContentGenerator)
+    static let TAG = NSStringFromClass(JavaContentGenerator.self)
     
     private var content = ""
     private var entity: Entity
@@ -20,7 +20,7 @@ class JavaContentGenerator: BaseContentGenerator {
     
     func getContent() -> Array<String> {
         
-        if isValidEntity(entity) {
+        if isValidEntity(entity: entity) {
             appendHeader()
             appendRealmKeys()
             appendAttributes()
@@ -32,7 +32,7 @@ class JavaContentGenerator: BaseContentGenerator {
     
     //MARK: - Append header
     func appendHeader() {
-        content += getHeaderComments(entity, fileExtension: "java")
+        content += getHeaderComments(entity: entity, fileExtension: "java")
         
         content += "import io.realm.*;\nimport io.realm.annotations.*;\n"
         if (importDate()) {
@@ -48,7 +48,7 @@ class JavaContentGenerator: BaseContentGenerator {
         
         for attr in entity.attributes {
             var realmKey = "\n"
-            realmKey += "\t\tpublic static final String " + getAllCapitalizedKeyName(attr.name) + " = \"" + attr.name + "\";"
+            realmKey += "\t\tpublic static final String " + getAllCapitalizedKeyName(name: attr.name) + " = \"" + attr.name + "\";"
             content += realmKey
         }
         
@@ -82,7 +82,7 @@ class JavaContentGenerator: BaseContentGenerator {
             }
             
             //Get attribute defination
-            attrDefination += "private " + attr.type.name(Language.Java, isRequired: false) + " " + attr.name
+            attrDefination += "private " + attr.type.name(language: Language.Java, isRequired: false) + " " + attr.name
             if attr.hasDefault {
                 if attr.type == .String {
                     attrDefination += " = \"" + attr.defaultValue + "\";"
@@ -121,10 +121,10 @@ class JavaContentGenerator: BaseContentGenerator {
             var getter = "\t"
             var setter = "\t"
             
-            getter += "public " + attr.type.name(Language.Java, isRequired: false) + " get" + attr.name.uppercaseFirst + "(){\n"
+            getter += "public " + attr.type.name(language: Language.Java, isRequired: false) + " get" + attr.name.uppercaseFirst + "(){\n"
             getter += "\t\treturn this." + attr.name + ";\n\t}\n\n"
             
-            setter += "public void set" + attr.name.uppercaseFirst + "(" + attr.type.name(Language.Java, isRequired: false) + " " + attr.name + "){\n"
+            setter += "public void set" + attr.name.uppercaseFirst + "(" + attr.type.name(language: Language.Java, isRequired: false) + " " + attr.name + "){\n"
             setter += "\t\tthis." + attr.name + " = " + attr.name + ";\n\t}\n\n"
             
             content += getter
