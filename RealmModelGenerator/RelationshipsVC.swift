@@ -1,5 +1,5 @@
 //
-//  RelationshipsViewController.swift
+//  RelationshipsVC.swift
 //  RealmModelGenerator
 //
 //  Created by Zhaolong Zhong on 3/31/16.
