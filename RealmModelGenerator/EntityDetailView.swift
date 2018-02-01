@@ -15,7 +15,7 @@ protocol EntityDetailViewDelegate: class {
 
 @IBDesignable
 class EntityDetailView: NibDesignableView, NSTextFieldDelegate, NSMenuDelegate {
-    static let TAG = NSStringFromClass(EntityDetailView)
+    static let TAG = NSStringFromClass(EntityDetailView.self)
     
     @IBOutlet var nameTextField:NSTextField!
     
@@ -35,7 +35,7 @@ class EntityDetailView: NibDesignableView, NSTextFieldDelegate, NSMenuDelegate {
     @IBInspectable var superClassNames:[String] {
         set {
             self.superClassPopUpButton.removeAllItems()
-            self.superClassPopUpButton.addItemsWithTitles(newValue)
+            self.superClassPopUpButton.addItems(withTitles: newValue)
         }
         
         get {
@@ -45,7 +45,7 @@ class EntityDetailView: NibDesignableView, NSTextFieldDelegate, NSMenuDelegate {
     
     @IBInspectable var selectedItemIndex:Int {
         set {
-            self.superClassPopUpButton.selectItemAtIndex(newValue)
+            self.superClassPopUpButton.selectItem(at: newValue)
         }
         
         get {
@@ -53,14 +53,14 @@ class EntityDetailView: NibDesignableView, NSTextFieldDelegate, NSMenuDelegate {
         }
     }
     
-    func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        if let shouldEnd = self.delegate?.entityDetailView(self, shouldChangeEntityName: fieldEditor.string!) {
+    func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
+        if let shouldEnd = self.delegate?.entityDetailView(entityDetailView: self, shouldChangeEntityName: fieldEditor.string!) {
             return shouldEnd
         }
         return true
     }
     
     @IBAction func superClassChanged(sender: NSPopUpButton) {
-        self.delegate?.entityDetailView(self, selectedSuperClassDidChange: superClassNames[selectedItemIndex])
+        self.delegate?.entityDetailView(entityDetailView: self, selectedSuperClassDidChange: superClassNames[selectedItemIndex])
     }
 }
