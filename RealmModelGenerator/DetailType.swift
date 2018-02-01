@@ -1,5 +1,5 @@
 //
-//  Detail.swift
+//  DetailType.swift
 //  RealmModelGenerator
 //
 //  Created by Zhaolong Zhong on 3/31/16.
@@ -14,7 +14,7 @@ enum DetailType: String {
     static let values = [Entity, Attribute, Relationship, Empty]
     
     init(rawValueSafe:Swift.String) {
-        self = Empty
+        self = .Empty
         if let type = DetailType.init(rawValue: rawValueSafe) {
             self = type
         }
