@@ -1,5 +1,5 @@
 //
-//  AttributeDetailViewController.swift
+//  AttributeDetailVC.swift
 //  RealmModelGenerator
 //
 //  Created by Zhaolong Zhong on 3/29/16.
@@ -9,7 +9,7 @@
 import Cocoa
 
 class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer {
-    static let TAG = NSStringFromClass(AttributeDetailVC)
+    static let TAG = NSStringFromClass(AttributeDetailVC.self)
 
     @IBOutlet weak var attributeDetailView: AttributeDetailView! {
         didSet{ self.attributeDetailView.delegate = self }
@@ -18,8 +18,8 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
     weak var attribute:Attribute? {
         didSet{
             if oldValue === self.attribute { return }
-            oldValue?.observable.removeObserver(self)
-            self.attribute?.observable.addObserver(self)
+            oldValue?.observable.removeObserver(observer: self)
+            self.attribute?.observable.addObserver(observer: self)
             self.invalidateViews()
         }
     }
@@ -30,7 +30,7 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
     }
     
     func invalidateViews() {
-        if !self.viewLoaded || attribute == nil { return }
+        if !self.isViewLoaded || attribute == nil { return }
         guard let attribute = self.attribute else {
             return
         }
@@ -41,7 +41,7 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
         attributeDetailView.isRequired = attribute.isRequired
         attributeDetailView.hasDefault = attribute.hasDefault
         attributeDetailView.defaultValue = attribute.defaultValue
-        attributeDetailView.selectedIndex =  AttributeType.values.indexOf(attribute.type)!
+        attributeDetailView.selectedIndex =  AttributeType.values.index(of: attribute.type)!
     }
     
     func onChange(observable: Observable) {
@@ -55,9 +55,9 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
         }
         if control === self.attributeDetailView.nameTextField {
             do {
-                try attribute.setName(newValue)
+                try attribute.setName(name: newValue)
             } catch {
-                Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename attribute: \(attribute.name) to: \(newValue). There is an attribute with the same name.")
+                Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to rename attribute: \(attribute.name) to: \(newValue). There is an attribute with the same name.")
                 return false
 
             }
@@ -78,23 +78,23 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
             break;
         case self.attributeDetailView.indexedCheckBox:
             do {
-                try attribute.setIndexed(state)
+                try attribute.setIndexed(isIndexed: state)
             } catch {
-                Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to set index for attribute \(attribute.name) with type \(attribute.type.rawValue) ")
+                Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to set index for attribute \(attribute.name) with type \(attribute.type.rawValue) ")
                 return false
             }
             break;
         case self.attributeDetailView.primaryCheckBox:
             if state {
                 do {
-                    try attribute.entity.setPrimaryKey(attribute)
+                    try attribute.entity.setPrimaryKey(primaryKey: attribute)
                 } catch {
-                    Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to set primary key for attribute \(attribute.name) with type \(attribute.type.rawValue) ")
+                    Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to set primary key for attribute \(attribute.name) with type \(attribute.type.rawValue) ")
                     return false
                 }
             } else {
                 if attribute.entity.primaryKey === attribute {
-                    try! attribute.entity.setPrimaryKey(nil)
+                    try! attribute.entity.setPrimaryKey(primaryKey: nil)
                 }
             }
             break;
