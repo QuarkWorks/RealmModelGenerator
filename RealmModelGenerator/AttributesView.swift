@@ -27,7 +27,7 @@ protocol AttributesViewDelegate: class {
 
 @IBDesignable
 class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource, TitleCellDelegate, PopupCellDelegate {
-    static let TAG = NSStringFromClass(AttributesView)
+    static let TAG = NSStringFromClass(AttributesView.self)
     
     static let ATTRIBUTE_COLUMN = "attribute"
     static let TYPE_COLUMN = "type"
@@ -55,7 +55,7 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
             }
             
             if let newValue = newValue {
-                self.tableView.selectRowIndexes(NSIndexSet(index: newValue), byExtendingSelection: false)
+                self.tableView.selectRowIndexes(IndexSet(integer: newValue), byExtendingSelection: false)
             } else {
                 self.tableView.deselectAll(nil)
             }
@@ -65,8 +65,8 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     //MARK: - Lifecycle
     override func nibDidLoad() {
         super.nibDidLoad()
-        removeButton.enabled = false
-        tableView.registerForDraggedTypes([ROW_TYPE, NSFilenamesPboardType])
+        removeButton.isEnabled = false
+        tableView.register(forDraggedTypes: [ROW_TYPE, NSFilenamesPboardType])
         setUpDefaultSortDescriptor()
     }
     
@@ -77,7 +77,7 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     }
     
     func reloadRemoveButtonState() {
-        self.removeButton.enabled = self.selectedIndex != nil
+        self.removeButton.isEnabled = self.selectedIndex != nil
     }
     
     func setUpDefaultSortDescriptor() {
@@ -93,7 +93,7 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
             return 5
         }
         
-        if let numberOfItems = self.dataSource?.numberOfRowsInAttributesView(self) {
+        if let numberOfItems = self.dataSource?.numberOfRowsInAttributesView(attributesView: self) {
             return numberOfItems
         }
         
@@ -101,11 +101,11 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     }
     
     //MARK: - NSTableViewDelegate
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         if tableColumn?.identifier == AttributesView.ATTRIBUTE_COLUMN {
         
-            let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
+            let cell = tableView.make(withIdentifier: TitleCell.IDENTIFIER, owner: nil) as! TitleCell
             if (self.isInterfaceBuilder) {
                 cell.title = "Attribute"
                 return cell
@@ -113,14 +113,14 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
             
             cell.delegate = self
             
-            if let title = self.dataSource?.attributesView(self, titleForAttributeAtIndex:row) {
+            if let title = self.dataSource?.attributesView(attributesView: self, titleForAttributeAtIndex:row) {
                 cell.title = title
             }
             
             return cell
             
         } else {
-            let cell = tableView.makeViewWithIdentifier(PopUpCell.IDENTIFIER, owner: nil) as! PopUpCell
+            let cell = tableView.make(withIdentifier: PopUpCell.IDENTIFIER, owner: nil) as! PopUpCell
             
             cell.itemTitles = ATTRIBUTE_TYPES
             cell.row = row
@@ -131,43 +131,43 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
             
             cell.delegate = self
     
-            if let attributeType = self.dataSource?.attributesView(self, typeForAttributeAtIndex: row) {
-                cell.selectedItemIndex = AttributeType.values.indexOf(attributeType)!
+            if let attributeType = self.dataSource?.attributesView(attributesView: self, typeForAttributeAtIndex: row) {
+                cell.selectedItemIndex = AttributeType.values.index(of: attributeType)!
             }
             
             return cell
         }
     }
     
-    func tableView(tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
+    func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
         
         let sortDescriptor = tableView.sortDescriptors.first!
-        self.delegate?.attributesView(self, sortByColumnName: sortDescriptor.key!, ascending: sortDescriptor.ascending)
+        self.delegate?.attributesView(attributesView: self, sortByColumnName: sortDescriptor.key!, ascending: sortDescriptor.ascending)
     }
     
-    func tableViewSelectionDidChange(notification: NSNotification) {
-        self.delegate?.attributesView(self, selectedIndexDidChange: self.selectedIndex)
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        self.delegate?.attributesView(attributesView: self, selectedIndexDidChange: self.selectedIndex)
         self.reloadRemoveButtonState()
     }
     
     //MARK: - Events
     @IBAction func addAttributeButtonOnClick(sender: AnyObject) {
         self.window!.makeFirstResponder(self.tableView)
-        self.delegate?.addAttributeInAttributesView(self)
+        self.delegate?.addAttributeInAttributesView(attributesView: self)
     }
     
     @IBAction func removeAttributeOnClick(sender: AnyObject) {
         if let index = selectedIndex {
             self.window!.makeFirstResponder(self.tableView)
-            self.delegate?.attributesView(self, removeAttributeAtIndex:index)
+            self.delegate?.attributesView(attributesView: self, removeAttributeAtIndex:index)
         }
     }
     
     //MARK: - TitleCellDelegate
     func titleCell(titleCell: TitleCell, shouldChangeTitle title: String) -> Bool {
-        let index = self.tableView.rowForView(titleCell)
+        let index = self.tableView.row(for: titleCell)
         if index != -1 {
-            if let shouldChange = self.delegate?.attributesView(self, shouldChangeAttributeName: title, atIndex: index) {
+            if let shouldChange = self.delegate?.attributesView(attributesView: self, shouldChangeAttributeName: title, atIndex: index) {
                 return shouldChange
             }
         }
@@ -178,14 +178,14 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     //MARK: - PopUpCellDelegate
     func popUpCell(popUpCell: PopUpCell, selectedItemDidChangeIndex index: Int) {
         
-        let cellIndex = self.tableView.rowForView(popUpCell)
-        self.delegate?.attributesView(self, atIndex:cellIndex, changeAttributeType: AttributeType.values[index])
+        let cellIndex = self.tableView.row(for: popUpCell)
+        self.delegate?.attributesView(attributesView: self, atIndex:cellIndex, changeAttributeType: AttributeType.values[index])
     }
     
     //MARK: - Copy the row to the pasteboard
-    func tableView(tableView: NSTableView, writeRowsWithIndexes: NSIndexSet, toPasteboard: NSPasteboard) -> Bool {
+    func tableView(_ tableView: NSTableView, writeRowsWith writeRowsWithIndexes: IndexSet, to toPasteboard: NSPasteboard) -> Bool {
         
-        let data = NSKeyedArchiver.archivedDataWithRootObject([writeRowsWithIndexes])
+        let data = NSKeyedArchiver.archivedData(withRootObject: [writeRowsWithIndexes])
         
         toPasteboard.declareTypes([ROW_TYPE], owner:self)
         toPasteboard.setData(data, forType:ROW_TYPE)
@@ -194,23 +194,23 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     }
     
     //MARK: - Validate the drop
-    func tableView(tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
         
-        tableView.setDropRow(row, dropOperation: NSTableViewDropOperation.Above)
-        return NSDragOperation.Move
+        tableView.setDropRow(row, dropOperation: NSTableViewDropOperation.above)
+        return NSDragOperation.move
     }
     
     //MARK: - Handle the drop
-    func tableView(tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
         let pasteboard = info.draggingPasteboard()
-        let rowData = pasteboard.dataForType(ROW_TYPE)
+        let rowData = pasteboard.data(forType: ROW_TYPE)
         
         if(rowData != nil) {
-            var dataArray = NSKeyedUnarchiver.unarchiveObjectWithData(rowData!) as! Array<NSIndexSet>,
+            var dataArray = NSKeyedUnarchiver.unarchiveObject(with: rowData!) as! Array<NSIndexSet>,
             indexSet = dataArray[0]
             
             let movingFromIndex = indexSet.firstIndex
-            self.delegate?.attributesView(self, dragFromIndex: movingFromIndex, dropToIndex: row)
+            self.delegate?.attributesView(attributesView: self, dragFromIndex: movingFromIndex, dropToIndex: row)
             
             return true
         }
