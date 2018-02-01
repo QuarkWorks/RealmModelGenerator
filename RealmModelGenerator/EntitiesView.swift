@@ -48,7 +48,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
             
             
             if let newValue = newValue {
-                self.tableView.selectRowIndexes(NSIndexSet(index: newValue), byExtendingSelection: false)
+                self.tableView.selectRowIndexes(IndexSet(integer: newValue), byExtendingSelection: false)
             } else {
                 self.tableView.deselectAll(nil)
             }
@@ -58,8 +58,8 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     //MARK: Lifecycle
     override func nibDidLoad() {
         super.nibDidLoad()
-        removeButton.enabled = false
-        tableView.registerForDraggedTypes([ROW_TYPE, NSFilenamesPboardType])
+        removeButton.isEnabled = false
+        tableView.register(forDraggedTypes: [ROW_TYPE, NSFilenamesPboardType])
     }
     
     func reloadData() {
@@ -69,7 +69,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     }
     
     func reloadRemoveButtonState() {
-        self.removeButton.enabled = self.selectedIndex != nil
+        self.removeButton.isEnabled = self.selectedIndex != nil
     }
     
     //MARK: - NSTableViewDataSource
@@ -78,7 +78,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
             return 5
         }
         
-        if let numberOfItems = self.dataSource?.numberOfRowsInEntitiesView(self) {
+        if let numberOfItems = self.dataSource?.numberOfRowsInEntitiesView(entitiesView: self) {
             return numberOfItems
         }
         
@@ -86,8 +86,8 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     }
     
     //MARK: - NSTableViewDelegate
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cell = tableView.makeViewWithIdentifier(TitleCell.IDENTIFIER, owner: nil) as! TitleCell
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let cell = tableView.make(withIdentifier: TitleCell.IDENTIFIER, owner: nil) as! TitleCell
         if (self.isInterfaceBuilder) {
             cell.title = "Entity"
             return cell
@@ -95,36 +95,36 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         
         cell.delegate = self // also set in interface builder as files owner
         
-        if let title = self.dataSource?.entitiesView(self, titleForEntityAtIndex:row) {
+        if let title = self.dataSource?.entitiesView(entitiesView: self, titleForEntityAtIndex:row) {
             cell.title = title
         }
         
         return cell
     }
     
-    func tableViewSelectionDidChange(notification: NSNotification) {
-        self.delegate?.entitiesView(self, selectedIndexDidChange: self.selectedIndex)
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        self.delegate?.entitiesView(entitiesView: self, selectedIndexDidChange: self.selectedIndex)
         self.reloadRemoveButtonState()
     }
     
     //MARK: - Events
-    @IBAction func addButtonOnClick(_: AnyObject) {
+    @IBAction func addButtonOnClick(_: Any) {
         self.window!.makeFirstResponder(self.tableView)
-        self.delegate?.addEntityInEntitiesView(self)
+        self.delegate?.addEntityInEntitiesView(entitiesView: self)
     }
     
-    @IBAction func removeButtonOnClick(_: AnyObject) {
+    @IBAction func removeButtonOnClick(_: Any) {
         if let index = selectedIndex {
             self.window!.makeFirstResponder(self.tableView)
-            self.delegate?.entitiesView(self, removeEntityAtIndex:index)
+            self.delegate?.entitiesView(entitiesView: self, removeEntityAtIndex:index)
         }
     }
     
     //MARK: - TitleCellDelegate
     func titleCell(titleCell: TitleCell, shouldChangeTitle title: String) -> Bool {
-        let index = self.tableView.rowForView(titleCell)
+        let index = self.tableView.row(for: titleCell)
         if index != -1 {
-            if let shouldChange = self.delegate?.entitiesView(self, shouldChangeEntityName: title, atIndex: index) {
+            if let shouldChange = self.delegate?.entitiesView(entitiesView: self, shouldChangeEntityName: title, atIndex: index) {
                 return shouldChange
             }
         }
@@ -133,9 +133,9 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     }
     
     //MARK: - Copy the row to the pasteboard
-    func tableView(tableView: NSTableView, writeRowsWithIndexes: NSIndexSet, toPasteboard: NSPasteboard) -> Bool {
+    func tableView(_ tableView: NSTableView, writeRowsWith writeRowsWithIndexes: IndexSet, to toPasteboard: NSPasteboard) -> Bool {
         
-        let data = NSKeyedArchiver.archivedDataWithRootObject([writeRowsWithIndexes])
+        let data = NSKeyedArchiver.archivedData(withRootObject: [writeRowsWithIndexes])
         
         toPasteboard.declareTypes([ROW_TYPE], owner:self)
         toPasteboard.setData(data, forType:ROW_TYPE)
@@ -144,23 +144,23 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     }
     
     //MARK: - Validate the drop
-    func tableView(tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
         
-        tableView.setDropRow(row, dropOperation: NSTableViewDropOperation.Above)
-        return NSDragOperation.Move
+        tableView.setDropRow(row, dropOperation: NSTableViewDropOperation.above)
+        return NSDragOperation.move
     }
     
     //MARK: - Handle the drop
-    func tableView(tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
         let pasteboard = info.draggingPasteboard()
-        let rowData = pasteboard.dataForType(ROW_TYPE)
+        let rowData = pasteboard.data(forType: ROW_TYPE)
         
         if(rowData != nil) {
-            var dataArray = NSKeyedUnarchiver.unarchiveObjectWithData(rowData!) as! Array<NSIndexSet>,
+            var dataArray = NSKeyedUnarchiver.unarchiveObject(with: rowData!) as! Array<NSIndexSet>,
             indexSet = dataArray[0]
             
             let movingFromIndex = indexSet.firstIndex
-            self.delegate?.entitiesView(self, dragFromIndex: movingFromIndex, dropToIndex: row)
+            self.delegate?.entitiesView(entitiesView: self, dragFromIndex: movingFromIndex, dropToIndex: row)
             
             return true
         }
