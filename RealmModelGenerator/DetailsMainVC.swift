@@ -1,5 +1,5 @@
 //
-//  DetailsViewController.swift
+//  DetailsMainVC.swift
 //  RealmModelGenerator
 //
 //  Created by Zhaolong Zhong on 3/28/16.
@@ -9,7 +9,7 @@
 import Cocoa
 
 class DetailsMainVC: NSViewController {
-    static let TAG = NSStringFromClass(DetailsMainVC)
+    static let TAG = NSStringFromClass(DetailsMainVC.self)
     
     private var entityDetailVC: EntityDetailVC! = nil
     private var attributeDetailVC: AttributeDetailVC! = nil
@@ -60,9 +60,9 @@ class DetailsMainVC: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        entityDetailVC = self.storyboard!.instantiateControllerWithIdentifier("EntityDetailVC") as! EntityDetailVC
-        attributeDetailVC = self.storyboard!.instantiateControllerWithIdentifier("AttributeDetailVC") as! AttributeDetailVC
-        relationshipDetailVC = self.storyboard!.instantiateControllerWithIdentifier("RelationshipDetailVC") as! RelationshipDetailVC
+        entityDetailVC = self.storyboard!.instantiateController(withIdentifier: "EntityDetailVC") as! EntityDetailVC
+        attributeDetailVC = self.storyboard!.instantiateController(withIdentifier: "AttributeDetailVC") as! AttributeDetailVC
+        relationshipDetailVC = self.storyboard!.instantiateController(withIdentifier: "RelationshipDetailVC") as! RelationshipDetailVC
         
         self.addChildViewController(entityDetailVC)
         self.addChildViewController(attributeDetailVC)
@@ -71,10 +71,10 @@ class DetailsMainVC: NSViewController {
         detailsContainerView.addSubview(entityDetailVC.view)
         detailsContainerView.addSubview(attributeDetailVC.view)
         detailsContainerView.addSubview(relationshipDetailVC.view)
-        self.emptyTextField.hidden = false
-        self.entityDetailVC.view.hidden = true
-        self.attributeDetailVC.view.hidden = true
-        self.relationshipDetailVC.view.hidden = true
+        self.emptyTextField.isHidden = false
+        self.entityDetailVC.view.isHidden = true
+        self.attributeDetailVC.view.isHidden = true
+        self.relationshipDetailVC.view.isHidden = true
     }
     
     override func viewWillAppear() {
@@ -87,20 +87,20 @@ class DetailsMainVC: NSViewController {
         attributeDetailVC.attribute = self.selectedAttribute
         relationshipDetailVC.relationship = self.selectedRelationship
         
-        self.emptyTextField.hidden = true
-        self.entityDetailVC.view.hidden = true
-        self.attributeDetailVC.view.hidden = true
-        self.relationshipDetailVC.view.hidden = true
+        self.emptyTextField.isHidden = true
+        self.entityDetailVC.view.isHidden = true
+        self.attributeDetailVC.view.isHidden = true
+        self.relationshipDetailVC.view.isHidden = true
         
         switch self.detailType {
         case .Entity:
-            self.entityDetailVC.view.hidden = false
+            self.entityDetailVC.view.isHidden = false
         case .Attribute:
-            self.attributeDetailVC.view.hidden = false
+            self.attributeDetailVC.view.isHidden = false
         case .Relationship:
-            self.relationshipDetailVC.view.hidden = false
+            self.relationshipDetailVC.view.isHidden = false
         case .Empty:
-            self.emptyTextField.hidden = false
+            self.emptyTextField.isHidden = false
         }
     }
 }
