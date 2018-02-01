@@ -1,5 +1,5 @@
 //
-//  EntityCell.swift
+//  TitleCell.swift
 //  RealmModelGenerator
 //
 //  Created by Brandon Erbschloe on 3/10/16.
@@ -62,8 +62,8 @@ class TitleCell: NibDesignableView, NSTextFieldDelegate {
         }
     }
     
-    func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        if let shouldEnd = self.delegate?.titleCell(self, shouldChangeTitle: fieldEditor.string!) {
+    func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
+        if let shouldEnd = self.delegate?.titleCell(titleCell: self, shouldChangeTitle: fieldEditor.string!) {
             return shouldEnd
         }
         
