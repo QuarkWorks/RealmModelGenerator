@@ -16,7 +16,7 @@ protocol AttributeDetailViewDelegate: class {
 
 @IBDesignable
 class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
-    static let TAG = NSStringFromClass(AttributeDetailView)
+    static let TAG = NSStringFromClass(AttributeDetailView.self)
     
     private var previousSelectedIndex = 0;
     
@@ -35,7 +35,7 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     override func nibDidLoad() {
         super.nibDidLoad()
         self.attributeTypePopUpButton.removeAllItems()
-        self.attributeTypePopUpButton.addItemsWithTitles(AttributeType.values.flatMap({$0.rawValue}))
+        self.attributeTypePopUpButton.addItems(withTitles: AttributeType.values.flatMap({$0.rawValue}))
     }
     
     @IBInspectable var name:String {
@@ -72,7 +72,7 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     @IBInspectable var attributeTypeNames:[String] {
         set {
             self.attributeTypePopUpButton.removeAllItems()
-            self.attributeTypePopUpButton.addItemsWithTitles(newValue)
+            self.attributeTypePopUpButton.addItems(withTitles: newValue)
         }
         
         get {
@@ -82,17 +82,17 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     
     @IBInspectable var selectedIndex:Int {
         set {
-            self.attributeTypePopUpButton.selectItemAtIndex(newValue)
+            self.attributeTypePopUpButton.selectItem(at: newValue)
             if self.previousSelectedIndex != newValue {
                 self.previousSelectedIndex = newValue
             }
             
             if ((AttributeType.values[newValue] == AttributeType.Unknown) || (AttributeType.values[newValue] == AttributeType.Blob)) {
-                self.defaultValueTextField.enabled = false
-                self.defaultCheckBox.enabled = false
+                self.defaultValueTextField.isEnabled = false
+                self.defaultCheckBox.isEnabled = false
             } else {
-                self.defaultValueTextField.enabled = true
-                self.defaultCheckBox.enabled = true
+                self.defaultValueTextField.isEnabled = true
+                self.defaultCheckBox.isEnabled = true
             }
         }
         
@@ -107,8 +107,8 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
         get { return self.defaultValueTextField.stringValue }
     }
     
-    func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        if let shouldEnd = self.delegate?.attributeDetailView(self, shouldChangeAttributeTextField: fieldEditor.string!, control: control) {
+    func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
+        if let shouldEnd = self.delegate?.attributeDetailView(attributeDetailView: self, shouldChangeAttributeTextField: fieldEditor.string!, control: control) {
             return shouldEnd
         }
         
@@ -116,7 +116,7 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     }
     
     @IBAction func checkBoxStateChanged(sender: NSButton) {
-        if let shouldChangeState = self.delegate?.attributeDetailView(self, shouldChangeAttributeCheckBoxFor: sender, state: sender.state == 1) {
+        if let shouldChangeState = self.delegate?.attributeDetailView(attributeDetailView: self, shouldChangeAttributeCheckBoxFor: sender, state: sender.state == 1) {
             if shouldChangeState == false {
                 switch sender {
                 case self.ignoredCheckBox:
@@ -142,7 +142,7 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     }
     
     @IBAction func attributeTypeChanged(sender: NSPopUpButton) {
-        if let shouldSelect = self.delegate?.attributeDetailView(self, selectedTypeDidChange: selectedIndex) {
+        if let shouldSelect = self.delegate?.attributeDetailView(attributeDetailView: self, selectedTypeDidChange: selectedIndex) {
             if !shouldSelect {
                 self.selectedIndex = self.previousSelectedIndex
             }
