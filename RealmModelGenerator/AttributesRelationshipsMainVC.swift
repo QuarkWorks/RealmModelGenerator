@@ -1,5 +1,5 @@
 
-//  AttributesRelationshipsViewController.swift
+//  AttributesRelationshipsMainVC.swift
 //  RealmModelGenerator
 //
 //  Created by Zhaolong Zhong on 3/31/16.
@@ -14,7 +14,7 @@ protocol AttributesRelationshipsVCDelegate: class {
 }
 
 class AttributesRelationshipsMainVC: NSViewController, AttributesVCDelegate, RelationshipsVCDelegate {
-    static let TAG = NSStringFromClass(AttributesRelationshipsMainVC)
+    static let TAG = NSStringFromClass(AttributesRelationshipsMainVC.self)
     
     var attributesVC:AttributesVC! {
         didSet {
@@ -45,7 +45,7 @@ class AttributesRelationshipsMainVC: NSViewController, AttributesVCDelegate, Rel
     weak var selectedAttribute: Attribute? {
         didSet {
             if self.selectedAttribute === oldValue { return }
-            self.delegate?.attributesRelationshipsVC(self, selectedAttributeDidChange: self.selectedAttribute)
+            self.delegate?.attributesRelationshipsVC(attributesRelationshipsVC: self, selectedAttributeDidChange: self.selectedAttribute)
             self.invalidateViews()
         }
     }
@@ -53,7 +53,7 @@ class AttributesRelationshipsMainVC: NSViewController, AttributesVCDelegate, Rel
     weak var selectedRelationship: Relationship? {
         didSet {
             if self.selectedRelationship === oldValue { return }
-            self.delegate?.attributesRelationshipsVC(self, selectedRelationshipDidChange: self.selectedRelationship)
+            self.delegate?.attributesRelationshipsVC(attributesRelationshipsVC: self, selectedRelationshipDidChange: self.selectedRelationship)
             self.invalidateViews()
         }
     }
@@ -70,7 +70,7 @@ class AttributesRelationshipsMainVC: NSViewController, AttributesVCDelegate, Rel
     
     //MARK - Invalidation
     func invalidateViews() {
-        if !viewLoaded { return }
+        if !isViewLoaded { return }
         self.attributesVC.selectedEntity = self.selectedEntity
         self.relationshipsVC.selectedEntity = self.selectedEntity
     }
@@ -87,7 +87,7 @@ class AttributesRelationshipsMainVC: NSViewController, AttributesVCDelegate, Rel
     
     
     //MARK: - Segue
-    override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.destinationController is AttributesVC {
             self.attributesVC = segue.destinationController as! AttributesVC
         } else if segue.destinationController is RelationshipsVC {
