@@ -1,5 +1,5 @@
 //
-//  ContentGenerator.swift
+//  BaseContentGenerator.swift
 //  RealmModelGenerator
 //
 //  Created by Zhaolong Zhong on 3/14/16.
@@ -14,13 +14,13 @@ class BaseContentGenerator {
     //MARK: - Check if entity is valid or not
     func isValidEntity(entity: Entity) -> Bool {
         do {
-            return try validEntity(entity)
+            return try validEntity(entity: entity)
         } catch GeneratorError.InvalidAttribteType(let attribute){
-            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Entity \(entity.name) attribute \(attribute.name) has an unknown type.")
+            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Entity \(entity.name) attribute \(attribute.name) has an unknown type.")
         } catch GeneratorError.InvalidRelationshiDestination(let relationship) {
-            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Entity \(entity.name) relationship \(relationship.name) has an unknown destination.")
+            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Entity \(entity.name) relationship \(relationship.name) has an unknown destination.")
         } catch {
-            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Invalid entity \(entity.name)")
+            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Invalid entity \(entity.name)")
         }
         
         return false
@@ -51,18 +51,18 @@ class BaseContentGenerator {
         content += " *\t" + entity.name + "." + fileExtension + "\n"
         content += " *\tModel version: " + entity.model.version + "\n"
         
-        if let me = ABAddressBook.sharedAddressBook()?.me(){
+        if let me = ABAddressBook.shared()?.me(){
             
-            if let firstName = me.valueForProperty(kABFirstNameProperty as String) as? String{
+            if let firstName = me.value(forProperty: kABFirstNameProperty as String) as? String{
                 content += " *\tCreate by \(firstName)"
-                if let lastName = me.valueForProperty(kABLastNameProperty as String) as? String{
+                if let lastName = me.value(forProperty: kABLastNameProperty as String) as? String{
                     content += " \(lastName)"
                 }
             }
             
             content += " on \(getTodayFormattedDay())\n *\tCopyright © \(getYear())"
             
-            if let organization = me.valueForProperty(kABOrganizationProperty as String) as? String{
+            if let organization = me.value(forProperty: kABOrganizationProperty as String) as? String{
                 content += " \(organization)"
             } else {
                 content += " QuarkWorks"
@@ -79,27 +79,27 @@ class BaseContentGenerator {
     
     // Returns the current year as String
     func getYear() -> String {
-        return "\(NSCalendar.currentCalendar().component(.Year, fromDate: NSDate()))"
+        return "\(Calendar.current.component(.year, from: Date()))"
     }
     
     // Returns today date in the format dd/mm/yyyy
     func getTodayFormattedDay() -> String {
-        let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: NSDate())
-        return "\(components.day)/\(components.month)/\(components.year)"
+        let components = Calendar.current.dateComponents([.day, .month, .year], from: Date())
+        return "\(components.day!)/\(components.month!)/\(components.year!)"
     }
     
     //MARK: - Get all capitalized key name
     func getAllCapitalizedKeyName(name: String) -> String {
         var result = ""
         
-        for c in name.characters {
+        for c in name {
             if ("A"..."Z").contains(c) {
-                result.appendContentsOf("_")
+                result.append("_")
             }
             
             result.append(c)
         }
         
-        return result.uppercaseString
+        return result.uppercased()
     }
 }

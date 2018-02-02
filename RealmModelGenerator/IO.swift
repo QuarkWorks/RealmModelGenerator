@@ -12,19 +12,19 @@ extension Schema {
     static let NAME = "name"
     static let MODELS = "models";
     
-    func toDictionary() -> [String:AnyObject] {
+    func toDictionary() -> [String:Any] {
         return [
             Schema.NAME:self.name,
             Schema.MODELS:self.models.map({$0.toDictionary()})
         ]
     }
     
-    func map(dictionary:[String:AnyObject]) throws {
+    func map(dictionary:[String:Any]) throws {
         guard let name = dictionary[Schema.NAME] as? String else {
             throw NSError(domain: Schema.TAG, code: 0, userInfo: nil)
         }
         
-        guard let modelDicts = dictionary[Schema.MODELS] as? [[String:AnyObject]] else {
+        guard let modelDicts = dictionary[Schema.MODELS] as? [[String:Any]] else {
             throw NSError(domain: Schema.TAG, code: 0, userInfo: nil)
         }
         
@@ -32,7 +32,7 @@ extension Schema {
         
         for modelDict in modelDicts {
             let model = self.createModel()
-            try model.map(modelDict, increaseVersion: false)
+            try model.map(dictionary: modelDict, increaseVersion: false)
         }
     }
 }
@@ -42,7 +42,7 @@ extension Model {
     static let IS_MODIFIABLE = "isModifiable"
     static let ENTITIES = "entities"
     
-    func toDictionary() -> [String:AnyObject] {
+    func toDictionary() -> [String:Any] {
         return [
             Model.VERSION:self.version,
             Model.IS_MODIFIABLE:self.isModifiable,
@@ -50,7 +50,7 @@ extension Model {
         ]
     }
     
-    func map(dictionary:[String:AnyObject], increaseVersion:Bool) throws {
+    func map(dictionary:[String:Any], increaseVersion:Bool) throws {
         guard let version = dictionary[Model.VERSION] as? String else {
             throw NSError(domain: Model.TAG, code: 0, userInfo: nil)
         }
@@ -59,26 +59,26 @@ extension Model {
             throw NSError(domain: Model.TAG, code: 0, userInfo: nil)
         }
         
-        guard let entitiesDict = dictionary[Model.ENTITIES] as? [[String:AnyObject]] else {
+        guard let entitiesDict = dictionary[Model.ENTITIES] as? [[String:Any]] else {
             throw NSError(domain: Model.TAG, code: 0, userInfo: nil)
         }
         
         if !increaseVersion {
-            self.setVersion(version)
+            self.setVersion(version: version)
         }
         
         self.isModifiable = isModifiable
         
-        var entityPairs:[(Entity, [String:AnyObject])] = []
+        var entityPairs:[(Entity, [String:Any])] = []
         entityPairs.reserveCapacity(entitiesDict.count)
         for entityDict in entitiesDict{
             let entity = self.createEntity();
-            try entity.mapValuesAndAttributes(entityDict);
+            try entity.mapValuesAndAttributes(dictionary: entityDict);
             entityPairs.append((entity, entityDict))
         }
         
         for entityPair in entityPairs {
-            try entityPair.0.mapRelationshipsAndSuperEntity(entityPair.1)
+            try entityPair.0.mapRelationshipsAndSuperEntity(dictionary: entityPair.1)
         }
     }
     
@@ -93,9 +93,9 @@ extension Entity {
     static let ATTRIBUTES = "attributes"
     static let RELATIONSHIPS = "relationships"
     
-    func toDictionary() -> [String:AnyObject] {
-        let superEntity:AnyObject = self.superEntity?.name ?? NSNull()
-        let primaryKey:AnyObject = self.primaryKey?.name ?? NSNull()
+    func toDictionary() -> [String:Any] {
+        let superEntity:Any = self.superEntity?.name ?? NSNull()
+        let primaryKey:Any = self.primaryKey?.name ?? NSNull()
         
         return [
             Entity.NAME:name,
@@ -107,32 +107,32 @@ extension Entity {
         ]
     }
     
-    func mapValuesAndAttributes(dictionary:[String:AnyObject]) throws {
+    func mapValuesAndAttributes(dictionary:[String:Any]) throws {
         guard let name = dictionary[Entity.NAME] as? String else {
             throw NSError(domain:Attribute.TAG, code: 0, userInfo: nil)
         }
         
-        try self.setName(name)
+        try self.setName(name: name)
         
         if let isBaseClass = dictionary[Entity.IS_BASE_CLASS] as? Bool {
             self.isBaseClass = isBaseClass
         }
         
-        guard let attributes = dictionary[Entity.ATTRIBUTES] as? [[String:AnyObject]] else {
+        guard let attributes = dictionary[Entity.ATTRIBUTES] as? [[String:Any]] else {
             throw NSError(domain:Attribute.TAG, code: 0, userInfo: nil)
         }
         
         let primaryKey = dictionary[Entity.PRIMARY_KEY] as? String
         for attributeDict in attributes {
             let attribute = self.createAttribute()
-            try attribute.map(attributeDict)
+            try attribute.map(dictionary: attributeDict)
             if primaryKey != nil && attribute.name == primaryKey {
-                try self.setPrimaryKey(attribute)
+                try self.setPrimaryKey(primaryKey: attribute)
             }
         }
     }
     
-    func mapRelationshipsAndSuperEntity(dictionary:[String:AnyObject]) throws {
+    func mapRelationshipsAndSuperEntity(dictionary:[String:Any]) throws {
         let superEntityName = dictionary[Entity.SUPER_ENTITY] as? String
         var superEntity:Entity? = nil;
         if superEntityName != nil && !superEntityName!.isEmpty {
@@ -144,10 +144,10 @@ extension Entity {
         
         self.superEntity = superEntity;
         
-        if let relationshipsArrayDict = dictionary[Entity.RELATIONSHIPS] as? [[String:AnyObject]] {
+        if let relationshipsArrayDict = dictionary[Entity.RELATIONSHIPS] as? [[String:Any]] {
             for relationshipDict in relationshipsArrayDict {
                 let relationship = self.createRelationship()
-                try relationship.map(relationshipDict)
+                try relationship.map(dictionary: relationshipDict)
             }
         }
         
@@ -164,7 +164,7 @@ extension Attribute {
     static let DEFAULT_VALUE = "defaultValue"
     static let TYPE = "type"
     
-    func toDictionary() -> [String:AnyObject] {
+    func toDictionary() -> [String:Any] {
         return [
             Attribute.NAME:name,
             Attribute.IS_IGNORED:isIgnored,
@@ -176,12 +176,12 @@ extension Attribute {
         ]
     }
     
-    func map(dictionary:[String:AnyObject]) throws {
+    func map(dictionary:[String:Any]) throws {
         guard let name = dictionary[Attribute.NAME] as? String else {
             throw NSError(domain:Attribute.TAG, code: 0, userInfo: nil)
         }
         
-        try self.setName(name)
+        try self.setName(name: name)
         
         if let rawType = dictionary[Attribute.TYPE] as? String {
             self.type = AttributeType(rawValueSafe: rawType)
@@ -193,7 +193,7 @@ extension Attribute {
         
         if let isIndexed = dictionary[Attribute.IS_INDEXED] as? Bool {
             do {
-                try self.setIndexed(isIndexed)
+                try self.setIndexed(isIndexed: isIndexed)
             } catch {
                 self.removeIndexed()
             }
@@ -218,8 +218,8 @@ extension Relationship {
     static let DESTINATION = "destination"
     static let IS_MANY = "isMany"
     
-    func toDictionary() -> [String:AnyObject] {
-        let destinationName:AnyObject = (self.destination != nil ? self.destination!.name : NSNull())
+    func toDictionary() -> [String:Any] {
+        let destinationName:Any = (self.destination != nil ? self.destination!.name : NSNull())
         return [
             Relationship.NAME:self.name,
             Relationship.DESTINATION:destinationName,
@@ -227,19 +227,19 @@ extension Relationship {
         ]
     }
     
-    func map(dictionary:[String:AnyObject]) throws {
+    func map(dictionary:[String:Any]) throws {
         guard let name = dictionary[Relationship.NAME] as? String else {
             throw NSError(domain: Relationship.TAG, code: 0, userInfo: nil)
         }
-        try self.setName(name)
+        try self.setName(name: name)
         
         if let isMany = dictionary[Relationship.IS_MANY] as? Bool {
             self.isMany = isMany
         }
         
-        if let destinationName = dictionary[Relationship.DESTINATION] as? String,
-            destination = self.entity.model.entitiesByName[destinationName] {
-                self.destination = destination
+        //MARK  don't know about this.
+        if let destinationName = dictionary[Relationship.DESTINATION] as? String {
+                self.destination = self.entity.model.entitiesByName[destinationName]
         } else {
             destination = nil
         }

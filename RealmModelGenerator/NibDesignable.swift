@@ -37,10 +37,10 @@ extension NibDesignableProtocol {
     - returns: NSView instance loaded from a nib file.
     */
     public func loadNib() -> NSView {
-        let bundle = NSBundle(forClass: self.dynamicType)
+        let bundle = Bundle(for: type(of: self))
         let nib = NSNib(nibNamed: self.nibName(), bundle: bundle)
         var objects:NSArray?
-        nib!.instantiateWithOwner(self, topLevelObjects: &objects)
+        nib!.instantiate(withOwner: self, topLevelObjects: &objects!)
         return objects?.filter({$0 is NSView}).first as! NSView
     }
     
@@ -49,7 +49,8 @@ extension NibDesignableProtocol {
     /**
     Called in init(frame:) and init(aDecoder:) to load the nib and add it as a subview.
     */
-    private func setupNib() {
+    // find better access modifier than public or private
+    public func setupNib() {
         let view = self.loadNib()
         self.nibContainerView.addSubview(view)
         view.matchParent()
@@ -68,18 +69,19 @@ extension NSView {
      - returns: Name of a single view nib file.
      */
     public func nibName() -> String {
-        return self.dynamicType.description().componentsSeparatedByString(".").last!
+        return String(type(of: self).description().split(separator: ".").last!)
     }
     
     public func nibDidLoad() {}
     
-    private func matchParent() {
+    // find better access modifier than public or private
+    public func matchParent() {
         self.translatesAutoresizingMaskIntoConstraints = false
         let bindings = ["view": self]
-        self.superview!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|[view]|", options:[], metrics:nil, views: bindings))
-        self.superview!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|[view]|", options:[], metrics:nil, views: bindings))
+        self.superview!.addConstraints(NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|[view]|", options:[], metrics:nil, views: bindings))
+        self.superview!.addConstraints(NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|[view]|", options:[], metrics:nil, views: bindings))
     }
 }
 

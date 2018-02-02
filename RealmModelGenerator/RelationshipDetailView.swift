@@ -16,7 +16,7 @@ protocol RelationshipDetailViewDelegate: class {
 
 @IBDesignable
 class RelationshipDetailView: NibDesignableView, NSTextFieldDelegate {
-    static let TAG = NSStringFromClass(RelationshipDetailView)
+    static let TAG = NSStringFromClass(RelationshipDetailView.self)
     
     @IBOutlet weak var nameTextField: NSTextField!
     @IBOutlet weak var destinationPopupButton: NSPopUpButton!
@@ -42,7 +42,7 @@ class RelationshipDetailView: NibDesignableView, NSTextFieldDelegate {
     @IBInspectable var destinationNames:[String] {
         set {
             self.destinationPopupButton.removeAllItems()
-            self.destinationPopupButton.addItemsWithTitles(newValue)
+            self.destinationPopupButton.addItems(withTitles: newValue)
         }
         
         get {
@@ -53,7 +53,7 @@ class RelationshipDetailView: NibDesignableView, NSTextFieldDelegate {
     
     @IBInspectable var selectedIndex:Int {
         set {
-            self.destinationPopupButton.selectItemAtIndex(newValue)
+            self.destinationPopupButton.selectItem(at: newValue)
         }
         
         get {
@@ -61,8 +61,8 @@ class RelationshipDetailView: NibDesignableView, NSTextFieldDelegate {
         }
     }
     
-    func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        if let shouldEnd = self.delegate?.relationshipDetailView(self, shouldChangeRelationshipTextField: fieldEditor.string!, identifier: control.identifier!) {
+    func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
+        if let shouldEnd = self.delegate?.relationshipDetailView(relationshipDetailView: self, shouldChangeRelationshipTextField: fieldEditor.string!, identifier: control.identifier!) {
             return shouldEnd
         }
         
@@ -70,11 +70,11 @@ class RelationshipDetailView: NibDesignableView, NSTextFieldDelegate {
     }
     
     @IBAction func destinationChanged(sender: NSPopUpButton) {
-        self.delegate?.relationshipDetailView(self, selectedDestinationDidChange: selectedIndex)
+        self.delegate?.relationshipDetailView(relationshipDetailView: self, selectedDestinationDidChange: selectedIndex)
     }
     
     @IBAction func toManyCheckBoxStateChanged(sender: NSButton) {
-        if let shouldChangeState = self.delegate?.relationshipDetailView(self, shouldChangeRelationshipCheckBoxFor: sender.identifier!, state: sender.state == 1) {
+        if let shouldChangeState = self.delegate?.relationshipDetailView(relationshipDetailView: self, shouldChangeRelationshipCheckBoxFor: sender.identifier!, state: sender.state == 1) {
             if shouldChangeState == false {
                 toManyCheckBox.state = 0
             }

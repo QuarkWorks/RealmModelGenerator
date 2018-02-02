@@ -1,5 +1,5 @@
 //
-//  AttributesViewController.swift
+//  AttributesVC.swift
 //  RealmModelGenerator
 //
 //  Created by Zhaolong Zhong on 3/31/16.
@@ -13,7 +13,7 @@ protocol AttributesVCDelegate: class {
 }
 
 class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewDataSource, Observer {
-    static let TAG = NSStringFromClass(AttributesVC)
+    static let TAG = NSStringFromClass(AttributesVC.self)
     
     @IBOutlet weak var attributesView: AttributesView! {
         didSet {
@@ -25,8 +25,8 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     weak var selectedEntity: Entity? {
         didSet {
             if oldValue === self.selectedEntity { return }
-            oldValue?.observable.removeObserver(self)
-            self.selectedEntity?.observable.addObserver(self)
+            oldValue?.observable.removeObserver(observer: self)
+            self.selectedEntity?.observable.addObserver(observer: self)
             selectedAttribute = nil
             self.invalidateViews()
         }
@@ -36,7 +36,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         didSet {
             if oldValue === self.selectedAttribute { return }
             invalidateSelectedIndex()
-            self.delegate?.attributesVC(self, selectedAttributeDidChange: self.selectedAttribute)
+            self.delegate?.attributesVC(attributesVC: self, selectedAttributeDidChange: self.selectedAttribute)
         }
     }
 
@@ -62,7 +62,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     }
     
     func invalidateViews() {
-        if !self.viewLoaded { return }
+        if !self.isViewLoaded { return }
         
         if isSortedByColumnHeader {
             sortAttributes()
@@ -72,7 +72,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     }
     
     func invalidateSelectedIndex() {
-        self.attributesView.selectedIndex = self.selectedEntity?.attributes.indexOf({$0 === self.selectedAttribute})
+        self.attributesView.selectedIndex = self.selectedEntity?.attributes.index(where: {$0 === self.selectedAttribute})
     }
     
     //MARK: - Update selected attribute after its detail changed
@@ -88,21 +88,21 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         
         if ascending {
             if isSortByType {
-                selectedEntity.attributes.sortInPlace{ (e1, e2) -> Bool in
+                selectedEntity.attributes.sort{ (e1, e2) -> Bool in
                     return e1.type.rawValue < e2.type.rawValue
                 }
             } else {
-                selectedEntity.attributes.sortInPlace{ (e1, e2) -> Bool in
+                selectedEntity.attributes.sort{ (e1, e2) -> Bool in
                     return e1.name < e2.name
                 }
             }
         } else {
             if isSortByType {
-                selectedEntity.attributes.sortInPlace{ (e1, e2) -> Bool in
+                selectedEntity.attributes.sort{ (e1, e2) -> Bool in
                     return e1.type.rawValue > e2.type.rawValue
                 }
             } else {
-                selectedEntity.attributes.sortInPlace{ (e1, e2) -> Bool in
+                selectedEntity.attributes.sort{ (e1, e2) -> Bool in
                     return e1.name > e2.name
                 }
             }
@@ -110,8 +110,8 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         
         if let primaryKey = self.selectedEntity!.primaryKey {
             if let pk = selectedEntity.attributes.filter({$0 === primaryKey}).first {
-                selectedEntity.attributes.removeAtIndex(selectedEntity.attributes.indexOf{$0 === pk}!)
-                selectedEntity.attributes.insert(pk, atIndex: 0)
+                selectedEntity.attributes.remove(at: selectedEntity.attributes.index{$0 === pk}!)
+                selectedEntity.attributes.insert(pk, at: 0)
             }
         }
     }
@@ -140,7 +140,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     func attributesView(attributesView: AttributesView, removeAttributeAtIndex index: Int) {
         if let attribute = self.selectedEntity?.attributes[index] {
             if attribute === self.selectedAttribute {
-                if self.selectedEntity?.attributes.count <= 1 {
+                if self.selectedEntity!.attributes.count <= 1 {
                     self.selectedAttribute = nil
                 } else if index == self.selectedEntity!.attributes.count - 1 {
                     self.selectedAttribute = self.selectedEntity!.attributes[index - 1]
@@ -149,7 +149,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
                 }
             }
         
-            self.selectedEntity!.removeAttribute(attribute)
+            self.selectedEntity!.removeAttribute(attribute: attribute)
         }
     }
     
@@ -160,9 +160,9 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
     func attributesView(attributesView: AttributesView, shouldChangeAttributeName name: String, atIndex index: Int) -> Bool {
         let attribute = self.selectedEntity!.attributes[index]
         do {
-            try attribute.setName(name)
+            try attribute.setName(name: name)
         } catch {
-            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename attribute: \(attribute.name) to: \(name). There is an attribute with the same name.")
+            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to rename attribute: \(attribute.name) to: \(name). There is an attribute with the same name.")
             return false
         }
         return true
@@ -185,12 +185,12 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         
         self.isSortedByColumnHeader = false
         let draggedAttribute = selectedEntity.attributes[dragFromIndex]
-        selectedEntity.attributes.removeAtIndex(dragFromIndex)
+        selectedEntity.attributes.remove(at: dragFromIndex)
         
         if dropToIndex >= selectedEntity.attributes.count {
-            selectedEntity.attributes.insert(draggedAttribute, atIndex: dropToIndex - 1)
+            selectedEntity.attributes.insert(draggedAttribute, at: dropToIndex - 1)
         } else {
-            selectedEntity.attributes.insert(draggedAttribute, atIndex: dropToIndex)
+            selectedEntity.attributes.insert(draggedAttribute, at: dropToIndex)
         }
         
         invalidateViews()

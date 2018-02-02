@@ -1,5 +1,5 @@
 //
-//  Attribute.swift
+//  AttributeType.swift
 //  RealmModelGenerator
 //
 //  Created by Brandon Erbschloe on 3/2/16.
@@ -14,15 +14,15 @@ enum AttributeType : String {
     static let values = [Unknown, Bool, Short, Int, Long, Float, Double, String, Date, Blob]
     
     func canBePrimaryKey() -> Swift.Bool {
-        return self == Short || self == Int || self == Long || self == String
+        return self == AttributeType.Short || self == AttributeType.Int || self == AttributeType.Long || self == AttributeType.String
     }
     
     func canBeIndexed() -> Swift.Bool {
-        return self == Bool || canBePrimaryKey() || self == Date
+        return self == AttributeType.Bool || canBePrimaryKey() || self == AttributeType.Date
     }
     
     init(rawValueSafe:Swift.String) {
-        self = Unknown
+        self = .Unknown
         if let type = AttributeType.init(rawValue: rawValueSafe) {
             self = type
         }

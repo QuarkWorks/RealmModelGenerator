@@ -1,5 +1,5 @@
 //
-//  EntityDetailViewController.swift
+//  EntityDetailVC.swift
 //  RealmModelGenerator
 //
 //  Created by Zhaolong Zhong on 3/28/16.
@@ -9,7 +9,7 @@
 import Cocoa
 
 class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
-    static let TAG = NSStringFromClass(EntityDetailVC)
+    static let TAG = NSStringFromClass(EntityDetailVC.self)
     
     @IBOutlet weak var entityDetailView: EntityDetailView! {
         didSet { entityDetailView.delegate = self }
@@ -18,8 +18,8 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
     weak var entity:Entity? {
         didSet{
             if oldValue === self.entity { return }
-            oldValue?.observable.removeObserver(self)
-            self.entity?.observable.addObserver(self)
+            oldValue?.observable.removeObserver(observer: self)
+            self.entity?.observable.addObserver(observer: self)
             self.invalidateViews()
         }
     }
@@ -32,14 +32,14 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
     }
     
     func invalidateViews() {
-        if !self.viewLoaded || entity == nil { return }
+        if !self.isViewLoaded || entity == nil { return }
         entityDetailView.name = entity!.name
         entityNameList = ["None"]
         self.entity?.model.entities.forEach{ (e) in entityNameList.append(e.name) }
-        entityNameList.removeAtIndex(entityNameList.indexOf(self.entity!.name)!)
+        entityNameList.remove(at: entityNameList.index(of: self.entity!.name)!)
         entityDetailView.superClassNames = entityNameList
         if let superEntity = self.entity?.superEntity {
-            entityDetailView.selectedItemIndex = entityNameList.indexOf(superEntity.name)!
+            entityDetailView.selectedItemIndex = entityNameList.index(of: superEntity.name)!
         }
     }
     
@@ -51,9 +51,9 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
     //MARK: - EntityDetailView delegate
     func entityDetailView(entityDetailView: EntityDetailView, shouldChangeEntityName name: String) -> Bool {
         do {
-            try self.entity!.setName(name)
+            try self.entity!.setName(name: name)
         } catch {
-            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename entity: \(entity!.name) to: \(name). There is an entity with the same name.")
+            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to rename entity: \(entity!.name) to: \(name). There is an entity with the same name.")
             return false
             
         }

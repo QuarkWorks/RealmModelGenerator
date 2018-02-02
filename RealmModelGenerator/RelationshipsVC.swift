@@ -1,5 +1,5 @@
 //
-//  RelationshipsViewController.swift
+//  RelationshipsVC.swift
 //  RealmModelGenerator
 //
 //  Created by Zhaolong Zhong on 3/31/16.
@@ -13,7 +13,7 @@ protocol RelationshipsVCDelegate: class {
 }
 
 class RelationshipsVC: NSViewController, RelationshipsViewDelegate, RelationshipsViewDataSource, Observer {
-    static let TAG = NSStringFromClass(RelationshipsVC)
+    static let TAG = NSStringFromClass(RelationshipsVC.self)
 
     private var entityNameList:[String] = ["None"]
     
@@ -27,8 +27,8 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     weak var selectedEntity: Entity? {
         didSet {
             if oldValue === self.selectedEntity { return }
-            oldValue?.observable.removeObserver(self)
-            self.selectedEntity?.observable.addObserver(self)
+            oldValue?.observable.removeObserver(observer: self)
+            self.selectedEntity?.observable.addObserver(observer: self)
             selectedRelationship = nil
             self.invalidateViews()
         }
@@ -38,7 +38,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
         didSet {
             if oldValue === self.selectedRelationship { return }
             invalidateSelectedIndex()
-            self.delegate?.relationshipsVC(self, selectedRelationshipDidChange: self.selectedRelationship)
+            self.delegate?.relationshipsVC(relationshipsVC: self, selectedRelationshipDidChange: self.selectedRelationship)
         }
     }
     
@@ -64,7 +64,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     }
     
     func invalidateViews() {
-        if !self.viewLoaded { return }
+        if !self.isViewLoaded { return }
         updateDestinationList()
         
         if isSortedByColumnHeader {
@@ -75,7 +75,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     }
     
     func invalidateSelectedIndex() {
-        self.relationshipsView.selectedIndex = self.selectedEntity?.relationships.indexOf({$0 === self.selectedRelationship})
+        self.relationshipsView.selectedIndex = self.selectedEntity?.relationships.index(where: {$0 === self.selectedRelationship})
     }
     
     //MARK: - Update selected relationship after its detail changed
@@ -97,8 +97,8 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
         
         if ascending {
             if isSortByDestination {
-                selectedEntity.relationships.sortInPlace{ (e1, e2) -> Bool in
-                    if let destination1 = e1.destination, destination2 = e2.destination {
+                selectedEntity.relationships.sort{ (e1, e2) -> Bool in
+                    if let destination1 = e1.destination, let destination2 = e2.destination {
                         return destination1.name < destination2.name
                     } else if let destination1 = e1.destination {
                         return destination1.name < entityNameList[0]
@@ -109,14 +109,14 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
                     }
                 }
             } else {
-                selectedEntity.relationships.sortInPlace{ (e1, e2) -> Bool in
+                selectedEntity.relationships.sort{ (e1, e2) -> Bool in
                     return e1.name < e2.name
                 }
             }
         } else {
             if isSortByDestination {
-                selectedEntity.relationships.sortInPlace{ (e1, e2) -> Bool in
-                    if let destination1 = e1.destination, destination2 = e2.destination {
+                selectedEntity.relationships.sort{ (e1, e2) -> Bool in
+                    if let destination1 = e1.destination, let destination2 = e2.destination {
                         return destination1.name > destination2.name
                     } else if let destination1 = e1.destination {
                         return destination1.name > entityNameList[0]
@@ -127,7 +127,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
                     }
                 }
             } else {
-                selectedEntity.relationships.sortInPlace{ (e1, e2) -> Bool in
+                selectedEntity.relationships.sort{ (e1, e2) -> Bool in
                     return e1.name > e2.name
                 }
             }
@@ -162,7 +162,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     func relationshipsView(relationshipsView: RelationshipsView, removeRelationshipAtIndex index: Int) {
         let relationship = self.selectedEntity!.relationships[index]
         if relationship === self.selectedRelationship {
-            if self.selectedEntity?.relationships.count <= 1 {
+            if let c = self.selectedEntity?.relationships.count, c <= 1 {
                 self.selectedRelationship = nil
             } else if index == self.selectedEntity!.relationships.count - 1 {
                 self.selectedRelationship = self.selectedEntity?.relationships[index - 1]
@@ -171,7 +171,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
             }
         }
         
-        self.selectedEntity!.removeRelationship(relationship)
+        self.selectedEntity!.removeRelationship(relationship: relationship)
     }
     
     func relationshipsView(relationshipsView: RelationshipsView, selectedIndexDidChange index: Int?) {
@@ -181,9 +181,9 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     func relationshipsView(relationshipsView: RelationshipsView, shouldChangeRelationshipName name: String, atIndex index: Int) -> Bool {
         let relationship = selectedEntity!.relationships[index]
         do {
-            try relationship.setName(name)
+            try relationship.setName(name: name)
         } catch {
-            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename relationship: \(relationship.name) to: \(name). There is a relationship with the same name.")
+            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to rename relationship: \(relationship.name) to: \(name). There is a relationship with the same name.")
             return false
         }
         return true
@@ -207,12 +207,12 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
         
         self.isSortedByColumnHeader = false
         let draggedAttribute = selectedEntity.relationships[dragFromIndex]
-        selectedEntity.relationships.removeAtIndex(dragFromIndex)
+        selectedEntity.relationships.remove(at: dragFromIndex)
         
         if dropToIndex >= selectedEntity.relationships.count {
-            selectedEntity.relationships.insert(draggedAttribute, atIndex: dropToIndex - 1)
+            selectedEntity.relationships.insert(draggedAttribute, at: dropToIndex - 1)
         } else {
-            selectedEntity.relationships.insert(draggedAttribute, atIndex: dropToIndex)
+            selectedEntity.relationships.insert(draggedAttribute, at: dropToIndex)
         }
         
         invalidateViews()

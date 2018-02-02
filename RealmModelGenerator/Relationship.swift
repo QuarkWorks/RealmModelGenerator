@@ -9,7 +9,7 @@
 import Foundation
 
 class Relationship {
-    static let TAG = NSStringFromClass(Relationship)
+    static let TAG = NSStringFromClass(Relationship.self)
     
     private(set) var name:String
     internal(set) weak var entity:Entity!
@@ -40,7 +40,7 @@ class Relationship {
     }
     
     func removeFromEntity() {
-        self.entity.removeRelationship(self)
+        self.entity.removeRelationship(relationship: self)
     }
     
     func isDeleted() -> Bool {

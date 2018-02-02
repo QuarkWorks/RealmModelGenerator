@@ -1,5 +1,5 @@
 //
-//  DropdownCell.swift
+//  PopUpCell.swift
 //  RealmModelGenerator
 //
 //  Created by Zhaolong Zhong on 4/7/16.
@@ -34,7 +34,7 @@ class PopUpCell: NibDesignableView {
     @IBInspectable var itemTitles:[String] {
         set {
             self.popUpButton.removeAllItems()
-            self.popUpButton.addItemsWithTitles(newValue)
+            self.popUpButton.addItems(withTitles: newValue)
         }
         
         get {
@@ -44,7 +44,7 @@ class PopUpCell: NibDesignableView {
     
     @IBInspectable var selectedItemIndex:Int {
         set {
-            self.popUpButton.selectItemAtIndex(newValue)
+            self.popUpButton.selectItem(at: newValue)
         }
         
         get {
@@ -53,6 +53,6 @@ class PopUpCell: NibDesignableView {
     }
     
     func menuDidClose(menu: NSMenu) {
-        self.delegate?.popUpCell(self, selectedItemDidChangeIndex: self.selectedItemIndex)
+        self.delegate?.popUpCell(popUpCell: self, selectedItemDidChangeIndex: self.selectedItemIndex)
     }
 }

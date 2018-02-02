@@ -1,5 +1,5 @@
 //
-//  RelationshipViewController.swift
+//  RelationshipDetailVC.swift
 //  RealmModelGenerator
 //
 //  Created by Zhaolong Zhong on 3/29/16.
@@ -9,7 +9,7 @@
 import Cocoa
 
 class RelationshipDetailVC: NSViewController, RelationshipDetailViewDelegate, Observer {
-    static let TAG = NSStringFromClass(RelationshipDetailVC)
+    static let TAG = NSStringFromClass(RelationshipDetailVC.self)
     
     private var entityNameList:[String] = ["None"]
     
@@ -20,8 +20,8 @@ class RelationshipDetailVC: NSViewController, RelationshipDetailViewDelegate, Ob
     weak var relationship:Relationship? {
         didSet{
             if oldValue === self.relationship { return }
-            oldValue?.observable.removeObserver(self)
-            self.relationship?.observable.addObserver(self)
+            oldValue?.observable.removeObserver(observer: self)
+            self.relationship?.observable.addObserver(observer: self)
             self.invalidateViews()
         }
     }
@@ -32,7 +32,7 @@ class RelationshipDetailVC: NSViewController, RelationshipDetailViewDelegate, Ob
     }
     
     func invalidateViews() {
-        if !self.viewLoaded || relationship == nil { return }
+        if !self.isViewLoaded || relationship == nil { return }
         guard let relationship = self.relationship else {
             return
         }
@@ -42,7 +42,7 @@ class RelationshipDetailVC: NSViewController, RelationshipDetailViewDelegate, Ob
         relationship.entity!.model.entities.forEach{(e) in entityNameList.append(e.name)}
         self.relationshipDetailView.destinationNames = self.entityNameList
         if let destination = relationship.destination {
-            relationshipDetailView.selectedIndex = entityNameList.indexOf(destination.name)!
+            relationshipDetailView.selectedIndex = entityNameList.index(of: destination.name)!
         } else {
             relationshipDetailView.selectedIndex = 0
         }
@@ -55,16 +55,16 @@ class RelationshipDetailVC: NSViewController, RelationshipDetailViewDelegate, Ob
     //MARK: - RelatioinshipDetailView delegate
     func relationshipDetailView(relationshipDetailView: RelationshipDetailView, shouldChangeRelationshipTextField newValue: String, identifier: String) -> Bool {
         do {
-            try self.relationship!.setName(newValue)
+            try self.relationship!.setName(name: newValue)
         } catch {
-            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename relationship: \(relationship!.name) to: \(newValue). There is another relationship with the same name.")
+            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to rename relationship: \(relationship!.name) to: \(newValue). There is another relationship with the same name.")
             return false
         }
         
         return true
     }
     
-    func relationshipDetailView(attributeDetailView: RelationshipDetailView, shouldChangeRelationshipCheckBoxFor identifier: String, state: Bool) -> Bool {
+    func relationshipDetailView(relationshipDetailView attributeDetailView: RelationshipDetailView, shouldChangeRelationshipCheckBoxFor identifier: String, state: Bool) -> Bool {
         
         self.relationship!.isMany = state
         

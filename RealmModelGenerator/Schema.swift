@@ -9,7 +9,7 @@
 import Foundation
 
 class Schema {
-    static let TAG = NSStringFromClass(Schema)
+    static let TAG = NSStringFromClass(Schema.self)
     
     var name:String
     private(set) var models:[Model] = []
@@ -22,12 +22,12 @@ class Schema {
     }
     
     func createModel() -> Model {
-        return createModel({_ in});
+        return createModel(build: {_ in});
     }
     
-    func createModel(@noescape build:(Model) throws -> Void) rethrows -> Model {
+    func createModel( build: (Model) throws -> Void) rethrows -> Model {
         var version = 1
-        while self.models.contains({$0.version == "\(version)"}) {
+        while self.models.contains(where: {$0.version == "\(version)"}) {
             version += 1
         }
         
@@ -48,7 +48,7 @@ class Schema {
         self.models.forEach({$0.isModifiable = false})
         
         let model = createModel()
-        try model.map(currentModelDict, increaseVersion: true)
+        try model.map(dictionary: currentModelDict, increaseVersion: true)
         
         return model
     }

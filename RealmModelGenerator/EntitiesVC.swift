@@ -1,5 +1,5 @@
 //
-//  EntitieViewController.swift
+//  EntitiesVC.swift
 //  RealmModelGenerator
 //
 //  Created by Zhaolong Zhong on 3/21/16.
@@ -13,7 +13,7 @@ protocol EntitiesVCDelegate: class {
 }
 
 class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource, Observer {
-    static let TAG = NSStringFromClass(EntitiesVC)
+    static let TAG = NSStringFromClass(EntitiesVC.self)
     
     @IBOutlet weak var entitiesView: EntitiesView! {
         didSet {
@@ -25,8 +25,8 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
     var schema = Schema() {
         didSet {
             if oldValue === self.schema { return }
-            oldValue.observable.removeObserver(self)
-            self.schema.observable.addObserver(self)
+            oldValue.observable.removeObserver(observer: self)
+            self.schema.observable.addObserver(observer: self)
             selectedEntity = nil
         }
     }
@@ -39,7 +39,7 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
         didSet {
             if oldValue === self.selectedEntity { return }
             invalidateSelectedIndex()
-            self.delegate?.entitiesVC(self, selectedEntityDidChange: self.selectedEntity)
+            self.delegate?.entitiesVC(entitiesVC: self, selectedEntityDidChange: self.selectedEntity)
         }
     }
     
@@ -57,13 +57,13 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
     
     //MARK: - Invalidation
     func invalidateViews() {
-        if !self.viewLoaded { return }
+        if !self.isViewLoaded { return }
         self.entitiesView.reloadData()
         invalidateSelectedIndex()
     }
     
     func invalidateSelectedIndex() {
-        self.entitiesView.selectedIndex = self.model.entities.indexOf({$0 === self.selectedEntity})
+        self.entitiesView.selectedIndex = self.model.entities.index(where: {$0 === self.selectedEntity})
     }
     
     //MARK: - Observer
@@ -98,7 +98,7 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
             }
         }
         
-        self.model.removeEntity(entity)
+        self.model.removeEntity(entity: entity)
     }
     
     func entitiesView(entitiesView: EntitiesView, selectedIndexDidChange index: Int?) {
@@ -108,9 +108,9 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
     func entitiesView(entitiesView: EntitiesView, shouldChangeEntityName name: String, atIndex index: Int) -> Bool {
         let entity = model.entities[index]
         do {
-            try entity.setName(name)
+            try entity.setName(name: name)
         } catch {
-            Tools.popupAllert("Error", buttonTitile: "OK", informativeText: "Unable to rename entity: \(entity.name) to: \(name). There is an entity with the same name.")
+            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to rename entity: \(entity.name) to: \(name). There is an entity with the same name.")
             return false
         }
         return true
@@ -118,12 +118,12 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
     
     func entitiesView(entitiesView: EntitiesView, dragFromIndex: Int, dropToIndex: Int) {
         let draggedEntity = self.model.entities[dragFromIndex]
-        self.model.entities.removeAtIndex(dragFromIndex)
+        self.model.entities.remove(at: dragFromIndex)
         
         if dropToIndex >= self.model.entities.count {
-            self.model.entities.insert(draggedEntity, atIndex: dropToIndex - 1)
+            self.model.entities.insert(draggedEntity, at: dropToIndex - 1)
         } else {
-            self.model.entities.insert(draggedEntity, atIndex: dropToIndex)
+            self.model.entities.insert(draggedEntity, at: dropToIndex)
         }
         
         invalidateViews()

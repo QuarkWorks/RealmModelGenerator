@@ -21,15 +21,15 @@ public class ObserverToken: Observer {
     let observable:Observable
     let observeBlock:ObserveBlock
     
-    internal init(observable:Observable, observeBlock:ObserveBlock) {
+    internal init(observable:Observable, observeBlock:@escaping ObserveBlock) {
         self.observable = observable
         self.observeBlock = observeBlock
         
-        self.observable.addObserver(self)
+        self.observable.addObserver(observer: self)
     }
     
     public func stopListening() {
-        observable.removeObserver(self)
+        observable.removeObserver(observer: self)
     }
     
     public func onChange(observable: Observable) {
@@ -49,30 +49,30 @@ public protocol Observable: class {
 }
 
 public extension Observable {
-    public func addObserveBlockBlock(observeBlock:ObserveBlock) -> ObserverToken {
+    public func addObserveBlockBlock(observeBlock:@escaping ObserveBlock) -> ObserverToken {
         return ObserverToken(observable: self, observeBlock: observeBlock)
     }
 }
 
 public class DeferedObservable: Observable, Observer {
     private let observable:Observable
-    private var weakHashTable = NSHashTable.weakObjectsHashTable()
+    private var weakHashTable = NSHashTable<AnyObject>.weakObjects()
     
     
     public init(observable: Observable) {
         self.observable = observable
-        self.observable.addObserver(self)
+        self.observable.addObserver(observer: self)
     }
     
     public func addObserver(observer: Observer) -> Void {
-        if !weakHashTable.containsObject(observer) {
-            weakHashTable.addObject(observer)
+        if !weakHashTable.contains(observer) {
+            weakHashTable.add(observer)
         }
     }
     
     public func removeObserver(observer: Observer) -> Void {
-        while weakHashTable.containsObject(observer) {
-            weakHashTable.removeObject(observer)
+        while weakHashTable.contains(observer) {
+            weakHashTable.remove(observer)
         }
     }
     
@@ -81,7 +81,7 @@ public class DeferedObservable: Observable, Observer {
     }
     
     public func removeFromParent() {
-        self.observable.removeObserver(self)
+        self.observable.removeObserver(observer: self)
     }
     
     public func notifyObservers() -> Void {
@@ -90,7 +90,7 @@ public class DeferedObservable: Observable, Observer {
     
     public func onChange(observable: Observable) {
         self.weakHashTable.allObjects.forEach({
-            ($0 as! Observer).onChange(self)
+            ($0 as! Observer).onChange(observable: self)
         })
     }
     
@@ -100,18 +100,18 @@ public class DeferedObservable: Observable, Observer {
 }
 
 public class BaseObservable: Observable {
-    private var weakHashTable = NSHashTable.weakObjectsHashTable()
+    private var weakHashTable = NSHashTable<AnyObject>.weakObjects()
     private var willNotify = false
     
     public func addObserver(observer: Observer) {
-        if !weakHashTable.containsObject(observer) {
-            weakHashTable.addObject(observer)
+        if !weakHashTable.contains(observer) {
+            weakHashTable.add(observer)
         }
     }
     
     public func removeObserver(observer: Observer) {
-        while weakHashTable.containsObject(observer) {
-            weakHashTable.removeObject(observer)
+        while weakHashTable.contains(observer) {
+            weakHashTable.remove(observer)
         }
     }
     
@@ -122,11 +122,11 @@ public class BaseObservable: Observable {
     public func notifyObservers() {
         if willNotify == true {return}
         willNotify = true
-        NSOperationQueue.mainQueue().addOperationWithBlock({[weak self] in
+        OperationQueue.main.addOperation({[weak self] in
             guard let sSelf = self else {return}
             sSelf.weakHashTable.allObjects.forEach({
                 let observer = $0 as! Observer
-                observer.onChange(sSelf)
+                observer.onChange(observable: sSelf)
             })
             sSelf.willNotify = false;
         })

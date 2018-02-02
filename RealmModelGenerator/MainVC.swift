@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainVC.swift
 //  RealmModelGenerator
 //
 //  Created by Brandon Erbschloe on 3/2/16.
@@ -9,7 +9,7 @@
 import Cocoa
 
 class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDelegate, NSUserNotificationCenterDelegate, VersionVCDelegate {
-    static let TAG = NSStringFromClass(MainVC)
+    static let TAG = NSStringFromClass(MainVC.self)
     
     @IBOutlet weak var entitiesContainerView: NSView!
     @IBOutlet weak var attributesRelationshipsContainerView: NSView!
@@ -77,7 +77,7 @@ class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDel
     
     //MARK: - Validation
     func invalidateViews() {
-        if !self.viewLoaded { return }
+        if !self.isViewLoaded { return }
         self.entitiesVC.selectedEntity = self.selectedEntity
         
         self.detailsVC.selectedEntity = self.selectedEntity
@@ -113,7 +113,7 @@ class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDel
     }
     
     //MARK: - Segue
-    override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.destinationController is EntitiesVC {
             self.entitiesVC = segue.destinationController as! EntitiesVC
         } else if segue.destinationController is AttributesRelationshipsMainVC {
