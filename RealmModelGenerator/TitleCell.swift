@@ -23,7 +23,7 @@ class TitleCell: NibDesignableView, NSTextFieldDelegate {
     
     // Workaround for Xcode bug that prevents you from connecting the delegate in the storyboard.
     // Remove this extra property once Xcode gets fixed.
-    @IBOutlet var ibDelegate:AnyObject? {
+    @IBOutlet var ibDelegate:Any? {
         set { self.delegate = newValue as? TitleCellDelegate }
         get { return self.delegate }
     }

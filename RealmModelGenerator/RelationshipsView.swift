@@ -150,13 +150,14 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
         self.reloadRemoveButtonState()
     }
     
+
     // MARK: - Events
-    @IBAction func addRelationshipOnClick(_ sender: AnyObject) {
+    @IBAction func addRelationshipOnClick(_ sender: Any) {
         self.window!.makeFirstResponder(self.tableView)
         self.delegate?.addRelationshipInRelationshipsView(relationshipsView: self)
     }
-    
-    @IBAction func removeRelationshipOnClick(_ sender: AnyObject) {
+
+    @IBAction func removeRelationshipOnClick(_ sender: Any) {
         if let index = selectedIndex {
             self.window!.makeFirstResponder(self.tableView)
             self.delegate?.relationshipsView(relationshipsView: self, removeRelationshipAtIndex:index)

@@ -22,7 +22,7 @@ class PopUpCell: NibDesignableView {
     
     var row:Int?
     
-    @IBOutlet var ibDelegate:AnyObject? {
+    @IBOutlet var ibDelegate:Any? {
         set { self.delegate = newValue as? PopupCellDelegate }
         get { return self.delegate }
     }
