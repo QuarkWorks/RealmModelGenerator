@@ -69,7 +69,7 @@ extension NSView {
      - returns: Name of a single view nib file.
      */
     public func nibName() -> String {
-        return String(type(of: self).description().split(separator: ".").last!)//.componentsSeparatedByString(".").last!
+        return String(type(of: self).description().split(separator: ".").last!)
     }
     
     public func nibDidLoad() {}
