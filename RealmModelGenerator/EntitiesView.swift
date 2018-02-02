@@ -24,7 +24,16 @@ protocol EntitiesViewDelegate: AnyObject {
 
 @IBDesignable
 class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource, TitleCellDelegate {
-    
+    // -- MARK UNCERTAIN -- backwardsCompatibleFileURL
+    static let backwardsCompatibleFileURL: NSPasteboard.PasteboardType = {
+        
+        if #available(OSX 10.13, *) {
+            return NSPasteboard.PasteboardType.fileURL
+        } else {
+            return NSPasteboard.PasteboardType(kUTTypeFileURL as String)
+        }
+        
+    } ()
     let ROW_TYPE = "rowType"
     
     @IBOutlet var tableView:NSTableView!
@@ -59,7 +68,8 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     override func nibDidLoad() {
         super.nibDidLoad()
         removeButton.isEnabled = false
-        tableView.register(forDraggedTypes: [ROW_TYPE, NSFilenamesPboardType])
+        //-- MARK UNCERTAIN -- backwardsCompatibleFileURL
+        tableView.registerForDraggedTypes([NSPasteboard.PasteboardType(rawValue: ROW_TYPE), EntitiesView.backwardsCompatibleFileURL])
     }
     
     func reloadData() {
@@ -87,7 +97,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     
     // MARK: - NSTableViewDelegate
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cell = tableView.make(withIdentifier: TitleCell.IDENTIFIER, owner: nil) as! TitleCell
+        let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: TitleCell.IDENTIFIER), owner: nil) as! TitleCell
         if (self.isInterfaceBuilder) {
             cell.title = "Entity"
             return cell
@@ -137,23 +147,23 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         
         let data = NSKeyedArchiver.archivedData(withRootObject: [writeRowsWithIndexes])
         
-        toPasteboard.declareTypes([ROW_TYPE], owner:self)
-        toPasteboard.setData(data, forType:ROW_TYPE)
+        toPasteboard.declareTypes([NSPasteboard.PasteboardType(rawValue: ROW_TYPE)], owner:self)
+        toPasteboard.setData(data, forType:NSPasteboard.PasteboardType(rawValue: ROW_TYPE))
         
         return true
     }
-    
+
     // MARK: - Validate the drop
-    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
         
-        tableView.setDropRow(row, dropOperation: NSTableViewDropOperation.above)
+        tableView.setDropRow(row, dropOperation: NSTableView.DropOperation.above)
         return NSDragOperation.move
     }
-    
+
     // MARK: - Handle the drop
-    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         let pasteboard = info.draggingPasteboard()
-        let rowData = pasteboard.data(forType: ROW_TYPE)
+        let rowData = pasteboard.data(forType: NSPasteboard.PasteboardType(rawValue: ROW_TYPE))
         
         if(rowData != nil) {
             var dataArray = NSKeyedUnarchiver.unarchiveObject(with: rowData!) as! Array<NSIndexSet>,
