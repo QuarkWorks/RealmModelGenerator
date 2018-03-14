@@ -39,9 +39,9 @@ extension NibDesignableProtocol {
     public func loadNib() -> NSView {
         let bundle = Bundle(for: type(of: self))
         let nib = NSNib(nibNamed: self.nibName(), bundle: bundle)
-        var objects:NSArray?
-        nib!.instantiate(withOwner: self, topLevelObjects: &objects!)
-        return objects?.filter({$0 is NSView}).first as! NSView
+        var objects:NSArray = NSArray()
+        nib!.instantiate(withOwner: self, topLevelObjects: &objects)
+        return objects.filter({$0 is NSView}).first as! NSView
     }
     
     // MARK: - Nib loading
