@@ -72,6 +72,8 @@ extension NSView {
         return String(type(of: self).description().split(separator: ".").last!)
     }
     
+    public func nibDidLoad() {}
+    
     // find better access modifier than public or private
     public func matchParent() {
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -101,8 +103,6 @@ public class NibDesignableView: NSView, NibDesignableProtocol {
         self.setupNib()
     }
     
-    public func nibDidLoad() {}
-    
     public override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         self.isInterfaceBuilder = true
@@ -126,8 +126,6 @@ public class NibDesignableTableCellView: NSTableCellView, NibDesignableProtocol 
         super.init(coder: aDecoder)
         self.setupNib()
     }
-    
-    public func nibDidLoad() {}
     
     public override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
