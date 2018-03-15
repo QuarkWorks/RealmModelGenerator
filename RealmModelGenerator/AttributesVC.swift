@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol AttributesVCDelegate: class {
+protocol AttributesVCDelegate: AnyObject {
     func attributesVC(attributesVC: AttributesVC, selectedAttributeDidChange attribute:Attribute?)
 }
 

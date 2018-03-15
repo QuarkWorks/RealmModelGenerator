@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol AttributeDetailViewDelegate: class {
+protocol AttributeDetailViewDelegate: AnyObject {
     func attributeDetailView(attributeDetailView:AttributeDetailView, shouldChangeAttributeTextField newValue:String, control:NSControl) -> Bool
     func attributeDetailView(attributeDetailView:AttributeDetailView, shouldChangeAttributeCheckBoxFor sender:NSButton, state:Bool) -> Bool
     func attributeDetailView(attributeDetailView:AttributeDetailView, selectedTypeDidChange selectedIndex:Int) -> Bool

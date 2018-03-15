@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol EntityDetailViewDelegate: class {
+protocol EntityDetailViewDelegate: AnyObject {
     func entityDetailView(entityDetailView:EntityDetailView, shouldChangeEntityName name:String) -> Bool
     func entityDetailView(entityDetailView:EntityDetailView, selectedSuperClassDidChange superEntity:String)
 }

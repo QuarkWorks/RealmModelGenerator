@@ -10,7 +10,7 @@
 
 import Foundation
 
-public protocol Observer: class {
+public protocol Observer: AnyObject {
     func onChange(observable:Observable)
 }
 
@@ -41,7 +41,7 @@ public class ObserverToken: Observer {
     }
 }
 
-public protocol Observable: class {
+public protocol Observable: AnyObject {
     func addObserver(observer: Observer)
     func removeObserver(observer: Observer)
     func removeAllObservers()

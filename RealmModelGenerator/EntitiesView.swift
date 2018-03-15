@@ -8,12 +8,12 @@
 
 import Cocoa
 
-protocol EntitiesViewDataSource: class {
+protocol EntitiesViewDataSource: AnyObject {
     func numberOfRowsInEntitiesView(entitiesView:EntitiesView) -> Int
     func entitiesView(entitiesView:EntitiesView, titleForEntityAtIndex index:Int) -> String
 }
 
-protocol EntitiesViewDelegate: class {
+protocol EntitiesViewDelegate: AnyObject {
     func addEntityInEntitiesView(entitiesView:EntitiesView)
     func entitiesView(entitiesView:EntitiesView, removeEntityAtIndex index:Int)
     func entitiesView(entitiesView:EntitiesView, selectedIndexDidChange index:Int?)

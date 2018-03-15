@@ -8,7 +8,7 @@
 
 import Cocoa
 //MARK: - EntitiesVCDelegate
-protocol EntitiesVCDelegate: class {
+protocol EntitiesVCDelegate: AnyObject {
     func entitiesVC(entitiesVC:EntitiesVC, selectedEntityDidChange entity:Entity?)
 }
 

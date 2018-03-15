@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol TitleCellDelegate: class {
+protocol TitleCellDelegate: AnyObject {
     func titleCell(titleCell:TitleCell, shouldChangeTitle title:String) -> Bool
 }
 

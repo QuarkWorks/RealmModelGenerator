@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol AttributesRelationshipsVCDelegate: class {
+protocol AttributesRelationshipsVCDelegate: AnyObject {
     func attributesRelationshipsVC(attributesRelationshipsVC:AttributesRelationshipsMainVC, selectedAttributeDidChange attribute:Attribute?)
     func attributesRelationshipsVC(attributesRelationshipsVC:AttributesRelationshipsMainVC, selectedRelationshipDidChange relationship:Relationship?)
 }

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol RelationshipDetailViewDelegate: class {
+protocol RelationshipDetailViewDelegate: AnyObject {
     func relationshipDetailView(relationshipDetailView:RelationshipDetailView, shouldChangeRelationshipTextField newValue:String, identifier:String) -> Bool
     func relationshipDetailView(relationshipDetailView:RelationshipDetailView, shouldChangeRelationshipCheckBoxFor identifier:String, state:Bool) -> Bool
     func relationshipDetailView(relationshipDetailView:RelationshipDetailView, selectedDestinationDidChange selectedIndex:Int) -> Bool

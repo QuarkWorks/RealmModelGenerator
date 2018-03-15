@@ -8,13 +8,13 @@
 
 import Cocoa
 
-protocol AttributesViewDataSource: class {
+protocol AttributesViewDataSource: AnyObject {
     func numberOfRowsInAttributesView(attributesView:AttributesView) -> Int
     func attributesView(attributesView:AttributesView, titleForAttributeAtIndex index:Int) -> String
     func attributesView(attributesView:AttributesView, typeForAttributeAtIndex index:Int) -> AttributeType
 }
 
-protocol AttributesViewDelegate: class {
+protocol AttributesViewDelegate: AnyObject {
     func addAttributeInAttributesView(attributesView:AttributesView)
     func attributesView(attributesView:AttributesView, removeAttributeAtIndex index:Int)
     func attributesView(attributesView:AttributesView, selectedIndexDidChange index:Int?)

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol PopupCellDelegate: class {
+protocol PopupCellDelegate: AnyObject {
     func popUpCell(popUpCell:PopUpCell, selectedItemDidChangeIndex index:Int)
 }
 

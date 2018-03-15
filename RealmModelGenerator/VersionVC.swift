@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol VersionVCDelegate: class {
+protocol VersionVCDelegate: AnyObject {
     func versionVC(versionVC:VersionVC, selectedModelDidChange currentModel:Model?)
 }
 

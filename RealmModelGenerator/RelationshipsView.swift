@@ -8,13 +8,13 @@
 
 import Cocoa
 
-protocol RelationshipsViewDataSource: class {
+protocol RelationshipsViewDataSource: AnyObject {
     func numberOfRowsInRelationshipsView(relationshipsView:RelationshipsView) -> Int
     func relationshipsView(relationshipsView:RelationshipsView, titleForRelationshipAtIndex index:Int) -> String
     func relationshipsView(relationshipsView:RelationshipsView, destinationForRelationshipAtIndex index:Int) -> String
 }
 
-protocol RelationshipsViewDelegate: class {
+protocol RelationshipsViewDelegate: AnyObject {
     func addRelationshipInRelationshipsView(relationshipsView:RelationshipsView)
     func relationshipsView(relationshipsView:RelationshipsView, removeRelationshipAtIndex index:Int)
     func relationshipsView(relationshipsView:RelationshipsView, selectedIndexDidChange index:Int?)
