@@ -89,7 +89,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     }
     
     //MARK: - NSTableViewDataSource
-    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+    func numberOfRows(in tableView: NSTableView) -> Int {
         if self.isInterfaceBuilder {
             return 5
         }

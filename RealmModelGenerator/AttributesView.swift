@@ -88,7 +88,7 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     }
     
     //MARK: - NSTableViewDataSource
-    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+    func numberOfRows(in tableView: NSTableView) -> Int {
         if self.isInterfaceBuilder {
             return 5
         }
