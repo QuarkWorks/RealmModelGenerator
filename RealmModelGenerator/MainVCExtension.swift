@@ -9,7 +9,7 @@
 import Cocoa
 
 extension MainVC {
-    //MARK: - generateFileContent
+    // MARK: - generateFileContent
     func generateFileContent(entity:Entity, language:Language) -> [String] {
         
         switch language {
@@ -22,7 +22,7 @@ extension MainVC {
         }
     }
     
-    //MARK: - Called from menu bar, Version
+    // MARK: - Called from menu bar, Version
     @IBAction func versonMenuOnClick(sender: Any!) {
         let versionVC: VersionVC = {
             return self.storyboard!.instantiateController(withIdentifier: "VersionVC")
@@ -35,22 +35,22 @@ extension MainVC {
     }
     
     
-    //MARK: - Called from menu bar, exportToJava
+    // MARK: - Called from menu bar, exportToJava
     @IBAction func exportToJava(sender: Any!) {
         generateFileModels(language: .Java)
     }
     
-    //MARK: - Called from menu bar, exportToObjectC
+    // MARK: - Called from menu bar, exportToObjectC
     @IBAction func exportToObjectC(sender: Any!) {
         generateFileModels(language: .Objc)
     }
     
-    //MARK: - Called from menu bar, exportToSwift
+    // MARK: - Called from menu bar, exportToSwift
     @IBAction func exportToSwift(sender: Any!) {
         generateFileModels(language: .Swift)
     }
     
-    //MARK: - generate FileModels
+    // MARK: - generate FileModels
     func generateFileModels(language: Language) {
         var files: [FileModel] = []
         var validEnties = true
@@ -83,7 +83,7 @@ extension MainVC {
         }
     }
     
-    //MARK: - Show a panel to choose path and save files
+    // MARK: - Show a panel to choose path and save files
     func choosePathAndSaveFile(files: [FileModel])
     {
         let openPanel = NSOpenPanel()
@@ -100,7 +100,7 @@ extension MainVC {
         })
     }
     
-    //MARK: - Save files to a path
+    // MARK: - Save files to a path
     func saveFile(files: [FileModel], toPath path: String)
     {
         var error : NSError?
@@ -122,7 +122,7 @@ extension MainVC {
         }
     }
     
-    //MARK: - Show success notification
+    // MARK: - Show success notification
     func showSuccess()
     {
         let notification = NSUserNotification()

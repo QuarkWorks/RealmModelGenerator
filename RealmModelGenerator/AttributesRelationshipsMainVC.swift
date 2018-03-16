@@ -58,7 +58,7 @@ class AttributesRelationshipsMainVC: NSViewController, AttributesVCDelegate, Rel
         }
     }
 
-    //MARK - Lifecycle
+    // MARK - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -68,25 +68,25 @@ class AttributesRelationshipsMainVC: NSViewController, AttributesVCDelegate, Rel
         self.invalidateViews()
     }
     
-    //MARK - Invalidation
+    // MARK - Invalidation
     func invalidateViews() {
         if !isViewLoaded { return }
         self.attributesVC.selectedEntity = self.selectedEntity
         self.relationshipsVC.selectedEntity = self.selectedEntity
     }
     
-    //MARK: - AttributesVC delegate
+    // MARK: - AttributesVC delegate
     func attributesVC(attributesVC: AttributesVC, selectedAttributeDidChange attribute:Attribute?) {
         self.selectedAttribute = attribute
     }
     
-    //MARK: - RelationshipsVC delegate
+    // MARK: - RelationshipsVC delegate
     func relationshipsVC(relationshipsVC: RelationshipsVC, selectedRelationshipDidChange relationship: Relationship?) {
         self.selectedRelationship = relationship
     }
     
     
-    //MARK: - Segue
+    // MARK: - Segue
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.destinationController is AttributesVC {
             self.attributesVC = segue.destinationController as! AttributesVC

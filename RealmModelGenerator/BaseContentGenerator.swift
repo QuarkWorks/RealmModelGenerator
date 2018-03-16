@@ -11,7 +11,7 @@ import AddressBook
 
 class BaseContentGenerator {
     
-    //MARK: - Check if entity is valid or not
+    // MARK: - Check if entity is valid or not
     func isValidEntity(entity: Entity) -> Bool {
         do {
             return try validEntity(entity: entity)
@@ -44,7 +44,7 @@ class BaseContentGenerator {
         return true
     }
     
-    //MARK: - Get header comments
+    // MARK: - Get header comments
     func getHeaderComments(entity: Entity, fileExtension: String) -> String {
         var content = ""
         content += "/**\n"
@@ -88,7 +88,7 @@ class BaseContentGenerator {
         return "\(components.day!)/\(components.month!)/\(components.year!)"
     }
     
-    //MARK: - Get all capitalized key name
+    // MARK: - Get all capitalized key name
     func getAllCapitalizedKeyName(name: String) -> String {
         var result = ""
         

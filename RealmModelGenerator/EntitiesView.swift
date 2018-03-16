@@ -55,7 +55,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         }
     }
 
-    //MARK: Lifecycle
+    // MARK: - Lifecycle
     override func nibDidLoad() {
         super.nibDidLoad()
         removeButton.isEnabled = false
@@ -72,7 +72,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         self.removeButton.isEnabled = self.selectedIndex != nil
     }
     
-    //MARK: - NSTableViewDataSource
+    // MARK: - NSTableViewDataSource
      func numberOfRows(in tableView: NSTableView) -> Int {
         if self.isInterfaceBuilder {
             return 5
@@ -85,7 +85,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         return 0
     }
     
-    //MARK: - NSTableViewDelegate
+    // MARK: - NSTableViewDelegate
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = tableView.make(withIdentifier: TitleCell.IDENTIFIER, owner: nil) as! TitleCell
         if (self.isInterfaceBuilder) {
@@ -107,7 +107,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         self.reloadRemoveButtonState()
     }
     
-    //MARK: - Events
+    // MARK: - Events
     @IBAction func addButtonOnClick(_: Any) {
         self.window!.makeFirstResponder(self.tableView)
         self.delegate?.addEntityInEntitiesView(entitiesView: self)
@@ -120,7 +120,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         }
     }
     
-    //MARK: - TitleCellDelegate
+    // MARK: - TitleCellDelegate
     func titleCell(titleCell: TitleCell, shouldChangeTitle title: String) -> Bool {
         let index = self.tableView.row(for: titleCell)
         if index != -1 {
@@ -132,7 +132,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         return true
     }
     
-    //MARK: - Copy the row to the pasteboard
+    // MARK: - Copy the row to the pasteboard
     func tableView(_ tableView: NSTableView, writeRowsWith writeRowsWithIndexes: IndexSet, to toPasteboard: NSPasteboard) -> Bool {
         
         let data = NSKeyedArchiver.archivedData(withRootObject: [writeRowsWithIndexes])
@@ -143,14 +143,14 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         return true
     }
     
-    //MARK: - Validate the drop
+    // MARK: - Validate the drop
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
         
         tableView.setDropRow(row, dropOperation: NSTableViewDropOperation.above)
         return NSDragOperation.move
     }
     
-    //MARK: - Handle the drop
+    // MARK: - Handle the drop
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
         let pasteboard = info.draggingPasteboard()
         let rowData = pasteboard.data(forType: ROW_TYPE)

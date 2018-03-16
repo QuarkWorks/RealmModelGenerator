@@ -29,7 +29,7 @@ class SwiftContentGenerator: BaseContentGenerator {
         return [content]
     }
     
-    //MARK: - Append header
+    // MARK: - Append header
     func appendHeader() {
         content += getHeaderComments(entity: entity, fileExtension: "swift")
         
@@ -38,7 +38,7 @@ class SwiftContentGenerator: BaseContentGenerator {
         content += "\tstatic let TAG = NSStringFromClass(" + entity.name + ");\n"
     }
     
-    //MARK: - Append RealmKeys
+    // MARK: - Append RealmKeys
     func appendRealmKeys() {
         for attr in entity.attributes {
             var realmKey = "\n"
@@ -49,7 +49,7 @@ class SwiftContentGenerator: BaseContentGenerator {
         content += "\n\n"
     }
     
-    //MARK: - Append attributes and relicationships
+    // MARK: - Append attributes and relicationships
     func appendAttributes() {
         var indexedProperties = ""
         var ignoredProperties = ""
@@ -150,7 +150,7 @@ class SwiftContentGenerator: BaseContentGenerator {
         content += "}"
     }
     
-    //MARK: Append primary key
+    // MARK: - Append primary key
     func appendPrimaryKey() {
         if let primarykey = entity.primaryKey {
             content += "\toverride static func primaryKey() -> String? {\n"
@@ -159,7 +159,7 @@ class SwiftContentGenerator: BaseContentGenerator {
         }
     }
     
-    //MARK: Append indexed property
+    // MARK: - Append indexed property
     func appendIndexedProperties(indexProperties: String) {
         if indexProperties.isEmpty {
             return
@@ -170,7 +170,7 @@ class SwiftContentGenerator: BaseContentGenerator {
         content += "\t}\n\n"
     }
     
-    //MARK: Append ignored property
+    // MARK: - Append ignored property
     func appendIgnoredProperties(ignoredProperties: String) {
         if ignoredProperties.isEmpty {
             return

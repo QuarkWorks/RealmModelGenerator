@@ -24,7 +24,7 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
         }
     }
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -48,7 +48,7 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
         self.invalidateViews()
     }
     
-    //MARK: - AttributeDetailView delegate
+    // MARK: - AttributeDetailView delegate
     func attributeDetailView(attributeDetailView: AttributeDetailView, shouldChangeAttributeTextField newValue: String, control:NSControl) -> Bool {
         guard let attribute = self.attribute else {
             return false

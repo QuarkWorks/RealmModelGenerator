@@ -54,7 +54,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
     
     weak var delegate: RelationshipsVCDelegate?
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -78,7 +78,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
         self.relationshipsView.selectedIndex = self.selectedEntity?.relationships.index(where: {$0 === self.selectedRelationship})
     }
     
-    //MARK: - Update selected relationship after its detail changed
+    // MARK: - Update selected relationship after its detail changed
     func updateSelectedRelationship(selectedRelationship: Relationship) {
         self.selectedRelationship = selectedRelationship
         invalidateViews()
@@ -134,7 +134,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
         }
     }
     
-    //MARK: - RelationshipsViewDataSource
+    // MARK: - RelationshipsViewDataSource
     func numberOfRowsInRelationshipsView(relationshipsView: RelationshipsView) -> Int {
         return self.selectedEntity == nil ? 0 : self.selectedEntity!.relationships.count
     }

@@ -64,7 +64,7 @@ class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDel
         }
     }
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -75,7 +75,7 @@ class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDel
     }
     
     
-    //MARK: - Validation
+    // MARK: - Validation
     func invalidateViews() {
         if !self.isViewLoaded { return }
         self.entitiesVC.selectedEntity = self.selectedEntity
@@ -89,7 +89,7 @@ class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDel
         self.attributesRelationshipsMainVC.selectedRelationship = self.selectedRelationship
     }
     
-    //MARK: -VersionVC delegate
+    // MARK: - VersionVC delegate
     func versionVC(versionVC: VersionVC, selectedModelDidChange currentModel: Model?) {
         self.selectedEntity = nil
         self.selectedAttribute = nil
@@ -97,22 +97,22 @@ class MainVC: NSViewController, EntitiesVCDelegate, AttributesRelationshipsVCDel
         invalidateViews()
     }
     
-    //MARK: - EntitiesVC delegate
+    // MARK: - EntitiesVC delegate
     func entitiesVC(entitiesVC: EntitiesVC, selectedEntityDidChange entity: Entity?) {
         self.selectedEntity = entity
     }
     
-    //MARK: - AttributesRelationshipsViewController delegate - attribute
+    // MARK: - AttributesRelationshipsViewController delegate - attribute
     func attributesRelationshipsVC(attributesRelationshipsVC: AttributesRelationshipsMainVC, selectedAttributeDidChange attribute: Attribute?) {
         self.selectedAttribute = attribute
     }
     
-    //MARK: - AttributesRelationshipsViewController delegate - relationship
+    // MARK: - AttributesRelationshipsViewController delegate - relationship
     func attributesRelationshipsVC(attributesRelationshipsVC: AttributesRelationshipsMainVC, selectedRelationshipDidChange relationship: Relationship?) {
         self.selectedRelationship = relationship
     }
     
-    //MARK: - Segue
+    // MARK: - Segue
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.destinationController is EntitiesVC {
             self.entitiesVC = segue.destinationController as! EntitiesVC

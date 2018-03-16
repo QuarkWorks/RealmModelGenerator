@@ -52,7 +52,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
 
     weak var delegate: AttributesVCDelegate?
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -75,7 +75,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         self.attributesView.selectedIndex = self.selectedEntity?.attributes.index(where: {$0 === self.selectedAttribute})
     }
     
-    //MARK: - Update selected attribute after its detail changed
+    // MARK: - Update selected attribute after its detail changed
     func updateSelectedAttribute(selectedAttribute: Attribute) {
         self.selectedAttribute = selectedAttribute
         invalidateViews()
@@ -116,7 +116,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         }
     }
     
-    //MARK: - AttributesViewDataSource
+    // MARK: - AttributesViewDataSource
     func numberOfRowsInAttributesView(attributesView: AttributesView) -> Int {
         return self.selectedEntity == nil ? 0 : self.selectedEntity!.attributes.count
     }

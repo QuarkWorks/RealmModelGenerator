@@ -34,7 +34,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
         return [hContent, mContent]
     }
     
-    //MARK: - Append header
+    // MARK: - Append header
     func appendHeader() {
         hContent += getHeaderComments(entity: entity, fileExtension: "h")
         
@@ -50,7 +50,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
 
     }
     
-    //MARK: Append attributes and relicationships
+    // MARK: - Append attributes and relicationships
     func appendAttributes() {
         var indexedProperties = ""
         var defaultProperties = ""
@@ -126,7 +126,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
         mContent += "@end\n"
     }
     
-    //MARK: Append attributes for property
+    // MARK: - Append attributes for property
     func appendIndexedProperties(indexedProperties: String) {
         if indexedProperties.isEmpty {
             return
@@ -137,7 +137,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
         mContent += "}\n\n"
     }
     
-    //MARK: Append primary key
+    // MARK: - Append primary key
     func appendPrimaryKey() {
         let primaryKey = entity.primaryKey
         if primaryKey == nil {
@@ -151,7 +151,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
         mContent += "}\n\n"
     }
 
-    //MARK: Append default property value
+    // MARK: - Append default property value
     func appendDefaultPropertyValues(defaultProperties: String) {
         if defaultProperties.isEmpty {
             return
@@ -162,7 +162,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
         mContent += "}\n\n"
     }
     
-    //MARK: Append ignored properties
+    // MARK: - Append ignored properties
     func appendIgnoredProperties(ignoredProperties: String) {
         if ignoredProperties.isEmpty {
             return
@@ -173,7 +173,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
         mContent += "}\n\n"
     }
     
-    //MARK: Append required properties
+    // MARK: - Append required properties
     func appendRequiredProperties(requiredProperties: String) {
         if requiredProperties.isEmpty {
             return

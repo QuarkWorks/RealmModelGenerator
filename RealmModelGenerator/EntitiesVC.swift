@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-//MARK: - EntitiesVCDelegate
+// MARK: - EntitiesVCDelegate
 protocol EntitiesVCDelegate: AnyObject {
     func entitiesVC(entitiesVC:EntitiesVC, selectedEntityDidChange entity:Entity?)
 }
@@ -45,7 +45,7 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
     
     weak var delegate:EntitiesVCDelegate?
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -55,7 +55,7 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
         self.invalidateViews()
     }
     
-    //MARK: - Invalidation
+    // MARK: - Invalidation
     func invalidateViews() {
         if !self.isViewLoaded { return }
         self.entitiesView.reloadData()
@@ -66,12 +66,12 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
         self.entitiesView.selectedIndex = self.model.entities.index(where: {$0 === self.selectedEntity})
     }
     
-    //MARK: - Observer
+    // MARK: - Observer
     func onChange(observable: Observable) {
         self.invalidateViews()
     }
 
-    //MARK: - EntitiesViewDataSource
+    // MARK: - EntitiesViewDataSource
     func numberOfRowsInEntitiesView(entitiesView: EntitiesView) -> Int {
         return self.model.entities.count
     }
@@ -80,7 +80,7 @@ class EntitiesVC: NSViewController, EntitiesViewDelegate, EntitiesViewDataSource
         return self.model.entities[index].name
     }
     
-    //MARK: - EntitiesViewDelegate
+    // MARK: - EntitiesViewDelegate
     func addEntityInEntitiesView(entitiesView: EntitiesView) {
         let entity = self.model.createEntity()
         self.selectedEntity = entity

@@ -26,7 +26,7 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
     
     var entityNameList:[String] = ["None"]
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -43,12 +43,12 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
         }
     }
     
-    //MARK: - Observer
+    // MARK: - Observer
     func onChange(observable: Observable) {
         self.invalidateViews()
     }
     
-    //MARK: - EntityDetailView delegate
+    // MARK: - EntityDetailView delegate
     func entityDetailView(entityDetailView: EntityDetailView, shouldChangeEntityName name: String) -> Bool {
         do {
             try self.entity!.setName(name: name)

@@ -63,7 +63,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     
     var destinationNames:[String] = []
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func nibDidLoad() {
         super.nibDidLoad()
         removeButton.isEnabled = false
@@ -88,7 +88,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
         tableView.tableColumns[1].sortDescriptorPrototype = descriptorType
     }
     
-    //MARK: - NSTableViewDataSource
+    // MARK: - NSTableViewDataSource
     func numberOfRows(in tableView: NSTableView) -> Int {
         if self.isInterfaceBuilder {
             return 5
@@ -101,7 +101,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
         return 0
     }
     
-    //MARK: - NSTableViewDelegate
+    // MARK: - NSTableViewDelegate
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if tableColumn?.identifier == RelationshipsView.REALATIONSHIP_COLUMN {
             
@@ -150,7 +150,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
         self.reloadRemoveButtonState()
     }
     
-    //MARK: - Events
+    // MARK: - Events
     @IBAction func addRelationshipOnClick(sender: AnyObject) {
         self.window!.makeFirstResponder(self.tableView)
         self.delegate?.addRelationshipInRelationshipsView(relationshipsView: self)
@@ -163,7 +163,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
         }
     }
     
-    //MARK: - TitleCellDelegate
+    // MARK: - TitleCellDelegate
     func titleCell(titleCell: TitleCell, shouldChangeTitle title: String) -> Bool {
         let index = self.tableView.row(for: titleCell)
         
@@ -176,13 +176,13 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
         return true
     }
     
-    //MARK: - PopUpCellDelegate
+    // MARK: - PopUpCellDelegate
     func popUpCell(popUpCell: PopUpCell, selectedItemDidChangeIndex index: Int) {
         let cellIndex = self.tableView.row(for: popUpCell)
         self.delegate?.relationshipsView(relationshipsView: self, atIndex:cellIndex, changeDestination: destinationNames[index])
     }
     
-    //MARK: - Copy the row to the pasteboard
+    // MARK: - Copy the row to the pasteboard
     func tableView(_ tableView: NSTableView, writeRowsWith writeRowsWithIndexes: IndexSet, to toPasteboard: NSPasteboard) -> Bool {
         
         let data = NSKeyedArchiver.archivedData(withRootObject: [writeRowsWithIndexes])
@@ -193,14 +193,14 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
         return true
     }
     
-    //MARK: - Validate the drop
+    // MARK: - Validate the drop
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
         
         tableView.setDropRow(row, dropOperation: NSTableViewDropOperation.above)
         return NSDragOperation.move
     }
     
-    //MARK: - Handle the drop
+    // MARK: - Handle the drop
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
         let pasteboard = info.draggingPasteboard()
         let rowData = pasteboard.data(forType: ROW_TYPE)

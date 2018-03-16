@@ -70,7 +70,7 @@ class RealmSchemaDocument: NSDocument {
             try parseSchemaJson(data: data)
             return
         } catch GeneratorError.InvalidFileContent(let errorMsg) {
-            //MARK: correct print function?
+            // MARK: - correct print function?
             Swift.print("Invalid JSON format: \(errorMsg)")
         }
         

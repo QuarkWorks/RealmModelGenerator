@@ -26,7 +26,7 @@ class RelationshipDetailVC: NSViewController, RelationshipDetailViewDelegate, Ob
         }
     }
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -52,7 +52,7 @@ class RelationshipDetailVC: NSViewController, RelationshipDetailViewDelegate, Ob
         self.invalidateViews()
     }
     
-    //MARK: - RelatioinshipDetailView delegate
+    // MARK: - RelatioinshipDetailView delegate
     func relationshipDetailView(relationshipDetailView: RelationshipDetailView, shouldChangeRelationshipTextField newValue: String, identifier: String) -> Bool {
         do {
             try self.relationship!.setName(name: newValue)
