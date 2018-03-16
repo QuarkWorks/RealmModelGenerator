@@ -8,7 +8,11 @@
 
 import Cocoa
 
+// --MARK-- temporary workaround
+fileprivate let VERSIONVC: NSStoryboard.SceneIdentifier = NSStoryboard.SceneIdentifier(rawValue: "VersionVC")
+
 extension MainVC {
+    
     // MARK: - generateFileContent
     func generateFileContent(entity:Entity, language:Language) -> [String] {
         
@@ -24,8 +28,9 @@ extension MainVC {
     
     // MARK: - Called from menu bar, Version
     @IBAction func versonMenuOnClick(sender: Any!) {
+        
         let versionVC: VersionVC = {
-            return self.storyboard!.instantiateController(withIdentifier: "VersionVC")
+            return self.storyboard!.instantiateController(withIdentifier: VERSIONVC)
                 as! VersionVC
         }()
         versionVC.schema = self.schema!
@@ -93,8 +98,9 @@ extension MainVC {
         openPanel.canChooseDirectories = true
         openPanel.canCreateDirectories = true
         openPanel.prompt = "Choose"
-        openPanel.beginSheetModal(for: view.window!, completionHandler: { (button : Int) -> Void in
-            if button == NSFileHandlingPanelOKButton{
+        // -- MARK UNCERTAIN -- NSFileHandlingPanelOKButton to NSApplication.ModalResponse.OK
+        openPanel.beginSheetModal(for: view.window!, completionHandler: { (button : NSApplication.ModalResponse) -> Void in
+            if button == NSApplication.ModalResponse.OK {
                 self.saveFile(files: files, toPath:openPanel.url!.path)
             }
         })
