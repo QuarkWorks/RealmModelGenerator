@@ -151,12 +151,12 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     }
     
     // MARK: - Events
-    @IBAction func addAttributeButtonOnClick(sender: AnyObject) {
+    @IBAction func addAttributeButtonOnClick(_ sender: AnyObject) {
         self.window!.makeFirstResponder(self.tableView)
         self.delegate?.addAttributeInAttributesView(attributesView: self)
     }
     
-    @IBAction func removeAttributeOnClick(sender: AnyObject) {
+    @IBAction func removeAttributeOnClick(_ sender: AnyObject) {
         if let index = selectedIndex {
             self.window!.makeFirstResponder(self.tableView)
             self.delegate?.attributesView(attributesView: self, removeAttributeAtIndex:index)

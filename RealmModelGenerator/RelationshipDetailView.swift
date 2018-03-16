@@ -69,11 +69,11 @@ class RelationshipDetailView: NibDesignableView, NSTextFieldDelegate {
         return true
     }
     
-    @IBAction func destinationChanged(sender: NSPopUpButton) {
+    @IBAction func destinationChanged(_ sender: NSPopUpButton) {
         self.delegate?.relationshipDetailView(relationshipDetailView: self, selectedDestinationDidChange: selectedIndex)
     }
     
-    @IBAction func toManyCheckBoxStateChanged(sender: NSButton) {
+    @IBAction func toManyCheckBoxStateChanged(_ sender: NSButton) {
         if let shouldChangeState = self.delegate?.relationshipDetailView(relationshipDetailView: self, shouldChangeRelationshipCheckBoxFor: sender.identifier!, state: sender.state == 1) {
             if shouldChangeState == false {
                 toManyCheckBox.state = 0

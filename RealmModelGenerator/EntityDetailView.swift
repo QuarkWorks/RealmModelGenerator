@@ -60,7 +60,7 @@ class EntityDetailView: NibDesignableView, NSTextFieldDelegate, NSMenuDelegate {
         return true
     }
     
-    @IBAction func superClassChanged(sender: NSPopUpButton) {
+    @IBAction func superClassChanged(_ sender: NSPopUpButton) {
         self.delegate?.entityDetailView(entityDetailView: self, selectedSuperClassDidChange: superClassNames[selectedItemIndex])
     }
 }

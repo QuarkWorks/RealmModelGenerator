@@ -115,7 +115,7 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
         return true
     }
     
-    @IBAction func checkBoxStateChanged(sender: NSButton) {
+    @IBAction func checkBoxStateChanged(_ sender: NSButton) {
         if let shouldChangeState = self.delegate?.attributeDetailView(attributeDetailView: self, shouldChangeAttributeCheckBoxFor: sender, state: sender.state == 1) {
             if shouldChangeState == false {
                 switch sender {
@@ -141,7 +141,7 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
         }
     }
     
-    @IBAction func attributeTypeChanged(sender: NSPopUpButton) {
+    @IBAction func attributeTypeChanged(_ sender: NSPopUpButton) {
         if let shouldSelect = self.delegate?.attributeDetailView(attributeDetailView: self, selectedTypeDidChange: selectedIndex) {
             if !shouldSelect {
                 self.selectedIndex = self.previousSelectedIndex
