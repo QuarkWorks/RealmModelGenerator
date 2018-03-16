@@ -61,6 +61,7 @@
 		77D8277D1C9F8DD500E22CEE /* EntitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D8277C1C9F8DD500E22CEE /* EntitiesView.swift */; };
 		77D8277F1C9F8E1800E22CEE /* EntitiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */; };
 		77D827811C9FA9E100E22CEE /* ViewTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D827801C9FA9E100E22CEE /* ViewTools.swift */; };
+		A61336D2205C3E7A00F7D782 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61336D1205C3E7A00F7D782 /* MainWindow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,7 @@
 		77D8277C1C9F8DD500E22CEE /* EntitiesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntitiesView.swift; sourceTree = "<group>"; };
 		77D8277E1C9F8E1800E22CEE /* EntitiesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EntitiesView.xib; sourceTree = "<group>"; };
 		77D827801C9FA9E100E22CEE /* ViewTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewTools.swift; sourceTree = "<group>"; };
+		A61336D1205C3E7A00F7D782 /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,6 +303,7 @@
 				3AF05A371CC5B545002D8A10 /* AppIcon.icns */,
 				7798B0DA1C87C32900A7F965 /* Main.storyboard */,
 				7798B0DD1C87C32900A7F965 /* Info.plist */,
+				A61336D1205C3E7A00F7D782 /* MainWindow.swift */,
 			);
 			path = RealmModelGenerator;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				3A2A626D1C9C6C12000EA9F6 /* GeneratorError.swift in Sources */,
 				3A2F975D1CAB37D7000AE584 /* RelationshipDetailView.swift in Sources */,
 				3A76FF121C8E0AD00036362D /* SwiftContentGenerator.swift in Sources */,
+				A61336D2205C3E7A00F7D782 /* MainWindow.swift in Sources */,
 				3A5A167F1CADAAEA00E5B9ED /* AttributesVC.swift in Sources */,
 				7798B0D71C87C32900A7F965 /* MainVC.swift in Sources */,
 				3AEF05DD1C8CD02F001238E7 /* JavaContentGenerator.swift in Sources */,
