@@ -53,7 +53,7 @@ class RelationshipDetailVC: NSViewController, RelationshipDetailViewDelegate, Ob
     }
     
     // MARK: - RelatioinshipDetailView delegate
-    func relationshipDetailView(relationshipDetailView: RelationshipDetailView, shouldChangeRelationshipTextField newValue: String, identifier: String) -> Bool {
+    func relationshipDetailView(relationshipDetailView: RelationshipDetailView, shouldChangeRelationshipTextField newValue: String, identifier: NSUserInterfaceItemIdentifier) -> Bool {
         do {
             try self.relationship!.setName(name: newValue)
         } catch {
@@ -64,7 +64,7 @@ class RelationshipDetailVC: NSViewController, RelationshipDetailViewDelegate, Ob
         return true
     }
     
-    func relationshipDetailView(relationshipDetailView attributeDetailView: RelationshipDetailView, shouldChangeRelationshipCheckBoxFor identifier: String, state: Bool) -> Bool {
+    func relationshipDetailView(relationshipDetailView attributeDetailView: RelationshipDetailView, shouldChangeRelationshipCheckBoxFor identifier: NSUserInterfaceItemIdentifier, state: Bool) -> Bool {
         
         self.relationship!.isMany = state
         
