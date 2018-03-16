@@ -63,7 +63,7 @@ class TitleCell: NibDesignableView, NSTextFieldDelegate {
     }
     
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        if let shouldEnd = self.delegate?.titleCell(titleCell: self, shouldChangeTitle: fieldEditor.string!) {
+        if let shouldEnd = self.delegate?.titleCell(titleCell: self, shouldChangeTitle: fieldEditor.string) {
             return shouldEnd
         }
         
