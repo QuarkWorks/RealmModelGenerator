@@ -14,7 +14,7 @@ protocol PopupCellDelegate: AnyObject {
 
 @IBDesignable
 class PopUpCell: NibDesignableView {
-    static let IDENTIFIER = "PopUpCell"
+    static let IDENTIFIER = NSUserInterfaceItemIdentifier("PopUpCell")
     
     @IBOutlet weak var popUpButton: NSPopUpButton!
     

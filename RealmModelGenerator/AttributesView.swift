@@ -27,12 +27,22 @@ protocol AttributesViewDelegate: AnyObject {
 
 @IBDesignable
 class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource, TitleCellDelegate, PopupCellDelegate {
+    // -- MARK UNCERTAIN -- backwardsCompatibleFileURL
+    static let backwardsCompatibleFileURL: NSPasteboard.PasteboardType = {
+
+        if #available(OSX 10.13, *) {
+            return NSPasteboard.PasteboardType.fileURL
+        } else {
+            return NSPasteboard.PasteboardType(kUTTypeFileURL as String)
+        }
+
+    } ()
     static let TAG = NSStringFromClass(AttributesView.self)
     
-    static let ATTRIBUTE_COLUMN = "attribute"
+    static let ATTRIBUTE_COLUMN = NSUserInterfaceItemIdentifier("attribute")
     static let TYPE_COLUMN = "type"
-    let ATTRIBUTE_TYPES = AttributeType.values.flatMap({$0.rawValue})
-    let ROW_TYPE = "rowType"
+    let ATTRIBUTE_TYPES = AttributeType.values.map({$0.rawValue})
+    let ROW_TYPE = NSPasteboard.PasteboardType("rowType")
     
     @IBOutlet var tableView:NSTableView!
     @IBOutlet weak var addButton:NSButton!
@@ -66,7 +76,8 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     override func nibDidLoad() {
         super.nibDidLoad()
         removeButton.isEnabled = false
-        tableView.register(forDraggedTypes: [ROW_TYPE, NSFilenamesPboardType])
+        //-- MARK UNCERTAIN -- backwardsCompatibleFileURL
+        tableView.registerForDraggedTypes([ROW_TYPE, AttributesView.backwardsCompatibleFileURL])
         setUpDefaultSortDescriptor()
     }
     
@@ -81,7 +92,7 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     }
     
     func setUpDefaultSortDescriptor() {
-        let descriptorAttribute = NSSortDescriptor(key: AttributesView.ATTRIBUTE_COLUMN, ascending: true)
+        let descriptorAttribute = NSSortDescriptor(key: AttributesView.ATTRIBUTE_COLUMN.rawValue, ascending: true)
         let descriptorType = NSSortDescriptor(key: AttributesView.TYPE_COLUMN, ascending: true)
         tableView.tableColumns[0].sortDescriptorPrototype = descriptorAttribute
         tableView.tableColumns[1].sortDescriptorPrototype = descriptorType
@@ -105,7 +116,7 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
         
         if tableColumn?.identifier == AttributesView.ATTRIBUTE_COLUMN {
         
-            let cell = tableView.make(withIdentifier: TitleCell.IDENTIFIER, owner: nil) as! TitleCell
+            let cell = tableView.makeView(withIdentifier: TitleCell.IDENTIFIER, owner: nil) as! TitleCell
             if (self.isInterfaceBuilder) {
                 cell.title = "Attribute"
                 return cell
@@ -120,7 +131,7 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
             return cell
             
         } else {
-            let cell = tableView.make(withIdentifier: PopUpCell.IDENTIFIER, owner: nil) as! PopUpCell
+            let cell = tableView.makeView(withIdentifier: PopUpCell.IDENTIFIER, owner: nil) as! PopUpCell
             
             cell.itemTitles = ATTRIBUTE_TYPES
             cell.row = row
@@ -194,14 +205,14 @@ class AttributesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSou
     }
     
     // MARK: - Validate the drop
-    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
         
-        tableView.setDropRow(row, dropOperation: NSTableViewDropOperation.above)
+        tableView.setDropRow(row, dropOperation: NSTableView.DropOperation.above)
         return NSDragOperation.move
     }
     
     // MARK: - Handle the drop
-    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         let pasteboard = info.draggingPasteboard()
         let rowData = pasteboard.data(forType: ROW_TYPE)
         

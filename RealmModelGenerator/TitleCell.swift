@@ -14,7 +14,7 @@ protocol TitleCellDelegate: AnyObject {
 
 @IBDesignable
 class TitleCell: NibDesignableView, NSTextFieldDelegate {
-    static let IDENTIFIER = "TitleCell"
+    static let IDENTIFIER = NSUserInterfaceItemIdentifier("TitleCell")
     
     @IBOutlet var titleTextField:NSTextField!
     @IBOutlet var letterTextField:NSTextField!
