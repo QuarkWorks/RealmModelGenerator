@@ -34,7 +34,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         }
         
     } ()
-    let ROW_TYPE = "rowType"
+    let ROW_TYPE = NSPasteboard.PasteboardType("rowType")
     
     @IBOutlet var tableView:NSTableView!
     @IBOutlet var addButton:NSButton!
@@ -69,7 +69,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         super.nibDidLoad()
         removeButton.isEnabled = false
         //-- MARK UNCERTAIN -- backwardsCompatibleFileURL
-        tableView.registerForDraggedTypes([NSPasteboard.PasteboardType(rawValue: ROW_TYPE), EntitiesView.backwardsCompatibleFileURL])
+        tableView.registerForDraggedTypes([ROW_TYPE, EntitiesView.backwardsCompatibleFileURL])
     }
     
     func reloadData() {
@@ -97,7 +97,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     
     // MARK: - NSTableViewDelegate
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: TitleCell.IDENTIFIER), owner: nil) as! TitleCell
+        let cell = tableView.makeView(withIdentifier: TitleCell.IDENTIFIER, owner: nil) as! TitleCell
         if (self.isInterfaceBuilder) {
             cell.title = "Entity"
             return cell
@@ -147,8 +147,8 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
         
         let data = NSKeyedArchiver.archivedData(withRootObject: [writeRowsWithIndexes])
         
-        toPasteboard.declareTypes([NSPasteboard.PasteboardType(rawValue: ROW_TYPE)], owner:self)
-        toPasteboard.setData(data, forType:NSPasteboard.PasteboardType(rawValue: ROW_TYPE))
+        toPasteboard.declareTypes([ROW_TYPE], owner:self)
+        toPasteboard.setData(data, forType:ROW_TYPE)
         
         return true
     }
@@ -163,7 +163,7 @@ class EntitiesView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSourc
     // MARK: - Handle the drop
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         let pasteboard = info.draggingPasteboard()
-        let rowData = pasteboard.data(forType: NSPasteboard.PasteboardType(rawValue: ROW_TYPE))
+        let rowData = pasteboard.data(forType: ROW_TYPE)
         
         if(rowData != nil) {
             var dataArray = NSKeyedUnarchiver.unarchiveObject(with: rowData!) as! Array<NSIndexSet>,
