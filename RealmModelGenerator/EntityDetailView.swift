@@ -54,7 +54,7 @@ class EntityDetailView: NibDesignableView, NSTextFieldDelegate, NSMenuDelegate {
     }
     
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        if let shouldEnd = self.delegate?.entityDetailView(entityDetailView: self, shouldChangeEntityName: fieldEditor.string!) {
+        if let shouldEnd = self.delegate?.entityDetailView(entityDetailView: self, shouldChangeEntityName: fieldEditor.string) {
             return shouldEnd
         }
         return true
