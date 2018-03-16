@@ -27,12 +27,22 @@ protocol RelationshipsViewDelegate: AnyObject {
 
 @IBDesignable
 class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewDataSource, TitleCellDelegate, PopupCellDelegate  {
+    // -- MARK UNCERTAIN -- backwardsCompatibleFileURL
+    static let backwardsCompatibleFileURL: NSPasteboard.PasteboardType = {
+        
+        if #available(OSX 10.13, *) {
+            return NSPasteboard.PasteboardType.fileURL
+        } else {
+            return NSPasteboard.PasteboardType(kUTTypeFileURL as String)
+        }
+        
+    } ()
     static let TAG = NSStringFromClass(RelationshipsView.self)
     
-    static let REALATIONSHIP_COLUMN = "relationship"
+    static let REALATIONSHIP_COLUMN = NSUserInterfaceItemIdentifier("relationship")
     static let DESTINATION_COLUMN = "destination"
     
-    let ROW_TYPE = "rowType"
+    let ROW_TYPE = NSPasteboard.PasteboardType("rowType")
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var addButton: NSButton!
@@ -67,7 +77,8 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     override func nibDidLoad() {
         super.nibDidLoad()
         removeButton.isEnabled = false
-        tableView.register(forDraggedTypes: [ROW_TYPE, NSFilenamesPboardType])
+        //-- MARK UNCERTAIN -- backwardsCompatibleFileURL
+        tableView.registerForDraggedTypes([ROW_TYPE, RelationshipsView.backwardsCompatibleFileURL])
         setUpDefaultSortDescriptor()
     }
     
@@ -82,7 +93,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     }
     
     func setUpDefaultSortDescriptor() {
-        let descriptorAttribute = NSSortDescriptor(key: RelationshipsView.REALATIONSHIP_COLUMN, ascending: true)
+        let descriptorAttribute = NSSortDescriptor(key: RelationshipsView.REALATIONSHIP_COLUMN.rawValue, ascending: true)
         let descriptorType = NSSortDescriptor(key: RelationshipsView.DESTINATION_COLUMN, ascending: true)
         tableView.tableColumns[0].sortDescriptorPrototype = descriptorAttribute
         tableView.tableColumns[1].sortDescriptorPrototype = descriptorType
@@ -105,7 +116,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if tableColumn?.identifier == RelationshipsView.REALATIONSHIP_COLUMN {
             
-            let cell = tableView.make(withIdentifier: TitleCell.IDENTIFIER, owner: nil) as! TitleCell
+            let cell = tableView.makeView(withIdentifier: TitleCell.IDENTIFIER, owner: nil) as! TitleCell
             if (self.isInterfaceBuilder) {
                 cell.title = "Relationship"
                 return cell
@@ -120,7 +131,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
             return cell
             
         } else {
-            let cell = tableView.make(withIdentifier: PopUpCell.IDENTIFIER, owner: nil) as! PopUpCell
+            let cell = tableView.makeView(withIdentifier: PopUpCell.IDENTIFIER, owner: nil) as! PopUpCell
             
             cell.itemTitles = destinationNames
             cell.row = row
@@ -195,14 +206,14 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     }
     
     // MARK: - Validate the drop
-    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
         
-        tableView.setDropRow(row, dropOperation: NSTableViewDropOperation.above)
+        tableView.setDropRow(row, dropOperation: NSTableView.DropOperation.above)
         return NSDragOperation.move
     }
     
     // MARK: - Handle the drop
-    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         let pasteboard = info.draggingPasteboard()
         let rowData = pasteboard.data(forType: ROW_TYPE)
         
