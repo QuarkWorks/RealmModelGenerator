@@ -38,10 +38,10 @@ extension NibDesignableProtocol {
     */
     public func loadNib() -> NSView {
         let bundle = Bundle(for: type(of: self))
-        let nib = NSNib(nibNamed: self.nibName(), bundle: bundle)
-        var objects:NSArray = NSArray()
+        let nib = NSNib(nibNamed: NSNib.Name(rawValue: self.nibName()), bundle: bundle)
+        var objects:NSArray? = NSArray()
         nib!.instantiate(withOwner: self, topLevelObjects: &objects)
-        return objects.filter({$0 is NSView}).first as! NSView
+        return objects!.filter({$0 is NSView}).first as! NSView
     }
     
     // MARK: - Nib loading
@@ -71,8 +71,7 @@ extension NSView {
     public func nibName() -> String {
         return String(type(of: self).description().split(separator: ".").last!)
     }
-    
-    public func nibDidLoad() {}
+
     
     // find better access modifier than public or private
     public func matchParent() {
@@ -107,6 +106,8 @@ public class NibDesignableView: NSView, NibDesignableProtocol {
         super.prepareForInterfaceBuilder()
         self.isInterfaceBuilder = true
     }
+    
+    public func nibDidLoad() {}
 }
 
 @IBDesignable
@@ -131,4 +132,6 @@ public class NibDesignableTableCellView: NSTableCellView, NibDesignableProtocol 
         super.prepareForInterfaceBuilder()
         self.isInterfaceBuilder = true
     }
+    
+    public func nibDidLoad() {}
 }

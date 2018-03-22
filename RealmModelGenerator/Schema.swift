@@ -41,7 +41,8 @@ class Schema {
     func setName(name:String) {
         self.name = name
     }
-    
+
+    @discardableResult
     func increaseVersion() throws -> Model {
         let currentModelDict = currentModel.toDictionary()
         

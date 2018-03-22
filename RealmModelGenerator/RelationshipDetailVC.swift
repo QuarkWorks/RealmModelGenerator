@@ -52,19 +52,19 @@ class RelationshipDetailVC: NSViewController, RelationshipDetailViewDelegate, Ob
         self.invalidateViews()
     }
     
-    // MARK: - RelatioinshipDetailView delegate
-    func relationshipDetailView(relationshipDetailView: RelationshipDetailView, shouldChangeRelationshipTextField newValue: String, identifier: String) -> Bool {
+    // MARK: - RelationshipDetailView delegate
+    func relationshipDetailView(relationshipDetailView: RelationshipDetailView, shouldChangeRelationshipTextField newValue: String, identifier: NSUserInterfaceItemIdentifier) -> Bool {
         do {
             try self.relationship!.setName(name: newValue)
         } catch {
-            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to rename relationship: \(relationship!.name) to: \(newValue). There is another relationship with the same name.")
+            Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "Unable to rename relationship: \(relationship!.name) to: \(newValue). There is another relationship with the same name.")
             return false
         }
         
         return true
     }
     
-    func relationshipDetailView(relationshipDetailView attributeDetailView: RelationshipDetailView, shouldChangeRelationshipCheckBoxFor identifier: String, state: Bool) -> Bool {
+    func relationshipDetailView(relationshipDetailView attributeDetailView: RelationshipDetailView, shouldChangeRelationshipCheckBoxFor identifier: NSUserInterfaceItemIdentifier, state: Bool) -> Bool {
         
         self.relationship!.isMany = state
         

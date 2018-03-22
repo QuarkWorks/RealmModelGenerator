@@ -15,12 +15,12 @@ class BaseContentGenerator {
     func isValidEntity(entity: Entity) -> Bool {
         do {
             return try validEntity(entity: entity)
-        } catch GeneratorError.InvalidAttribteType(let attribute){
-            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Entity \(entity.name) attribute \(attribute.name) has an unknown type.")
-        } catch GeneratorError.InvalidRelationshiDestination(let relationship) {
-            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Entity \(entity.name) relationship \(relationship.name) has an unknown destination.")
+        } catch GeneratorError.InvalidAttributeType(let attribute){
+            Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "Entity \(entity.name) attribute \(attribute.name) has an unknown type.")
+        } catch GeneratorError.InvalidRelationshipDestination(let relationship) {
+            Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "Entity \(entity.name) relationship \(relationship.name) has an unknown destination.")
         } catch {
-            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Invalid entity \(entity.name)")
+            Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "Invalid entity \(entity.name)")
         }
         
         return false
@@ -29,15 +29,15 @@ class BaseContentGenerator {
     func validEntity(entity: Entity) throws -> Bool {
         // Check unknown attribute
         for attribute in entity.attributes {
-            if attribute.type == AttributeType.Unknown {
-                throw GeneratorError.InvalidAttribteType(attribute: attribute)
+            if attribute.type == .Unknown {
+                throw GeneratorError.InvalidAttributeType(attribute: attribute)
             }
         }
         
-        // Check unknown relationship desitnation
+        // Check unknown relationship destination
         for relationship in entity.relationships {
             guard let _: Entity = relationship.destination else {
-                throw GeneratorError.InvalidRelationshiDestination(relationship: relationship)
+                throw GeneratorError.InvalidRelationshipDestination(relationship: relationship)
             }
         }
         

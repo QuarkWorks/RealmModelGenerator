@@ -11,6 +11,9 @@ import Cocoa
 class RealmSchemaDocument: NSDocument {
     static let TAG = String(describing: RealmSchemaDocument.self)
     
+    let MAIN: NSStoryboard.Name = NSStoryboard.Name(rawValue: "Main")
+    let DOCUMENT_WINDOW_CONTROLLER: NSStoryboard.SceneIdentifier = NSStoryboard.SceneIdentifier(rawValue: "Document Window Controller")
+    
     private var mainVC: MainVC!
     private var schema = Schema()
     
@@ -26,15 +29,17 @@ class RealmSchemaDocument: NSDocument {
         // Add any code here that needs to be executed once the windowController has loaded the document's window.
     }
     
-    override class func autosavesInPlace() -> Bool {
+    override class var autosavesInPlace: Bool {
         return true
     }
     
     override func makeWindowControllers() {
         
         // Returns the Storyboard that contains your Document window.
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        let windowController = storyboard.instantiateController(withIdentifier: "Document Window Controller") as! NSWindowController
+        
+        let storyboard = NSStoryboard(name: MAIN, bundle: nil)
+        
+        let windowController = storyboard.instantiateController(withIdentifier: DOCUMENT_WINDOW_CONTROLLER) as! NSWindowController
         
         if let v = windowController.contentViewController as? MainVC {
             mainVC = v
@@ -74,7 +79,7 @@ class RealmSchemaDocument: NSDocument {
             Swift.print("Invalid JSON format: \(errorMsg)")
         }
         
-        Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Invalid content")
+        Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "Invalid content")
     }
     
     func parseSchemaJson(data: Data) throws {

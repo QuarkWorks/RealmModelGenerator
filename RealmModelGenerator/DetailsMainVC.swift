@@ -11,6 +11,10 @@ import Cocoa
 class DetailsMainVC: NSViewController {
     static let TAG = NSStringFromClass(DetailsMainVC.self)
     
+    let ENTITYDETAILVC: NSStoryboard.SceneIdentifier = NSStoryboard.SceneIdentifier(rawValue: "EntityDetailVC")
+    let ATTRIBUTEDETAILVC: NSStoryboard.SceneIdentifier = NSStoryboard.SceneIdentifier(rawValue: "AttributeDetailVC")
+    let RELATIONSHIPDETAILVC: NSStoryboard.SceneIdentifier = NSStoryboard.SceneIdentifier(rawValue: "RelationshipDetailVC")
+    
     private var entityDetailVC: EntityDetailVC! = nil
     private var attributeDetailVC: AttributeDetailVC! = nil
     private var relationshipDetailVC: RelationshipDetailVC! = nil
@@ -56,13 +60,12 @@ class DetailsMainVC: NSViewController {
         }
         return .Empty
     }
-    
-    override func viewDidLoad() {
+       override func viewDidLoad() {
         super.viewDidLoad()
         
-        entityDetailVC = self.storyboard!.instantiateController(withIdentifier: "EntityDetailVC") as! EntityDetailVC
-        attributeDetailVC = self.storyboard!.instantiateController(withIdentifier: "AttributeDetailVC") as! AttributeDetailVC
-        relationshipDetailVC = self.storyboard!.instantiateController(withIdentifier: "RelationshipDetailVC") as! RelationshipDetailVC
+        entityDetailVC = self.storyboard!.instantiateController(withIdentifier: ENTITYDETAILVC) as! EntityDetailVC
+        attributeDetailVC = self.storyboard!.instantiateController(withIdentifier: ATTRIBUTEDETAILVC) as! AttributeDetailVC
+        relationshipDetailVC = self.storyboard!.instantiateController(withIdentifier: RELATIONSHIPDETAILVC) as! RelationshipDetailVC
         
         self.addChildViewController(entityDetailVC)
         self.addChildViewController(attributeDetailVC)

@@ -14,11 +14,11 @@ enum AttributeType : String {
     static let values = [Unknown, Bool, Short, Int, Long, Float, Double, String, Date, Blob]
     
     func canBePrimaryKey() -> Swift.Bool {
-        return self == AttributeType.Short || self == AttributeType.Int || self == AttributeType.Long || self == AttributeType.String
+        return self == .Short || self == .Int || self == .Long || self == .String
     }
     
     func canBeIndexed() -> Swift.Bool {
-        return self == AttributeType.Bool || canBePrimaryKey() || self == AttributeType.Date
+        return self == .Bool || canBePrimaryKey() || self == .Date
     }
     
     init(rawValueSafe:Swift.String) {

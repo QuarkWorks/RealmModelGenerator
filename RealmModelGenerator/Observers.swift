@@ -54,7 +54,7 @@ public extension Observable {
     }
 }
 
-public class DeferedObservable: Observable, Observer {
+public class DeferredObservable: Observable, Observer {
     private let observable:Observable
     private var weakHashTable = NSHashTable<AnyObject>.weakObjects()
     

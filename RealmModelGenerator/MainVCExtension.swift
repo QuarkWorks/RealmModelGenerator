@@ -8,7 +8,12 @@
 
 import Cocoa
 
+
+
+
 extension MainVC {
+    fileprivate static let VERSIONVC_SI: NSStoryboard.SceneIdentifier = NSStoryboard.SceneIdentifier(rawValue: "VersionVC")
+
     // MARK: - generateFileContent
     func generateFileContent(entity:Entity, language:Language) -> [String] {
         
@@ -23,9 +28,10 @@ extension MainVC {
     }
     
     // MARK: - Called from menu bar, Version
-    @IBAction func versonMenuOnClick(sender: Any!) {
+    @IBAction func versionMenuOnClick(sender: Any!) {
+        
         let versionVC: VersionVC = {
-            return self.storyboard!.instantiateController(withIdentifier: "VersionVC")
+            return self.storyboard!.instantiateController(withIdentifier: MainVC.VERSIONVC_SI)
                 as! VersionVC
         }()
         versionVC.schema = self.schema!
@@ -53,7 +59,7 @@ extension MainVC {
     // MARK: - generate FileModels
     func generateFileModels(language: Language) {
         var files: [FileModel] = []
-        var validEnties = true
+        var validEntities = true
         for entity in self.schema!.currentModel.entities {
             let content = generateFileContent(entity: entity, language: language)
             if !content.first!.isEmpty {
@@ -74,11 +80,11 @@ extension MainVC {
                     break
                 }
             } else {
-                validEnties = false
+                validEntities = false
             }
         }
         
-        if files.count > 0 && validEnties {
+        if files.count > 0 && validEntities {
             choosePathAndSaveFile(files: files)
         }
     }
@@ -93,8 +99,9 @@ extension MainVC {
         openPanel.canChooseDirectories = true
         openPanel.canCreateDirectories = true
         openPanel.prompt = "Choose"
-        openPanel.beginSheetModal(for: view.window!, completionHandler: { (button : Int) -> Void in
-            if button == NSFileHandlingPanelOKButton{
+        // -- MARK UNCERTAIN -- NSFileHandlingPanelOKButton to NSApplication.ModalResponse.OK
+        openPanel.beginSheetModal(for: view.window!, completionHandler: { (button : NSApplication.ModalResponse) -> Void in
+            if button == NSApplication.ModalResponse.OK {
                 self.saveFile(files: files, toPath:openPanel.url!.path)
             }
         })
@@ -117,7 +124,7 @@ extension MainVC {
             if error == nil{
                 self.showSuccess()
             } else {
-                Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "We an error when save file.")
+                Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "We an error when save file.")
             }
         }
     }

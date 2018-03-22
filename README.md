@@ -1,8 +1,8 @@
 ![RealmModelGenerator](images/logo.png)
 # Realm Model Generator
-## A Realm model code generation tool for quickly creating and edting Java, Object-C and Swift Realm model objects.
+## A Realm model code generation tool for quickly creating and editing Java, Object-C and Swift Realm model objects.
 
-Realm Model Generator is a document based OSX tool that helps mobile developers avoid repetitive code by genenerating cross platform Realm model objects using a single Realm model. You can save your Realm model schema document for later usage.
+Realm Model Generator is a document based OSX tool that helps mobile developers avoid repetitive code by generating cross platform Realm model objects using a single Realm model. You can save your Realm model schema document for later usage.
 
 
 ## Features
@@ -14,7 +14,7 @@ Realm Model Generator is a document based OSX tool that helps mobile developers 
 * set up default value
 * save Realm schema to a file
 * import Realm schema from a file 
-* version controll
+* version control
 
 ## Version
 * Version: 0.0.1

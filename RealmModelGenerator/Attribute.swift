@@ -19,7 +19,7 @@ class Attribute {
     var hasDefault = false
     var defaultValue = ""
     
-    var type = AttributeType.Unknown {
+    var type : AttributeType = .Unknown {
         willSet {
             if !newValue.canBeIndexed() {
                 isIndexed = false
@@ -38,7 +38,7 @@ class Attribute {
     internal init(name:String, entity:Entity) {
         self.name = name
         self.entity = entity
-        self.observable = DeferedObservable(observable: entity.observable)
+        self.observable = DeferredObservable(observable: entity.observable)
     }
     
     func setName(name:String) throws {

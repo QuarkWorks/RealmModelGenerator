@@ -12,10 +12,10 @@ import AddressBook
 class Tools {
     static let TAG = NSStringFromClass(Tools.self)
     
-    static func popupAllert(messageText:String, buttonTitile:String, informativeText:String) {
+    static func popupAlert(messageText:String, buttonTitle:String, informativeText:String) {
         let alert = NSAlert()
         alert.messageText = messageText
-        alert.addButton(withTitle: buttonTitile)
+        alert.addButton(withTitle: buttonTitle)
         alert.informativeText = informativeText
         alert.runModal()
 

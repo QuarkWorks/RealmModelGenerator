@@ -14,6 +14,7 @@ protocol AttributeDetailViewDelegate: AnyObject {
     func attributeDetailView(attributeDetailView:AttributeDetailView, selectedTypeDidChange selectedIndex:Int) -> Bool
 }
 
+// --MARK-- assuming push buttons have two states
 @IBDesignable
 class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     static let TAG = NSStringFromClass(AttributeDetailView.self)
@@ -45,28 +46,28 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     }
     
     @IBInspectable var isIgnored:Bool {
-        set { self.ignoredCheckBox.state = newValue ? 1 : 0 }
-        get { return self.ignoredCheckBox.state == 1 ? true : false }
+        set { self.ignoredCheckBox.state = newValue ? .on : .off }
+        get { return self.ignoredCheckBox.state == .on ? true : false }
     }
     
     @IBInspectable var isIndexed:Bool {
-        set { self.indexedCheckBox.state = newValue ? 1 : 0 }
-        get { return self.indexedCheckBox.state == 1 ? true : false }
+        set { self.indexedCheckBox.state = newValue ? .on : .off }
+        get { return self.indexedCheckBox.state == .on ? true : false }
     }
     
     @IBInspectable var isPrimary:Bool {
-        set { self.primaryCheckBox.state = newValue ? 1 : 0 }
-        get { return self.primaryCheckBox.state == 1 ? true : false }
+        set { self.primaryCheckBox.state = newValue ? .on : .off }
+        get { return self.primaryCheckBox.state == .on ? true : false }
     }
     
     @IBInspectable var isRequired:Bool {
-        set { self.requiredCheckBox.state = newValue ? 1 : 0 }
-        get { return self.requiredCheckBox.state == 1 ? true : false }
+        set { self.requiredCheckBox.state = newValue ? .on : .off }
+        get { return self.requiredCheckBox.state == .on ? true : false }
     }
     
     @IBInspectable var hasDefault:Bool {
-        set { self.defaultCheckBox.state = newValue ? 1 : 0 }
-        get { return self.defaultCheckBox.state == 1 ? true : false }
+        set { self.defaultCheckBox.state = newValue ? .on : .off }
+        get { return self.defaultCheckBox.state == .on ? true : false }
     }
     
     @IBInspectable var attributeTypeNames:[String] {
@@ -87,7 +88,7 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
                 self.previousSelectedIndex = newValue
             }
             
-            if ((AttributeType.values[newValue] == AttributeType.Unknown) || (AttributeType.values[newValue] == AttributeType.Blob)) {
+            if ((AttributeType.values[newValue] == .Unknown) || (AttributeType.values[newValue] == .Blob)) {
                 self.defaultValueTextField.isEnabled = false
                 self.defaultCheckBox.isEnabled = false
             } else {
@@ -108,7 +109,7 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     }
     
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        if let shouldEnd = self.delegate?.attributeDetailView(attributeDetailView: self, shouldChangeAttributeTextField: fieldEditor.string!, control: control) {
+        if let shouldEnd = self.delegate?.attributeDetailView(attributeDetailView: self, shouldChangeAttributeTextField: fieldEditor.string, control: control) {
             return shouldEnd
         }
         
@@ -116,23 +117,23 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     }
     
     @IBAction func checkBoxStateChanged(_ sender: NSButton) {
-        if let shouldChangeState = self.delegate?.attributeDetailView(attributeDetailView: self, shouldChangeAttributeCheckBoxFor: sender, state: sender.state == 1) {
+        if let shouldChangeState = self.delegate?.attributeDetailView(attributeDetailView: self, shouldChangeAttributeCheckBoxFor: sender, state: sender.state == .on) {
             if shouldChangeState == false {
                 switch sender {
                 case self.ignoredCheckBox:
-                    ignoredCheckBox.state = 0
+                    ignoredCheckBox.state = .off
                     break;
                 case self.indexedCheckBox:
-                    indexedCheckBox.state = 0
+                    indexedCheckBox.state = .off
                     break;
                 case self.primaryCheckBox:
-                    primaryCheckBox.state = 0
+                    primaryCheckBox.state = .off
                     break;
                 case self.requiredCheckBox:
-                    requiredCheckBox.state = 0
+                    requiredCheckBox.state = .off
                     break;
                 case self.defaultCheckBox:
-                    defaultCheckBox.state = 0
+                    defaultCheckBox.state = .off
                     break;
                 default:
                     break

@@ -160,7 +160,7 @@ extension Attribute {
     static let IS_IGNORED = "isIgnored"
     static let IS_INDEXED = "isIndexed"
     static let IS_REQUIRED = "isRequired"
-    static let HAS_DEFALUT = "hasDefault"
+    static let HAS_DEFAULT = "hasDefault"
     static let DEFAULT_VALUE = "defaultValue"
     static let TYPE = "type"
     
@@ -170,7 +170,7 @@ extension Attribute {
             Attribute.IS_IGNORED:isIgnored,
             Attribute.IS_INDEXED:isIndexed,
             Attribute.IS_REQUIRED:isRequired,
-            Attribute.HAS_DEFALUT:hasDefault,
+            Attribute.HAS_DEFAULT:hasDefault,
             Attribute.DEFAULT_VALUE:defaultValue,
             Attribute.TYPE:type.rawValue
         ]
@@ -203,7 +203,7 @@ extension Attribute {
             self.isRequired = isRequired
         }
         
-        if let hasDefault = dictionary[Attribute.HAS_DEFALUT] as? Bool {
+        if let hasDefault = dictionary[Attribute.HAS_DEFAULT] as? Bool {
             self.hasDefault = hasDefault
         }
         
