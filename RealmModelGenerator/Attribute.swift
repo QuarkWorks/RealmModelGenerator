@@ -19,7 +19,7 @@ class Attribute {
     var hasDefault = false
     var defaultValue = ""
     
-    var type = AttributeType.Unknown {
+    var type : AttributeType = .Unknown {
         willSet {
             if !newValue.canBeIndexed() {
                 isIndexed = false

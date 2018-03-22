@@ -29,7 +29,7 @@ class BaseContentGenerator {
     func validEntity(entity: Entity) throws -> Bool {
         // Check unknown attribute
         for attribute in entity.attributes {
-            if attribute.type == AttributeType.Unknown {
+            if attribute.type == .Unknown {
                 throw GeneratorError.InvalidAttributeType(attribute: attribute)
             }
         }
