@@ -71,8 +71,7 @@ extension NSView {
     public func nibName() -> String {
         return String(type(of: self).description().split(separator: ".").last!)
     }
-    
-    // public func nibDidLoad() {}
+
     
     // find better access modifier than public or private
     public func matchParent() {
