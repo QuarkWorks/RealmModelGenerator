@@ -8,11 +8,12 @@
 
 import Cocoa
 
-// --MARK-- temporary workaround
-fileprivate let VERSIONVC: NSStoryboard.SceneIdentifier = NSStoryboard.SceneIdentifier(rawValue: "VersionVC")
+
+
 
 extension MainVC {
-    
+    fileprivate static let VERSIONVC_SI: NSStoryboard.SceneIdentifier = NSStoryboard.SceneIdentifier(rawValue: "VersionVC")
+
     // MARK: - generateFileContent
     func generateFileContent(entity:Entity, language:Language) -> [String] {
         
@@ -30,7 +31,7 @@ extension MainVC {
     @IBAction func versionMenuOnClick(sender: Any!) {
         
         let versionVC: VersionVC = {
-            return self.storyboard!.instantiateController(withIdentifier: VERSIONVC)
+            return self.storyboard!.instantiateController(withIdentifier: MainVC.VERSIONVC_SI)
                 as! VersionVC
         }()
         versionVC.schema = self.schema!
