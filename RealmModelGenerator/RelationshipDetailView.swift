@@ -36,8 +36,8 @@ class RelationshipDetailView: NibDesignableView, NSTextFieldDelegate {
     }
     
     @IBInspectable var isMany:Bool {
-        set { self.toManyCheckBox.state = newValue ? NSControl.StateValue.on : NSControl.StateValue.off }
-        get { return self.toManyCheckBox.state == NSControl.StateValue.on ? true : false }
+        set { self.toManyCheckBox.state = newValue ? .on : .off }
+        get { return self.toManyCheckBox.state == .on ? true : false }
     }
     
     @IBInspectable var destinationNames:[String] {
@@ -78,9 +78,9 @@ class RelationshipDetailView: NibDesignableView, NSTextFieldDelegate {
     @IBAction func toManyCheckBoxStateChanged(_ sender: NSButton) {
         if let shouldChangeState = self.delegate?.relationshipDetailView(relationshipDetailView: self,
                                                                          shouldChangeRelationshipCheckBoxFor: sender.identifier!,
-                                                                         state: sender.state == NSControl.StateValue.on) {
+                                                                         state: sender.state == .on) {
             if shouldChangeState == false {
-                toManyCheckBox.state = NSControl.StateValue.off
+                toManyCheckBox.state = .off
             }
         }
     }

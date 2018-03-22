@@ -49,65 +49,65 @@ class SwiftContentGenerator: BaseContentGenerator {
         content += "\n\n"
     }
     
-    // MARK: - Append attributes and relicationships
+    // MARK: - Append attributes and relationships
     func appendAttributes() {
         var indexedProperties = ""
         var ignoredProperties = ""
         
         // Append attributes
         for attr in entity.attributes {
-            var attrDefination = ""
+            var attrDefinition = ""
             let primaryKey = self.entity.primaryKey
             
             // we treat required attribute as non-option one.
             if (attr.isRequired || attr.hasDefault || (primaryKey != nil && attr === primaryKey!)) {
                 if attr.hasDefault {
-                    attrDefination += "\tdynamic var " + attr.name + attr.type.name(language: Language.Swift, isRequired: true) + " = " + attr.defaultValue
+                    attrDefinition += "\tdynamic var " + attr.name + attr.type.name(language: Language.Swift, isRequired: true) + " = " + attr.defaultValue
                     // handle empty string default
                     if attr.defaultValue == "" {
-                        attrDefination += "\"\""
+                        attrDefinition += "\"\""
                     }
                 } else {
-                    attrDefination += "\tdynamic var " + attr.name + attr.type.name(language: Language.Swift, isRequired: true) + " = "
+                    attrDefinition += "\tdynamic var " + attr.name + attr.type.name(language: Language.Swift, isRequired: true) + " = "
                     switch attr.type {
                     case .Bool:
-                        attrDefination += "false"
+                        attrDefinition += "false"
                         break
                     case .Int:
-                        attrDefination += "0"
+                        attrDefinition += "0"
                         break
                     case .Short:
-                        attrDefination += "0"
+                        attrDefinition += "0"
                         break
                     case .Long:
-                        attrDefination += "0"
+                        attrDefinition += "0"
                         break
                     case .Float:
-                        attrDefination += "0.0"
+                        attrDefinition += "0.0"
                         break
                     case .Double:
-                        attrDefination += "0.0"
+                        attrDefinition += "0.0"
                         break
                     case .String:
-                        attrDefination += "\"\""
+                        attrDefinition += "\"\""
                         break
                     case .Blob:
-                        attrDefination += "NSData()"
+                        attrDefinition += "NSData()"
                         break
                     case .Date:
-                        attrDefination += "NSDate()"
+                        attrDefinition += "NSDate()"
                     default:
                         //TODO: throw error
                         break
                     }
                 }
             } else if (attr.type == .Bool || attr.type == .Int || attr.type == .Short || attr.type == .Long || attr.type == .Float || attr.type == .Double){
-                attrDefination += "\tlet " + attr.name + " = RealmOptional<" + attr.type.name(language: Language.Swift, isRequired: false) + ">()"
+                attrDefinition += "\tlet " + attr.name + " = RealmOptional<" + attr.type.name(language: Language.Swift, isRequired: false) + ">()"
             } else {
-                attrDefination += "\tdynamic var " + attr.name + attr.type.name(language: Language.Swift, isRequired: false) + " = nil"
+                attrDefinition += "\tdynamic var " + attr.name + attr.type.name(language: Language.Swift, isRequired: false) + " = nil"
             }
             
-            content += attrDefination
+            content += attrDefinition
             content += "\n"
             
             if attr.isIndexed {
@@ -129,16 +129,16 @@ class SwiftContentGenerator: BaseContentGenerator {
         
         // Append relationship
         for relationship in entity.relationships {
-            var relationshipDefination = ""
+            var relationshipDefinition = ""
             
             if relationship.isMany {
-                relationshipDefination += "\tlet " + relationship.name + " = List<" + relationship.destination!.name + ">()\n"
+                relationshipDefinition += "\tlet " + relationship.name + " = List<" + relationship.destination!.name + ">()\n"
                 
             } else {
-                relationshipDefination += "\tdynamic var " + relationship.name + " : " + relationship.destination!.name + "? \n"
+                relationshipDefinition += "\tdynamic var " + relationship.name + " : " + relationship.destination!.name + "? \n"
             }
             
-            content += relationshipDefination;
+            content += relationshipDefinition;
         }
         
         content += "\n"

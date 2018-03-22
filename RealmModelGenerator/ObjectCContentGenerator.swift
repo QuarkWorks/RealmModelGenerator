@@ -50,7 +50,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
 
     }
     
-    // MARK: - Append attributes and relicationships
+    // MARK: - Append attributes and relationships
     func appendAttributes() {
         var indexedProperties = ""
         var defaultProperties = ""
@@ -59,13 +59,13 @@ class ObjectCContentGenerator: BaseContentGenerator {
         
         // Append attributes
         for attr in entity.attributes {
-            var attrDefination = "@property "
+            var attrDefinition = "@property "
             
             // required
-            attrDefination += attr.type.name(language: Language.Objc, isRequired: attr.isRequired)
+            attrDefinition += attr.type.name(language: Language.Objc, isRequired: attr.isRequired)
             
-            attrDefination += attr.name + ";\n"
-            hContent += attrDefination
+            attrDefinition += attr.name + ";\n"
+            hContent += attrDefinition
             
             // indexed
             if attr.isIndexed {

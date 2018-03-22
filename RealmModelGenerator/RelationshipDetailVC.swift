@@ -52,12 +52,12 @@ class RelationshipDetailVC: NSViewController, RelationshipDetailViewDelegate, Ob
         self.invalidateViews()
     }
     
-    // MARK: - RelatioinshipDetailView delegate
+    // MARK: - RelationshipDetailView delegate
     func relationshipDetailView(relationshipDetailView: RelationshipDetailView, shouldChangeRelationshipTextField newValue: String, identifier: NSUserInterfaceItemIdentifier) -> Bool {
         do {
             try self.relationship!.setName(name: newValue)
         } catch {
-            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to rename relationship: \(relationship!.name) to: \(newValue). There is another relationship with the same name.")
+            Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "Unable to rename relationship: \(relationship!.name) to: \(newValue). There is another relationship with the same name.")
             return false
         }
         

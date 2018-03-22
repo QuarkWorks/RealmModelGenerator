@@ -151,7 +151,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
         }
     }
     
-    //MAKR: - RelationshipsViewDelegate
+    //MARK: - RelationshipsViewDelegate
     func addRelationshipInRelationshipsView(relationshipsView: RelationshipsView) {
         if self.selectedEntity != nil {
             let relationship = self.selectedEntity!.createRelationship()
@@ -183,7 +183,7 @@ class RelationshipsVC: NSViewController, RelationshipsViewDelegate, Relationship
         do {
             try relationship.setName(name: name)
         } catch {
-            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to rename relationship: \(relationship.name) to: \(name). There is a relationship with the same name.")
+            Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "Unable to rename relationship: \(relationship.name) to: \(name). There is a relationship with the same name.")
             return false
         }
         return true

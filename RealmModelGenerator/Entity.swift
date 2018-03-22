@@ -45,7 +45,7 @@ class Entity {
     internal init(name:String, model:Model) {
         self.name = name
         self.model = model
-        self.observable = DeferedObservable(observable: model.observable)
+        self.observable = DeferredObservable(observable: model.observable)
     }
     
     func createAttribute() -> Attribute {

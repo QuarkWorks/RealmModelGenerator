@@ -57,7 +57,7 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
             do {
                 try attribute.setName(name: newValue)
             } catch {
-                Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to rename attribute: \(attribute.name) to: \(newValue). There is an attribute with the same name.")
+                Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "Unable to rename attribute: \(attribute.name) to: \(newValue). There is an attribute with the same name.")
                 return false
 
             }
@@ -80,7 +80,7 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
             do {
                 try attribute.setIndexed(isIndexed: state)
             } catch {
-                Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to set index for attribute \(attribute.name) with type \(attribute.type.rawValue) ")
+                Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "Unable to set index for attribute \(attribute.name) with type \(attribute.type.rawValue) ")
                 return false
             }
             break;
@@ -89,7 +89,7 @@ class AttributeDetailVC: NSViewController, AttributeDetailViewDelegate, Observer
                 do {
                     try attribute.entity.setPrimaryKey(primaryKey: attribute)
                 } catch {
-                    Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to set primary key for attribute \(attribute.name) with type \(attribute.type.rawValue) ")
+                    Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "Unable to set primary key for attribute \(attribute.name) with type \(attribute.type.rawValue) ")
                     return false
                 }
             } else {

@@ -39,7 +39,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     } ()
     static let TAG = NSStringFromClass(RelationshipsView.self)
     
-    static let REALATIONSHIP_COLUMN = NSUserInterfaceItemIdentifier("relationship")
+    static let RELATIONSHIP_COLUMN = NSUserInterfaceItemIdentifier("relationship")
     static let DESTINATION_COLUMN = "destination"
     
     let ROW_TYPE = NSPasteboard.PasteboardType("rowType")
@@ -93,7 +93,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     }
     
     func setUpDefaultSortDescriptor() {
-        let descriptorAttribute = NSSortDescriptor(key: RelationshipsView.REALATIONSHIP_COLUMN.rawValue, ascending: true)
+        let descriptorAttribute = NSSortDescriptor(key: RelationshipsView.RELATIONSHIP_COLUMN.rawValue, ascending: true)
         let descriptorType = NSSortDescriptor(key: RelationshipsView.DESTINATION_COLUMN, ascending: true)
         tableView.tableColumns[0].sortDescriptorPrototype = descriptorAttribute
         tableView.tableColumns[1].sortDescriptorPrototype = descriptorType
@@ -114,7 +114,7 @@ class RelationshipsView: NibDesignableView, NSTableViewDelegate, NSTableViewData
     
     // MARK: - NSTableViewDelegate
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        if tableColumn?.identifier == RelationshipsView.REALATIONSHIP_COLUMN {
+        if tableColumn?.identifier == RelationshipsView.RELATIONSHIP_COLUMN {
             
             let cell = tableView.makeView(withIdentifier: TitleCell.IDENTIFIER, owner: nil) as! TitleCell
             if (self.isInterfaceBuilder) {

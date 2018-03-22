@@ -27,7 +27,7 @@ extension MainVC {
     }
     
     // MARK: - Called from menu bar, Version
-    @IBAction func versonMenuOnClick(sender: Any!) {
+    @IBAction func versionMenuOnClick(sender: Any!) {
         
         let versionVC: VersionVC = {
             return self.storyboard!.instantiateController(withIdentifier: VERSIONVC)
@@ -58,7 +58,7 @@ extension MainVC {
     // MARK: - generate FileModels
     func generateFileModels(language: Language) {
         var files: [FileModel] = []
-        var validEnties = true
+        var validEntities = true
         for entity in self.schema!.currentModel.entities {
             let content = generateFileContent(entity: entity, language: language)
             if !content.first!.isEmpty {
@@ -79,11 +79,11 @@ extension MainVC {
                     break
                 }
             } else {
-                validEnties = false
+                validEntities = false
             }
         }
         
-        if files.count > 0 && validEnties {
+        if files.count > 0 && validEntities {
             choosePathAndSaveFile(files: files)
         }
     }
@@ -123,7 +123,7 @@ extension MainVC {
             if error == nil{
                 self.showSuccess()
             } else {
-                Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "We an error when save file.")
+                Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "We an error when save file.")
             }
         }
     }

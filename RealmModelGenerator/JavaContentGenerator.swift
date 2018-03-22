@@ -55,60 +55,60 @@ class JavaContentGenerator: BaseContentGenerator {
         content += "\n\t}\n\n"
     }
     
-    // MARK: - Append attributes and relicationships
+    // MARK: - Append attributes and relationships
     func appendAttributes() {
         let primarykey = entity.primaryKey
         
         // Append attributes
         for attr in entity.attributes {
-            var attrAnnotions = ""
-            var attrDefination = "\t"
+            var attrAnnotations = ""
+            var attrDefinition = "\t"
             
-            //Get attribute annotions
+            //Get attribute annotations
             if primarykey?.name == attr.name {
-                attrAnnotions += "\t@PrimaryKey\n"
+                attrAnnotations += "\t@PrimaryKey\n"
             }
             
             if attr.isIndexed && primarykey?.name != attr.name {
-                attrAnnotions += "\t@Index\n"
+                attrAnnotations += "\t@Index\n"
             }
             
             if attr.isIgnored {
-                attrAnnotions += "\t@Ignore\n"
+                attrAnnotations += "\t@Ignore\n"
             }
             
             if attr.isRequired {
-                attrAnnotions += "\t@Required\n"
+                attrAnnotations += "\t@Required\n"
             }
             
-            //Get attribute defination
-            attrDefination += "private " + attr.type.name(language: Language.Java, isRequired: false) + " " + attr.name
+            //Get attribute definition
+            attrDefinition += "private " + attr.type.name(language: Language.Java, isRequired: false) + " " + attr.name
             if attr.hasDefault {
                 if attr.type == .String {
-                    attrDefination += " = \"" + attr.defaultValue + "\";"
+                    attrDefinition += " = \"" + attr.defaultValue + "\";"
                 } else {
-                    attrDefination += " = " + attr.defaultValue + ";"
+                    attrDefinition += " = " + attr.defaultValue + ";"
                 }
             } else {
-                attrDefination += ";"
+                attrDefinition += ";"
             }
             
-            if !attrAnnotions.isEmpty {
-                content += attrAnnotions
+            if !attrAnnotations.isEmpty {
+                content += attrAnnotations
             }
             
-            content += attrDefination + "\n"
+            content += attrDefinition + "\n"
         }
         
         // Append relationship
         for relationship in entity.relationships {
-            var relationshipDefination = "\t"
+            var relationshipDefinition = "\t"
             if relationship.isMany {
-                relationshipDefination += "private RealmList<" + relationship.destination!.name + "> " + relationship.name
+                relationshipDefinition += "private RealmList<" + relationship.destination!.name + "> " + relationship.name
             } else {
-                relationshipDefination += "private " + relationship.destination!.name + " " + relationship.name
+                relationshipDefinition += "private " + relationship.destination!.name + " " + relationship.name
             }
-            content += relationshipDefination + ";\n";
+            content += relationshipDefinition + ";\n";
         }
         
         content += "\n"

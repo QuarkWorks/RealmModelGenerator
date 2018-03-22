@@ -9,8 +9,8 @@
 import Foundation
 
 enum GeneratorError: Error {
-    case InvalidAttribteType(attribute: Attribute)
-    case InvalidRelationshiDestination(relationship: Relationship)
+    case InvalidAttributeType(attribute: Attribute)
+    case InvalidRelationshipDestination(relationship: Relationship)
     case InvalidFileContent(errorMsg: String)
     case Other(errorMsg: String)
 }

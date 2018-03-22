@@ -79,7 +79,7 @@ class RealmSchemaDocument: NSDocument {
             Swift.print("Invalid JSON format: \(errorMsg)")
         }
         
-        Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Invalid content")
+        Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "Invalid content")
     }
     
     func parseSchemaJson(data: Data) throws {

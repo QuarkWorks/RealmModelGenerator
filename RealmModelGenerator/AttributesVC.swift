@@ -129,7 +129,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         return self.selectedEntity!.attributes[index].type
     }
     
-    //MAKR: - AttributesViewDelegate
+    //MARK: - AttributesViewDelegate
     func addAttributeInAttributesView(attributesView: AttributesView) {
         if self.selectedEntity != nil {
             let attribute = self.selectedEntity!.createAttribute()
@@ -162,7 +162,7 @@ class AttributesVC: NSViewController, AttributesViewDelegate, AttributesViewData
         do {
             try attribute.setName(name: name)
         } catch {
-            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to rename attribute: \(attribute.name) to: \(name). There is an attribute with the same name.")
+            Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "Unable to rename attribute: \(attribute.name) to: \(name). There is an attribute with the same name.")
             return false
         }
         return true

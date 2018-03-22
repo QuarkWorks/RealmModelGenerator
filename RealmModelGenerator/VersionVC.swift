@@ -53,7 +53,7 @@ class VersionVC: NSViewController {
                 try schema.increaseVersion()
                 
             } catch {
-                Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Cannot increase version")
+                Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "Cannot increase version")
             }
         } else {
             if versionPopUpButton.indexOfSelectedItem != modelVersions.index(of: self.currentModel.version) {

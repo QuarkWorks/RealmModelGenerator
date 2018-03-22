@@ -53,7 +53,7 @@ class EntityDetailVC : NSViewController, EntityDetailViewDelegate, Observer {
         do {
             try self.entity!.setName(name: name)
         } catch {
-            Tools.popupAllert(messageText: "Error", buttonTitile: "OK", informativeText: "Unable to rename entity: \(entity!.name) to: \(name). There is an entity with the same name.")
+            Tools.popupAlert(messageText: "Error", buttonTitle: "OK", informativeText: "Unable to rename entity: \(entity!.name) to: \(name). There is an entity with the same name.")
             return false
             
         }

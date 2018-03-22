@@ -30,7 +30,7 @@ class Model {
     internal init(version:String, schema: Schema) {
         self.version = version
         self.schema = schema
-        self.observable = DeferedObservable(observable: schema.observable)
+        self.observable = DeferredObservable(observable: schema.observable)
     }
     
     func createEntity() -> Entity {
