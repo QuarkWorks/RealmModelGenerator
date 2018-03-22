@@ -11,6 +11,7 @@ import Cocoa
 protocol RelationshipDetailViewDelegate: AnyObject {
     func relationshipDetailView(relationshipDetailView:RelationshipDetailView, shouldChangeRelationshipTextField newValue:String, identifier:NSUserInterfaceItemIdentifier) -> Bool
     func relationshipDetailView(relationshipDetailView:RelationshipDetailView, shouldChangeRelationshipCheckBoxFor identifier:NSUserInterfaceItemIdentifier, state:Bool) -> Bool
+    @discardableResult
     func relationshipDetailView(relationshipDetailView:RelationshipDetailView, selectedDestinationDidChange selectedIndex:Int) -> Bool
 }
 
