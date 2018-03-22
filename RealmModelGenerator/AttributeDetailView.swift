@@ -46,28 +46,28 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     }
     
     @IBInspectable var isIgnored:Bool {
-        set { self.ignoredCheckBox.state = newValue ? NSControl.StateValue.on : NSControl.StateValue.off }
-        get { return self.ignoredCheckBox.state == NSControl.StateValue.on ? true : false }
+        set { self.ignoredCheckBox.state = newValue ? .on : .off }
+        get { return self.ignoredCheckBox.state == .on ? true : false }
     }
     
     @IBInspectable var isIndexed:Bool {
-        set { self.indexedCheckBox.state = newValue ? NSControl.StateValue.on : NSControl.StateValue.off }
-        get { return self.indexedCheckBox.state == NSControl.StateValue.on ? true : false }
+        set { self.indexedCheckBox.state = newValue ? .on : .off }
+        get { return self.indexedCheckBox.state == .on ? true : false }
     }
     
     @IBInspectable var isPrimary:Bool {
-        set { self.primaryCheckBox.state = newValue ? NSControl.StateValue.on : NSControl.StateValue.off }
-        get { return self.primaryCheckBox.state == NSControl.StateValue.on ? true : false }
+        set { self.primaryCheckBox.state = newValue ? .on : .off }
+        get { return self.primaryCheckBox.state == .on ? true : false }
     }
     
     @IBInspectable var isRequired:Bool {
-        set { self.requiredCheckBox.state = newValue ? NSControl.StateValue.on : NSControl.StateValue.off }
-        get { return self.requiredCheckBox.state == NSControl.StateValue.on ? true : false }
+        set { self.requiredCheckBox.state = newValue ? .on : .off }
+        get { return self.requiredCheckBox.state == .on ? true : false }
     }
     
     @IBInspectable var hasDefault:Bool {
-        set { self.defaultCheckBox.state = newValue ? NSControl.StateValue.on : NSControl.StateValue.off }
-        get { return self.defaultCheckBox.state == NSControl.StateValue.on ? true : false }
+        set { self.defaultCheckBox.state = newValue ? .on : .off }
+        get { return self.defaultCheckBox.state == .on ? true : false }
     }
     
     @IBInspectable var attributeTypeNames:[String] {
@@ -117,23 +117,23 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     }
     
     @IBAction func checkBoxStateChanged(_ sender: NSButton) {
-        if let shouldChangeState = self.delegate?.attributeDetailView(attributeDetailView: self, shouldChangeAttributeCheckBoxFor: sender, state: sender.state == NSControl.StateValue.on) {
+        if let shouldChangeState = self.delegate?.attributeDetailView(attributeDetailView: self, shouldChangeAttributeCheckBoxFor: sender, state: sender.state == .on) {
             if shouldChangeState == false {
                 switch sender {
                 case self.ignoredCheckBox:
-                    ignoredCheckBox.state = NSControl.StateValue.off
+                    ignoredCheckBox.state = .off
                     break;
                 case self.indexedCheckBox:
-                    indexedCheckBox.state = NSControl.StateValue.off
+                    indexedCheckBox.state = .off
                     break;
                 case self.primaryCheckBox:
-                    primaryCheckBox.state = NSControl.StateValue.off
+                    primaryCheckBox.state = .off
                     break;
                 case self.requiredCheckBox:
-                    requiredCheckBox.state = NSControl.StateValue.off
+                    requiredCheckBox.state = .off
                     break;
                 case self.defaultCheckBox:
-                    defaultCheckBox.state = NSControl.StateValue.off
+                    defaultCheckBox.state = .off
                     break;
                 default:
                     break
