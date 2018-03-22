@@ -62,13 +62,13 @@ class SwiftContentGenerator: BaseContentGenerator {
             // we treat required attribute as non-option one.
             if (attr.isRequired || attr.hasDefault || (primaryKey != nil && attr === primaryKey!)) {
                 if attr.hasDefault {
-                    attrDefinition += "\tdynamic var " + attr.name + attr.type.name(language: Language.Swift, isRequired: true) + " = " + attr.defaultValue
+                    attrDefinition += "\tdynamic var " + attr.name + attr.type.name(language: .Swift, isRequired: true) + " = " + attr.defaultValue
                     // handle empty string default
                     if attr.defaultValue == "" {
                         attrDefinition += "\"\""
                     }
                 } else {
-                    attrDefinition += "\tdynamic var " + attr.name + attr.type.name(language: Language.Swift, isRequired: true) + " = "
+                    attrDefinition += "\tdynamic var " + attr.name + attr.type.name(language: .Swift, isRequired: true) + " = "
                     switch attr.type {
                     case .Bool:
                         attrDefinition += "false"
@@ -102,9 +102,9 @@ class SwiftContentGenerator: BaseContentGenerator {
                     }
                 }
             } else if (attr.type == .Bool || attr.type == .Int || attr.type == .Short || attr.type == .Long || attr.type == .Float || attr.type == .Double){
-                attrDefinition += "\tlet " + attr.name + " = RealmOptional<" + attr.type.name(language: Language.Swift, isRequired: false) + ">()"
+                attrDefinition += "\tlet " + attr.name + " = RealmOptional<" + attr.type.name(language: .Swift, isRequired: false) + ">()"
             } else {
-                attrDefinition += "\tdynamic var " + attr.name + attr.type.name(language: Language.Swift, isRequired: false) + " = nil"
+                attrDefinition += "\tdynamic var " + attr.name + attr.type.name(language: .Swift, isRequired: false) + " = nil"
             }
             
             content += attrDefinition

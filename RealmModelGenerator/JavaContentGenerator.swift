@@ -82,7 +82,7 @@ class JavaContentGenerator: BaseContentGenerator {
             }
             
             //Get attribute definition
-            attrDefinition += "private " + attr.type.name(language: Language.Java, isRequired: false) + " " + attr.name
+            attrDefinition += "private " + attr.type.name(language: .Java, isRequired: false) + " " + attr.name
             if attr.hasDefault {
                 if attr.type == .String {
                     attrDefinition += " = \"" + attr.defaultValue + "\";"
@@ -121,10 +121,10 @@ class JavaContentGenerator: BaseContentGenerator {
             var getter = "\t"
             var setter = "\t"
             
-            getter += "public " + attr.type.name(language: Language.Java, isRequired: false) + " get" + attr.name.uppercaseFirst + "(){\n"
+            getter += "public " + attr.type.name(language: .Java, isRequired: false) + " get" + attr.name.uppercaseFirst + "(){\n"
             getter += "\t\treturn this." + attr.name + ";\n\t}\n\n"
             
-            setter += "public void set" + attr.name.uppercaseFirst + "(" + attr.type.name(language: Language.Java, isRequired: false) + " " + attr.name + "){\n"
+            setter += "public void set" + attr.name.uppercaseFirst + "(" + attr.type.name(language: .Java, isRequired: false) + " " + attr.name + "){\n"
             setter += "\t\tthis." + attr.name + " = " + attr.name + ";\n\t}\n\n"
             
             content += getter

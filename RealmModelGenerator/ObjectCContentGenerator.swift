@@ -62,7 +62,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
             var attrDefinition = "@property "
             
             // required
-            attrDefinition += attr.type.name(language: Language.Objc, isRequired: attr.isRequired)
+            attrDefinition += attr.type.name(language: .Objc, isRequired: attr.isRequired)
             
             attrDefinition += attr.name + ";\n"
             hContent += attrDefinition
@@ -144,7 +144,7 @@ class ObjectCContentGenerator: BaseContentGenerator {
             return
         }
         
-        let primaryKeyType: String = primaryKey!.type.name(language: Language.Objc, isRequired: false)
+        let primaryKeyType: String = primaryKey!.type.name(language: .Objc, isRequired: false)
         
         mContent += "+(" + primaryKeyType + ")primaryKey {\n"
         mContent += "\treturn @\"" + primaryKey!.name + "\";\n"
