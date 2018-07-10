@@ -34,8 +34,8 @@ class SwiftContentGenerator: BaseContentGenerator {
         content += getHeaderComments(entity: entity, fileExtension: "swift")
         
         content += "import RealmSwift\n\n"
-        content += "class " + entity.name + ": \(entity.superEntity?.name ?? "Object") {\n"
-        content += "\tstatic let TAG = NSStringFromClass(" + entity.name + ");\n"
+        content += "@objcMembers " + "class " + entity.name + ": \(entity.superEntity?.name ?? "Object") {\n"
+        content += "\tstatic let TAG = NSStringFromClass(" + entity.name + ".self" + ");\n"
     }
     
     // MARK: - Append RealmKeys
