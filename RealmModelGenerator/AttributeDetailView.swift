@@ -36,7 +36,7 @@ class AttributeDetailView: NibDesignableView, NSTextFieldDelegate {
     override func nibDidLoad() {
         super.nibDidLoad()
         self.attributeTypePopUpButton.removeAllItems()
-        self.attributeTypePopUpButton.addItems(withTitles: AttributeType.values.flatMap({$0.rawValue}))
+        self.attributeTypePopUpButton.addItems(withTitles: AttributeType.values.compactMap({$0.rawValue}))
     }
     
     @IBInspectable var name:String {
